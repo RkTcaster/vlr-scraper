@@ -1,2 +1,10 @@
+# csv/ y tables/ ahora se versionan: el dedup del scraper y GitHub Actions
+# dependen de que ese estado persista entre corridas.
+backup/
+intermediate/
+
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+logs/
 *.csv
-*.md

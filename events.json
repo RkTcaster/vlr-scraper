@@ -1,0 +1,94 @@
+{
+  "events": [
+    {
+      "name": "Esports World Cup 2026",
+      "url": "https://www.vlr.gg/event/matches/2952/esports-world-cup-2026/?series_id=all",
+      "active": true
+    },
+    {
+      "name": "VCT 2026 Americas Stage 1",
+      "url": "https://www.vlr.gg/event/matches/2860/vct-2026-americas-stage-1/?series_id=all",
+      "active": false
+    },
+    {
+      "name": "VCT 2026 EMEA Stage 1",
+      "url": "https://www.vlr.gg/event/matches/2863/vct-2026-emea-stage-1/?series_id=all",
+      "active": false
+    },
+    {
+      "name": "VCT 2026 Pacific Stage 1",
+      "url": "https://www.vlr.gg/event/matches/2775/vct-2026-pacific-stage-1/?series_id=all",
+      "active": false
+    },
+    {
+      "name": "VCT 2026 China Stage 1",
+      "url": "https://www.vlr.gg/event/matches/2864/vct-2026-china-stage-1/?series_id=all",
+      "active": false
+    },
+    {
+      "name": "Valorant Masters Santiago 2026",
+      "url": "https://www.vlr.gg/event/matches/2760/valorant-masters-santiago-2026/?series_id=all",
+      "active": false
+    },
+    {
+      "name": "VCT 2026 Americas Kickoff",
+      "url": "https://www.vlr.gg/event/matches/2682/vct-2026-americas-kickoff/?series_id=5221",
+      "active": false
+    },
+    {
+      "name": "VCT 2026 EMEA Kickoff",
+      "url": "https://www.vlr.gg/event/matches/2684/vct-2026-emea-kickoff/?series_id=5223&group=all",
+      "active": false
+    },
+    {
+      "name": "VCT 2026 Pacific Kickoff",
+      "url": "https://www.vlr.gg/event/matches/2683/vct-2026-pacific-kickoff/?series_id=5222&group=all",
+      "active": false
+    },
+    {
+      "name": "VCT 2026 China Kickoff",
+      "url": "https://www.vlr.gg/event/matches/2685/vct-2026-china-kickoff/?group=all",
+      "active": false
+    },
+    {
+      "name": "Valorant Masters Toronto 2025",
+      "url": "https://www.vlr.gg/event/matches/2282/valorant-masters-toronto-2025/?series_id=all",
+      "active": false
+    },
+    {
+      "name": "Valorant Masters Bangkok 2025",
+      "url": "https://www.vlr.gg/event/matches/2281/valorant-masters-bangkok-2025/?series_id=all",
+      "active": false
+    },
+    {
+      "name": "VCT 2025 Americas Stage 1",
+      "url": "https://www.vlr.gg/event/matches/2347/vct-2025-americas-stage-1/?series_id=all",
+      "active": false
+    },
+    {
+      "name": "VCT 2025 EMEA Stage 1",
+      "url": "https://www.vlr.gg/event/matches/2380/vct-2025-emea-stage-1/?series_id=all",
+      "active": false
+    },
+    {
+      "name": "VCT 2025 Pacific Stage 1",
+      "url": "https://www.vlr.gg/event/matches/2379/vct-2025-pacific-stage-1/?series_id=all",
+      "active": false
+    },
+    {
+      "name": "VCT 2025 China Stage 1",
+      "url": "https://www.vlr.gg/event/matches/2359/vct-2025-china-stage-1/?series_id=all",
+      "active": false
+    },
+    {
+      "name": "VCT 2025 Americas Kickoff",
+      "url": "https://www.vlr.gg/event/matches/2274/vct-2025-americas-kickoff/?series_id=all",
+      "active": false
+    },
+    {
+      "name": "VCT 2025 China Kickoff",
+      "url": "https://www.vlr.gg/event/matches/2275/vct-2025-china-kickoff/?series_id=all",
+      "active": false
+    }
+  ]
+}

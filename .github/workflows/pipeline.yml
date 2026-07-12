@@ -1,0 +1,56 @@
+name: vlr-pipeline
+
+on:
+  schedule:
+    # 06:00 UTC = 03:00 Argentina. Ajustar a gusto.
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vlr-pipeline
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run pipeline (scrape + process + upload)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          set +e
+          python -m vlr_pipeline all --log-level INFO
+          code=$?
+          # exit 2 = scrape termino pero algunos matches quedaron en error_match_*.csv;
+          # se registra el warning pero igual se commitea y sube lo que salio bien.
+          if [ "$code" -eq 2 ]; then
+            echo "::warning::algunos matches fallaron; revisar error_match_*.csv"
+            exit 0
+          fi
+          exit $code
+
+      - name: Commit scraped data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add csv tables
+          if git diff --cached --quiet; then
+            echo "Sin datos nuevos, no se commitea"
+          else
+            git commit -m "data: actualizacion automatica $(date -u +%Y-%m-%d)"
+            git push
+          fi
