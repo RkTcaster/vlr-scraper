@@ -45,6 +45,27 @@ def normalize_filename(name):
     return name.strip('_')
 
 
+def tournament_from_rows(data, file_prefix):
+    """get the normalized tournament name from a extractor dict, or None if it has no rows
+
+    Hay matches donde vlr no publica una pestaña (p.ej. performance/economy en China):
+    el extractor devuelve el dict con todas las listas vacias y no hay torneo del que
+    sacar el path. En ese caso no hay nada que guardar.
+
+    Args:
+        data (dict): dict de un extractor, con la key "event"
+        file_prefix (string): prefijo del csv, solo para el log
+
+    Returns:
+        string | None: tournament normalizado, o None si el dict viene vacio
+    """
+    rows = data.get("event") or []
+    if not rows:
+        logger.info("sin filas para %s; no escribo csv", file_prefix)
+        return None
+    return normalize_filename(rows[0])
+
+
 def save_draft_to_csv(draft, url, folder="csv", encoding='utf-8'):
     """save the get_picks_bans() dictionary to csv
 
@@ -54,6 +75,10 @@ def save_draft_to_csv(draft, url, folder="csv", encoding='utf-8'):
         folder (str, optional): name of the default folder for the export. Defaults to "csv".
         encoding (str, optional): encoding for the csv file. Defaults to 'utf-8'.
     """
+
+    if not draft:
+        logger.info("sin draft para %s; no escribo csv", url)
+        return
 
     tournament_name = draft['team_A'][-1]
     normalized_tournament = normalize_filename(tournament_name)
@@ -79,8 +104,9 @@ def save_round_detail_to_csv(detail_round_dict, folder="csv", encoding='utf-8'):
         folder (str, optional): name of the default folder for the export. Defaults to "csv".
         encoding (str, optional): encoding for the csv file. Defaults to 'utf-8'.
     """
-    tournament_name = detail_round_dict["event"][0]  # Medio raro esto
-    normalized_tournament = normalize_filename(tournament_name)
+    normalized_tournament = tournament_from_rows(detail_round_dict, "round_detail")
+    if normalized_tournament is None:
+        return
 
     file_path = get_folder_path(folder_name=folder, normalized_tournament=normalized_tournament, file_prefix="round_detail")
 
@@ -103,8 +129,9 @@ def save_player_performance_to_csv(player_performance_dict, folder="csv", encodi
         folder (str, optional): name of the default folder for the export. Defaults to "csv".
         encoding (str, optional): encoding for the csv file. Defaults to 'utf-8'.
     """
-    tournament_name = player_performance_dict["event"][0]
-    normalized_tournament = normalize_filename(tournament_name)
+    normalized_tournament = tournament_from_rows(player_performance_dict, "player_performance")
+    if normalized_tournament is None:
+        return
 
     file_path = get_folder_path(folder_name=folder, normalized_tournament=normalized_tournament, file_prefix="player_performance")
 
@@ -127,8 +154,9 @@ def save_team_economy(economy_dict, folder="csv", encoding="utf-8"):
         folder (str, optional): name of the default folder for the export. Defaults to "csv".
         encoding (str, optional): encoding for the csv file. Defaults to 'utf-8'.
     """
-    tournament_name = economy_dict["event"][0]
-    normalized_tournament = normalize_filename(tournament_name)
+    normalized_tournament = tournament_from_rows(economy_dict, "team_economy")
+    if normalized_tournament is None:
+        return
 
     file_path = get_folder_path(folder_name=folder, normalized_tournament=normalized_tournament, file_prefix="team_economy")
 
@@ -151,8 +179,9 @@ def save_player_stats_to_csv(player_stats_dict, folder="csv", encoding='utf-8'):
         folder (str, optional): name of the default folder for the export. Defaults to "csv".
         encoding (str, optional): encoding for the csv file. Defaults to 'utf-8'.
     """
-    tournament_name = player_stats_dict["event"][0]
-    normalized_tournament = normalize_filename(tournament_name)
+    normalized_tournament = tournament_from_rows(player_stats_dict, "player_stats")
+    if normalized_tournament is None:
+        return
 
     file_path = get_folder_path(folder_name=folder, normalized_tournament=normalized_tournament, file_prefix="player_stats")
 

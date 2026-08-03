@@ -9,6 +9,25 @@ from vlr_pipeline.save import save_round_detail_to_csv
 logger = logging.getLogger(__name__)
 
 
+def parse_map_name(map_div):
+    """extract the map name from a div.map block
+
+    El style del span cambia cada tanto (hoy "position: relative; display: inline-block;"),
+    asi que matcheamos por substring en vez de por string exacto.
+
+    Args:
+        map_div (bs4.element.Tag): div con class="map"
+
+    Returns:
+        str | None: nombre del mapa, o None si el span no esta
+    """
+    span = map_div.find("span", style=lambda value: value and "position: relative" in value)
+    if span is None:
+        return None
+    text = span.find(string=True, recursive=False)
+    return text.strip() if text else None
+
+
 def get_basic_match_info(soup, url):
     """extract the basic match info from the vlr match page, used in other functions and for check the match status:
         ["team_a"
@@ -116,25 +135,23 @@ def get_basic_match_info(soup, url):
 def get_map_draft(soup):
     """pre step to process
 
+    vlr reusa el div match-header-note para avisos del match (p.ej. "Map 3 stats are
+    incomplete due to lobby remake."), asi que puede haber mas de uno y el draft no ser
+    el primero. Nos quedamos con el que tiene forma de draft.
+
     Args:
         soup (bs4.BeautifulSoup): BeautifulSoup object with the HTML info
 
     Returns:
-        list: list with all the maps
+        list | None: list with all the maps, o None si no hay nota de draft
     """
-    try:
-        pick_bans = (
-            soup.find("div", {"class": "match-header-note"})
-            .get_text(strip=True)
-            .split(sep=";")
-        )
+    for note in soup.find_all("div", {"class": "match-header-note"}):
+        text = note.get_text(strip=True)
+        if ";" in text and ("ban" in text or "pick" in text or "remains" in text):
+            return [x.strip() for x in text.split(sep=";")]
 
-        pick_bans = [x.strip() for x in pick_bans]
-
-    except Exception as e:
-        logger.warning(f"Error en get_map_draft: {e}")
-
-    return pick_bans
+    logger.warning("no encontre la nota de draft en el match")
+    return None
 
 
 def get_picks_bans(soup, basic_match_info=None):
@@ -151,6 +168,8 @@ def get_picks_bans(soup, basic_match_info=None):
         logger.warning("Add basic_match_info dict")
 
     picks_bans = get_map_draft(soup)
+    if not picks_bans:
+        return None
 
     dict_picks_bans = {
         "header": [
@@ -322,8 +341,9 @@ def get_round_detail(soup, basic_match_info=None, folder="csv", encoding="utf-8"
     map_div = soup.find_all("div", class_="map")
 
     for map in map_div:
-        map_name_span = map.find("span", attrs={"style": "position: relative;"})
-        map_name = map_name_span.find(string=True, recursive=False).strip()
+        map_name = parse_map_name(map)
+        if map_name is None:
+            continue  # bloque sin nombre de mapa: no lo contamos para no desalinear maps[]
         maps.append(map_name)
 
     bloques = soup.find_all("div", class_="vlr-rounds-row-col")
@@ -760,10 +780,7 @@ def get_player_stats(soup, basic_match_info):
 
         map_div = game.find("div", class_="map")
         if map_div is not None:
-            map_container = map_div.find(
-                "span", style=lambda value: value and "position: relative" in value
-            )
-            map_name = map_container.contents[0].strip() if map_container else "unknown"
+            map_name = parse_map_name(map_div) or "unknown"
             duration_div = map_div.find("div", class_="map-duration")
             map_duration = duration_div.get_text(strip=True) if duration_div else "unknown"
         else:

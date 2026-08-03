@@ -75,12 +75,13 @@ def linkExtractor(url):
     return urlLinkExtract
 
 
-def get_draft_file_path(basic_match_info, folder="csv"):
+def get_match_file_path(basic_match_info, folder="csv", prefix="draft"):
     """from basic_match_info dict get the tournament name and create the path using the folder
 
     Args:
         basic_match_info (dict, optional): basic match info dict. Defaults to None.
         folder (str, optional): folder name. Defaults to "csv".
+        prefix (str, optional): prefijo del csv. Defaults to "draft".
 
     Returns:
         str: path with the file name
@@ -88,23 +89,30 @@ def get_draft_file_path(basic_match_info, folder="csv"):
     normalized_tournament = normalize_filename(basic_match_info["event"])
     folder_path = os.path.join(folder, normalized_tournament)
     os.makedirs(folder_path, exist_ok=True)
-    return os.path.join(folder_path, f"draft_{normalized_tournament}.csv")
+    return os.path.join(folder_path, f"{prefix}_{normalized_tournament}.csv")
 
 
-def was_url_already_processed(file_path, url):
+def was_url_already_processed(file_paths, url):
     """check if the url was already process
 
+    Miramos el draft (que se guarda ultimo, o sea que su fila significa "match completo")
+    y ademas player_stats, para no reprocesar un match que ya dejo datos pero que por
+    algun motivo no llego a escribir el draft.
+
     Args:
-        file_path (str): file path for draft
+        file_paths (list[str]): paths de los csv donde buscar la url
         url (str): url to verify
 
     Returns:
         bool: True if ulr is already process
     """
-    if not os.path.exists(file_path):
-        return False
-    df = pd.read_csv(file_path)
-    return url in set(df.source_url)
+    for file_path in file_paths:
+        if not os.path.exists(file_path):
+            continue
+        df = pd.read_csv(file_path)
+        if url in set(df.source_url):
+            return True
+    return False
 
 
 def process_match(url, folder="csv", encoding="utf-8"):
@@ -121,16 +129,15 @@ def process_match(url, folder="csv", encoding="utf-8"):
     error_url = {"event": [], "url": [], "error": []}
     if check_valid_match(soup):
         basic_match_info = get_basic_match_info(soup, url)
-        path = get_draft_file_path(basic_match_info=basic_match_info, folder=folder)
+        paths = [
+            get_match_file_path(basic_match_info, folder=folder, prefix=prefix)
+            for prefix in ("draft", "player_stats")
+        ]
         # Check if match is processed
-        not_processed = not was_url_already_processed(file_path=path, url=url)
+        not_processed = not was_url_already_processed(file_paths=paths, url=url)
         if not_processed:
             logger.info(f"processing: {url}")
             try:
-                # Draft
-                draft = get_picks_bans(soup=soup, basic_match_info=basic_match_info)
-                save_draft_to_csv(draft, url, folder=folder, encoding=encoding)
-
                 # Round detail
                 get_round_detail(
                     soup=soup,
@@ -165,6 +172,12 @@ def process_match(url, folder="csv", encoding="utf-8"):
                 # save_team_economy(
                 #     team_economy_dict[1], folder=folder, encoding=encoding
                 # )
+
+                # Draft ultimo: el dedup usa su fila como marca de "el match se proceso
+                # entero". Si lo guardaramos primero, un match que falla despues queda
+                # marcado como procesado y no se reintenta nunca.
+                draft = get_picks_bans(soup=soup, basic_match_info=basic_match_info)
+                save_draft_to_csv(draft, url, folder=folder, encoding=encoding)
 
             except Exception as e:
                 logger.warning(f"error processing {url}: {e}")
