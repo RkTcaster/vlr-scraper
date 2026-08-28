@@ -501,15 +501,24 @@ def get_player_performance(url, basic_match_info):
             if div.has_attr("data-game-id")
         ]
 
-        map_list = ["all"]
+        # vlr agrega clases y espacios sobrantes al nav item
+        # ("... js-map-switch  mod-disabled    "), asi que matcheamos por clase
+        # individual con select() y no por el string exacto del atributo class.
+        # El item "All Maps" tambien tiene js-map-switch, asi que mapeamos por
+        # data-game-id en vez de por posicion: si no, todos los nombres se corren
+        # un lugar.
+        map_by_game_id = {}
+        for item in soup_performance.select(".vm-stats-gamesnav-item.js-map-switch"):
+            game_id = item.get("data-game-id")
+            if not game_id:
+                continue
+            if game_id == "all":
+                map_by_game_id[game_id] = "all"
+            else:
+                # el texto viene como "1Abyss": sacamos el numero de orden
+                map_by_game_id[game_id] = re.sub(r"^\d+", "", item.get_text(strip=True))
 
-        maps = soup_performance.find_all(
-            "div", {"class": "vm-stats-gamesnav-item js-map-switch"}
-        )
-        for map in maps:
-            map_list.append(map.get_text(strip=True)[1:])
-
-        for index, id in enumerate(game_ids):
+        for id in game_ids:
             div = soup_performance.find(
                 "div", {"class": "vm-stats-game", "data-game-id": id}
             )
@@ -574,7 +583,7 @@ def get_player_performance(url, basic_match_info):
                     )
                     performance_dict["date"].append(basic_match_info["date"])
                     performance_dict["event"].append(basic_match_info["event"])
-                    performance_dict["map"].append(map_list[index])
+                    performance_dict["map"].append(map_by_game_id.get(id, "unknown"))
                     performance_dict["source_url"].append(basic_match_info["source_url"])
 
     return performance_dict
