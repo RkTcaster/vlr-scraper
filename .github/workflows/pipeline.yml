@@ -2,8 +2,11 @@ name: vlr-pipeline
 
 on:
   schedule:
-    # 06:00 UTC = 03:00 Argentina. Ajustar a gusto.
-    - cron: "0 6 * * *"
+    # El cron de GitHub va SIEMPRE en UTC. 17:00 UTC = 01:00 Shanghai (UTC+8) = 14:00 Argentina.
+    # Champions 2026 (Shanghai): partidos 17:00 y 20:00 Shanghai (09:00 y 12:00 UTC), el
+    # ultimo termina ~23:00 Shanghai; playoffs de octubre arrancan mas temprano. Con 17:00 UTC
+    # todo lo del dia ya esta Completed. GitHub puede demorar el arranque 10-60 min.
+    - cron: "0 17 * * *"
   workflow_dispatch:
 
 permissions:
