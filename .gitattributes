@@ -1,0 +1,3 @@
+# Los csv se escriben con csv.writer (CRLF) en Windows y en Linux (Actions).
+# Sin conversion de fin de linea: evita archivos mezclados y diffs gigantes.
+*.csv -text

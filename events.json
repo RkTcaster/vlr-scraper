@@ -1,9 +1,34 @@
 {
   "events": [
     {
+      "name": "Valorant Champions 2026",
+      "url": "https://www.vlr.gg/event/matches/2766/valorant-champions-2026/?series_id=all",
+      "active": true
+    },
+    {
+      "name": "VCT 2026 Americas Stage 2",
+      "url": "https://www.vlr.gg/event/matches/2977/vct-2026-americas-stage-2/?series_id=all",
+      "active": false
+    },
+    {
+      "name": "VCT 2026 EMEA Stage 2",
+      "url": "https://www.vlr.gg/event/matches/2976/vct-2026-emea-stage-2/?series_id=all",
+      "active": false
+    },
+    {
+      "name": "VCT 2026 Pacific Stage 2",
+      "url": "https://www.vlr.gg/event/matches/2776/vct-2026-pacific-stage-2/?series_id=all",
+      "active": false
+    },
+    {
+      "name": "VCT 2026 China Stage 2",
+      "url": "https://www.vlr.gg/event/matches/2978/vct-2026-china-stage-2/?series_id=all",
+      "active": false
+    },
+    {
       "name": "Esports World Cup 2026",
       "url": "https://www.vlr.gg/event/matches/2952/esports-world-cup-2026/?series_id=all",
-      "active": true
+      "active": false
     },
     {
       "name": "VCT 2026 Americas Stage 1",

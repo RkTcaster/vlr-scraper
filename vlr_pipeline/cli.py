@@ -1,6 +1,6 @@
 """CLI del pipeline: python -m vlr_pipeline {scrape,process,upload,all}.
 
-Exit codes: 0 ok; 1 error fatal; 2 = scrape termino pero hubo matches en error_match_*.csv.
+Exit codes: 0 ok; 1 error fatal; 2 = scrape termino pero hubo matches con status error en csv/scrape_log.csv.
 """
 
 import argparse
@@ -65,7 +65,7 @@ def cmd_scrape(args):
 
     error_count = scrape_all(events, folder=args.csv_dir, encoding=args.encoding)
     if error_count:
-        logger.warning("%d matches terminaron en error_match_*.csv", error_count)
+        logger.warning("%d matches terminaron con error (ver csv/scrape_log.csv)", error_count)
         return 2
     return 0
 
@@ -96,7 +96,7 @@ def cmd_all(args):
 
         error_count = scrape_all(events, folder=args.csv_dir, encoding=args.encoding)
         if error_count:
-            logger.warning("%d matches terminaron en error_match_*.csv", error_count)
+            logger.warning("%d matches terminaron con error (ver csv/scrape_log.csv)", error_count)
             scrape_exit = 2
     else:
         logger.warning("No hay eventos activos en %s; salto el scrape", args.events_file)

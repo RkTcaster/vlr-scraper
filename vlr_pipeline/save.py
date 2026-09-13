@@ -195,26 +195,3 @@ def save_player_stats_to_csv(player_stats_dict, folder="csv", encoding='utf-8'):
 
         writer.writerows(zip(*player_stats_dict.values()))
 
-
-def save_match_error(match_error_dict, folder="csv", encoding='utf-8'):
-    """save the matchs raising errors
-
-    Args:
-        match_error_dict (dict): match error dict
-        folder (str, optional): name of the default folder for the export. Defaults to "csv".
-        encoding (str, optional): encoding for the csv file. Defaults to 'utf-8'.
-    """
-    tournament_name = match_error_dict["event"][0]
-    normalized_tournament = normalize_filename(tournament_name)
-
-    file_path = get_folder_path(folder_name=folder, normalized_tournament=normalized_tournament, file_prefix="error_match")
-
-    header = match_error_dict.keys()
-    file_exists = os.path.isfile(file_path)
-
-    with open(file_path, "a", newline="", encoding=encoding) as f:
-        writer = csv.writer(f)
-        if not file_exists:
-            writer.writerow(header)
-
-        writer.writerows(zip(*match_error_dict.values()))

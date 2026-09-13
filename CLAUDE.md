@@ -5,11 +5,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this is
 
 A scraping + data-processing pipeline for Valorant esports statistics from [vlr.gg](https://www.vlr.gg).
-There are no `.py` modules — everything lives in Jupyter notebooks. Output is a star-schema set of CSVs
-under `tables/` intended for consumption in Power BI.
+Output is a star-schema set of CSVs under `tables/` that is uploaded to a Supabase Storage bucket (`tables`)
+and consumed by rktdata.ar. Logic exists twice and must be kept in sync: the notebooks (`vlr_scraper.ipynb`,
+`csv_process.ipynb`) and the headless package `vlr_pipeline/` (`python -m vlr_pipeline [--log-level X] {scrape,process,upload,all}`;
+global flags go before the subcommand).
 
-Note: `.gitignore` excludes `*.csv` and `*.md`, so scraped data and this file are **not** tracked by git.
-Only the notebooks and `requirements.txt` are versioned. Comments/notes in cells are frequently in Spanish.
+Production runs in GitHub Actions (`.github/workflows/pipeline.yml`, daily 06:00 UTC): scrapes the `active` events in
+`events.json`, rebuilds `tables/`, uploads to Supabase, and commits only `csv/` back to the repo. `csv/` (including
+`csv/scrape_log.csv`) is versioned; `tables/` is gitignored because it is fully regenerated from `csv/` (the package
+output was verified byte-identical to the notebook's). `.gitattributes` keeps `*.csv` line endings untouched.
+Pull before running notebooks locally to avoid conflicts with the bot's commits. Comments are frequently in Spanish.
 
 ## Environment & running
 
@@ -43,8 +48,12 @@ Only the notebooks and `requirements.txt` are versioned. Comments/notes in cells
   `map_id = f"{series_id}-{map}"`. Joins across tables rely on these. Region/tournament IDs (`reg_*`, `tour_id`)
   are assigned from the normalized tournament folder name.
 - **`map == "all"` rows** are aggregate rows from vlr and must be filtered out before per-map processing.
-- **Idempotency** — `was_url_already_processed(file_path, url)` guards re-scraping; the scraping driver checks
-  `final` status and Bo3/Bo5 before extracting, and writes skips to `error_match_*.csv`.
+- **Idempotency** — `csv/scrape_log.csv` (`vlr_pipeline/tracking.py`, mirrored in `vlr_scraper.ipynb` cell 3) has one
+  row per match keyed by `series_id` (never the full URL: vlr changes the slug when a `tbd-...` match gets teams)
+  with `status` ok/error/skipped, last error, attempts. `linkExtractor` only returns `Completed` cards from the event
+  page; `scrape_event` skips ok/skipped (and errors after 3 attempts) without fetching the match. `process_match`
+  purges the match's rows from its tournament CSVs before extracting, so retries never duplicate. If the log is
+  missing it is bootstrapped from `draft_*.csv` (ok) and legacy `error_match_*.csv` (error).
 - **Manual lookup lists** — new maps and agents must be added by hand to the hardcoded lists in
   `csv_process.ipynb` (map_info / agent_path_name), otherwise their rows won't get IDs/images.
 
@@ -58,5 +67,6 @@ names to match other tables. When team names fail to join, suspect an encoding m
 ## Data layout
 
 - `csv/<tournament>/` — raw per-tournament scraper output (one subfolder per event).
-- `tables/` — consolidated star-schema output (the deliverable).
+- `tables/` — consolidated star-schema output (the deliverable; not in git, uploaded to Supabase).
+- New maps/agents must also be added to `vlr_pipeline/lookups.py`, since Actions builds tables with the package.
 - `backup/` — archived older tournaments and prior `tables/` snapshots.

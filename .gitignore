@@ -1,12 +1,14 @@
-# csv/ y tables/ ahora se versionan: el dedup del scraper y GitHub Actions
-# dependen de que ese estado persista entre corridas.
+# csv/ (incluido csv/scrape_log.csv) se versiona: GitHub Actions scrapea sobre ese estado
+# y commitea lo nuevo cada dia. tables/ NO: se regenera entero desde csv/ en cada corrida
+# y se sube a Supabase (lo consume rktdata.ar).
+tables/
 backup/
 intermediate/
+# carpeta suelta vieja (round_detail fuera de csv/)
+/vct_2026_china_stage_1/
 
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
 logs/
-*.csv
-.github/workflows/
-pipeline.yml
+*.tmp
