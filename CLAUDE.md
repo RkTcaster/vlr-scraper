@@ -5,8 +5,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this is
 
 A scraping + data-processing pipeline for Valorant esports statistics from [vlr.gg](https://www.vlr.gg).
-Output is a star-schema set of CSVs under `tables/` that is uploaded to a Supabase Storage bucket (`tables`)
-and consumed by rktdata.ar. Logic exists twice and must be kept in sync: the notebooks (`vlr_scraper.ipynb`,
+Output is a star-schema set of CSVs under `tables/` that is upserted into Supabase Postgres tables
+(`vlr_pipeline/upload.py`, port of rktdata's `scripts/upload.mjs`: file → table → PK list) and consumed by rktdata.ar. Logic exists twice and must be kept in sync: the notebooks (`vlr_scraper.ipynb`,
 `csv_process.ipynb`) and the headless package `vlr_pipeline/` (`python -m vlr_pipeline [--log-level X] {scrape,process,upload,all}`;
 global flags go before the subcommand).
 

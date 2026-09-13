@@ -1,6 +1,6 @@
 """CLI del pipeline: python -m vlr_pipeline {scrape,process,upload,all}.
 
-Exit codes: 0 ok; 1 error fatal; 2 = scrape termino pero hubo matches con status error en csv/scrape_log.csv.
+Exit codes: 0 ok; 1 error fatal o fallo el upsert a Supabase; 2 = scrape termino pero hubo matches con status error en csv/scrape_log.csv.
 """
 
 import argparse
@@ -36,16 +36,16 @@ def build_parser():
     p_process.add_argument("--csv-dir", default=config.DEFAULT_CSV_DIR)
     p_process.add_argument("--tables-dir", default=config.DEFAULT_TABLES_DIR)
 
-    p_upload = sub.add_parser("upload", help="sube tables/table_*.csv a Supabase Storage")
+    p_upload = sub.add_parser("upload", help="upsert de tables/table_*.csv en las tablas de Supabase")
     p_upload.add_argument("--tables-dir", default=config.DEFAULT_TABLES_DIR)
-    p_upload.add_argument("--bucket", default=config.DEFAULT_BUCKET)
+    p_upload.add_argument("--dry-run", action="store_true",
+                          help="solo lee y valida los csv, sin conectarse a Supabase")
 
     p_all = sub.add_parser("all", help="scrape + process + upload")
     p_all.add_argument("--events-file", default=config.DEFAULT_EVENTS_FILE)
     p_all.add_argument("--csv-dir", default=config.DEFAULT_CSV_DIR)
     p_all.add_argument("--tables-dir", default=config.DEFAULT_TABLES_DIR)
     p_all.add_argument("--encoding", default=config.DEFAULT_SCRAPE_ENCODING)
-    p_all.add_argument("--bucket", default=config.DEFAULT_BUCKET)
     p_all.add_argument("--skip-upload", action="store_true")
 
     return parser
@@ -80,8 +80,10 @@ def cmd_process(args):
 def cmd_upload(args):
     from vlr_pipeline.upload import upload_tables
 
-    count = upload_tables(tables_dir=args.tables_dir, bucket=args.bucket)
-    logger.info("%d archivos subidos al bucket '%s'", count, args.bucket)
+    error_count = upload_tables(tables_dir=args.tables_dir, dry_run=args.dry_run)
+    if error_count:
+        logger.error("upload con %d errores", error_count)
+        return 1
     return 0
 
 
@@ -108,8 +110,9 @@ def cmd_all(args):
     elif not has_credentials():
         logger.warning("Sin SUPABASE_URL/SUPABASE_SERVICE_KEY en el entorno; salto el upload")
     else:
-        count = upload_tables(tables_dir=args.tables_dir, bucket=args.bucket)
-        logger.info("%d archivos subidos al bucket '%s'", count, args.bucket)
+        if upload_tables(tables_dir=args.tables_dir):
+            logger.error("upload a Supabase con errores")
+            return 1
 
     return scrape_exit
 

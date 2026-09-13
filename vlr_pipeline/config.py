@@ -5,7 +5,6 @@ DEFAULT_CSV_DIR = "csv"
 DEFAULT_TABLES_DIR = "tables"
 # El driver original del notebook escribia los csv crudos con iso-8859-1.
 DEFAULT_SCRAPE_ENCODING = "iso-8859-1"
-DEFAULT_BUCKET = "tables"
 
 
 def load_events(path=DEFAULT_EVENTS_FILE, only_active=True):
