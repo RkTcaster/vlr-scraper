@@ -6,7 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A scraping + data-processing pipeline for Valorant esports statistics from [vlr.gg](https://www.vlr.gg).
 Output is a star-schema set of CSVs under `tables/` that is upserted into Supabase Postgres tables
-(`vlr_pipeline/upload.py`, port of rktdata's `scripts/upload.mjs`: file → table → PK list) and consumed by rktdata.ar. Logic exists twice and must be kept in sync: the notebooks (`vlr_scraper.ipynb`,
+(`vlr_pipeline/upload.py`, port of rktdata's `scripts/upload.mjs`: file → table → PK list) and consumed by rktdata.ar.
+Every upload run appends one row per table to `csv/upload_log.csv` (rows, failed_rows, status, last error, GitHub run id). Logic exists twice and must be kept in sync: the notebooks (`vlr_scraper.ipynb`,
 `csv_process.ipynb`) and the headless package `vlr_pipeline/` (`python -m vlr_pipeline [--log-level X] {scrape,process,upload,all}`;
 global flags go before the subcommand).
 
@@ -69,4 +70,8 @@ names to match other tables. When team names fail to join, suspect an encoding m
 - `csv/<tournament>/` — raw per-tournament scraper output (one subfolder per event).
 - `tables/` — consolidated star-schema output (the deliverable; not in git, uploaded to Supabase).
 - New maps/agents must also be added to `vlr_pipeline/lookups.py`, since Actions builds tables with the package.
+- `table_players`: one row per nick, `player_id = <team>_<player>` with the team of the player's most recent match;
+  `table_teams` includes draft `team` and `rival`. `find_files_by_prefix` sorts files so output doesn't depend on OS
+  (os.walk order differs on Linux). Changing a PK-forming rule leaves orphan rows in Supabase (upsert never deletes);
+  see `RKTDATA_CAMBIO_PLAYERS.md` for the 2026-09-14 players change handed off to the rktdata repo.
 - `backup/` — archived older tournaments and prior `tables/` snapshots.

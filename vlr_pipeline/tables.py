@@ -31,8 +31,11 @@ def convert_k(valor):
 
 def find_files_by_prefix(root_folder, prefix):
     matched_files = []
-    for dirpath, _, filenames in os.walk(root_folder):
-        for file in filenames:
+    for dirpath, dirnames, filenames in os.walk(root_folder):
+        # os.walk no garantiza orden (en Linux/GitHub Actions depende del filesystem):
+        # ordenamos para que las tablas salgan iguales en Windows y en Actions
+        dirnames.sort()
+        for file in sorted(filenames):
             if file.startswith(prefix):
                 full_path = os.path.join(dirpath, file)
                 matched_files.append(full_path)
@@ -130,7 +133,10 @@ def build_region_tournament(csv_dir="csv", tables_dir="tables"):
 def build_teams(csv_dir="csv", tables_dir="tables"):
     """Celda 7: table_teams.csv."""
     df_draft_concat = concat_csv_from_different_folders(folder=csv_dir, prefix="draft_")
-    df_team = pd.DataFrame(df_draft_concat["team"].unique(), columns=["team"])
+    # el draft guarda un solo lado por serie (sin mirror): un equipo que solo aparece como
+    # rival (p.ej. QTD) quedaba fuera de la tabla
+    teams = pd.concat([df_draft_concat["team"], df_draft_concat["rival"]]).unique()
+    df_team = pd.DataFrame(teams, columns=["team"])
 
     df_team["team_id"] = df_team["team"]
 
@@ -144,7 +150,16 @@ def build_teams(csv_dir="csv", tables_dir="tables"):
 def build_players(df_team, csv_dir="csv", tables_dir="tables"):
     """Celda 8: table_players.csv."""
     df_players_stats = concat_csv_from_different_folders(folder=csv_dir, prefix="player_stats")
-    df_players = df_players_stats[['player', 'team']].drop_duplicates(subset=['player'], ignore_index=True)
+    # un jugador que cambio de equipo (o su equipo cambio de tag) queda con el equipo de su
+    # partido mas reciente; antes quedaba el del primer archivo leido
+    df_players = (
+        df_players_stats[['player', 'team', 'date']]
+        .sort_values('date', kind='stable')
+        .drop_duplicates(subset=['player'], keep='last')
+        .sort_index()
+        .drop(columns=['date'])
+        .reset_index(drop=True)
+    )
     df_players["player_id"] = df_players["team"] + "_" + df_players["player"]
 
     df_players_id = pd.merge(df_players, df_team[["team_id"]], how="left", left_on="team", right_on="team_id")

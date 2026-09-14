@@ -38,6 +38,8 @@ def build_parser():
 
     p_upload = sub.add_parser("upload", help="upsert de tables/table_*.csv en las tablas de Supabase")
     p_upload.add_argument("--tables-dir", default=config.DEFAULT_TABLES_DIR)
+    p_upload.add_argument("--csv-dir", default=config.DEFAULT_CSV_DIR,
+                          help="carpeta donde se agrega upload_log.csv")
     p_upload.add_argument("--dry-run", action="store_true",
                           help="solo lee y valida los csv, sin conectarse a Supabase")
 
@@ -80,7 +82,7 @@ def cmd_process(args):
 def cmd_upload(args):
     from vlr_pipeline.upload import upload_tables
 
-    error_count = upload_tables(tables_dir=args.tables_dir, dry_run=args.dry_run)
+    error_count = upload_tables(tables_dir=args.tables_dir, dry_run=args.dry_run, log_dir=args.csv_dir)
     if error_count:
         logger.error("upload con %d errores", error_count)
         return 1
@@ -110,7 +112,7 @@ def cmd_all(args):
     elif not has_credentials():
         logger.warning("Sin SUPABASE_URL/SUPABASE_SERVICE_KEY en el entorno; salto el upload")
     else:
-        if upload_tables(tables_dir=args.tables_dir):
+        if upload_tables(tables_dir=args.tables_dir, log_dir=args.csv_dir):
             logger.error("upload a Supabase con errores")
             return 1
 
