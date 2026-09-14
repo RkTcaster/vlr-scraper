@@ -7,11 +7,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 A scraping + data-processing pipeline for Valorant esports statistics from [vlr.gg](https://www.vlr.gg).
 Output is a star-schema set of CSVs under `tables/` that is upserted into Supabase Postgres tables
 (`vlr_pipeline/upload.py`, port of rktdata's `scripts/upload.mjs`: file → table → PK list) and consumed by rktdata.ar.
-Every upload run appends one row per table to `csv/upload_log.csv` (rows, failed_rows, status, last error, GitHub run id). Logic exists twice and must be kept in sync: the notebooks (`vlr_scraper.ipynb`,
+Upload is **incremental** by default: dimension tables go in full, fact tables only for `series_id`s missing from
+Supabase's `match_id` or re-scraped (scrape_log `last_attempt`) after the last all-ok upload; `match_id` is uploaded
+last and only for series whose facts succeeded, so failed chunks retry next run. `--full` (CLI, or the `full` input of
+"Run workflow") re-uploads everything — needed after changing table-building code or lookups, since existing matches'
+rows won't be re-sent otherwise. Every upload run appends one row per table to `csv/upload_log.csv` (mode, rows,
+series, failed_rows, status, last error, GitHub run id). Logic exists twice and must be kept in sync: the notebooks (`vlr_scraper.ipynb`,
 `csv_process.ipynb`) and the headless package `vlr_pipeline/` (`python -m vlr_pipeline [--log-level X] {scrape,process,upload,all}`;
 global flags go before the subcommand).
 
-Production runs in GitHub Actions (`.github/workflows/pipeline.yml`, daily 06:00 UTC): scrapes the `active` events in
+Production runs in GitHub Actions (`.github/workflows/pipeline.yml`, daily 17:00 UTC; cron always incremental): scrapes the `active` events in
 `events.json`, rebuilds `tables/`, uploads to Supabase, and commits only `csv/` back to the repo. `csv/` (including
 `csv/scrape_log.csv`) is versioned; `tables/` is gitignored because it is fully regenerated from `csv/` (the package
 output was verified byte-identical to the notebook's). `.gitattributes` keeps `*.csv` line endings untouched.

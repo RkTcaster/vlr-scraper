@@ -8,6 +8,11 @@ on:
     # todo lo del dia ya esta Completed. GitHub puede demorar el arranque 10-60 min.
     - cron: "0 17 * * *"
   workflow_dispatch:
+    inputs:
+      full:
+        description: "Upload completo (todas las filas). Usar si cambio el codigo/lookups o se borro algo en Supabase"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -35,11 +40,13 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          # el cron no tiene inputs: siempre incremental
+          FULL_UPLOAD: ${{ inputs.full && '--full' || '' }}
         run: |
           mkdir -p logs
           set +e
           # --log-level/--log-file son flags globales: van antes del subcomando
-          python -m vlr_pipeline --log-level INFO --log-file logs/pipeline.log all
+          python -m vlr_pipeline --log-level INFO --log-file logs/pipeline.log all $FULL_UPLOAD
           code=$?
           # exit 2 = scrape termino pero algunos matches quedaron con status error en csv/scrape_log.csv;
           # se registra el warning pero igual se commitea y sube lo que salio bien.
