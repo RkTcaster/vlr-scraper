@@ -116,3 +116,16 @@ run_at,run_id,mode,table,file,rows,series,failed_rows,status,error,duration_s
 2026-09-22T20:04:38+00:00,35777854988,incremental,player_stats,table_player_stats.csv,0,0,0,ok,,0
 2026-09-22T20:04:38+00:00,35777854988,incremental,player_performance,table_player_performance.csv,0,0,0,ok,,0
 2026-09-22T20:04:38+00:00,35777854988,incremental,match_id,table_match_id.csv,0,0,0,ok,,0
+2026-09-23T20:04:54+00:00,35913510141,incremental,regions,table_region.csv,5,,0,ok,,0.2
+2026-09-23T20:04:54+00:00,35913510141,incremental,tournament,table_tournament.csv,15,,0,ok,,0.1
+2026-09-23T20:04:54+00:00,35913510141,incremental,teams,table_teams.csv,64,,0,ok,,0.1
+2026-09-23T20:04:54+00:00,35913510141,incremental,tournament_played,table_tournament_played.csv,198,,0,ok,,0.1
+2026-09-23T20:04:54+00:00,35913510141,incremental,players,table_players.csv,385,,0,ok,,0.2
+2026-09-23T20:04:54+00:00,35913510141,incremental,maps_name_ids,table_maps_name_id.csv,12,,0,ok,,0.1
+2026-09-23T20:04:54+00:00,35913510141,incremental,maps_id,table_maps_id.csv,0,0,0,ok,,0
+2026-09-23T20:04:54+00:00,35913510141,incremental,draft,table_draft.csv,0,0,0,ok,,0
+2026-09-23T20:04:54+00:00,35913510141,incremental,round_info,table_round_info.csv,0,0,0,ok,,0
+2026-09-23T20:04:54+00:00,35913510141,incremental,team_economy,table_team_economy.csv,0,0,0,ok,,0
+2026-09-23T20:04:54+00:00,35913510141,incremental,player_stats,table_player_stats.csv,0,0,0,ok,,0
+2026-09-23T20:04:54+00:00,35913510141,incremental,player_performance,table_player_performance.csv,0,0,0,ok,,0
+2026-09-23T20:04:54+00:00,35913510141,incremental,match_id,table_match_id.csv,0,0,0,ok,,0
