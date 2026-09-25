@@ -616,3 +616,5 @@ series_id,url,event,tournament,status,error,attempts,has_performance,has_economy
 642927,https://www.vlr.gg/642927/funplus-phoenix-vs-tyloo-vct-2026-china-stage-1-w2,VCT 2026: China Stage 1,vct_2026_china_stage_1,error,list index out of range,1,,,2026-09-13T17:00:42+00:00,2026-09-13T17:00:42+00:00
 753455,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c,Valorant Champions 2026,valorant_champions_2026,ok,,1,True,True,2026-09-24T20:19:52+00:00,2026-09-24T20:19:52+00:00
 753454,https://www.vlr.gg/753454/tyloo-vs-g2-esports-valorant-champions-2026-opening-c,Valorant Champions 2026,valorant_champions_2026,ok,,1,True,True,2026-09-24T20:19:58+00:00,2026-09-24T20:19:58+00:00
+753460,https://www.vlr.gg/753460/nongshim-redforce-vs-nrg-valorant-champions-2026-opening-d,Valorant Champions 2026,valorant_champions_2026,ok,,1,True,True,2026-09-25T20:20:50+00:00,2026-09-25T20:20:50+00:00
+753459,https://www.vlr.gg/753459/karmine-corp-vs-xi-lai-gaming-valorant-champions-2026-opening-d,Valorant Champions 2026,valorant_champions_2026,ok,,1,True,True,2026-09-25T20:20:53+00:00,2026-09-25T20:20:53+00:00
