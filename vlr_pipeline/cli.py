@@ -1,10 +1,13 @@
 """CLI del pipeline: python -m vlr_pipeline {scrape,process,upload,all}.
 
-Exit codes: 0 ok; 1 error fatal o fallo el upsert a Supabase; 2 = scrape termino pero hubo matches con status error en csv/scrape_log.csv.
+Exit codes: 0 ok (incluye scrape con algunos matches en status error: se loguea un warning,
+y en GitHub Actions tambien una anotacion ::warning::); 1 error fatal o fallo el upsert a Supabase;
+2 lo usa solo argparse (argumentos invalidos).
 """
 
 import argparse
 import logging
+import os
 import sys
 
 from vlr_pipeline import config
@@ -57,6 +60,14 @@ def build_parser():
     return parser
 
 
+def warn_scrape_errors(error_count):
+    """Fallo parcial del scrape: no corta el pipeline, lo scrapeado ok se procesa y se sube igual."""
+    message = f"{error_count} matches terminaron con error (ver csv/scrape_log.csv)"
+    logger.warning(message)
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        print(f"::warning::{message}", flush=True)
+
+
 def cmd_scrape(args):
     from vlr_pipeline.scraper import scrape_all
 
@@ -71,8 +82,7 @@ def cmd_scrape(args):
 
     error_count = scrape_all(events, folder=args.csv_dir, encoding=args.encoding)
     if error_count:
-        logger.warning("%d matches terminaron con error (ver csv/scrape_log.csv)", error_count)
-        return 2
+        warn_scrape_errors(error_count)
     return 0
 
 
@@ -100,14 +110,12 @@ def cmd_all(args):
     from vlr_pipeline.upload import has_credentials, upload_tables
 
     events = config.load_events(args.events_file, only_active=True)
-    scrape_exit = 0
     if events:
         from vlr_pipeline.scraper import scrape_all
 
         error_count = scrape_all(events, folder=args.csv_dir, encoding=args.encoding)
         if error_count:
-            logger.warning("%d matches terminaron con error (ver csv/scrape_log.csv)", error_count)
-            scrape_exit = 2
+            warn_scrape_errors(error_count)
     else:
         logger.warning("No hay eventos activos en %s; salto el scrape", args.events_file)
 
@@ -122,7 +130,7 @@ def cmd_all(args):
             logger.error("upload a Supabase con errores")
             return 1
 
-    return scrape_exit
+    return 0
 
 
 COMMANDS = {

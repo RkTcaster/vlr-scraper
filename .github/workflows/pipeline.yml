@@ -44,17 +44,9 @@ jobs:
           FULL_UPLOAD: ${{ inputs.full && '--full' || '' }}
         run: |
           mkdir -p logs
-          set +e
-          # --log-level/--log-file son flags globales: van antes del subcomando
+          # --log-level/--log-file son flags globales: van antes del subcomando.
+          # Matches con error en el scrape no cortan: el cli sale 0 y emite el ::warning:: el mismo.
           python -m vlr_pipeline --log-level INFO --log-file logs/pipeline.log all $FULL_UPLOAD
-          code=$?
-          # exit 2 = scrape termino pero algunos matches quedaron con status error en csv/scrape_log.csv;
-          # se registra el warning pero igual se commitea y sube lo que salio bien.
-          if [ "$code" -eq 2 ]; then
-            echo "::warning::algunos matches fallaron; revisar csv/scrape_log.csv"
-            exit 0
-          fi
-          exit $code
 
       # always(): si falla el process o el upload, lo scrapeado igual queda commiteado
       # y la proxima corrida no lo vuelve a pedir.
@@ -64,14 +56,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add csv
-          if git diff --cached --quiet; then
-            echo "Sin datos nuevos, no se commitea"
-          else
-            git commit -m "data: actualizacion automatica $(date -u +%Y-%m-%d)"
-            # por si se pusheo algo mientras corria el job
-            git pull --rebase
-            git push
-          fi
+          git diff --cached --quiet && { echo "Sin datos nuevos, no se commitea"; exit 0; }
+          git commit -m "data: actualizacion automatica $(date -u +%Y-%m-%d)"
+          # por si se pusheo algo mientras corria el job
+          git pull --rebase
+          git push
 
       - name: Upload run log
         if: always()

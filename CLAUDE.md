@@ -46,6 +46,14 @@ Pull before running notebooks locally to avoid conflicts with the bot's commits.
   wiring. Prefer `vlr_scraper.ipynb` + `csv_process.ipynb`; keep this only as reference.
 - **`round_process.ipynb`** — analysis/exploration of economy buys and round-by-round comeback detection.
 
+## Tests
+
+`python -m pytest` (pytest isn't in requirements.txt; CI installs it in `.github/workflows/tests.yml`, which also runs
+after each pipeline run). `test_parsers.py` runs `process_match` offline on gzipped html in `tests/fixtures/html/<series_id>/`
+and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/` has a map/agent missing from
+`lookups.py`; `test_primary_keys.py` builds tables from `csv/` and applies `upload.validate_rows` to every PK in
+`FILES_TO_UPLOAD`. CLI exit codes: partial scrape failure returns 0 plus a `::warning::` under Actions; 2 is argparse only.
+
 ## Architecture conventions (read before editing extractors)
 
 - **`basic_match_info`** — a dict produced by `get_basic_match_info(soup, url)` and threaded through every

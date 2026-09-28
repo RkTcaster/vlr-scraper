@@ -22,6 +22,7 @@ map_info = {
         "Icebox",
         "Lotus",
         "Sunset",
+        "Summit",
     ], "image_path": []
 }
 map_info["image_path"] = [f"maps/{nombre.lower()}.png" for nombre in map_info["map"]]

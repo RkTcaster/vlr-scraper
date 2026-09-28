@@ -1,0 +1,40 @@
+name: tests
+
+# Separado del pipeline diario: corre cuando cambia el codigo, los tests o los lookups.
+# No usa red (los parsers leen html de tests/fixtures) ni secrets de Supabase.
+on:
+  push:
+    paths:
+      - "vlr_pipeline/**"
+      - "tests/**"
+      - "requirements.txt"
+      - "pytest.ini"
+      - ".github/workflows/tests.yml"
+  pull_request:
+  workflow_dispatch:
+  # El commit diario del bot (GITHUB_TOKEN) no dispara push: se corre despues del pipeline
+  # para que test_lookups avise el mismo dia que aparece un mapa/agente nuevo en csv/.
+  workflow_run:
+    workflows: ["vlr-pipeline"]
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt pytest
+
+      - name: Run tests
+        run: python -m pytest -v
