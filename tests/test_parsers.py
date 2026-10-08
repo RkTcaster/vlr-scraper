@@ -46,6 +46,7 @@ def test_matches_processed_ok(scraped_dir):
         assert result["status"] == "ok", result["error"]
         assert result["has_performance"] is True
         assert result["has_economy"] is True
+        assert result["has_logs"] is True
 
 
 def test_same_files_as_expected(scraped_dir):

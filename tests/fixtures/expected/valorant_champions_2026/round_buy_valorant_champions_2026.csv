@@ -1,0 +1,601 @@
+team_a,team_b,map,map_id_vlr,round,team,side,slot,player,agent,shield,weapon,spent,bank,date,event,source_url
+TL,PRX,Ascent,283184,1,TL,def,1,trexx,Sova,No armor,Ghost,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,1,TL,def,2,GSR,Jett,No armor,Sheriff,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,1,TL,def,3,nAts,Cypher,No armor,Ghost,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,1,TL,def,4,kamo,Phoenix,No armor,Ghost,700,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,1,TL,def,5,Kicks,Omen,Light,Classic,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,1,PRX,atk,1,f0rsakeN,Omen,Light,Classic,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,1,PRX,atk,2,something,Yoru,No armor,Ghost,700,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,1,PRX,atk,3,Jinggg,Sage,Light,Classic,700,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,1,PRX,atk,4,invy,Sova,No armor,Sheriff,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,1,PRX,atk,5,d4v41,Chamber,No armor,Classic,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,2,TL,def,1,trexx,Sova,No armor,Classic,0,1900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,2,TL,def,2,GSR,Jett,No armor,Classic,350,1550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,2,TL,def,3,nAts,Cypher,No armor,Classic,100,1800,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,2,TL,def,4,kamo,Phoenix,No armor,Classic,0,2000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,2,TL,def,5,Kicks,Omen,No armor,Classic,600,1500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,2,PRX,atk,1,f0rsakeN,Omen,Heavy,Ghost,1600,1900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,2,PRX,atk,2,something,Yoru,Light,Vandal,3550,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,2,PRX,atk,3,Jinggg,Sage,Heavy,Bulldog,3550,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,2,PRX,atk,4,invy,Sova,Heavy,Sheriff,1700,2000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,2,PRX,atk,5,d4v41,Chamber,Heavy,Marshal,2350,950,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,3,TL,def,1,trexx,Sova,Light,Phantom,4000,300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,3,TL,def,2,GSR,Jett,Heavy,Vandal,3900,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,3,TL,def,3,nAts,Cypher,Light,Phantom,4200,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,3,TL,def,4,kamo,Phoenix,Heavy,Vandal,4500,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,3,TL,def,5,Kicks,Omen,Regen,Phantom,3700,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,3,PRX,atk,1,f0rsakeN,Omen,Heavy,Vandal,4250,1350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,3,PRX,atk,2,something,Yoru,Heavy,Vandal,1350,2200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,3,PRX,atk,3,Jinggg,Sage,Heavy,Bulldog,1400,1950,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,3,PRX,atk,4,invy,Sova,Heavy,Vandal,4050,1450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,3,PRX,atk,5,d4v41,Chamber,Heavy,Marshal,200,4250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,4,TL,def,1,trexx,Sova,No armor,Stinger,1800,1800,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,4,TL,def,2,GSR,Jett,No armor,Bandit,800,2350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,4,TL,def,3,nAts,Cypher,No armor,Ghost,600,2300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,4,TL,def,4,kamo,Phoenix,No armor,Sheriff,1250,1750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,4,TL,def,5,Kicks,Omen,No armor,Sheriff,1050,2050,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,4,PRX,atk,1,f0rsakeN,Omen,Heavy,Vandal,6900,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,4,PRX,atk,2,something,Yoru,Heavy,Vandal,1600,4500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,4,PRX,atk,3,Jinggg,Sage,Heavy,Vandal,4600,850,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,4,PRX,atk,4,invy,Sova,Heavy,Vandal,1700,3050,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,4,PRX,atk,5,d4v41,Chamber,Heavy,Outlaw,300,5050,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,5,TL,def,1,trexx,Sova,Heavy,Phantom,4050,650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,5,TL,def,2,GSR,Jett,Light,Operator,5300,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,5,TL,def,3,nAts,Cypher,Light,Phantom,4200,1200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,5,TL,def,4,kamo,Phoenix,Heavy,Vandal,4150,500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,5,TL,def,5,Kicks,Omen,Regen,Phantom,3700,1250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,5,PRX,atk,1,f0rsakeN,Omen,Heavy,Vandal,4400,2350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,5,PRX,atk,2,something,Yoru,Heavy,Vandal,1600,3700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,5,PRX,atk,3,Jinggg,Sage,Heavy,Vandal,4600,2450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,5,PRX,atk,4,invy,Sova,Heavy,Vandal,600,5950,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,5,PRX,atk,5,d4v41,Chamber,Heavy,Outlaw,200,5250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,6,TL,def,1,trexx,Sova,Heavy,Phantom,4050,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,6,TL,def,2,GSR,Jett,Heavy,Vandal,3900,2150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,6,TL,def,3,nAts,Cypher,Light,Phantom,4200,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,6,TL,def,4,kamo,Phoenix,Light,Vandal,3300,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,6,TL,def,5,Kicks,Omen,Regen,Phantom,500,1450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,6,PRX,atk,1,f0rsakeN,Omen,Heavy,Vandal,4500,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,6,PRX,atk,2,something,Yoru,Heavy,Vandal,4050,2050,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,6,PRX,atk,3,Jinggg,Sage,Heavy,Vandal,4600,250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,6,PRX,atk,4,invy,Sova,Heavy,Vandal,4450,3900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,6,PRX,atk,5,d4v41,Chamber,Heavy,Outlaw,4000,3650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,7,TL,def,1,trexx,Sova,Heavy,Guardian,3250,2000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,7,TL,def,2,GSR,Jett,Heavy,Vandal,4100,1050,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,7,TL,def,3,nAts,Cypher,Light,Phantom,900,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,7,TL,def,4,kamo,Phoenix,Light,Vandal,3900,350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,7,TL,def,5,Kicks,Omen,Regen,Phantom,3800,650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,7,PRX,atk,1,f0rsakeN,Omen,Light,Bulldog,2600,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,7,PRX,atk,2,something,Yoru,Light,Vandal,3900,550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,7,PRX,atk,3,Jinggg,Sage,Light,Guardian,2850,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,7,PRX,atk,4,invy,Sova,Heavy,Vandal,4900,1600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,7,PRX,atk,5,d4v41,Chamber,Heavy,Operator,5900,350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,8,TL,def,1,trexx,Sova,Heavy,Vandal,550,4450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,8,TL,def,2,GSR,Jett,Heavy,Vandal,1350,2900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,8,TL,def,3,nAts,Cypher,Heavy,Phantom,1600,1800,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,8,TL,def,4,kamo,Phoenix,Heavy,Vandal,1750,1600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,8,TL,def,5,Kicks,Omen,Regen,Phantom,900,3150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,8,PRX,atk,1,f0rsakeN,Omen,Light,Sheriff,1700,1250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,8,PRX,atk,2,something,Yoru,Light,Bandit,1450,2000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,8,PRX,atk,3,Jinggg,Sage,Light,Bandit,1500,1400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,8,PRX,atk,4,invy,Sova,Light,Sheriff,1900,2600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,8,PRX,atk,5,d4v41,Chamber,Heavy,Classic,1200,2050,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,9,TL,def,1,trexx,Sova,Heavy,Vandal,1400,3950,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,9,TL,def,2,GSR,Jett,Heavy,Vandal,1450,4650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,9,TL,def,3,nAts,Cypher,Heavy,Phantom,600,4200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,9,TL,def,4,kamo,Phoenix,Heavy,Vandal,4450,3050,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,9,TL,def,5,Kicks,Omen,Regen,Phantom,500,5650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,9,PRX,atk,1,f0rsakeN,Omen,Regen,Vandal,3900,250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,9,PRX,atk,2,something,Yoru,Heavy,Vandal,4250,650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,9,PRX,atk,3,Jinggg,Sage,Heavy,Vandal,4200,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,9,PRX,atk,4,invy,Sova,Heavy,Vandal,4600,900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,9,PRX,atk,5,d4v41,Chamber,Light,Operator,5100,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,10,TL,def,1,trexx,Sova,Heavy,Vandal,4450,1400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,10,TL,def,2,GSR,Jett,Heavy,Vandal,4100,2650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,10,TL,def,3,nAts,Cypher,Heavy,Phantom,4800,1300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,10,TL,def,4,kamo,Phoenix,Heavy,Vandal,4400,750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,10,TL,def,5,Kicks,Omen,Heavy,Phantom,4350,3200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,10,PRX,atk,1,f0rsakeN,Omen,Heavy,Vandal,4300,2550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,10,PRX,atk,2,something,Yoru,Heavy,Vandal,600,650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,10,PRX,atk,3,Jinggg,Sage,Heavy,Vandal,4400,1900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,10,PRX,atk,4,invy,Sova,Heavy,Vandal,700,1000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,10,PRX,atk,5,d4v41,Chamber,Heavy,Operator,1200,2150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,11,TL,def,1,trexx,Sova,Light,Phantom,3700,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,11,TL,def,2,GSR,Jett,Heavy,Vandal,4300,950,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,11,TL,def,3,nAts,Cypher,Light,Guardian,3050,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,11,TL,def,4,kamo,Phoenix,Light,Vandal,3750,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,11,TL,def,5,Kicks,Omen,Regen,Phantom,4050,1750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,11,PRX,atk,1,f0rsakeN,Omen,Heavy,Vandal,1800,3850,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,11,PRX,atk,2,something,Yoru,Heavy,Judge,4050,500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,11,PRX,atk,3,Jinggg,Sage,Heavy,Vandal,500,4900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,11,PRX,atk,4,invy,Sova,Heavy,Vandal,2000,2700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,11,PRX,atk,5,d4v41,Chamber,Heavy,Operator,1200,4250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,12,TL,def,1,trexx,Sova,Light,Guardian,3200,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,12,TL,def,2,GSR,Jett,Heavy,Vandal,3900,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,12,TL,def,3,nAts,Cypher,Light,Guardian,3250,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,12,TL,def,4,kamo,Phoenix,Light,Guardian,2900,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,12,TL,def,5,Kicks,Omen,Heavy,Phantom,4600,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,12,PRX,atk,1,f0rsakeN,Omen,Heavy,Vandal,4800,2550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,12,PRX,atk,2,something,Yoru,Heavy,Operator,9050,2550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,12,PRX,atk,3,Jinggg,Sage,Heavy,Vandal,4900,600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,12,PRX,atk,4,invy,Sova,Heavy,Phantom,4200,1800,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,12,PRX,atk,5,d4v41,Chamber,Heavy,Operator,1400,1850,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,13,TL,atk,1,trexx,Sova,No armor,Ghost,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,13,TL,atk,2,GSR,Jett,No armor,Sheriff,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,13,TL,atk,3,nAts,Cypher,No armor,Ghost,500,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,13,TL,atk,4,kamo,Phoenix,No armor,Sheriff,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,13,TL,atk,5,Kicks,Omen,No armor,Sheriff,1050,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,13,PRX,def,1,f0rsakeN,Omen,Light,Classic,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,13,PRX,def,2,something,Yoru,No armor,Ghost,750,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,13,PRX,def,3,Jinggg,Sage,No armor,Ghost,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,13,PRX,def,4,invy,Sova,No armor,Sheriff,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,13,PRX,def,5,d4v41,Chamber,No armor,Shorty,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,14,TL,atk,1,trexx,Sova,No armor,Classic,0,1900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,14,TL,atk,2,GSR,Jett,No armor,Classic,400,1500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,14,TL,atk,3,nAts,Cypher,No armor,Classic,200,1700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,14,TL,atk,4,kamo,Phoenix,No armor,Classic,200,1900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,14,TL,atk,5,Kicks,Omen,No armor,Classic,500,1450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,14,PRX,def,1,f0rsakeN,Omen,Light,Bulldog,4850,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,14,PRX,def,2,something,Yoru,Light,Judge,2700,550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,14,PRX,def,3,Jinggg,Sage,Regen,Bulldog,1350,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,14,PRX,def,4,invy,Sova,Heavy,Sheriff,1700,1500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,14,PRX,def,5,d4v41,Chamber,Heavy,Marshal,2550,650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,15,TL,atk,1,trexx,Sova,Heavy,Phantom,4300,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,15,TL,atk,2,GSR,Jett,Heavy,Vandal,3900,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,15,TL,atk,3,nAts,Cypher,Light,Phantom,3900,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,15,TL,atk,4,kamo,Phoenix,Heavy,Vandal,4500,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,15,TL,atk,5,Kicks,Omen,Regen,Phantom,3700,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,15,PRX,def,1,f0rsakeN,Omen,Heavy,Bulldog,1500,1900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,15,PRX,def,2,something,Yoru,Light,Judge,150,3400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,15,PRX,def,3,Jinggg,Sage,Regen,Bulldog,700,2900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,15,PRX,def,4,invy,Sova,Heavy,Bucky,1150,3350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,15,PRX,def,5,d4v41,Chamber,Heavy,Marshal,1500,2350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,16,TL,atk,1,trexx,Sova,Heavy,Ghost,2200,1000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,16,TL,atk,2,GSR,Jett,Heavy,Guardian,3400,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,16,TL,atk,3,nAts,Cypher,Light,Guardian,3250,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,16,TL,atk,4,kamo,Phoenix,Light,Vandal,3750,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,16,TL,atk,5,Kicks,Omen,Regen,Guardian,3050,300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,16,PRX,def,1,f0rsakeN,Omen,Heavy,Phantom,4500,400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,16,PRX,def,2,something,Yoru,Heavy,Vandal,1600,5800,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,16,PRX,def,3,Jinggg,Sage,Heavy,Phantom,4600,1300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,16,PRX,def,4,invy,Sova,Heavy,Odin,4750,1600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,16,PRX,def,5,d4v41,Chamber,Heavy,Outlaw,4000,1350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,17,TL,atk,1,trexx,Sova,Regen,Phantom,3950,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,17,TL,atk,2,GSR,Jett,Regen,Guardian,2900,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,17,TL,atk,3,nAts,Cypher,Light,Guardian,3250,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,17,TL,atk,4,kamo,Phoenix,No armor,Vandal,2900,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,17,TL,atk,5,Kicks,Omen,Heavy,Bulldog,3200,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,17,PRX,def,1,f0rsakeN,Omen,Heavy,Phantom,1900,1900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,17,PRX,def,2,something,Yoru,Heavy,Vandal,4500,2700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,17,PRX,def,3,Jinggg,Sage,Heavy,Vandal,4400,2800,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,17,PRX,def,4,invy,Sova,Heavy,Odin,850,850,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Ascent,283184,17,PRX,def,5,d4v41,Chamber,Heavy,Operator,6000,350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,1,TL,def,1,kamo,Raze,No armor,Ghost,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,1,TL,def,2,nAts,Killjoy,Light,Classic,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,1,TL,def,3,trexx,Fade,No armor,Ghost,750,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,1,TL,def,4,Kicks,Harbor,No armor,Ghost,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,1,TL,def,5,GSR,Yoru,No armor,Sheriff,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,1,PRX,atk,1,d4v41,Chamber,No armor,Classic,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,1,PRX,atk,2,f0rsakeN,Astra,Light,Classic,700,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,1,PRX,atk,3,something,Yoru,Light,Classic,600,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,1,PRX,atk,4,invy,Fade,No armor,Classic,700,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,1,PRX,atk,5,Jinggg,Phoenix,No armor,Frenzy,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,2,TL,def,1,kamo,Raze,No armor,Classic,0,1900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,2,TL,def,2,nAts,Killjoy,No armor,Classic,200,1700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,2,TL,def,3,trexx,Fade,No armor,Classic,200,1750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,2,TL,def,4,Kicks,Harbor,No armor,Classic,500,1400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,2,TL,def,5,GSR,Yoru,No armor,Classic,250,1650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,2,PRX,atk,1,d4v41,Chamber,Heavy,Marshal,2850,650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,2,PRX,atk,2,f0rsakeN,Astra,Heavy,Ghost,3650,2200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,2,PRX,atk,3,something,Yoru,Heavy,Vandal,3900,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,2,PRX,atk,4,invy,Fade,Heavy,Sheriff,1700,1700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,2,PRX,atk,5,Jinggg,Phoenix,Heavy,Bulldog,1200,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,3,TL,def,1,kamo,Raze,Heavy,Vandal,4600,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,3,TL,def,2,nAts,Killjoy,Heavy,Phantom,4100,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,3,TL,def,3,trexx,Fade,Heavy,Phantom,4150,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,3,TL,def,4,Kicks,Harbor,Light,Phantom,3600,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,3,TL,def,5,GSR,Yoru,Heavy,Vandal,4300,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,3,PRX,atk,1,d4v41,Chamber,Heavy,Vandal,3900,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,3,PRX,atk,2,f0rsakeN,Astra,Heavy,Vandal,4500,1200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,3,PRX,atk,3,something,Yoru,Heavy,Vandal,1600,1900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,3,PRX,atk,4,invy,Fade,Heavy,Phantom,4600,400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,3,PRX,atk,5,Jinggg,Phoenix,Light,Vandal,3500,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,4,TL,def,1,kamo,Raze,Light,Vandal,3300,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,4,TL,def,2,nAts,Killjoy,Heavy,Phantom,900,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,4,TL,def,3,trexx,Fade,Heavy,Bulldog,3750,1500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,4,TL,def,4,Kicks,Harbor,Light,Phantom,600,600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,4,TL,def,5,GSR,Yoru,Heavy,Outlaw,3750,2000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,4,PRX,atk,1,d4v41,Chamber,Light,Classic,600,1550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,4,PRX,atk,2,f0rsakeN,Astra,Light,Sheriff,1650,1450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,4,PRX,atk,3,something,Yoru,Light,Outlaw,2800,1000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,4,PRX,atk,4,invy,Fade,No armor,Bandit,850,1650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,4,PRX,atk,5,Jinggg,Phoenix,No armor,Bandit,600,1550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,5,TL,def,1,kamo,Raze,Heavy,Vandal,1700,1700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,5,TL,def,2,nAts,Killjoy,Heavy,Phantom,1600,1650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,5,TL,def,3,trexx,Fade,Heavy,Phantom,1500,3400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,5,TL,def,4,Kicks,Harbor,Light,Bulldog,300,3300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,5,TL,def,5,GSR,Yoru,Heavy,Outlaw,450,4550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,5,PRX,atk,1,d4v41,Chamber,Heavy,Vandal,3900,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,5,PRX,atk,2,f0rsakeN,Astra,Light,Vandal,3750,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,5,PRX,atk,3,something,Yoru,Light,Vandal,3300,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,5,PRX,atk,4,invy,Fade,Light,Vandal,4000,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,5,PRX,atk,5,Jinggg,Phoenix,Light,Vandal,3900,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,6,TL,def,1,kamo,Raze,Heavy,Vandal,2000,2900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,6,TL,def,2,nAts,Killjoy,Heavy,Phantom,600,4450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,6,TL,def,3,trexx,Fade,Heavy,Phantom,1700,4700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,6,TL,def,4,Kicks,Harbor,Light,Vandal,500,5800,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,6,TL,def,5,GSR,Yoru,Heavy,Outlaw,3000,4750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,6,PRX,atk,1,d4v41,Chamber,Light,Classic,700,2550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,6,PRX,atk,2,f0rsakeN,Astra,Light,Sheriff,1800,1700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,6,PRX,atk,3,something,Yoru,Heavy,Vandal,1600,1700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,6,PRX,atk,4,invy,Fade,Light,Stinger,2000,1250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,6,PRX,atk,5,Jinggg,Phoenix,Light,Stinger,1750,1500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,7,TL,def,1,kamo,Raze,Heavy,Vandal,4600,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,7,TL,def,2,nAts,Killjoy,Heavy,Phantom,4800,1550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,7,TL,def,3,trexx,Fade,Heavy,Phantom,3900,2700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,7,TL,def,4,Kicks,Harbor,Heavy,Phantom,4700,3000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,7,TL,def,5,GSR,Yoru,Heavy,Vandal,4800,1850,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,7,PRX,atk,1,d4v41,Chamber,Light,Operator,4900,950,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,7,PRX,atk,2,f0rsakeN,Astra,Heavy,Vandal,1600,3400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,7,PRX,atk,3,something,Yoru,Heavy,Vandal,1600,4200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,7,PRX,atk,4,invy,Fade,Light,Vandal,700,3850,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,7,PRX,atk,5,Jinggg,Phoenix,Heavy,Phantom,1450,3550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,8,TL,def,1,kamo,Raze,Light,Phantom,3300,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,8,TL,def,2,nAts,Killjoy,Light,Bulldog,3350,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,8,TL,def,3,trexx,Fade,Light,Vandal,3500,1600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,8,TL,def,4,Kicks,Harbor,Regen,Phantom,4050,1250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,8,TL,def,5,GSR,Yoru,Heavy,Vandal,4050,400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,8,PRX,atk,1,d4v41,Chamber,Heavy,Judge,3050,1400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,8,PRX,atk,2,f0rsakeN,Astra,Heavy,Vandal,600,6300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,8,PRX,atk,3,something,Yoru,Heavy,Vandal,1600,6100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,8,PRX,atk,4,invy,Fade,Heavy,Vandal,1700,5850,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,8,PRX,atk,5,Jinggg,Phoenix,Heavy,Vandal,3900,2950,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,9,TL,def,1,kamo,Raze,Light,Stinger,1700,1550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,9,TL,def,2,nAts,Killjoy,No armor,Ghost,700,2250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,9,TL,def,3,trexx,Fade,Light,Vandal,4000,500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,9,TL,def,4,Kicks,Harbor,Light,Bulldog,2650,1500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,9,TL,def,5,GSR,Yoru,Light,Guardian,3050,850,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,9,PRX,atk,1,d4v41,Chamber,Heavy,Outlaw,3900,500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,9,PRX,atk,2,f0rsakeN,Astra,Heavy,Vandal,4800,4200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,9,PRX,atk,3,something,Yoru,Heavy,Vandal,4500,4500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,9,PRX,atk,4,invy,Fade,Heavy,Vandal,4400,4450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,9,PRX,atk,5,Jinggg,Phoenix,Heavy,Vandal,1450,5100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,10,TL,def,1,kamo,Raze,Heavy,Vandal,1800,3150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,10,TL,def,2,nAts,Killjoy,Heavy,Vandal,1900,3350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,10,TL,def,3,trexx,Fade,Light,Phantom,3550,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,10,TL,def,4,Kicks,Harbor,Regen,Phantom,3550,1150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,10,TL,def,5,GSR,Yoru,Heavy,Vandal,1450,2600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,10,PRX,atk,1,d4v41,Chamber,Heavy,Vandal,4100,1200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,10,PRX,atk,2,f0rsakeN,Astra,Heavy,Vandal,4350,2150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,10,PRX,atk,3,something,Yoru,Heavy,Operator,6150,250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,10,PRX,atk,4,invy,Fade,Heavy,Phantom,4450,1900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,10,PRX,atk,5,Jinggg,Phoenix,Light,Vandal,3550,550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,11,TL,def,1,kamo,Raze,Heavy,Vandal,4700,1450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,11,TL,def,2,nAts,Killjoy,Heavy,Vandal,600,6350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,11,TL,def,3,trexx,Fade,Heavy,Phantom,1700,1450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,11,TL,def,4,Kicks,Harbor,Regen,Phantom,800,3550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,11,TL,def,5,GSR,Yoru,Heavy,Operator,350,5450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,11,PRX,atk,1,d4v41,Chamber,Light,Vandal,3500,600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,11,PRX,atk,2,f0rsakeN,Astra,Heavy,Phantom,4200,650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,11,PRX,atk,3,something,Yoru,Light,Judge,2600,350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,11,PRX,atk,4,invy,Fade,Heavy,Phantom,4600,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,11,PRX,atk,5,Jinggg,Phoenix,Light,Bulldog,3050,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,12,TL,def,1,kamo,Raze,Heavy,Phantom,4200,250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,12,TL,def,2,nAts,Killjoy,Heavy,Vandal,1400,7600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,12,TL,def,3,trexx,Fade,Heavy,Operator,3600,1050,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,12,TL,def,4,Kicks,Harbor,Heavy,Phantom,1300,5450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,12,TL,def,5,GSR,Yoru,Heavy,Vandal,4350,4100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,12,PRX,atk,1,d4v41,Chamber,Light,Vandal,3500,500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,12,PRX,atk,2,f0rsakeN,Astra,Light,Vandal,3750,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,12,PRX,atk,3,something,Yoru,Light,Vandal,3450,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,12,PRX,atk,4,invy,Fade,Light,Guardian,2900,300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,12,PRX,atk,5,Jinggg,Phoenix,Light,Vandal,3450,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,13,TL,atk,1,kamo,Raze,No armor,Ghost,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,13,TL,atk,2,nAts,Killjoy,No armor,Ghost,700,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,13,TL,atk,3,trexx,Fade,No armor,Ghost,750,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,13,TL,atk,4,Kicks,Harbor,No armor,Ghost,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,13,TL,atk,5,GSR,Yoru,No armor,Ghost,750,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,13,PRX,def,1,d4v41,Chamber,No armor,Classic,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,13,PRX,def,2,f0rsakeN,Astra,No armor,Ghost,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,13,PRX,def,3,something,Yoru,No armor,Ghost,750,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,13,PRX,def,4,invy,Fade,No armor,Ghost,750,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,13,PRX,def,5,Jinggg,Phoenix,No armor,Ghost,700,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,14,TL,atk,1,kamo,Raze,Light,Phantom,3700,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,14,TL,atk,2,nAts,Killjoy,Heavy,Bulldog,3450,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,14,TL,atk,3,trexx,Fade,Light,Phantom,3300,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,14,TL,atk,4,Kicks,Harbor,Light,Ghost,900,2600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,14,TL,atk,5,GSR,Yoru,Heavy,Marshal,2550,1000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,14,PRX,def,1,d4v41,Chamber,No armor,Classic,500,1600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,14,PRX,def,2,f0rsakeN,Astra,No armor,Classic,0,1900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,14,PRX,def,3,something,Yoru,No armor,Bandit,600,1350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,14,PRX,def,4,invy,Fade,No armor,Classic,250,1700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,14,PRX,def,5,Jinggg,Phoenix,No armor,Classic,350,1850,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,15,TL,atk,1,kamo,Raze,Light,Stinger,1700,2000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,15,TL,atk,2,nAts,Killjoy,Light,Stinger,1700,1750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,15,TL,atk,3,trexx,Fade,Light,Bandit,1700,1850,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,15,TL,atk,4,Kicks,Harbor,Heavy,Phantom,3900,2000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,15,TL,atk,5,GSR,Yoru,Light,Sheriff,1350,3150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,15,PRX,def,1,d4v41,Chamber,Light,Phantom,3700,300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,15,PRX,def,2,f0rsakeN,Astra,Regen,Phantom,4150,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,15,PRX,def,3,something,Yoru,Heavy,Vandal,3900,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,15,PRX,def,4,invy,Fade,Heavy,Odin,4900,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,15,PRX,def,5,Jinggg,Phoenix,Heavy,Vandal,4150,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,16,TL,atk,1,kamo,Raze,Heavy,Phantom,4200,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,16,TL,atk,2,nAts,Killjoy,Light,Phantom,3900,250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,16,TL,atk,3,trexx,Fade,Light,Phantom,3800,250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,16,TL,atk,4,Kicks,Harbor,Regen,Phantom,4050,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,16,TL,atk,5,GSR,Yoru,Heavy,Vandal,4050,1500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,16,PRX,def,1,d4v41,Chamber,Light,Phantom,3500,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,16,PRX,def,2,f0rsakeN,Astra,Heavy,Phantom,4500,1750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,16,PRX,def,3,something,Yoru,Heavy,Vandal,350,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,16,PRX,def,4,invy,Fade,Heavy,Odin,1250,1750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,16,PRX,def,5,Jinggg,Phoenix,Heavy,Vandal,1600,1700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,17,TL,atk,1,kamo,Raze,Light,Bulldog,3150,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,17,TL,atk,2,nAts,Killjoy,Heavy,Outlaw,3600,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,17,TL,atk,3,trexx,Fade,Light,Phantom,3750,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,17,TL,atk,4,Kicks,Harbor,Heavy,Bulldog,3550,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,17,TL,atk,5,GSR,Yoru,Heavy,Vandal,4500,300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,17,PRX,def,1,d4v41,Chamber,Light,Classic,600,1300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,17,PRX,def,2,f0rsakeN,Astra,Light,Vandal,3750,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,17,PRX,def,3,something,Yoru,Heavy,Vandal,3500,1000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,17,PRX,def,4,invy,Fade,Light,Odin,850,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,17,PRX,def,5,Jinggg,Phoenix,Light,Vandal,3650,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,18,TL,atk,1,kamo,Raze,Heavy,Vandal,1400,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,18,TL,atk,2,nAts,Killjoy,Heavy,Outlaw,4300,1750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,18,TL,atk,3,trexx,Fade,Light,Vandal,3550,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,18,TL,atk,4,Kicks,Harbor,Heavy,Phantom,500,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,18,TL,atk,5,GSR,Yoru,Heavy,Vandal,4550,1950,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,18,PRX,def,1,d4v41,Chamber,Heavy,Guardian,3450,250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,18,PRX,def,2,f0rsakeN,Astra,Light,Judge,2400,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,18,PRX,def,3,something,Yoru,No armor,Vandal,3250,350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,18,PRX,def,4,invy,Fade,Light,Bulldog,2700,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,18,PRX,def,5,Jinggg,Phoenix,Light,Bulldog,2700,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,19,TL,atk,1,kamo,Raze,Heavy,Vandal,1600,1950,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,19,TL,atk,2,nAts,Killjoy,Heavy,Phantom,3500,1750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,19,TL,atk,3,trexx,Fade,Heavy,Vandal,1500,2150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,19,TL,atk,4,Kicks,Harbor,Heavy,Phantom,800,2700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,19,TL,atk,5,GSR,Yoru,Heavy,Vandal,1600,3850,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,19,PRX,def,1,d4v41,Chamber,Heavy,Judge,3050,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,19,PRX,def,2,f0rsakeN,Astra,Light,Guardian,2950,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,19,PRX,def,3,something,Yoru,Heavy,Vandal,1150,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,19,PRX,def,4,invy,Fade,Light,Guardian,2850,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,19,PRX,def,5,Jinggg,Phoenix,Light,Bulldog,2850,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,20,TL,atk,1,kamo,Raze,Light,Vandal,4000,350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,20,TL,atk,2,nAts,Killjoy,Light,Phantom,3900,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,20,TL,atk,3,trexx,Fade,Light,Phantom,3750,600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,20,TL,atk,4,Kicks,Harbor,Regen,Phantom,3850,1250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,20,TL,atk,5,GSR,Yoru,Heavy,Vandal,4600,1450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,20,PRX,def,1,d4v41,Chamber,Heavy,Shorty,1500,1800,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,20,PRX,def,2,f0rsakeN,Astra,Heavy,Judge,3450,1450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,20,PRX,def,3,something,Yoru,Heavy,Vandal,900,650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,20,PRX,def,4,invy,Fade,Heavy,Phantom,1700,1550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Haven,283185,20,PRX,def,5,Jinggg,Phoenix,Heavy,Vandal,1600,1900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,1,TL,atk,1,GSR,Yoru,No armor,Sheriff,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,1,TL,atk,2,Kicks,Omen,Light,Classic,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,1,TL,atk,3,trexx,Fade,No armor,Ghost,750,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,1,TL,atk,4,kamo,Raze,No armor,Sheriff,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,1,TL,atk,5,nAts,Cypher,No armor,Sheriff,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,1,PRX,def,1,something,Yoru,No armor,Ghost,750,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,1,PRX,def,2,d4v41,Vyse,No armor,Sheriff,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,1,PRX,def,3,f0rsakeN,Omen,Light,Classic,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,1,PRX,def,4,Jinggg,Raze,No armor,Sheriff,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,1,PRX,def,5,invy,Fade,No armor,Ghost,750,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,2,TL,atk,1,GSR,Yoru,No armor,Sheriff,0,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,2,TL,atk,2,Kicks,Omen,Heavy,Sheriff,2200,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,2,TL,atk,3,trexx,Fade,No armor,Sheriff,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,2,TL,atk,4,kamo,Raze,Heavy,Guardian,3950,300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,2,TL,atk,5,nAts,Cypher,Heavy,Outlaw,4600,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,2,PRX,def,1,something,Yoru,Heavy,Judge,3300,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,2,PRX,def,2,d4v41,Vyse,Heavy,Sheriff,1500,1900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,2,PRX,def,3,f0rsakeN,Omen,Heavy,Bandit,2200,1000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,2,PRX,def,4,Jinggg,Raze,Heavy,Spectre,2900,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,2,PRX,def,5,invy,Fade,Heavy,Spectre,3050,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,3,TL,atk,1,GSR,Yoru,No armor,Sheriff,1400,1800,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,3,TL,atk,2,Kicks,Omen,No armor,Classic,600,1800,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,3,TL,atk,3,trexx,Fade,No armor,Classic,700,1700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,3,TL,atk,4,kamo,Raze,No armor,Bandit,600,2100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,3,TL,atk,5,nAts,Cypher,No armor,Classic,0,2400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,3,PRX,def,1,something,Yoru,Heavy,Guardian,1450,1900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,3,PRX,def,2,d4v41,Vyse,Heavy,Vandal,4400,700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,3,PRX,def,3,f0rsakeN,Omen,Regen,Vandal,3700,500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,3,PRX,def,4,Jinggg,Raze,Regen,Guardian,3100,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,3,PRX,def,5,invy,Fade,Heavy,Bulldog,3300,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,4,TL,atk,1,GSR,Yoru,Heavy,Vandal,4350,650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,4,TL,atk,2,Kicks,Omen,Regen,Phantom,4050,1150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,4,TL,atk,3,trexx,Fade,Heavy,Phantom,4150,750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,4,TL,atk,4,kamo,Raze,Heavy,Vandal,4300,1000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,4,TL,atk,5,nAts,Cypher,Heavy,Phantom,4600,1000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,4,PRX,def,1,something,Yoru,Heavy,Guardian,350,4550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,4,PRX,def,2,d4v41,Vyse,Heavy,Vandal,800,400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,4,PRX,def,3,f0rsakeN,Omen,Heavy,Vandal,1600,1900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,4,PRX,def,4,Jinggg,Raze,Heavy,Vandal,4400,1500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,4,PRX,def,5,invy,Fade,Heavy,Guardian,1700,2000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,5,TL,atk,1,GSR,Yoru,Light,Vandal,3550,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,5,TL,atk,2,Kicks,Omen,Regen,Phantom,3800,250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,5,TL,atk,3,trexx,Fade,Light,Phantom,3750,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,5,TL,atk,4,kamo,Raze,Light,Vandal,3800,300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,5,TL,atk,5,nAts,Cypher,Light,Phantom,3900,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,5,PRX,def,1,something,Yoru,Heavy,Guardian,600,6950,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,5,PRX,def,2,d4v41,Vyse,Heavy,Vandal,500,3500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,5,PRX,def,3,f0rsakeN,Omen,Heavy,Vandal,4400,500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,5,PRX,def,4,Jinggg,Raze,Heavy,Phantom,4400,300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,5,PRX,def,5,invy,Fade,Heavy,Vandal,750,4450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,6,TL,atk,1,GSR,Yoru,No armor,Bandit,950,1950,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,6,TL,atk,2,Kicks,Omen,No armor,Sheriff,1150,2000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,6,TL,atk,3,trexx,Fade,No armor,Ghost,1200,1800,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,6,TL,atk,4,kamo,Raze,Light,Sheriff,1400,2200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,6,TL,atk,5,nAts,Cypher,No armor,Ghost,600,2300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,6,PRX,def,1,something,Yoru,Heavy,Outlaw,4000,5000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,6,PRX,def,2,d4v41,Vyse,Heavy,Vandal,500,6000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,6,PRX,def,3,f0rsakeN,Omen,Heavy,Vandal,1500,2400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,6,PRX,def,4,Jinggg,Raze,Heavy,Vandal,4100,2100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,6,PRX,def,5,invy,Fade,Heavy,Vandal,200,4750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,7,TL,atk,1,GSR,Yoru,Heavy,Vandal,1900,3750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,7,TL,atk,2,Kicks,Omen,Heavy,Phantom,4400,900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,7,TL,atk,3,trexx,Fade,Heavy,Phantom,4350,1150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,7,TL,atk,4,kamo,Raze,Heavy,Vandal,2000,3500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,7,TL,atk,5,nAts,Cypher,Heavy,Vandal,1600,4200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,7,PRX,def,1,something,Yoru,Light,Operator,6000,900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,7,PRX,def,2,d4v41,Vyse,Heavy,Vandal,4700,300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,7,PRX,def,3,f0rsakeN,Omen,Heavy,Vandal,4500,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,7,PRX,def,4,Jinggg,Raze,Heavy,Vandal,4400,2700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,7,PRX,def,5,invy,Fade,Heavy,Vandal,4400,2250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,8,TL,atk,1,GSR,Yoru,Heavy,Vandal,1600,5850,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,8,TL,atk,2,Kicks,Omen,Heavy,Phantom,4800,2300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,8,TL,atk,3,trexx,Fade,Heavy,Phantom,500,4150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,8,TL,atk,4,kamo,Raze,Heavy,Phantom,4900,1900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,8,TL,atk,5,nAts,Cypher,Heavy,Vandal,900,4100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,8,PRX,def,1,something,Yoru,No armor,Bandit,600,2700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,8,PRX,def,2,d4v41,Vyse,No armor,Sheriff,1300,1600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,8,PRX,def,3,f0rsakeN,Omen,Light,Sheriff,1600,1000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,8,PRX,def,4,Jinggg,Raze,Heavy,Vandal,4600,500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,8,PRX,def,5,invy,Fade,Regen,Sheriff,2150,2500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,9,TL,atk,1,GSR,Yoru,Heavy,Vandal,4250,1000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,9,TL,atk,2,Kicks,Omen,Regen,Phantom,3950,250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,9,TL,atk,3,trexx,Fade,Light,Phantom,3550,2500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,9,TL,atk,4,kamo,Raze,Heavy,Vandal,4600,2100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,9,TL,atk,5,nAts,Cypher,Heavy,Phantom,4600,1400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,9,PRX,def,1,something,Yoru,Heavy,Vandal,1350,1850,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,9,PRX,def,2,d4v41,Vyse,Heavy,Phantom,1350,3250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,9,PRX,def,3,f0rsakeN,Omen,Regen,Phantom,4150,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,9,PRX,def,4,Jinggg,Raze,Heavy,Phantom,4300,2100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,9,PRX,def,5,invy,Fade,Regen,Vandal,250,5650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,10,TL,atk,1,GSR,Yoru,Light,Vandal,3700,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,10,TL,atk,2,Kicks,Omen,Light,Guardian,2850,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,10,TL,atk,3,trexx,Fade,Light,Vandal,3750,1650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,10,TL,atk,4,kamo,Raze,Heavy,Phantom,4200,800,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,10,TL,atk,5,nAts,Cypher,Light,Phantom,4200,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,10,PRX,def,1,something,Yoru,Heavy,Operator,6400,3150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,10,PRX,def,2,d4v41,Vyse,Heavy,Phantom,1500,250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,10,PRX,def,3,f0rsakeN,Omen,Heavy,Phantom,1800,1450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,10,PRX,def,4,Jinggg,Raze,Heavy,Phantom,4600,1100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,10,PRX,def,5,invy,Fade,Heavy,Odin,4650,4000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,11,TL,atk,1,GSR,Yoru,Light,Guardian,3000,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,11,TL,atk,2,Kicks,Omen,Heavy,Bulldog,3200,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,11,TL,atk,3,trexx,Fade,Light,Phantom,3800,1250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,11,TL,atk,4,kamo,Raze,Light,Phantom,3700,500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,11,TL,atk,5,nAts,Cypher,Light,Guardian,3250,250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,11,PRX,def,1,something,Yoru,Heavy,Operator,1750,1500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,11,PRX,def,2,d4v41,Vyse,Heavy,Phantom,3400,450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,11,PRX,def,3,f0rsakeN,Omen,Heavy,Phantom,3300,1350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,11,PRX,def,4,Jinggg,Raze,Heavy,Phantom,4300,2700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,11,PRX,def,5,invy,Fade,Heavy,Odin,1800,5400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,12,TL,atk,1,GSR,Yoru,Heavy,Vandal,4800,1600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,12,TL,atk,2,Kicks,Omen,Light,Phantom,3900,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,12,TL,atk,3,trexx,Fade,Heavy,Phantom,4400,350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,12,TL,atk,4,kamo,Raze,Light,Phantom,4000,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,12,TL,atk,5,nAts,Cypher,Light,Operator,600,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,12,PRX,def,1,something,Yoru,Light,Operator,5550,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,12,PRX,def,2,d4v41,Vyse,Heavy,Bucky,3150,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,12,PRX,def,3,f0rsakeN,Omen,Light,Guardian,3050,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,12,PRX,def,4,Jinggg,Raze,Heavy,Phantom,4600,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,12,PRX,def,5,invy,Fade,Heavy,Vandal,4150,600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,13,TL,def,1,GSR,Yoru,No armor,Sheriff,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,13,TL,def,2,Kicks,Omen,Light,Classic,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,13,TL,def,3,trexx,Fade,No armor,Ghost,750,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,13,TL,def,4,kamo,Raze,No armor,Bandit,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,13,TL,def,5,nAts,Cypher,No armor,Ghost,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,13,PRX,atk,1,something,Yoru,No armor,Ghost,700,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,13,PRX,atk,2,d4v41,Vyse,No armor,Sheriff,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,13,PRX,atk,3,f0rsakeN,Omen,Light,Classic,800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,13,PRX,atk,4,Jinggg,Raze,No armor,Frenzy,750,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,13,PRX,atk,5,invy,Fade,No armor,Classic,700,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,14,TL,def,1,GSR,Yoru,Heavy,Outlaw,3400,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,14,TL,def,2,Kicks,Omen,Light,Bulldog,2950,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,14,TL,def,3,trexx,Fade,Light,Ghost,850,2200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,14,TL,def,4,kamo,Raze,Heavy,Bulldog,3050,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,14,TL,def,5,nAts,Cypher,Heavy,Spectre,3200,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,14,PRX,atk,1,something,Yoru,No armor,Classic,250,2650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,14,PRX,atk,2,d4v41,Vyse,No armor,Sheriff,800,1600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,14,PRX,atk,3,f0rsakeN,Omen,No armor,Classic,400,1800,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,14,PRX,atk,4,Jinggg,Raze,No armor,Bandit,600,1650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,14,PRX,atk,5,invy,Fade,No armor,Bandit,850,1450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,15,TL,def,1,GSR,Yoru,Heavy,Outlaw,600,2600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,15,TL,def,2,Kicks,Omen,Light,Bandit,900,2350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,15,TL,def,3,trexx,Fade,Light,Vandal,3500,1700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,15,TL,def,4,kamo,Raze,Light,Bulldog,1100,2650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,15,TL,def,5,nAts,Cypher,Heavy,Spectre,900,2300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,15,PRX,atk,1,something,Yoru,Heavy,Vandal,4500,550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,15,PRX,atk,2,d4v41,Vyse,Heavy,Vandal,4400,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,15,PRX,atk,3,f0rsakeN,Omen,Regen,Vandal,4150,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,15,PRX,atk,4,Jinggg,Raze,Heavy,Vandal,3900,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,15,PRX,atk,5,invy,Fade,Regen,Vandal,3800,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,16,TL,def,1,GSR,Yoru,Heavy,Vandal,4250,250,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,16,TL,def,2,Kicks,Omen,Light,Phantom,3450,800,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,16,TL,def,3,trexx,Fade,Light,Phantom,3550,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,16,TL,def,4,kamo,Raze,Light,Vandal,3500,1050,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,16,TL,def,5,nAts,Cypher,Light,Phantom,4200,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,16,PRX,atk,1,something,Yoru,Heavy,Vandal,600,750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,16,PRX,atk,2,d4v41,Vyse,Heavy,Vandal,1800,1700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,16,PRX,atk,3,f0rsakeN,Omen,Heavy,Vandal,1600,1950,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,16,PRX,atk,4,Jinggg,Raze,Heavy,Vandal,1700,1750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,16,PRX,atk,5,invy,Fade,Heavy,Vandal,4350,2100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,17,TL,def,1,GSR,Yoru,Heavy,Vandal,900,2750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,17,TL,def,2,Kicks,Omen,Light,Phantom,3800,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,17,TL,def,3,trexx,Fade,Heavy,Phantom,1500,1750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,17,TL,def,4,kamo,Raze,Heavy,Vandal,2300,1950,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,17,TL,def,5,nAts,Cypher,Light,Phantom,500,2900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,17,PRX,atk,1,something,Yoru,Light,Vandal,2850,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,17,PRX,atk,2,d4v41,Vyse,Light,Phantom,3500,400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,17,PRX,atk,3,f0rsakeN,Omen,Regen,Guardian,4050,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,17,PRX,atk,4,Jinggg,Raze,Regen,Vandal,3950,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,17,PRX,atk,5,invy,Fade,Heavy,Phantom,4150,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,18,TL,def,1,GSR,Yoru,Heavy,Outlaw,4000,1750,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,18,TL,def,2,Kicks,Omen,Heavy,Phantom,1400,1800,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,18,TL,def,3,trexx,Fade,Heavy,Phantom,1700,3450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,18,TL,def,4,kamo,Raze,Heavy,Phantom,4600,550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,18,TL,def,5,nAts,Cypher,Heavy,Phantom,4800,1300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,18,PRX,atk,1,something,Yoru,No armor,Sheriff,800,2200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,18,PRX,atk,2,d4v41,Vyse,No armor,Sheriff,1300,1700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,18,PRX,atk,3,f0rsakeN,Omen,Light,Sheriff,1450,1550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,18,PRX,atk,4,Jinggg,Raze,Light,Stinger,2200,1000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,18,PRX,atk,5,invy,Fade,Light,Sheriff,1700,1150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,19,TL,def,1,GSR,Yoru,Heavy,Vandal,4800,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,19,TL,def,2,Kicks,Omen,Heavy,Phantom,800,1100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,19,TL,def,3,trexx,Fade,Heavy,Phantom,4400,2450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,19,TL,def,4,kamo,Raze,Heavy,Phantom,4700,1950,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,19,TL,def,5,nAts,Cypher,Heavy,Phantom,600,3900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,19,PRX,atk,1,something,Yoru,Heavy,Vandal,4500,600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,19,PRX,atk,2,d4v41,Vyse,Heavy,Vandal,4100,500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,19,PRX,atk,3,f0rsakeN,Omen,Heavy,Vandal,4500,350,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,19,PRX,atk,4,Jinggg,Raze,Heavy,Bulldog,3450,450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,19,PRX,atk,5,invy,Fade,Regen,Vandal,4250,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,20,TL,def,1,GSR,Yoru,Heavy,Vandal,4300,650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,20,TL,def,2,Kicks,Omen,Light,Bulldog,2850,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,20,TL,def,3,trexx,Fade,Heavy,Phantom,3900,450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,20,TL,def,4,kamo,Raze,Light,Vandal,3700,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,20,TL,def,5,nAts,Cypher,Light,Bulldog,3050,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,20,PRX,atk,1,something,Yoru,Heavy,Vandal,350,1050,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,20,PRX,atk,2,d4v41,Vyse,Heavy,Vandal,1500,2500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,20,PRX,atk,3,f0rsakeN,Omen,Heavy,Vandal,600,3050,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,20,PRX,atk,4,Jinggg,Raze,Heavy,Vandal,4600,2450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,20,PRX,atk,5,invy,Fade,Regen,Vandal,500,2800,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,21,TL,def,1,GSR,Yoru,Heavy,Vandal,1650,0,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,21,TL,def,2,Kicks,Omen,Regen,Stinger,2250,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,21,TL,def,3,trexx,Fade,Heavy,Stinger,2800,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,21,TL,def,4,kamo,Raze,Light,Bulldog,2750,100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,21,TL,def,5,nAts,Cypher,Heavy,Sheriff,2400,50,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,21,PRX,atk,1,something,Yoru,Heavy,Vandal,1900,2850,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,21,PRX,atk,2,d4v41,Vyse,Heavy,Vandal,500,5300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,21,PRX,atk,3,f0rsakeN,Omen,Heavy,Vandal,1900,4650,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,21,PRX,atk,4,Jinggg,Raze,Heavy,Vandal,4300,1450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,21,PRX,atk,5,invy,Fade,Heavy,Vandal,2000,4300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,22,TL,def,1,GSR,Yoru,Heavy,Vandal,600,2600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,22,TL,def,2,Kicks,Omen,Heavy,Bulldog,3550,1700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,22,TL,def,3,trexx,Fade,Heavy,Vandal,1700,1550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,22,TL,def,4,kamo,Raze,Heavy,Vandal,1700,1600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,22,TL,def,5,nAts,Cypher,Heavy,Vandal,900,300,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,22,PRX,atk,1,something,Yoru,Heavy,Vandal,150,2000,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,22,PRX,atk,2,d4v41,Vyse,Heavy,Vandal,4400,3100,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,22,PRX,atk,3,f0rsakeN,Omen,Heavy,Vandal,4350,2500,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,22,PRX,atk,4,Jinggg,Raze,Heavy,Vandal,4600,2150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,22,PRX,atk,5,invy,Fade,Heavy,Vandal,4900,1600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,23,TL,def,1,GSR,Yoru,Heavy,Vandal,1600,1700,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,23,TL,def,2,Kicks,Omen,Heavy,Phantom,4250,450,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,23,TL,def,3,trexx,Fade,Heavy,Vandal,700,3850,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,23,TL,def,4,kamo,Raze,Heavy,Vandal,4600,200,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,23,TL,def,5,nAts,Cypher,Heavy,Phantom,4800,1600,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,23,PRX,atk,1,something,Yoru,Heavy,Vandal,4500,400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,23,PRX,atk,2,d4v41,Vyse,Heavy,Vandal,4400,1400,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,23,PRX,atk,3,f0rsakeN,Omen,Heavy,Vandal,4500,900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,23,PRX,atk,4,Jinggg,Raze,Heavy,Vandal,4300,550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+TL,PRX,Lotus,283186,23,PRX,atk,5,invy,Fade,Heavy,Vandal,4350,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c

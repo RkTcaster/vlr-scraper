@@ -32,6 +32,7 @@ LOG_COLUMNS = [
     "attempts",
     "has_performance",
     "has_economy",
+    "has_logs",
     "first_seen",
     "last_attempt",
 ]
@@ -40,7 +41,11 @@ DONE_STATUSES = {"ok", "skipped"}
 MAX_ATTEMPTS = 3
 
 # csv de datos donde un match deja filas (todos tienen columna source_url)
-DATA_PREFIXES = ("round_detail", "player_stats", "player_performance", "team_economy", "draft")
+DATA_PREFIXES = (
+    "round_detail", "player_stats", "player_performance", "team_economy", "round_buy", "round_events", "draft",
+)
+# los de la solapa logs: backfill-logs purga y reescribe solo estos
+LOGS_PREFIXES = ("round_buy", "round_events")
 
 # Los csv crudos se escriben con iso-8859-1 a partir de texto decodificado igual, asi que
 # leer/escribir con latin-1 es un round trip exacto de los bytes.
@@ -92,6 +97,7 @@ def bootstrap_log(folder="csv"):
                 "attempts": 1,
                 "has_performance": "",
                 "has_economy": "",
+                "has_logs": "",
                 "first_seen": now,
                 "last_attempt": now,
             }
@@ -109,6 +115,7 @@ def bootstrap_log(folder="csv"):
                 "tournament": tournament,
                 "has_performance": "",
                 "has_economy": "",
+                "has_logs": "",
                 "first_seen": now,
                 "last_attempt": now,
             }
@@ -168,7 +175,7 @@ def should_skip(log, url):
     return False
 
 
-def record(log, url, status, event="", error="", has_performance="", has_economy=""):
+def record(log, url, status, event="", error="", has_performance="", has_economy="", has_logs=""):
     """Upsert de la fila del match por series_id. Devuelve el log actualizado."""
     series_id = get_series_id(url)
     now = _now()
@@ -178,6 +185,7 @@ def record(log, url, status, event="", error="", has_performance="", has_economy
         "error": error,
         "has_performance": has_performance,
         "has_economy": has_economy,
+        "has_logs": has_logs,
         "last_attempt": now,
     }
     if event:
@@ -199,7 +207,23 @@ def record(log, url, status, event="", error="", has_performance="", has_economy
     return pd.concat([log, pd.DataFrame([row], columns=LOG_COLUMNS)], ignore_index=True)
 
 
-def purge_match_rows(tournament, url, folder="csv"):
+def update_fields(log, url, **fields):
+    """Pisa columnas de la fila del match sin tocar status ni attempts (lo usa backfill-logs).
+
+    Tambien actualiza last_attempt, asi el upload incremental re-sube la serie.
+    """
+    series_id = get_series_id(url)
+    mask = log["series_id"] == series_id
+    if not mask.any():
+        return log
+    index = log.index[mask][0]
+    fields["last_attempt"] = _now()
+    for column, value in fields.items():
+        log.at[index, column] = "" if value is None else str(value)
+    return log
+
+
+def purge_match_rows(tournament, url, folder="csv", prefixes=DATA_PREFIXES):
     """Borra las filas de un match (por series_id) de los csv de datos de su torneo.
 
     Se llama antes de procesar un match: si una corrida anterior fallo o se corto a medias,
@@ -211,7 +235,7 @@ def purge_match_rows(tournament, url, folder="csv"):
     series_id = get_series_id(url)
     removed_total = 0
 
-    for prefix in DATA_PREFIXES:
+    for prefix in prefixes:
         path = os.path.join(folder, tournament, f"{prefix}_{tournament}.csv")
         if not os.path.exists(path):
             continue

@@ -1,5 +1,6 @@
 """Extractores de un match de vlr.gg (vlr_scraper.ipynb celda 2)."""
 
+import json
 import logging
 import re
 
@@ -682,6 +683,185 @@ def get_team_economy(url, basic_match_info):
                     economy_dict["event"].append(event)
 
     return [economy_dict]
+
+
+# Round logs (tab=logs): compras por jugador y eventos (kills / plant / defuse) por ronda
+SHIELD_NAMES = {"Heavy armor": "Heavy", "Light armor": "Light", "Regen Shield": "Regen"}
+
+
+def parse_credits(text):
+    """"−2,400" / "1,050" -> 2400 / 1050 (el gasto viene con signo menos unicode)"""
+    digits = re.sub(r"[^\d]", "", text or "")
+    return int(digits) if digits else 0
+
+
+def played_game_ids(soup):
+    """{game_id: mapa} de los mapas jugados segun el nav del match (sin "all" ni los mod-disabled)"""
+    games = {}
+    for item in soup.select(".vm-stats-gamesnav-item.js-map-switch"):
+        game_id = item.get("data-game-id")
+        if not game_id or game_id == "all" or "mod-disabled" in item.get("class", []):
+            continue
+        # el texto viene como "1Abyss": sacamos el numero de orden
+        games[game_id] = re.sub(r"^\d+", "", item.get_text(strip=True))
+    return games
+
+
+def get_round_logs(soup, url, basic_match_info):
+    """extract the buy phase and the events of every round from the vlr logs tab
+
+    La pagina ?game=<id>&tab=logs trae todas las rondas de ese mapa (div.lg-round), asi
+    que es un request por mapa jugado. Cada ronda tiene las 5 filas de compra por equipo
+    (lg-mir-row) y un JSON en div.lg-map[data-map] con los eventos; el feed (lg-row,
+    alineado por data-ev) agrega el arma de cada kill y el sitio del plant/defuse.
+
+    Args:
+        soup (bs4.BeautifulSoup): pagina principal del match (para el nav de mapas)
+        url (str): vlr match url
+        basic_match_info (dict): basic match info dict
+
+    Returns:
+        tuple: (buy_dict, events_dict); listas vacias si el match no tiene logs
+    """
+    buy_dict = {
+        "team_a": [],
+        "team_b": [],
+        "map": [],
+        "map_id_vlr": [],
+        "round": [],
+        "team": [],
+        "side": [],
+        "slot": [],
+        "player": [],
+        "agent": [],
+        "shield": [],
+        "weapon": [],
+        "spent": [],
+        "bank": [],
+        "date": [],
+        "event": [],
+        "source_url": [],
+    }
+    events_dict = {
+        "map": [],
+        "map_id_vlr": [],
+        "round": [],
+        "ev_index": [],
+        "clock": [],
+        "type": [],
+        "by_player": [],
+        "by_team": [],
+        "victim": [],
+        "victim_team": [],
+        "weapon": [],
+        "site": [],
+        "pos_x": [],
+        "pos_y": [],
+        "from_x": [],
+        "from_y": [],
+        "date": [],
+        "event": [],
+        "source_url": [],
+    }
+
+    date = basic_match_info["date"]
+    event = basic_match_info["event"]
+    source_url = basic_match_info["source_url"]
+
+    for game_id, map_name in played_game_ids(soup).items():
+        soup_logs = soup_open(url + f"/?game={game_id}&tab=logs")
+        game_div = soup_logs.find("div", {"class": "vm-stats-game", "data-game-id": game_id})
+        if game_div is None:
+            continue
+
+        for round_div in game_div.find_all("div", class_="lg-round"):
+            round_number = int(round_div["data-round"])
+
+            # tag de t1 / t2 (los ids de equipo del JSON de eventos)
+            band_tags = {}
+            for band_team in round_div.select(".lg-band .lg-band-team"):
+                tag = band_team.find(class_="lg-band-tag").get_text(strip=True)
+                band_tags[1 if "mod-t1" in band_team["class"] else 2] = tag
+
+            # compras
+            for team_div in round_div.find_all("div", class_="lg-mir-team"):
+                side = "atk" if "mod-atk" in team_div["class"] else "def"
+                for slot, row in enumerate(team_div.find_all("div", class_="lg-mir-row"), 1):
+                    agent_img = row.find("img", class_="lg-agent")
+                    agent = re.search(r"\(([^)]+)\)\s*$", agent_img.get("title", "")) if agent_img else None
+                    shield_img = row.find("img", class_="lg-kit-shield")
+                    gun_img = row.find("img", class_="lg-kit-gun")
+
+                    buy_dict["team_a"].append(basic_match_info["team_a_tricode"])
+                    buy_dict["team_b"].append(basic_match_info["team_b_tricode"])
+                    buy_dict["map"].append(map_name)
+                    buy_dict["map_id_vlr"].append(game_id)
+                    buy_dict["round"].append(round_number)
+                    buy_dict["team"].append(row.find(class_="lg-mir-tag").get_text(strip=True))
+                    buy_dict["side"].append(side)
+                    buy_dict["slot"].append(slot)
+                    buy_dict["player"].append(row.find(class_="lg-mir-name").get_text(strip=True))
+                    buy_dict["agent"].append(agent.group(1) if agent else None)
+                    buy_dict["shield"].append(
+                        SHIELD_NAMES.get(shield_img.get("title"), shield_img.get("title")) if shield_img else "No armor"
+                    )
+                    buy_dict["weapon"].append(gun_img.get("title") if gun_img else None)
+                    spent = row.find(class_="lg-kit-spent")
+                    bank = row.find(class_="lg-mir-left")
+                    buy_dict["spent"].append(parse_credits(spent.get_text() if spent else ""))
+                    buy_dict["bank"].append(parse_credits(bank.get_text() if bank else ""))
+                    buy_dict["date"].append(date)
+                    buy_dict["event"].append(event)
+                    buy_dict["source_url"].append(source_url)
+
+            # eventos
+            map_div = round_div.find("div", class_="lg-map")
+            if map_div is None or not map_div.get("data-map"):
+                continue
+            data = json.loads(map_div["data-map"])
+            players = data.get("players", {})
+            feed_rows = {
+                int(row["data-ev"]): row for row in round_div.select(".lg-feed .lg-row[data-ev]")
+            }
+
+            def player_info(player_id):
+                info = players.get(str(player_id))
+                if info is None:
+                    return None, None
+                return info[2], band_tags.get(info[0])
+
+            for index, ev in enumerate(data.get("events", [])):
+                feed_row = feed_rows.get(index)
+                source = feed_row.find(class_="lg-source") if feed_row else None
+                site = feed_row.find(class_="lg-site-text") if feed_row else None
+                by_player, by_team = player_info(ev.get("by"))
+                victim, victim_team = player_info(ev.get("vid")) if "vid" in ev else (None, None)
+                # pos: donde ocurre el evento (la victima en una kill, el spike en plant/defuse);
+                # from: desde donde disparo el killer (solo kills). Coordenadas del svg del mapa
+                pos = ev.get("pos") or [None, None]
+                origin = ev.get("from") or [None, None]
+
+                events_dict["map"].append(map_name)
+                events_dict["map_id_vlr"].append(game_id)
+                events_dict["round"].append(round_number)
+                events_dict["ev_index"].append(index)
+                events_dict["clock"].append(ev.get("t"))
+                events_dict["type"].append(ev.get("type"))
+                events_dict["by_player"].append(by_player)
+                events_dict["by_team"].append(by_team)
+                events_dict["victim"].append(victim)
+                events_dict["victim_team"].append(victim_team)
+                events_dict["weapon"].append(source.get("title") if source else None)
+                events_dict["site"].append(site.get_text(strip=True) if site else None)
+                events_dict["pos_x"].append(pos[0])
+                events_dict["pos_y"].append(pos[1])
+                events_dict["from_x"].append(origin[0])
+                events_dict["from_y"].append(origin[1])
+                events_dict["date"].append(date)
+                events_dict["event"].append(event)
+                events_dict["source_url"].append(source_url)
+
+    return buy_dict, events_dict
 
 
 def get_player_stats(soup, basic_match_info):

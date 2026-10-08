@@ -195,3 +195,52 @@ def save_player_stats_to_csv(player_stats_dict, folder="csv", encoding='utf-8'):
 
         writer.writerows(zip(*player_stats_dict.values()))
 
+
+def save_round_buy_to_csv(buy_dict, folder="csv", encoding="utf-8"):
+    """save the buy rows of get_round_logs() to csv
+
+    Args:
+        buy_dict (dict): primer dict de get_round_logs()
+        folder (str, optional): name of the default folder for the export. Defaults to "csv".
+        encoding (str, optional): encoding for the csv file. Defaults to 'utf-8'.
+    """
+    normalized_tournament = tournament_from_rows(buy_dict, "round_buy")
+    if normalized_tournament is None:
+        return
+
+    file_path = get_folder_path(folder_name=folder, normalized_tournament=normalized_tournament, file_prefix="round_buy")
+
+    header = buy_dict.keys()
+    file_exists = os.path.isfile(file_path)
+
+    with open(file_path, "a", newline="", encoding=encoding) as f:
+        writer = csv.writer(f)
+        if not file_exists:
+            writer.writerow(header)
+
+        writer.writerows(zip(*buy_dict.values()))
+
+
+def save_round_events_to_csv(events_dict, folder="csv", encoding="utf-8"):
+    """save the event rows of get_round_logs() to csv
+
+    Args:
+        events_dict (dict): segundo dict de get_round_logs()
+        folder (str, optional): name of the default folder for the export. Defaults to "csv".
+        encoding (str, optional): encoding for the csv file. Defaults to 'utf-8'.
+    """
+    normalized_tournament = tournament_from_rows(events_dict, "round_events")
+    if normalized_tournament is None:
+        return
+
+    file_path = get_folder_path(folder_name=folder, normalized_tournament=normalized_tournament, file_prefix="round_events")
+
+    header = events_dict.keys()
+    file_exists = os.path.isfile(file_path)
+
+    with open(file_path, "a", newline="", encoding=encoding) as f:
+        writer = csv.writer(f)
+        if not file_exists:
+            writer.writerow(header)
+
+        writer.writerows(zip(*events_dict.values()))

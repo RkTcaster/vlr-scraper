@@ -36,7 +36,7 @@ Pull before running notebooks locally to avoid conflicts with the bot's commits.
 - **`vlr_scraper.ipynb`** — the current/canonical scraper. Cells 1–2 define all functions; later cells
   are interactive scratch/testing against a single hardcoded match `url`. Per-tournament CSVs are written to
   `csv/<normalized_tournament>/` with prefixes: `draft_`, `player_stats_`, `player_performance_`,
-  `round_detail_`, `team_economy_`, `error_match_`.
+  `round_detail_`, `team_economy_`, `round_buy_`, `round_events_`, `error_match_`.
 - **`csv_process.ipynb`** — consolidation pipeline. `concat_csv_from_different_folders(folder, prefix)` reads
   every per-tournament CSV with a given prefix across `csv/*/`, then builds the dimension/fact tables in
   `tables/table_*.csv` (region, tournament, teams, players, maps, round info, economy, drafts, performance).
@@ -68,6 +68,12 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
   page; `scrape_event` skips ok/skipped (and errors after 3 attempts) without fetching the match. `process_match`
   purges the match's rows from its tournament CSVs before extracting, so retries never duplicate. If the log is
   missing it is bootstrapped from `draft_*.csv` (ok) and legacy `error_match_*.csv` (error).
+- **Logs tab** — `get_round_logs` requests `?game=<game_id>&tab=logs` once per played map (each page holds every
+  round of that map). `round_buy_` is long (one row per player-round, `slot` = vlr's order); `round_events_` has
+  kills/plant/defuse (`pos` = victim/spike, `from` = killer). `table_round_buy` pivots buys to one row per round,
+  PK `team_map_round_id` (same `sort_teams` rule as round_info). Matches scraped before this have `has_logs` empty
+  in scrape_log: `python -m vlr_pipeline backfill-logs [--limit N] [--tournament X]` fills them without touching
+  status/attempts. The Supabase table is created by hand from `sql/round_buy.sql`.
 - **Manual lookup lists** — new maps and agents must be added by hand to the hardcoded lists in
   `csv_process.ipynb` (map_info / agent_path_name), otherwise their rows won't get IDs/images.
 

@@ -1,4 +1,4 @@
-"""CLI del pipeline: python -m vlr_pipeline {scrape,process,upload,all}.
+"""CLI del pipeline: python -m vlr_pipeline {scrape,backfill-logs,process,upload,all}.
 
 Exit codes: 0 ok (incluye scrape con algunos matches en status error: se loguea un warning,
 y en GitHub Actions tambien una anotacion ::warning::); 1 error fatal o fallo el upsert a Supabase;
@@ -34,6 +34,14 @@ def build_parser():
                           help="incluye tambien los eventos con active=false")
     p_scrape.add_argument("--csv-dir", default=config.DEFAULT_CSV_DIR)
     p_scrape.add_argument("--encoding", default=config.DEFAULT_SCRAPE_ENCODING)
+
+    p_backfill = sub.add_parser("backfill-logs",
+                                help="agrega la solapa logs (compras/kills) a los matches ya scrapeados")
+    p_backfill.add_argument("--csv-dir", default=config.DEFAULT_CSV_DIR)
+    p_backfill.add_argument("--encoding", default=config.DEFAULT_SCRAPE_ENCODING)
+    p_backfill.add_argument("--limit", type=int, default=None, help="maximo de matches en esta corrida")
+    p_backfill.add_argument("--tournament", default=None,
+                            help="solo un torneo (nombre normalizado, p.ej. vct_2026_emea_stage_1)")
 
     p_process = sub.add_parser("process", help="consolida csv/ en tables/table_*.csv")
     p_process.add_argument("--csv-dir", default=config.DEFAULT_CSV_DIR)
@@ -81,6 +89,17 @@ def cmd_scrape(args):
         return 0
 
     error_count = scrape_all(events, folder=args.csv_dir, encoding=args.encoding)
+    if error_count:
+        warn_scrape_errors(error_count)
+    return 0
+
+
+def cmd_backfill_logs(args):
+    from vlr_pipeline.scraper import backfill_logs
+
+    error_count = backfill_logs(
+        folder=args.csv_dir, encoding=args.encoding, limit=args.limit, tournament=args.tournament
+    )
     if error_count:
         warn_scrape_errors(error_count)
     return 0
@@ -135,6 +154,7 @@ def cmd_all(args):
 
 COMMANDS = {
     "scrape": cmd_scrape,
+    "backfill-logs": cmd_backfill_logs,
     "process": cmd_process,
     "upload": cmd_upload,
     "all": cmd_all,

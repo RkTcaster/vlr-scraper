@@ -17,11 +17,15 @@ EXPECTED_DIR = os.path.join(FIXTURES_DIR, "expected")
 def fixture_soup_open(url=None, decode="iso-8859-1"):
     """Reemplazo de fetch.soup_open que lee el html guardado en tests/fixtures/html/<series_id>/.
 
-    Para agregar un match: bajar match/performance/economy.html (mismas urls que usan los
-    parsers), comprimir con gzip y guardar el csv esperado en tests/fixtures/expected/.
+    Para agregar un match: bajar match/performance/economy.html y logs_<game_id>.html de cada
+    mapa jugado (mismas urls que usan los parsers), comprimir con gzip y guardar el csv
+    esperado en tests/fixtures/expected/.
     """
     series_id = re.search(r"vlr\.gg/(\d+)", url).group(1)
-    if "tab=performance" in url:
+    logs_game = re.search(r"game=(\d+)&tab=logs", url)
+    if logs_game:
+        name = f"logs_{logs_game.group(1)}"
+    elif "tab=performance" in url:
         name = "performance"
     elif "tab=economy" in url:
         name = "economy"

@@ -12,6 +12,7 @@ from vlr_pipeline.parsers import (
     get_player_performance,
     get_player_stats,
     get_round_detail,
+    get_round_logs,
     get_team_economy,
 )
 from vlr_pipeline.save import (
@@ -19,9 +20,19 @@ from vlr_pipeline.save import (
     save_draft_to_csv,
     save_player_performance_to_csv,
     save_player_stats_to_csv,
+    save_round_buy_to_csv,
+    save_round_events_to_csv,
     save_team_economy,
 )
-from vlr_pipeline.tracking import load_log, purge_match_rows, record, save_log, should_skip
+from vlr_pipeline.tracking import (
+    LOGS_PREFIXES,
+    load_log,
+    purge_match_rows,
+    record,
+    save_log,
+    should_skip,
+    update_fields,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -92,6 +103,18 @@ def linkExtractor(url):
     return list(dict.fromkeys("https://www.vlr.gg" + link for link in links))
 
 
+def save_round_logs(soup, url, basic_match_info, folder="csv", encoding="utf-8"):
+    """Extrae la solapa logs del match y guarda round_buy_ / round_events_.
+
+    Returns:
+        bool: True si el match tenia logs
+    """
+    buy_dict, events_dict = get_round_logs(soup, url, basic_match_info)
+    save_round_buy_to_csv(buy_dict, folder=folder, encoding=encoding)
+    save_round_events_to_csv(events_dict, folder=folder, encoding=encoding)
+    return bool(buy_dict["event"])
+
+
 def process_match(url, folder="csv", encoding="utf-8"):
     """main fuction to process match url
 
@@ -104,31 +127,35 @@ def process_match(url, folder="csv", encoding="utf-8"):
 
     Returns:
         dict: status ("ok" / "error" / "skipped" / None si el match todavia no es final),
-            error, event, has_performance, has_economy
+            error, event, has_performance, has_economy, has_logs
     """
-    result = {"status": None, "error": "", "event": "", "has_performance": "", "has_economy": ""}
+    result = {
+        "status": None, "error": "", "event": "", "has_performance": "", "has_economy": "", "has_logs": "",
+    }
 
     time.sleep(random.randint(1, 2))
-    soup = soup_open(url)
-
-    invalid_reason = get_invalid_reason(soup)
-    if invalid_reason == "showmatch":
-        logger.info(f"showmatch, lo salteo: {url}")
-        result["status"] = "skipped"
-        result["error"] = "showmatch"
-        return result
-    if invalid_reason is not None:
-        # la card decia Completed pero el match no esta final: no se registra y se
-        # vuelve a mirar en la proxima corrida
-        logger.info(f"Not valid match ({invalid_reason}): {url}")
-        return result
-
-    basic_match_info = get_basic_match_info(soup, url)
-    result["event"] = basic_match_info["event"]
-    purge_match_rows(normalize_filename(basic_match_info["event"]), url, folder=folder)
-
-    logger.info(f"processing: {url}")
+    # todo dentro del try: un fallo de red o de layout en un match lo deja en status error
+    # en vez de cortar la corrida entera (y con ella el process y el upload)
     try:
+        soup = soup_open(url)
+
+        invalid_reason = get_invalid_reason(soup)
+        if invalid_reason == "showmatch":
+            logger.info(f"showmatch, lo salteo: {url}")
+            result["status"] = "skipped"
+            result["error"] = "showmatch"
+            return result
+        if invalid_reason is not None:
+            # la card decia Completed pero el match no esta final: no se registra y se
+            # vuelve a mirar en la proxima corrida
+            logger.info(f"Not valid match ({invalid_reason}): {url}")
+            return result
+
+        basic_match_info = get_basic_match_info(soup, url)
+        result["event"] = basic_match_info["event"]
+        purge_match_rows(normalize_filename(basic_match_info["event"]), url, folder=folder)
+
+        logger.info(f"processing: {url}")
         # Round detail
         get_round_detail(
             soup=soup,
@@ -162,6 +189,9 @@ def process_match(url, folder="csv", encoding="utf-8"):
             team_economy_dict[0], folder=folder, encoding=encoding
         )
         result["has_economy"] = bool(team_economy_dict[0]["event"])
+
+        # Round logs (compras + kills/plant/defuse)
+        result["has_logs"] = save_round_logs(soup, url, basic_match_info, folder=folder, encoding=encoding)
 
         draft = get_picks_bans(soup=soup, basic_match_info=basic_match_info)
         save_draft_to_csv(draft, url, folder=folder, encoding=encoding)
@@ -212,6 +242,7 @@ def scrape_event(event_url, folder="csv", encoding="iso-8859-1", log=None):
             error=result["error"],
             has_performance=result["has_performance"],
             has_economy=result["has_economy"],
+            has_logs=result["has_logs"],
         )
         # guardar despues de cada match: si la corrida se corta, lo hecho queda registrado
         save_log(log, folder)
@@ -224,11 +255,59 @@ def scrape_all(events, folder="csv", encoding="iso-8859-1"):
     """Scrapea una lista de eventos (dicts de events.json con name/url).
 
     Returns:
-        int: total de matches con error en todos los eventos
+        int: total de matches con error en todos los eventos, mas 1 por evento que fallo entero
     """
     total_errors = 0
     for event in events:
         logger.info(f"event: {event.get('name', event['url'])}")
         # se relee por evento porque scrape_event guarda el log despues de cada match
-        total_errors += scrape_event(event["url"], folder=folder, encoding=encoding)
+        try:
+            total_errors += scrape_event(event["url"], folder=folder, encoding=encoding)
+        except Exception:
+            # p.ej. no se pudo leer la pagina de matches del evento: se sigue con los demas
+            # y cuenta como un error mas para el ::warning:: del cli
+            logger.exception(f"fallo el scrape del evento {event['url']}")
+            total_errors += 1
     return total_errors
+
+
+def backfill_logs(folder="csv", encoding="iso-8859-1", limit=None, tournament=None):
+    """Agrega la solapa logs a los matches ok de scrape_log.csv que todavia no la tienen.
+
+    Solo purga y reescribe round_buy_ / round_events_; no cambia status ni attempts, pero
+    actualiza last_attempt para que el upload incremental re-suba la serie.
+
+    Args:
+        limit (int, optional): maximo de matches a procesar en esta corrida
+        tournament (str, optional): solo los matches de este torneo normalizado
+
+    Returns:
+        int: cantidad de matches que fallaron
+    """
+    log = load_log(folder)
+    pending = log[(log["status"] == "ok") & (log["has_logs"] == "")]
+    if tournament:
+        pending = pending[pending["tournament"] == tournament]
+    urls = list(pending["url"])
+    if limit:
+        urls = urls[:limit]
+    logger.info(f"backfill-logs: {len(pending)} matches sin logs, proceso {len(urls)}")
+
+    error_count = 0
+    for count, url in enumerate(urls, 1):
+        time.sleep(random.randint(1, 2))
+        try:
+            soup = soup_open(url)
+            basic_match_info = get_basic_match_info(soup, url)
+            purge_match_rows(
+                normalize_filename(basic_match_info["event"]), url, folder=folder, prefixes=LOGS_PREFIXES
+            )
+            has_logs = save_round_logs(soup, url, basic_match_info, folder=folder, encoding=encoding)
+        except Exception as e:
+            logger.warning(f"backfill-logs: error en {url}: {e}")
+            error_count += 1
+            continue
+        log = update_fields(log, url, has_logs=has_logs)
+        save_log(log, folder)
+        logger.info(f"backfill-logs {count}/{len(urls)}: {url} (logs: {has_logs})")
+    return error_count

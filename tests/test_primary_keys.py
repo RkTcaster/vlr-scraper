@@ -10,6 +10,10 @@ import pytest
 
 from vlr_pipeline.upload import FILES_TO_UPLOAD, read_rows, validate_rows
 
+# tablas que pueden salir vacias: round_buy hasta correr backfill-logs sobre csv/
+# (la tabla igual se testea con los fixtures en test_round_logs.py)
+OPTIONAL_FILES = {"table_round_buy.csv"}
+
 
 @pytest.mark.parametrize("file, table, pk, kind", FILES_TO_UPLOAD, ids=[entry[0] for entry in FILES_TO_UPLOAD])
 def test_primary_key_unique(tables_dir, file, table, pk, kind):
@@ -17,6 +21,8 @@ def test_primary_key_unique(tables_dir, file, table, pk, kind):
     assert os.path.isfile(path), f"build_all no genero {file}"
 
     rows = read_rows(path)
+    if not rows and file in OPTIONAL_FILES:
+        pytest.skip(f"{file} vacio: csv/ todavia no tiene esos datos crudos")
     assert rows, f"{file} vacio"
     assert validate_rows(rows, pk, file) == []
 

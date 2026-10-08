@@ -71,9 +71,15 @@ FILES_TO_UPLOAD = [
     ("table_team_economy.csv", "team_economy", "team_a, team_map_round_id", FACT),
     ("table_player_stats.csv", "player_stats", "map_id, player", FACT),
     ("table_player_performance.csv", "player_performance", "map_id, player", FACT),
+    ("table_round_buy.csv", "round_buy", "team_map_round_id", FACT),
     # ultima: en incremental los series_id que no esten aca se consideran pendientes
     ("table_match_id.csv", "match_id", "series_id", MARKER),
 ]
+
+
+# tablas con columnas numericas que pueden venir vacias (p.ej. un slot sin jugador en round_buy):
+# "" no es un integer valido en Postgres, asi que se manda NULL
+EMPTY_AS_NULL = {"round_buy"}
 
 
 def has_credentials():
@@ -325,6 +331,8 @@ def run_upload(client, tables_dir="tables", chunk_size=CHUNK_SIZE, dry_run=False
             failed_rows = 0
             for start in range(0, len(rows), chunk_size):
                 chunk = rows[start:start + chunk_size]
+                if table in EMPTY_AS_NULL:
+                    chunk = [{column: (value if value != "" else None) for column, value in row.items()} for row in chunk]
                 try:
                     # returning=minimal: no traer las filas de vuelta (upload.mjs tampoco lo hace)
                     client.table(table).upsert(chunk, on_conflict=pk, returning=returning).execute()

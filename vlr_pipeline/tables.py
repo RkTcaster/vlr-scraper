@@ -424,6 +424,76 @@ def build_team_economy(df_maps_id, df_round_concat, csv_dir="csv", tables_dir="t
     df_team_economy.to_csv(path_or_buf=os.path.join(tables_dir, 'table_team_economy.csv'), index=False, encoding='iso-8859-1')  # No china, sometimes vlr dont have the data on china
 
 
+ROUND_BUY_KEYS = ["team_map_round_id", "series_id", "map_id", "round", "team_a", "team_b", "side_team_a", "reg_id", "tour_id"]
+# campo del csv crudo -> sufijo de la columna ancha ("" = player_k_team_x a secas)
+ROUND_BUY_FIELDS = {"player": "", "agent": "_agent", "weapon": "_weapon", "shield": "_shield", "spent": "_spend", "bank": "_bank"}
+ROUND_BUY_SLOTS = range(1, 6)
+
+
+def round_buy_columns():
+    columns = list(ROUND_BUY_KEYS)
+    for team in ("team_a", "team_b"):
+        for slot in ROUND_BUY_SLOTS:
+            columns += [f"player_{slot}_{team}{suffix}" for suffix in ROUND_BUY_FIELDS.values()]
+    return columns
+
+
+def build_round_buy(df_maps_id, csv_dir="csv", tables_dir="tables"):
+    """table_round_buy.csv: una fila por ronda con la compra de los 10 jugadores.
+
+    Viene de csv/*/round_buy_*.csv (largo, una fila por jugador y ronda). El slot es el
+    orden en que vlr muestra a los jugadores del equipo; team_a/team_b son los mismos de
+    round_info y team_map_round_id usa la misma regla (sort_teams), asi que joinea directo.
+    """
+    path = os.path.join(tables_dir, "table_round_buy.csv")
+    file_list = find_files_by_prefix(root_folder=csv_dir, prefix="round_buy")
+    if not file_list:
+        # antes del backfill no hay round_buy: tabla vacia con headers
+        pd.DataFrame(columns=round_buy_columns()).to_csv(path_or_buf=path, index=False, encoding="iso-8859-1")
+        return
+
+    df_buy = concat_from_list(file_list)
+    df_buy["series_id"] = df_buy["source_url"].apply(match_id_vlr)
+    df_buy["map_id"] = df_buy["series_id"] + "-" + df_buy["map"]
+    df_buy = pd.merge(df_buy, df_maps_id[["map_id", "reg_id", "tour_id"]], how="left", left_on="map_id", right_on="map_id")
+
+    df_buy["team_map_round_id"] = (
+        df_buy["team_a"] + "-" + df_buy["team_b"] + "-" + df_buy["map_id"] + "-" + df_buy["round"].astype(str)
+    ).apply(sort_teams)
+
+    unknown_team = (df_buy["team"] != df_buy["team_a"]) & (df_buy["team"] != df_buy["team_b"])
+    if unknown_team.any():
+        logger.warning(f"round_buy: {int(unknown_team.sum())} filas con un tag que no es team_a ni team_b")
+    df_buy["which"] = np.where(df_buy["team"] == df_buy["team_a"], "team_a", "team_b")
+
+    duplicated = df_buy.duplicated(subset=["team_map_round_id", "which", "slot"])
+    if duplicated.any():
+        logger.warning(f"round_buy: descarto {int(duplicated.sum())} filas con slot repetido")
+        df_buy = df_buy[~duplicated]
+
+    df_side = (
+        df_buy[df_buy["which"] == "team_a"]
+        .drop_duplicates(subset=["team_map_round_id"])[["team_map_round_id", "side"]]
+        .rename(columns={"side": "side_team_a"})
+    )
+    df_keys = df_buy.drop_duplicates(subset=["team_map_round_id"])[
+        ["team_map_round_id", "series_id", "map_id", "round", "team_a", "team_b", "reg_id", "tour_id"]
+    ]
+    df_keys = pd.merge(df_keys, df_side, how="left", on="team_map_round_id")
+
+    # Int64 (nullable): si falta un slot el unstack deja NA y no pasa todo a float ("2400.0")
+    df_buy = df_buy.astype({"spent": "Int64", "bank": "Int64"})
+    df_wide = df_buy.set_index(["team_map_round_id", "which", "slot"])[list(ROUND_BUY_FIELDS)].unstack(["which", "slot"])
+    df_wide.columns = [f"player_{slot}_{which}{ROUND_BUY_FIELDS[field]}" for field, which, slot in df_wide.columns]
+    df_wide = df_wide.reset_index()
+
+    df_round_buy = pd.merge(df_keys, df_wide, how="left", on="team_map_round_id")
+    # columnas fijas aunque falte algun slot (p.ej. un jugador desconectado toda la ronda)
+    df_round_buy = df_round_buy.reindex(columns=round_buy_columns())
+
+    df_round_buy.to_csv(path_or_buf=path, index=False, encoding="iso-8859-1")
+
+
 def build_agent_info(tables_dir="tables"):
     """Celda 18: table_agent_info.csv."""
     agent_info = {"agent_name": [], "agent_path": []}
@@ -468,6 +538,9 @@ def build_all(csv_dir="csv", tables_dir="tables"):
 
     logger.info("building table_team_economy")
     build_team_economy(df_maps_id, df_round_concat, csv_dir, tables_dir)
+
+    logger.info("building table_round_buy")
+    build_round_buy(df_maps_id, csv_dir, tables_dir)
 
     logger.info("building table_agent_info")
     build_agent_info(tables_dir)
