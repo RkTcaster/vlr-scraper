@@ -71,9 +71,11 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
 - **Logs tab** — `get_round_logs` requests `?game=<game_id>&tab=logs` once per played map (each page holds every
   round of that map). `round_buy_` is long (one row per player-round, `slot` = vlr's order); `round_events_` has
   kills/plant/defuse (`pos` = victim/spike, `from` = killer). `table_round_buy` pivots buys to one row per round,
-  PK `team_map_round_id` (same `sort_teams` rule as round_info). Matches scraped before this have `has_logs` empty
+  PK `team_map_round_id` (same `sort_teams` rule as round_info). `table_round_events` (PK `team_map_round_id, ev_index`) and
+  `table_round_summary` (per round: first blood, plant, defuse, kills/trades) come from `round_events_` joined to
+  round_info on `map_id + round`; trades use a 5 s window (`TRADE_WINDOW`), team kills (spike/fall) are excluded. Matches scraped before this have `has_logs` empty
   in scrape_log: `python -m vlr_pipeline backfill-logs [--limit N] [--tournament X]` fills them without touching
-  status/attempts. The Supabase table is created by hand from `sql/round_buy.sql`.
+  status/attempts. The Supabase tables are created by hand from `sql/round_buy.sql` and `sql/round_events.sql`.
 - **Manual lookup lists** — new maps and agents must be added by hand to the hardcoded lists in
   `csv_process.ipynb` (map_info / agent_path_name), otherwise their rows won't get IDs/images.
 
@@ -94,3 +96,4 @@ names to match other tables. When team names fail to join, suspect an encoding m
   (os.walk order differs on Linux). Changing a PK-forming rule leaves orphan rows in Supabase (upsert never deletes);
   see `RKTDATA_CAMBIO_PLAYERS.md` for the 2026-09-14 players change handed off to the rktdata repo.
 - `backup/` — archived older tournaments and prior `tables/` snapshots.
+- `ROADMAP.md` — done/pending work; update it when finishing or adding a feature.

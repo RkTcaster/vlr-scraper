@@ -10,9 +10,9 @@ import pytest
 
 from vlr_pipeline.upload import FILES_TO_UPLOAD, read_rows, validate_rows
 
-# tablas que pueden salir vacias: round_buy hasta correr backfill-logs sobre csv/
-# (la tabla igual se testea con los fixtures en test_round_logs.py)
-OPTIONAL_FILES = {"table_round_buy.csv"}
+# tablas que pueden salir vacias: las de la solapa logs hasta correr backfill-logs sobre csv/
+# (igual se testean con los fixtures en test_round_logs.py)
+OPTIONAL_FILES = {"table_round_buy.csv", "table_round_events.csv", "table_round_summary.csv"}
 
 
 @pytest.mark.parametrize("file, table, pk, kind", FILES_TO_UPLOAD, ids=[entry[0] for entry in FILES_TO_UPLOAD])

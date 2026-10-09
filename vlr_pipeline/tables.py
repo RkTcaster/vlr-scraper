@@ -494,6 +494,158 @@ def build_round_buy(df_maps_id, csv_dir="csv", tables_dir="tables"):
     df_round_buy.to_csv(path_or_buf=path, index=False, encoding="iso-8859-1")
 
 
+# una kill es trade si mata al que mato a un companero hace <= TRADE_WINDOW segundos
+TRADE_WINDOW = 5
+ROUND_EVENTS_COLUMNS = [
+    "team_map_round_id", "ev_index", "series_id", "map_id", "map", "round", "reg_id", "tour_id",
+    "t_sec", "type", "player", "player_id", "team", "side", "victim", "victim_id", "victim_team",
+    "weapon", "site", "pos_x", "pos_y", "from_x", "from_y",
+    "is_first_blood", "is_team_kill", "is_post_plant", "is_trade", "is_traded",
+]
+ROUND_SUMMARY_COLUMNS = [
+    "team_map_round_id", "series_id", "map_id", "round", "reg_id", "tour_id", "team_a", "team_b", "side_team_a",
+    "fb_player_id", "fb_team", "fb_victim_id", "fb_t",
+    "plant_t", "plant_site", "plant_player_id", "defuse_t", "defuse_player_id",
+    "kills_team_a", "kills_team_b", "trades_team_a", "trades_team_b", "last_event_t",
+]
+
+
+def clock_to_seconds(clock):
+    "'1:25' (tiempo desde el inicio de la ronda) -> 85"
+    minutes, seconds = str(clock).split(":")
+    return int(minutes) * 60 + int(seconds)
+
+
+def mark_trades(df_events):
+    """Columnas is_trade / is_traded de las kills de df_events (ordenado por ronda y ev_index).
+
+    is_trade: la kill mata a alguien que mato a un companero del killer hace <= TRADE_WINDOW s.
+    is_traded: esa muerte del companero fue tradeada. Las team kills (spike, caida) no cuentan.
+    """
+    is_trade = pd.Series(False, index=df_events.index)
+    is_traded = pd.Series(False, index=df_events.index)
+    kills = df_events[(df_events["type"] == "kill") & ~df_events["is_team_kill"]]
+    for _, round_kills in kills.groupby("team_map_round_id", sort=False):
+        previous = []
+        for index, kill in round_kills.iterrows():
+            for prev_index, prev in previous:
+                if (
+                    prev["player"] == kill["victim"]
+                    and prev["victim_team"] == kill["team"]
+                    and kill["t_sec"] - prev["t_sec"] <= TRADE_WINDOW
+                ):
+                    is_trade[index] = True
+                    is_traded[prev_index] = True
+            previous.append((index, kill))
+    return is_trade, is_traded
+
+
+def build_round_events(df_round_concat, df_players_id, csv_dir="csv", tables_dir="tables"):
+    """table_round_events.csv (una fila por kill/plant/defuse) y table_round_summary.csv (una por ronda).
+
+    Vienen de csv/*/round_events_*.csv. team_map_round_id, reg_id/tour_id y el lado salen de
+    round_info (join por map_id + round). player_id/victim_id son los de table_players (equipo
+    mas reciente del jugador); team/victim_team son los tags de ese match.
+    """
+    events_path = os.path.join(tables_dir, "table_round_events.csv")
+    summary_path = os.path.join(tables_dir, "table_round_summary.csv")
+    file_list = find_files_by_prefix(root_folder=csv_dir, prefix="round_events")
+    if not file_list:
+        # antes del backfill no hay round_events: tablas vacias con headers
+        pd.DataFrame(columns=ROUND_EVENTS_COLUMNS).to_csv(path_or_buf=events_path, index=False, encoding="iso-8859-1")
+        pd.DataFrame(columns=ROUND_SUMMARY_COLUMNS).to_csv(path_or_buf=summary_path, index=False, encoding="iso-8859-1")
+        return
+
+    df_events = concat_from_list(file_list)
+    df_events["series_id"] = df_events["source_url"].apply(match_id_vlr)
+    df_events["map_id"] = df_events["series_id"] + "-" + df_events["map"]
+    df_events = pd.merge(
+        df_events,
+        df_round_concat[["map_id", "round", "teamA", "teamB", "side", "team_map_round_id", "reg_id", "tour_id"]],
+        how="left",
+        on=["map_id", "round"],
+    )
+    no_round = df_events["team_map_round_id"].isna()
+    if no_round.any():
+        logger.warning(f"round_events: descarto {int(no_round.sum())} eventos sin ronda en round_info")
+        df_events = df_events[~no_round]
+    df_events = df_events.sort_values(["team_map_round_id", "ev_index"], kind="stable").reset_index(drop=True)
+
+    df_events = df_events.rename(columns={"by_player": "player", "by_team": "team", "side": "side_team_a"})
+    df_events["t_sec"] = df_events["clock"].apply(clock_to_seconds)
+    df_events["side"] = np.where(
+        df_events["team"] == df_events["teamA"],
+        df_events["side_team_a"],
+        np.where(df_events["side_team_a"] == "atk", "def", "atk"),
+    )
+
+    player_ids = df_players_id.set_index("player")["player_id"]
+    df_events["player_id"] = df_events["player"].map(player_ids)
+    df_events["victim_id"] = df_events["victim"].map(player_ids)
+    no_id = df_events["player_id"].isna() | (df_events["victim"].notna() & df_events["victim_id"].isna())
+    if no_id.any():
+        logger.warning(f"round_events: {int(no_id.sum())} eventos con un jugador que no esta en table_players")
+
+    is_kill = df_events["type"] == "kill"
+    df_events["is_team_kill"] = is_kill & (df_events["team"] == df_events["victim_team"])
+    valid_kill = is_kill & ~df_events["is_team_kill"]
+    df_events["is_first_blood"] = valid_kill & (valid_kill.astype(int).groupby(df_events["team_map_round_id"]).cumsum() == 1)
+
+    plant_index = (
+        df_events.loc[df_events["type"] == "plant"].groupby("team_map_round_id")["ev_index"].min()
+    )
+    df_events["is_post_plant"] = df_events["ev_index"] > df_events["team_map_round_id"].map(plant_index).fillna(np.inf)
+    df_events["is_trade"], df_events["is_traded"] = mark_trades(df_events)
+
+    df_events[ROUND_EVENTS_COLUMNS].to_csv(path_or_buf=events_path, index=False, encoding="iso-8859-1")
+
+    # resumen por ronda
+    df_summary = df_events.drop_duplicates(subset=["team_map_round_id"])[
+        ["team_map_round_id", "series_id", "map_id", "round", "reg_id", "tour_id", "teamA", "teamB", "side_team_a"]
+    ].rename(columns={"teamA": "team_a", "teamB": "team_b"})
+
+    first_blood = df_events[df_events["is_first_blood"]].set_index("team_map_round_id")
+    df_summary = df_summary.join(
+        first_blood[["player_id", "team", "victim_id", "t_sec"]].rename(
+            columns={"player_id": "fb_player_id", "team": "fb_team", "victim_id": "fb_victim_id", "t_sec": "fb_t"}
+        ),
+        on="team_map_round_id",
+    )
+    plant = df_events[df_events["type"] == "plant"].drop_duplicates(subset=["team_map_round_id"]).set_index("team_map_round_id")
+    df_summary = df_summary.join(
+        plant[["t_sec", "site", "player_id"]].rename(
+            columns={"t_sec": "plant_t", "site": "plant_site", "player_id": "plant_player_id"}
+        ),
+        on="team_map_round_id",
+    )
+    defuse = df_events[df_events["type"] == "defuse"].drop_duplicates(subset=["team_map_round_id"]).set_index("team_map_round_id")
+    df_summary = df_summary.join(
+        defuse[["t_sec", "player_id"]].rename(columns={"t_sec": "defuse_t", "player_id": "defuse_player_id"}),
+        on="team_map_round_id",
+    )
+
+    df_valid = df_events[valid_kill]
+    team_a_kill = df_valid["team"] == df_valid["teamA"]
+    counts = pd.DataFrame({
+        "kills_team_a": team_a_kill,
+        "kills_team_b": ~team_a_kill,
+        "trades_team_a": team_a_kill & df_valid["is_trade"],
+        "trades_team_b": ~team_a_kill & df_valid["is_trade"],
+    }).groupby(df_valid["team_map_round_id"]).sum()
+    df_summary = df_summary.join(counts, on="team_map_round_id")
+    df_summary = df_summary.join(
+        df_events.groupby("team_map_round_id")["t_sec"].max().rename("last_event_t"), on="team_map_round_id"
+    )
+
+    # Int64 (nullable): una ronda sin plant/defuse/kills deja NA y no "85.0"
+    int_columns = ["fb_t", "plant_t", "defuse_t", "kills_team_a", "kills_team_b", "trades_team_a", "trades_team_b"]
+    df_summary[int_columns] = df_summary[int_columns].astype("Float64").fillna(
+        {column: 0 for column in int_columns if column.startswith(("kills", "trades"))}
+    ).astype("Int64")
+
+    df_summary[ROUND_SUMMARY_COLUMNS].to_csv(path_or_buf=summary_path, index=False, encoding="iso-8859-1")
+
+
 def build_agent_info(tables_dir="tables"):
     """Celda 18: table_agent_info.csv."""
     agent_info = {"agent_name": [], "agent_path": []}
@@ -519,7 +671,7 @@ def build_all(csv_dir="csv", tables_dir="tables"):
     df_team = build_teams(csv_dir, tables_dir)
 
     logger.info("building table_players")
-    build_players(df_team, csv_dir, tables_dir)
+    df_players_id = build_players(df_team, csv_dir, tables_dir)
 
     logger.info("building table_maps_id / table_match_id / table_tournament_played")
     df_maps_id = build_ids(df_tournaments, csv_dir, tables_dir)
@@ -541,6 +693,9 @@ def build_all(csv_dir="csv", tables_dir="tables"):
 
     logger.info("building table_round_buy")
     build_round_buy(df_maps_id, csv_dir, tables_dir)
+
+    logger.info("building table_round_events / table_round_summary")
+    build_round_events(df_round_concat, df_players_id, csv_dir, tables_dir)
 
     logger.info("building table_agent_info")
     build_agent_info(tables_dir)

@@ -72,6 +72,8 @@ FILES_TO_UPLOAD = [
     ("table_player_stats.csv", "player_stats", "map_id, player", FACT),
     ("table_player_performance.csv", "player_performance", "map_id, player", FACT),
     ("table_round_buy.csv", "round_buy", "team_map_round_id", FACT),
+    ("table_round_events.csv", "round_events", "team_map_round_id, ev_index", FACT),
+    ("table_round_summary.csv", "round_summary", "team_map_round_id", FACT),
     # ultima: en incremental los series_id que no esten aca se consideran pendientes
     ("table_match_id.csv", "match_id", "series_id", MARKER),
 ]
@@ -79,7 +81,7 @@ FILES_TO_UPLOAD = [
 
 # tablas con columnas numericas que pueden venir vacias (p.ej. un slot sin jugador en round_buy):
 # "" no es un integer valido en Postgres, asi que se manda NULL
-EMPTY_AS_NULL = {"round_buy"}
+EMPTY_AS_NULL = {"round_buy", "round_events", "round_summary"}
 
 
 def has_credentials():
