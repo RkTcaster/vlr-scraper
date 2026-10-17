@@ -25,7 +25,11 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
+      # main actual y no github.sha: un "Re-run" de una corrida vieja usa el sha original, y
+      # correria codigo viejo sobre un scrape_log viejo (y el push termina en conflicto)
       - uses: actions/checkout@v5
+        with:
+          ref: main
 
       - uses: actions/setup-python@v6
         with:
