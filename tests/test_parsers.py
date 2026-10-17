@@ -17,6 +17,8 @@ MATCHES = [
     "https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c",
     # Bo5
     "https://www.vlr.gg/742481/nongshim-redforce-vs-global-esports-vct-2026-pacific-stage-2-gf",
+    # economy con el layout de 2026-10 (vlr-rounds); Summit 19-17 pero vlr solo muestra 24 rondas
+    "https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b",
 ]
 
 EXPECTED_FILES = sorted(
@@ -75,3 +77,16 @@ def test_reprocessing_does_not_duplicate(offline_vlr, tmp_path):
     process_match(url, folder=str(tmp_path), encoding="iso-8859-1")
     second = {path: len(read_csv(path)) for path in tmp_path.rglob("*.csv")}
     assert first == second
+
+
+def test_failed_match_leaves_no_partial_rows(offline_vlr, monkeypatch, tmp_path):
+    """Si una solapa rompe a mitad del match no quedan las filas que ya se guardaron (y no se suben)."""
+    import vlr_pipeline.scraper as scraper
+
+    def broken_economy(url, basic_match_info):
+        raise IndexError("list index out of range")
+
+    monkeypatch.setattr(scraper, "get_team_economy", broken_economy)
+    result = process_match(MATCHES[0], folder=str(tmp_path), encoding="iso-8859-1")
+    assert result["status"] == "error"
+    assert all(len(read_csv(path)) == 0 for path in tmp_path.rglob("*.csv"))

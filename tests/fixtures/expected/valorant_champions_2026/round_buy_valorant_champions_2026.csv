@@ -599,3 +599,563 @@ TL,PRX,Lotus,283186,23,PRX,atk,2,d4v41,Vyse,Heavy,Vandal,4400,1400,2026-09-24 05
 TL,PRX,Lotus,283186,23,PRX,atk,3,f0rsakeN,Omen,Heavy,Vandal,4500,900,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
 TL,PRX,Lotus,283186,23,PRX,atk,4,Jinggg,Raze,Heavy,Vandal,4300,550,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
 TL,PRX,Lotus,283186,23,PRX,atk,5,invy,Fade,Heavy,Vandal,4350,150,2026-09-24 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753455/team-liquid-vs-paper-rex-valorant-champions-2026-opening-c
+VIT,LOUD,Ascent,285206,1,VIT,atk,1,Jamppi,Sage,No armor,Ghost,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,1,VIT,atk,2,Sayonara,Sova,No armor,Bandit,750,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,1,VIT,atk,3,PROFEK,Omen,No armor,Ghost,750,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,1,VIT,atk,4,Chronicle,Chamber,No armor,Classic,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,1,VIT,atk,5,Derke,Yoru,No armor,Sheriff,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,1,LOUD,def,1,lukxo,Yoru,No armor,Sheriff,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,1,LOUD,def,2,tkzin,Waylay,No armor,Sheriff,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,1,LOUD,def,3,Darker,Cypher,No armor,Ghost,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,1,LOUD,def,4,erde,Omen,No armor,Ghost,750,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,1,LOUD,def,5,DaviH,Sova,No armor,Bandit,750,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,2,VIT,atk,1,Jamppi,Sage,Light,Vandal,3500,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,2,VIT,atk,2,Sayonara,Sova,Heavy,Phantom,4450,2200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,2,VIT,atk,3,PROFEK,Omen,Light,Bandit,650,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,2,VIT,atk,4,Chronicle,Chamber,Heavy,Ghost,1300,2000,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,2,VIT,atk,5,Derke,Yoru,Light,Vandal,3500,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,2,LOUD,def,1,lukxo,Yoru,No armor,Classic,0,1900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,2,LOUD,def,2,tkzin,Waylay,No armor,Classic,300,1600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,2,LOUD,def,3,Darker,Cypher,No armor,Classic,0,1900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,2,LOUD,def,4,erde,Omen,No armor,Bandit,600,1750,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,2,LOUD,def,5,DaviH,Sova,No armor,Classic,150,1800,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,3,VIT,atk,1,Jamppi,Sage,Light,Vandal,500,2800,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,3,VIT,atk,2,Sayonara,Sova,Heavy,Phantom,700,2100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,3,VIT,atk,3,PROFEK,Omen,Regen,Vandal,3650,2950,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,3,VIT,atk,4,Chronicle,Chamber,Light,Vandal,3600,1900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,3,VIT,atk,5,Derke,Yoru,Heavy,Vandal,1600,1900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,3,LOUD,def,1,lukxo,Yoru,Heavy,Vandal,4300,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,3,LOUD,def,2,tkzin,Waylay,Heavy,Phantom,3900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,3,LOUD,def,3,Darker,Cypher,Light,Phantom,3900,400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,3,LOUD,def,4,erde,Omen,Light,Vandal,3900,250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,3,LOUD,def,5,DaviH,Sova,Light,Vandal,4000,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,4,VIT,atk,1,Jamppi,Sage,Heavy,Vandal,2000,4300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,4,VIT,atk,2,Sayonara,Sova,Heavy,Vandal,1400,4200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,4,VIT,atk,3,PROFEK,Omen,Heavy,Vandal,1700,4950,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,4,VIT,atk,4,Chronicle,Chamber,Heavy,Outlaw,3600,1800,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,4,VIT,atk,5,Derke,Yoru,Heavy,Vandal,3900,1300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,4,LOUD,def,1,lukxo,Yoru,No armor,Bandit,600,2500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,4,LOUD,def,2,tkzin,Waylay,No armor,Marshal,1550,1450,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,4,LOUD,def,3,Darker,Cypher,No armor,Bandit,1200,2100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,4,LOUD,def,4,erde,Omen,No armor,Sheriff,1400,1950,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,4,LOUD,def,5,DaviH,Sova,No armor,Marshal,950,2150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,5,VIT,atk,1,Jamppi,Sage,Heavy,Vandal,4900,5600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,5,VIT,atk,2,Sayonara,Sova,Heavy,Vandal,1000,6700,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,5,VIT,atk,3,PROFEK,Omen,Heavy,Vandal,600,5350,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,5,VIT,atk,4,Chronicle,Chamber,Heavy,Vandal,200,4900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,5,VIT,atk,5,Derke,Yoru,Heavy,Vandal,600,4200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,5,LOUD,def,1,lukxo,Yoru,Light,Operator,5250,150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,5,LOUD,def,2,tkzin,Waylay,Light,Phantom,3300,1050,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,5,LOUD,def,3,Darker,Cypher,Light,Phantom,3600,1600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,5,LOUD,def,4,erde,Omen,Light,Vandal,3550,1300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,5,LOUD,def,5,DaviH,Sova,Light,Vandal,3850,1200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,6,VIT,atk,1,Jamppi,Sage,Heavy,Vandal,1700,5100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,6,VIT,atk,2,Sayonara,Sova,Heavy,Vandal,1550,6150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,6,VIT,atk,3,PROFEK,Omen,Heavy,Vandal,4150,3100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,6,VIT,atk,4,Chronicle,Chamber,Heavy,Vandal,1300,4600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,6,VIT,atk,5,Derke,Yoru,Heavy,Vandal,4250,1850,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,6,LOUD,def,1,lukxo,Yoru,Light,Vandal,3650,2800,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,6,LOUD,def,2,tkzin,Waylay,Light,Phantom,1300,2750,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,6,LOUD,def,3,Darker,Cypher,Light,Phantom,600,4000,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,6,LOUD,def,4,erde,Omen,Light,Vandal,150,1250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,6,LOUD,def,5,DaviH,Sova,Light,Vandal,700,3500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,7,VIT,atk,1,Jamppi,Sage,Heavy,Vandal,1800,6500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,7,VIT,atk,2,Sayonara,Sova,Heavy,Vandal,0,6100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,7,VIT,atk,3,PROFEK,Omen,Heavy,Vandal,4150,5050,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,7,VIT,atk,4,Chronicle,Chamber,Heavy,Operator,5900,1900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,7,VIT,atk,5,Derke,Yoru,Heavy,Vandal,1450,3600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,7,LOUD,def,1,lukxo,Yoru,Light,Operator,5250,1250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,7,LOUD,def,2,tkzin,Waylay,Light,Phantom,3600,1250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,7,LOUD,def,3,Darker,Cypher,Light,Phantom,3900,2000,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,7,LOUD,def,4,erde,Omen,Light,Guardian,2800,550,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,7,LOUD,def,5,DaviH,Sova,Light,Vandal,3300,500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,8,VIT,atk,1,Jamppi,Sage,Heavy,Vandal,4900,4100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,8,VIT,atk,2,Sayonara,Sova,Heavy,Phantom,4600,4400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,8,VIT,atk,3,PROFEK,Omen,Heavy,Vandal,600,3250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,8,VIT,atk,4,Chronicle,Chamber,Heavy,Operator,5900,4000,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,8,VIT,atk,5,Derke,Yoru,Heavy,Vandal,4250,2650,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,8,LOUD,def,1,lukxo,Yoru,Light,Vandal,3650,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,8,LOUD,def,2,tkzin,Waylay,Light,Phantom,3600,250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,8,LOUD,def,3,Darker,Cypher,Light,Phantom,3900,900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,8,LOUD,def,4,erde,Omen,Light,Bulldog,2950,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,8,LOUD,def,5,DaviH,Sova,Light,Guardian,2650,250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,9,VIT,atk,1,Jamppi,Sage,Heavy,Vandal,700,6900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,9,VIT,atk,2,Sayonara,Sova,Heavy,Phantom,4750,3150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,9,VIT,atk,3,PROFEK,Omen,Heavy,Vandal,1600,5150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,9,VIT,atk,4,Chronicle,Chamber,Heavy,Operator,1800,5500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,9,VIT,atk,5,Derke,Yoru,Heavy,Vandal,4500,1650,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,9,LOUD,def,1,lukxo,Yoru,Light,Phantom,550,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,9,LOUD,def,2,tkzin,Waylay,Light,Phantom,3300,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,9,LOUD,def,3,Darker,Cypher,Light,Phantom,3800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,9,LOUD,def,4,erde,Omen,Light,Bulldog,2850,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,9,LOUD,def,5,DaviH,Sova,Light,Guardian,3350,350,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,10,VIT,atk,1,Jamppi,Sage,Heavy,Classic,1700,4400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,10,VIT,atk,2,Sayonara,Sova,Heavy,Phantom,4300,750,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,10,VIT,atk,3,PROFEK,Omen,Heavy,Vandal,4500,2750,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,10,VIT,atk,4,Chronicle,Chamber,Heavy,Vandal,4100,3300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,10,VIT,atk,5,Derke,Yoru,Heavy,Phantom,4500,1950,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,10,LOUD,def,1,lukxo,Yoru,Light,Phantom,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,10,LOUD,def,2,tkzin,Waylay,Heavy,Phantom,1900,1350,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,10,LOUD,def,3,Darker,Cypher,Heavy,Phantom,4500,1600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,10,LOUD,def,4,erde,Omen,Light,Phantom,150,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,10,LOUD,def,5,DaviH,Sova,Light,Vandal,3850,2600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,11,VIT,atk,1,Jamppi,Sage,Heavy,Vandal,4600,1900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,11,VIT,atk,2,Sayonara,Sova,Heavy,Phantom,0,1750,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,11,VIT,atk,3,PROFEK,Omen,Heavy,Vandal,4450,1000,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,11,VIT,atk,4,Chronicle,Chamber,Heavy,Vandal,4100,1600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,11,VIT,atk,5,Derke,Yoru,Heavy,Phantom,350,2600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,11,LOUD,def,1,lukxo,Yoru,Light,Phantom,650,2750,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,11,LOUD,def,2,tkzin,Waylay,Heavy,Phantom,300,4250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,11,LOUD,def,3,Darker,Cypher,Heavy,Phantom,600,4000,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,11,LOUD,def,4,erde,Omen,Heavy,Phantom,1150,2050,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,11,LOUD,def,5,DaviH,Sova,Heavy,Vandal,1700,3900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,12,VIT,atk,1,Jamppi,Sage,Heavy,Vandal,4300,1100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,12,VIT,atk,2,Sayonara,Sova,Heavy,Phantom,700,4550,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,12,VIT,atk,3,PROFEK,Omen,Heavy,Vandal,1250,3450,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,12,VIT,atk,4,Chronicle,Chamber,Heavy,Vandal,600,4500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,12,VIT,atk,5,Derke,Yoru,Heavy,Vandal,4250,1650,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,12,LOUD,def,1,lukxo,Yoru,Heavy,Vandal,4350,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,12,LOUD,def,2,tkzin,Waylay,Light,Operator,5700,450,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,12,LOUD,def,3,Darker,Cypher,Heavy,Phantom,4500,1400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,12,LOUD,def,4,erde,Omen,Heavy,Vandal,4300,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,12,LOUD,def,5,DaviH,Sova,Heavy,Odin,4500,1300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,13,VIT,def,1,Jamppi,Sage,No armor,Ghost,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,13,VIT,def,2,Sayonara,Sova,No armor,Bandit,750,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,13,VIT,def,3,PROFEK,Omen,No armor,Ghost,750,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,13,VIT,def,4,Chronicle,Chamber,No armor,Classic,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,13,VIT,def,5,Derke,Yoru,No armor,Sheriff,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,13,LOUD,atk,1,lukxo,Yoru,No armor,Ghost,750,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,13,LOUD,atk,2,tkzin,Waylay,No armor,Sheriff,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,13,LOUD,atk,3,Darker,Cypher,No armor,Ghost,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,13,LOUD,atk,4,erde,Omen,Light,Classic,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,13,LOUD,atk,5,DaviH,Sova,No armor,Sheriff,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,14,VIT,def,1,Jamppi,Sage,No armor,Classic,0,1900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,14,VIT,def,2,Sayonara,Sova,No armor,Classic,400,1550,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,14,VIT,def,3,PROFEK,Omen,No armor,Classic,0,1950,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,14,VIT,def,4,Chronicle,Chamber,No armor,Classic,200,1700,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,14,VIT,def,5,Derke,Yoru,No armor,Classic,600,1500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,14,LOUD,atk,1,lukxo,Yoru,Light,Phantom,3700,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,14,LOUD,atk,2,tkzin,Waylay,Light,Phantom,3900,2500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,14,LOUD,atk,3,Darker,Cypher,Light,Bandit,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,14,LOUD,atk,4,erde,Omen,Light,Bulldog,2400,900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,14,LOUD,atk,5,DaviH,Sova,Light,Guardian,3200,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,15,VIT,def,1,Jamppi,Sage,Regen,Vandal,4250,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,15,VIT,def,2,Sayonara,Sova,Heavy,Phantom,3900,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,15,VIT,def,3,PROFEK,Omen,Heavy,Vandal,4400,350,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,15,VIT,def,4,Chronicle,Chamber,Heavy,Phantom,3900,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,15,VIT,def,5,Derke,Yoru,Regen,Phantom,3700,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,15,LOUD,atk,1,lukxo,Yoru,Light,Phantom,750,3200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,15,LOUD,atk,2,tkzin,Waylay,Light,Phantom,0,2900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,15,LOUD,atk,3,Darker,Cypher,Light,Vandal,3900,2300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,15,LOUD,atk,4,erde,Omen,Light,Guardian,400,3800,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,15,LOUD,atk,5,DaviH,Sova,Light,Sheriff,150,3650,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,16,VIT,def,1,Jamppi,Sage,Regen,Vandal,700,2550,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,16,VIT,def,2,Sayonara,Sova,Heavy,Phantom,4600,1350,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,16,VIT,def,3,PROFEK,Omen,Heavy,Vandal,150,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,16,VIT,def,4,Chronicle,Chamber,Light,Phantom,600,500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,16,VIT,def,5,Derke,Yoru,Heavy,Phantom,4050,2050,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,16,LOUD,atk,1,lukxo,Yoru,Light,Phantom,3650,1450,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,16,LOUD,atk,2,tkzin,Waylay,Light,Phantom,3900,1100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,16,LOUD,atk,3,Darker,Cypher,Light,Vandal,3900,500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,16,LOUD,atk,4,erde,Omen,Light,Vandal,3700,2000,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,16,LOUD,atk,5,DaviH,Sova,Light,Vandal,3850,1700,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,17,VIT,def,1,Jamppi,Sage,Regen,Vandal,700,2150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,17,VIT,def,2,Sayonara,Sova,Heavy,Phantom,700,3650,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,17,VIT,def,3,PROFEK,Omen,Heavy,Vandal,4050,2750,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,17,VIT,def,4,Chronicle,Chamber,Heavy,Phantom,1400,2100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,17,VIT,def,5,Derke,Yoru,Heavy,Phantom,150,5100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,17,LOUD,atk,1,lukxo,Yoru,Light,Phantom,3650,400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,17,LOUD,atk,2,tkzin,Waylay,Light,Phantom,3300,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,17,LOUD,atk,3,Darker,Cypher,Light,Guardian,2850,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,17,LOUD,atk,4,erde,Omen,Light,Vandal,3900,500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,17,LOUD,atk,5,DaviH,Sova,Light,Vandal,3850,250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,18,VIT,def,1,Jamppi,Sage,Regen,Vandal,4050,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,18,VIT,def,2,Sayonara,Sova,Heavy,Phantom,4300,1250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,18,VIT,def,3,PROFEK,Omen,Heavy,Vandal,4300,350,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,18,VIT,def,4,Chronicle,Chamber,Light,Operator,5300,500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,18,VIT,def,5,Derke,Yoru,Light,Phantom,3650,1750,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,18,LOUD,atk,1,lukxo,Yoru,Heavy,Phantom,1900,2400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,18,LOUD,atk,2,tkzin,Waylay,Heavy,Phantom,1900,1800,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,18,LOUD,atk,3,Darker,Cypher,Heavy,Vandal,4400,1850,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,18,LOUD,atk,4,erde,Omen,Light,Vandal,3550,250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,18,LOUD,atk,5,DaviH,Sova,Light,Vandal,800,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,19,VIT,def,1,Jamppi,Sage,Heavy,Phantom,4700,1400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,19,VIT,def,2,Sayonara,Sova,Heavy,Phantom,850,3400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,19,VIT,def,3,PROFEK,Omen,Heavy,Vandal,450,2900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,19,VIT,def,4,Chronicle,Chamber,Heavy,Operator,1700,2200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,19,VIT,def,5,Derke,Yoru,Heavy,Phantom,1150,1300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,19,LOUD,atk,1,lukxo,Yoru,Light,Stinger,2100,2400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,19,LOUD,atk,2,tkzin,Waylay,No armor,Sheriff,1100,2600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,19,LOUD,atk,3,Darker,Cypher,Light,Sheriff,1600,2150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,19,LOUD,atk,4,erde,Omen,No armor,Bandit,750,1400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,19,LOUD,atk,5,DaviH,Sova,No armor,Classic,400,1550,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,20,VIT,def,1,Jamppi,Sage,Heavy,Vandal,700,3900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,20,VIT,def,2,Sayonara,Sova,Heavy,Phantom,4900,2100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,20,VIT,def,3,PROFEK,Omen,Heavy,Phantom,250,5350,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,20,VIT,def,4,Chronicle,Chamber,Heavy,Operator,1500,3700,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,20,VIT,def,5,Derke,Yoru,Heavy,Phantom,4550,250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,20,LOUD,atk,1,lukxo,Yoru,Regen,Phantom,4000,800,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,20,LOUD,atk,2,tkzin,Waylay,Heavy,Phantom,4200,800,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,20,LOUD,atk,3,Darker,Cypher,Light,Vandal,3900,650,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,20,LOUD,atk,4,erde,Omen,Light,Vandal,3800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Ascent,285206,20,LOUD,atk,5,DaviH,Sova,Heavy,Phantom,4300,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,1,VIT,def,1,Derke,Chamber,No armor,Classic,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,1,VIT,def,2,Chronicle,Neon,No armor,Sheriff,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,1,VIT,def,3,Sayonara,Fade,No armor,Ghost,750,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,1,VIT,def,4,PROFEK,Harbor,No armor,Ghost,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,1,VIT,def,5,Jamppi,Phoenix,No armor,Sheriff,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,1,LOUD,atk,1,tkzin,Neon,No armor,Sheriff,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,1,LOUD,atk,2,Darker,Omen,No armor,Ghost,250,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,1,LOUD,atk,3,lukxo,Chamber,No armor,Classic,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,1,LOUD,atk,4,erde,Sage,No armor,Ghost,1300,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,1,LOUD,atk,5,DaviH,Fade,No armor,Ghost,750,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,2,VIT,def,1,Derke,Chamber,Light,Outlaw,3000,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,2,VIT,def,2,Chronicle,Neon,Light,Sheriff,600,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,2,VIT,def,3,Sayonara,Fade,Heavy,Phantom,4600,1550,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,2,VIT,def,4,PROFEK,Harbor,Regen,Guardian,3100,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,2,VIT,def,5,Jamppi,Phoenix,Light,Bulldog,2900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,2,LOUD,atk,1,tkzin,Neon,No armor,Classic,200,1700,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,2,LOUD,atk,2,Darker,Omen,No armor,Classic,150,2200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,2,LOUD,atk,3,lukxo,Chamber,Light,Classic,400,1700,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,2,LOUD,atk,4,erde,Sage,No armor,Classic,0,1900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,2,LOUD,atk,5,DaviH,Fade,No armor,Classic,0,1950,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,3,VIT,def,1,Derke,Chamber,Heavy,Guardian,1300,1700,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,3,VIT,def,2,Chronicle,Neon,Light,Phantom,3800,2000,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,3,VIT,def,3,Sayonara,Fade,Heavy,Phantom,700,1150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,3,VIT,def,4,PROFEK,Harbor,Light,Sheriff,1200,2100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,3,VIT,def,5,Jamppi,Phoenix,Light,Bandit,950,2950,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,3,LOUD,atk,1,tkzin,Neon,Heavy,Phantom,4200,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,3,LOUD,atk,2,Darker,Omen,Heavy,Phantom,4250,650,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,3,LOUD,atk,3,lukxo,Chamber,Heavy,Vandal,4100,500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,3,LOUD,atk,4,erde,Sage,Heavy,Phantom,4600,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,3,LOUD,atk,5,DaviH,Fade,Heavy,Phantom,4600,450,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,4,VIT,def,1,Derke,Chamber,Light,Outlaw,3000,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,4,VIT,def,2,Chronicle,Neon,Heavy,Phantom,4100,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,4,VIT,def,3,Sayonara,Fade,Light,Phantom,3750,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,4,VIT,def,4,PROFEK,Harbor,Regen,Vandal,3850,150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,4,VIT,def,5,Jamppi,Phoenix,Heavy,Vandal,4500,550,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,4,LOUD,atk,1,tkzin,Neon,Light,Phantom,3500,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,4,LOUD,atk,2,Darker,Omen,Light,Phantom,3900,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,4,LOUD,atk,3,lukxo,Chamber,Heavy,Vandal,4300,2400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,4,LOUD,atk,4,erde,Sage,Light,Phantom,1100,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,4,LOUD,atk,5,DaviH,Fade,Light,Phantom,3800,150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,5,VIT,def,1,Derke,Chamber,Light,Phantom,300,3000,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,5,VIT,def,2,Chronicle,Neon,Heavy,Phantom,0,3200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,5,VIT,def,3,Sayonara,Fade,Light,Phantom,500,3100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,5,VIT,def,4,PROFEK,Harbor,Heavy,Vandal,1500,1650,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,5,VIT,def,5,Jamppi,Phoenix,Heavy,Vandal,550,3000,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,5,LOUD,atk,1,tkzin,Neon,No armor,Classic,300,1600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,5,LOUD,atk,2,Darker,Omen,No armor,Classic,500,1450,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,5,LOUD,atk,3,lukxo,Chamber,Heavy,Vandal,1200,2200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,5,LOUD,atk,4,erde,Sage,Light,Classic,600,1400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,5,LOUD,atk,5,DaviH,Fade,No armor,Classic,250,1800,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,6,VIT,def,1,Derke,Chamber,Heavy,Operator,6200,4700,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,6,VIT,def,2,Chronicle,Neon,Heavy,Phantom,3900,2300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,6,VIT,def,3,Sayonara,Fade,Heavy,Phantom,1700,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,6,VIT,def,4,PROFEK,Harbor,Heavy,Vandal,1500,3350,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,6,VIT,def,5,Jamppi,Phoenix,Heavy,Vandal,4550,1850,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,6,LOUD,atk,1,tkzin,Neon,Light,Phantom,3800,900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,6,LOUD,atk,2,Darker,Omen,Light,Vandal,3900,250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,6,LOUD,atk,3,lukxo,Chamber,No armor,Operator,4900,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,6,LOUD,atk,4,erde,Sage,Light,Vandal,4000,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,6,LOUD,atk,5,DaviH,Fade,Light,Phantom,3800,700,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,7,VIT,def,1,Derke,Chamber,Heavy,Operator,1400,3400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,7,VIT,def,2,Chronicle,Neon,Heavy,Phantom,4100,4100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,7,VIT,def,3,Sayonara,Fade,Heavy,Phantom,250,2850,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,7,VIT,def,4,PROFEK,Harbor,Heavy,Vandal,500,5850,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,7,VIT,def,5,Jamppi,Phoenix,Heavy,Vandal,4500,950,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,7,LOUD,atk,1,tkzin,Neon,Light,Phantom,3800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,7,LOUD,atk,2,Darker,Omen,Light,Guardian,3000,150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,7,LOUD,atk,3,lukxo,Chamber,Light,Operator,600,400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,7,LOUD,atk,4,erde,Sage,Light,Guardian,2850,350,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,7,LOUD,atk,5,DaviH,Fade,Light,Phantom,650,1250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,8,VIT,def,1,Derke,Chamber,Heavy,Operator,200,6400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,8,VIT,def,2,Chronicle,Neon,Heavy,Phantom,1500,5600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,8,VIT,def,3,Sayonara,Fade,Heavy,Phantom,700,5550,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,8,VIT,def,4,PROFEK,Harbor,Heavy,Vandal,300,5650,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,8,VIT,def,5,Jamppi,Phoenix,Heavy,Vandal,4800,2450,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,8,LOUD,atk,1,tkzin,Neon,Heavy,Classic,1000,2100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,8,LOUD,atk,2,Darker,Omen,Light,Sheriff,1800,1250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,8,LOUD,atk,3,lukxo,Chamber,Light,Shorty,1300,2200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,8,LOUD,atk,4,erde,Sage,Light,Sheriff,1400,1850,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,8,LOUD,atk,5,DaviH,Fade,Light,Phantom,3550,600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,9,VIT,def,1,Derke,Chamber,Heavy,Operator,1700,7300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,9,VIT,def,2,Chronicle,Neon,Heavy,Phantom,4400,4200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,9,VIT,def,3,Sayonara,Fade,Heavy,Phantom,200,5650,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,9,VIT,def,4,PROFEK,Harbor,Heavy,Vandal,200,8450,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,9,VIT,def,5,Jamppi,Phoenix,Heavy,Vandal,4400,3950,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,9,LOUD,atk,1,tkzin,Neon,Light,Phantom,3800,1500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,9,LOUD,atk,2,Darker,Omen,Light,Vandal,3800,850,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,9,LOUD,atk,3,lukxo,Chamber,Light,Operator,5300,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,9,LOUD,atk,4,erde,Sage,Light,Vandal,3600,1450,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,9,LOUD,atk,5,DaviH,Fade,Light,Phantom,3800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,10,VIT,def,1,Derke,Chamber,Heavy,Operator,6200,2800,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,10,VIT,def,2,Chronicle,Neon,Heavy,Phantom,3900,2400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,10,VIT,def,3,Sayonara,Fade,Heavy,Phantom,4200,3350,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,10,VIT,def,4,PROFEK,Harbor,Heavy,Vandal,4100,4900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,10,VIT,def,5,Jamppi,Phoenix,Heavy,Vandal,4450,1600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,10,LOUD,atk,1,tkzin,Neon,Light,Phantom,3800,1200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,10,LOUD,atk,2,Darker,Omen,Light,Vandal,3900,450,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,10,LOUD,atk,3,lukxo,Chamber,Light,Operator,500,2900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,10,LOUD,atk,4,erde,Sage,Light,Vandal,3500,1250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,10,LOUD,atk,5,DaviH,Fade,Light,Phantom,500,3600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,11,VIT,def,1,Derke,Chamber,Heavy,Phantom,1200,4800,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,11,VIT,def,2,Chronicle,Neon,Heavy,Operator,4500,4000,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,11,VIT,def,3,Sayonara,Fade,Heavy,Phantom,0,3650,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,11,VIT,def,4,PROFEK,Harbor,Heavy,Vandal,4200,4100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,11,VIT,def,5,Jamppi,Phoenix,Heavy,Vandal,200,4400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,11,LOUD,atk,1,tkzin,Neon,Light,Bulldog,2950,150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,11,LOUD,atk,2,Darker,Omen,Light,Sheriff,1700,650,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,11,LOUD,atk,3,lukxo,Chamber,Light,Vandal,3500,1500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,11,LOUD,atk,4,erde,Sage,Light,Guardian,3150,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,11,LOUD,atk,5,DaviH,Fade,Light,Phantom,3550,2150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,12,VIT,def,1,Derke,Chamber,Heavy,Operator,6200,500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,12,VIT,def,2,Chronicle,Neon,Heavy,Phantom,4400,2100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,12,VIT,def,3,Sayonara,Fade,Heavy,Phantom,4200,1350,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,12,VIT,def,4,PROFEK,Harbor,Heavy,Phantom,3900,2100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,12,VIT,def,5,Jamppi,Phoenix,Heavy,Vandal,4650,2050,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,12,LOUD,atk,1,tkzin,Neon,Heavy,Phantom,1300,2750,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,12,LOUD,atk,2,Darker,Omen,Light,Vandal,3550,400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,12,LOUD,atk,3,lukxo,Chamber,Heavy,Vandal,4100,700,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,12,LOUD,atk,4,erde,Sage,Light,Vandal,3600,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,12,LOUD,atk,5,DaviH,Fade,Heavy,Phantom,4450,1000,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,13,VIT,atk,1,Derke,Chamber,No armor,Classic,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,13,VIT,atk,2,Chronicle,Neon,No armor,Sheriff,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,13,VIT,atk,3,Sayonara,Fade,No armor,Ghost,750,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,13,VIT,atk,4,PROFEK,Harbor,No armor,Ghost,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,13,VIT,atk,5,Jamppi,Phoenix,No armor,Ghost,650,150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,13,LOUD,def,1,tkzin,Neon,No armor,Sheriff,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,13,LOUD,def,2,Darker,Omen,No armor,Ghost,250,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,13,LOUD,def,3,lukxo,Chamber,No armor,Classic,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,13,LOUD,def,4,erde,Sage,No armor,Ghost,1300,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,13,LOUD,def,5,DaviH,Fade,No armor,Bandit,800,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,14,VIT,atk,1,Derke,Chamber,No armor,Classic,700,1600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,14,VIT,atk,2,Chronicle,Neon,No armor,Classic,500,1400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,14,VIT,atk,3,Sayonara,Fade,No armor,Classic,450,1500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,14,VIT,atk,4,PROFEK,Harbor,No armor,Classic,0,1900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,14,VIT,atk,5,Jamppi,Phoenix,No armor,Classic,0,2050,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,14,LOUD,def,1,tkzin,Neon,Light,Bulldog,2950,250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,14,LOUD,def,2,Darker,Omen,Light,Bulldog,2800,250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,14,LOUD,def,3,lukxo,Chamber,Light,Marshal,1550,1650,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,14,LOUD,def,4,erde,Sage,Light,Bulldog,3150,450,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,14,LOUD,def,5,DaviH,Fade,Light,Bulldog,2900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,15,VIT,atk,1,Derke,Chamber,Heavy,Vandal,3900,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,15,VIT,atk,2,Chronicle,Neon,Regen,Phantom,3550,250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,15,VIT,atk,3,Sayonara,Fade,Heavy,Phantom,3900,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,15,VIT,atk,4,PROFEK,Harbor,Heavy,Vandal,4200,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,15,VIT,atk,5,Jamppi,Phoenix,Heavy,Vandal,4350,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,15,LOUD,def,1,tkzin,Neon,Light,Bulldog,400,2850,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,15,LOUD,def,2,Darker,Omen,Light,Bandit,550,2900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,15,LOUD,def,3,lukxo,Chamber,Light,Classic,400,4450,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,15,LOUD,def,4,erde,Sage,Light,Bulldog,700,3350,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,15,LOUD,def,5,DaviH,Fade,Light,Bulldog,500,2600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,16,VIT,atk,1,Derke,Chamber,Light,Vandal,3600,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,16,VIT,atk,2,Chronicle,Neon,Light,Guardian,3150,400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,16,VIT,atk,3,Sayonara,Fade,Heavy,Phantom,4600,2000,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,16,VIT,atk,4,PROFEK,Harbor,Light,Vandal,900,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,16,VIT,atk,5,Jamppi,Phoenix,Light,Vandal,3450,150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,16,LOUD,def,1,tkzin,Neon,Heavy,Phantom,4100,850,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,16,LOUD,def,2,Darker,Omen,Light,Phantom,3700,1300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,16,LOUD,def,3,lukxo,Chamber,Heavy,Outlaw,4000,2750,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,16,LOUD,def,4,erde,Sage,Heavy,Phantom,4200,1050,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,16,LOUD,def,5,DaviH,Fade,Light,Phantom,4000,500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,17,VIT,atk,1,Derke,Chamber,Light,Classic,700,1900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,17,VIT,atk,2,Chronicle,Neon,No armor,Bandit,1100,1900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,17,VIT,atk,3,Sayonara,Fade,No armor,Bandit,1300,2300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,17,VIT,atk,4,PROFEK,Harbor,No armor,Bandit,1100,1900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,17,VIT,atk,5,Jamppi,Phoenix,No armor,Classic,400,1950,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,17,LOUD,def,1,tkzin,Neon,Light,Phantom,3500,550,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,17,LOUD,def,2,Darker,Omen,Heavy,Phantom,1600,2900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,17,LOUD,def,3,lukxo,Chamber,Heavy,Outlaw,4200,1950,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,17,LOUD,def,4,erde,Sage,Heavy,Phantom,1000,350,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,17,LOUD,def,5,DaviH,Fade,Heavy,Phantom,4350,2050,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,18,VIT,atk,1,Derke,Chamber,Heavy,Vandal,4100,1100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,18,VIT,atk,2,Chronicle,Neon,Heavy,Phantom,3900,700,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,18,VIT,atk,3,Sayonara,Fade,Heavy,Phantom,4150,850,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,18,VIT,atk,4,PROFEK,Harbor,Heavy,Vandal,4100,700,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,18,VIT,atk,5,Jamppi,Phoenix,Heavy,Vandal,4500,150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,18,LOUD,def,1,tkzin,Neon,Heavy,Phantom,1800,1950,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,18,LOUD,def,2,Darker,Omen,Heavy,Phantom,4300,1600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,18,LOUD,def,3,lukxo,Chamber,Heavy,Shorty,200,2250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,18,LOUD,def,4,erde,Sage,Heavy,Vandal,4500,1750,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,18,LOUD,def,5,DaviH,Fade,Light,Phantom,3550,1900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,19,VIT,atk,1,Derke,Chamber,Heavy,Classic,1200,3000,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,19,VIT,atk,2,Chronicle,Neon,Heavy,Shorty,1800,2000,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,19,VIT,atk,3,Sayonara,Fade,Light,Bandit,1700,2250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,19,VIT,atk,4,PROFEK,Harbor,Light,Sheriff,1700,1900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,19,VIT,atk,5,Jamppi,Phoenix,No armor,Bandit,1000,2050,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,19,LOUD,def,1,tkzin,Neon,Heavy,Phantom,200,2050,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,19,LOUD,def,2,Darker,Omen,Heavy,Phantom,4400,3500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,19,LOUD,def,3,lukxo,Chamber,Heavy,Outlaw,3900,1550,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,19,LOUD,def,4,erde,Sage,Heavy,Vandal,300,4450,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,19,LOUD,def,5,DaviH,Fade,Heavy,Phantom,4600,500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,20,VIT,atk,1,Derke,Chamber,Light,Operator,5500,400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,20,VIT,atk,2,Chronicle,Neon,Light,Phantom,3500,1400,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,20,VIT,atk,3,Sayonara,Fade,Heavy,Phantom,4150,1000,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,20,VIT,atk,4,PROFEK,Harbor,Heavy,Vandal,3900,900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,20,VIT,atk,5,Jamppi,Phoenix,Regen,Vandal,3900,1050,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,20,LOUD,def,1,tkzin,Neon,Heavy,Phantom,200,5450,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,20,LOUD,def,2,Darker,Omen,Heavy,Phantom,450,6050,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,20,LOUD,def,3,lukxo,Chamber,Heavy,Operator,4900,4550,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,20,LOUD,def,4,erde,Sage,Heavy,Vandal,1300,1650,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,20,LOUD,def,5,DaviH,Fade,Heavy,Phantom,700,2800,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,21,VIT,atk,1,Derke,Chamber,Heavy,Operator,1200,2500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,21,VIT,atk,2,Chronicle,Neon,Heavy,Phantom,4400,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,21,VIT,atk,3,Sayonara,Fade,Heavy,Phantom,3600,1100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,21,VIT,atk,4,PROFEK,Harbor,Heavy,Vandal,1500,2900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,21,VIT,atk,5,Jamppi,Phoenix,Regen,Vandal,900,3850,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,21,LOUD,def,1,tkzin,Neon,Heavy,Operator,6000,1350,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,21,LOUD,def,2,Darker,Omen,Heavy,Phantom,4600,3350,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,21,LOUD,def,3,lukxo,Chamber,Light,Vandal,3500,250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,21,LOUD,def,4,erde,Sage,Light,Vandal,4000,2450,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,21,LOUD,def,5,DaviH,Fade,Light,Phantom,4000,900,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,22,VIT,atk,1,Derke,Chamber,Heavy,Vandal,4100,500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,22,VIT,atk,2,Chronicle,Neon,Light,Phantom,3800,1300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,22,VIT,atk,3,Sayonara,Fade,Heavy,Stinger,2800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,22,VIT,atk,4,PROFEK,Harbor,Heavy,Vandal,200,800,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,22,VIT,atk,5,Jamppi,Phoenix,Heavy,Vandal,4500,1250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,22,LOUD,def,1,tkzin,Neon,Heavy,Operator,1300,3050,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,22,LOUD,def,2,Darker,Omen,Heavy,Phantom,400,3050,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,22,LOUD,def,3,lukxo,Chamber,Light,Vandal,3500,2850,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,22,LOUD,def,4,erde,Sage,Heavy,Vandal,2000,3650,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,22,LOUD,def,5,DaviH,Fade,Heavy,Phantom,1800,2500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,23,VIT,atk,1,Derke,Chamber,Light,Guardian,2850,550,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,23,VIT,atk,2,Chronicle,Neon,Light,Phantom,3800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,23,VIT,atk,3,Sayonara,Fade,Heavy,Stinger,2800,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,23,VIT,atk,4,PROFEK,Harbor,Regen,Guardian,3400,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,23,VIT,atk,5,Jamppi,Phoenix,Light,Vandal,3900,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,23,LOUD,def,1,tkzin,Neon,Heavy,Operator,200,6250,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,23,LOUD,def,2,Darker,Omen,Heavy,Phantom,900,5150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,23,LOUD,def,3,lukxo,Chamber,Heavy,Vandal,1600,4850,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,23,LOUD,def,4,erde,Sage,Heavy,Vandal,4500,2150,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,23,LOUD,def,5,DaviH,Fade,Heavy,Phantom,700,4800,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,24,VIT,atk,1,Derke,Chamber,Regen,Operator,850,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,24,VIT,atk,2,Chronicle,Neon,Heavy,Phantom,4200,2200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,24,VIT,atk,3,Sayonara,Fade,Light,Phantom,850,50,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,24,VIT,atk,4,PROFEK,Harbor,Heavy,Vandal,4700,1600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,24,VIT,atk,5,Jamppi,Phoenix,Light,Vandal,3650,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,24,LOUD,def,1,tkzin,Neon,Heavy,Phantom,4400,850,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,24,LOUD,def,2,Darker,Omen,Heavy,Phantom,4700,2550,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,24,LOUD,def,3,lukxo,Chamber,Heavy,Vandal,4600,2550,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,24,LOUD,def,4,erde,Sage,Heavy,Vandal,4500,2450,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,24,LOUD,def,5,DaviH,Fade,Heavy,Phantom,4900,1800,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,25,VIT,def,1,Derke,Chamber,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,25,VIT,def,2,Chronicle,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,25,VIT,def,3,Sayonara,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,25,VIT,def,4,PROFEK,Harbor,Heavy,Vandal,4400,600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,25,VIT,def,5,Jamppi,Phoenix,Heavy,Vandal,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,25,LOUD,atk,1,tkzin,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,25,LOUD,atk,2,Darker,Omen,Heavy,Vandal,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,25,LOUD,atk,3,lukxo,Chamber,Heavy,Vandal,5000,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,25,LOUD,atk,4,erde,Sage,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,25,LOUD,atk,5,DaviH,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,26,VIT,atk,1,Derke,Chamber,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,26,VIT,atk,2,Chronicle,Neon,Heavy,Phantom,4400,600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,26,VIT,atk,3,Sayonara,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,26,VIT,atk,4,PROFEK,Harbor,Heavy,Vandal,4400,600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,26,VIT,atk,5,Jamppi,Phoenix,Heavy,Vandal,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,26,LOUD,def,1,tkzin,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,26,LOUD,def,2,Darker,Omen,Heavy,Phantom,1600,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,26,LOUD,def,3,lukxo,Chamber,No armor,Operator,5300,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,26,LOUD,def,4,erde,Sage,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,26,LOUD,def,5,DaviH,Fade,Heavy,Phantom,7800,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,27,VIT,def,1,Derke,Chamber,No armor,Operator,5000,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,27,VIT,def,2,Chronicle,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,27,VIT,def,3,Sayonara,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,27,VIT,def,4,PROFEK,Harbor,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,27,VIT,def,5,Jamppi,Phoenix,Heavy,Vandal,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,27,LOUD,atk,1,tkzin,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,27,LOUD,atk,2,Darker,Omen,Heavy,Phantom,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,27,LOUD,atk,3,lukxo,Chamber,Heavy,Vandal,5000,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,27,LOUD,atk,4,erde,Sage,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,27,LOUD,atk,5,DaviH,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,28,VIT,atk,1,Derke,Chamber,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,28,VIT,atk,2,Chronicle,Neon,Heavy,Phantom,4400,600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,28,VIT,atk,3,Sayonara,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,28,VIT,atk,4,PROFEK,Harbor,Heavy,Vandal,4400,600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,28,VIT,atk,5,Jamppi,Phoenix,Heavy,Vandal,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,28,LOUD,def,1,tkzin,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,28,LOUD,def,2,Darker,Omen,Heavy,Phantom,4500,500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,28,LOUD,def,3,lukxo,Chamber,Heavy,Vandal,5000,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,28,LOUD,def,4,erde,Sage,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,28,LOUD,def,5,DaviH,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,29,VIT,def,1,Derke,Chamber,No armor,Operator,5000,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,29,VIT,def,2,Chronicle,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,29,VIT,def,3,Sayonara,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,29,VIT,def,4,PROFEK,Harbor,Heavy,Vandal,4400,600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,29,VIT,def,5,Jamppi,Phoenix,Heavy,Vandal,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,29,LOUD,atk,1,tkzin,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,29,LOUD,atk,2,Darker,Omen,Heavy,Vandal,4500,500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,29,LOUD,atk,3,lukxo,Chamber,Heavy,Vandal,5000,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,29,LOUD,atk,4,erde,Sage,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,29,LOUD,atk,5,DaviH,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,30,VIT,atk,1,Derke,Chamber,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,30,VIT,atk,2,Chronicle,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,30,VIT,atk,3,Sayonara,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,30,VIT,atk,4,PROFEK,Harbor,Heavy,Vandal,4400,600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,30,VIT,atk,5,Jamppi,Phoenix,Heavy,Vandal,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,30,LOUD,def,1,tkzin,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,30,LOUD,def,2,Darker,Omen,Heavy,Phantom,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,30,LOUD,def,3,lukxo,Chamber,Heavy,Vandal,5000,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,30,LOUD,def,4,erde,Sage,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,30,LOUD,def,5,DaviH,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,31,VIT,def,1,Derke,Chamber,No armor,Operator,5000,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,31,VIT,def,2,Chronicle,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,31,VIT,def,3,Sayonara,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,31,VIT,def,4,PROFEK,Harbor,Heavy,Vandal,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,31,VIT,def,5,Jamppi,Phoenix,Heavy,Vandal,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,31,LOUD,atk,1,tkzin,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,31,LOUD,atk,2,Darker,Omen,Heavy,Vandal,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,31,LOUD,atk,3,lukxo,Chamber,Heavy,Vandal,5000,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,31,LOUD,atk,4,erde,Sage,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,31,LOUD,atk,5,DaviH,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,32,VIT,atk,1,Derke,Chamber,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,32,VIT,atk,2,Chronicle,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,32,VIT,atk,3,Sayonara,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,32,VIT,atk,4,PROFEK,Harbor,Heavy,Vandal,4400,600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,32,VIT,atk,5,Jamppi,Phoenix,Heavy,Vandal,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,32,LOUD,def,1,tkzin,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,32,LOUD,def,2,Darker,Omen,Heavy,Phantom,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,32,LOUD,def,3,lukxo,Chamber,Heavy,Vandal,5000,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,32,LOUD,def,4,erde,Sage,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,32,LOUD,def,5,DaviH,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,33,VIT,def,1,Derke,Chamber,No armor,Operator,5000,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,33,VIT,def,2,Chronicle,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,33,VIT,def,3,Sayonara,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,33,VIT,def,4,PROFEK,Harbor,Heavy,Vandal,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,33,VIT,def,5,Jamppi,Phoenix,Heavy,Vandal,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,33,LOUD,atk,1,tkzin,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,33,LOUD,atk,2,Darker,Omen,Heavy,Phantom,4500,500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,33,LOUD,atk,3,lukxo,Chamber,Heavy,Vandal,5000,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,33,LOUD,atk,4,erde,Sage,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,33,LOUD,atk,5,DaviH,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,34,VIT,atk,1,Derke,Chamber,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,34,VIT,atk,2,Chronicle,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,34,VIT,atk,3,Sayonara,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,34,VIT,atk,4,PROFEK,Harbor,Heavy,Vandal,4400,600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,34,VIT,atk,5,Jamppi,Phoenix,Heavy,Vandal,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,34,LOUD,def,1,tkzin,Neon,Heavy,Phantom,4700,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,34,LOUD,def,2,Darker,Omen,Heavy,Phantom,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,34,LOUD,def,3,lukxo,Chamber,No armor,Operator,5300,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,34,LOUD,def,4,erde,Sage,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,34,LOUD,def,5,DaviH,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,35,VIT,def,1,Derke,Chamber,No armor,Operator,5000,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,35,VIT,def,2,Chronicle,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,35,VIT,def,3,Sayonara,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,35,VIT,def,4,PROFEK,Harbor,Heavy,Vandal,4400,600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,35,VIT,def,5,Jamppi,Phoenix,Heavy,Vandal,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,35,LOUD,atk,1,tkzin,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,35,LOUD,atk,2,Darker,Omen,Heavy,Phantom,4500,500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,35,LOUD,atk,3,lukxo,Chamber,Heavy,Vandal,5000,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,35,LOUD,atk,4,erde,Sage,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,35,LOUD,atk,5,DaviH,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,36,VIT,atk,1,Derke,Chamber,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,36,VIT,atk,2,Chronicle,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,36,VIT,atk,3,Sayonara,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,36,VIT,atk,4,PROFEK,Harbor,Heavy,Phantom,4400,600,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,36,VIT,atk,5,Jamppi,Phoenix,Heavy,Vandal,4800,200,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,36,LOUD,def,1,tkzin,Neon,Heavy,Phantom,4700,300,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,36,LOUD,def,2,Darker,Omen,Heavy,Vandal,4500,500,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,36,LOUD,def,3,lukxo,Chamber,No armor,Operator,5000,0,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,36,LOUD,def,4,erde,Sage,Heavy,Vandal,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b
+VIT,LOUD,Summit,285207,36,LOUD,def,5,DaviH,Fade,Heavy,Phantom,4900,100,2026-09-30 05:00:00,Valorant Champions 2026,https://www.vlr.gg/753451/team-vitality-vs-loud-valorant-champions-2026-winners-b

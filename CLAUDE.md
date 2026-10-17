@@ -76,6 +76,10 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
   round_info on `map_id + round`; trades use a 5 s window (`TRADE_WINDOW`), team kills (spike/fall) are excluded. Matches scraped before this have `has_logs` empty
   in scrape_log: `python -m vlr_pipeline backfill-logs [--limit N] [--tournament X]` fills them without touching
   status/attempts. The Supabase tables are created by hand from `sql/round_buy.sql` and `sql/round_events.sql`.
+- **Economy tab** — since 2026-10 vlr renders it as a div grid (`vlr-rounds-row-col`, `ecc-c`/`ecr-bank` with
+  `mod-t1` = team_a); `add_economy_rounds_grid` parses it, the old `mod-econ` table parser stays for old fixture html.
+  vlr now rounds the loadout value to 0.1k and shows only 24 rounds (no overtime economy). If `process_match` fails
+  midway it purges the rows it already saved, so partial matches never reach the upload.
 - **Manual lookup lists** — new maps and agents must be added by hand to the hardcoded lists in
   `csv_process.ipynb` (map_info / agent_path_name), otherwise their rows won't get IDs/images.
 

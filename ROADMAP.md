@@ -1,7 +1,7 @@
 # Roadmap
 
 Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
-Última actualización: 2026-10-09.
+Última actualización: 2026-10-17.
 
 ## Hecho
 
@@ -45,6 +45,20 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 - Validado con Champions 2026: las kills coinciden 100% con `killsBoth` de vlr; los first bloods, 99,6% con `fkBoth`
   (las diferencias son kills en el mismo segundo: el log no tiene sub-segundos).
 
+### 2026-10-17: nuevo layout de la solapa economy
+- vlr cambió la solapa economy (~2026-10-15): la tabla `mod-econ` pasó a ser un grid de divs (`vlr-rounds-row-col`,
+  `ecc-c` / `ecr-bank` con `mod-t1`/`mod-t2`). `get_team_economy` fallaba con `list index out of range`
+  (754736 y 754742 en error el 2026-10-16).
+- `add_economy_rounds_grid` parsea el layout nuevo y se usa si la página lo trae; el parser viejo queda para el html
+  de los fixtures. Las columnas del csv no cambian; validado contra lo scrapeado antes de 753451 (bank idéntico,
+  gasto ±50 por redondeo).
+- Cambios de vlr que perdemos: el valor del loadout viene redondeado a 0.1k (antes exacto) y **no se muestran las
+  rondas de overtime** (siempre 24 columnas). El bank sí se puede reconstruir sumando `round_buy`, el gasto no
+  (incluye habilidades).
+- `process_match` borra las filas que alcanzó a guardar si falla: antes el upload subía el match a medias y
+  `match_id` lo daba por subido.
+- Fixture 753451 (layout nuevo + Summit 19-17) en `test_parsers.py`, test de filas parciales; notebook en sync.
+
 ## Pendiente
 
 ### Backfill de logs
@@ -56,6 +70,8 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 - [ ] `winCon` truncado por `rstrip(".webp")` (`defus`, `tim`): verificar cómo lo usa rktdata antes de cambiarlo; después hace falta `upload --full`.
 - [ ] Re-scrapear China Kickoff y Stage 1 (78 series en error heredadas del bootstrap) con `--event-url`.
 - [ ] Request redundante en `get_team_economy`.
+- [ ] Economy del overtime (rondas 25+): vlr ya no lo muestra. Opción: completar el bank desde `round_buy` y dejar el gasto vacío.
+- [ ] `convert_k` trunca (`int(32.3 * 1000)` = 32299): usar `round`.
 - [ ] Bo1/Bo2 sin `player_performance` (vlr no publica datos; China Stage 2).
 
 ### Ideas de infraestructura

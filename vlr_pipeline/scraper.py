@@ -134,6 +134,7 @@ def process_match(url, folder="csv", encoding="utf-8"):
     }
 
     time.sleep(random.randint(1, 2))
+    tournament = None
     # todo dentro del try: un fallo de red o de layout en un match lo deja en status error
     # en vez de cortar la corrida entera (y con ella el process y el upload)
     try:
@@ -153,7 +154,8 @@ def process_match(url, folder="csv", encoding="utf-8"):
 
         basic_match_info = get_basic_match_info(soup, url)
         result["event"] = basic_match_info["event"]
-        purge_match_rows(normalize_filename(basic_match_info["event"]), url, folder=folder)
+        tournament = normalize_filename(basic_match_info["event"])
+        purge_match_rows(tournament, url, folder=folder)
 
         logger.info(f"processing: {url}")
         # Round detail
@@ -198,6 +200,10 @@ def process_match(url, folder="csv", encoding="utf-8"):
 
     except Exception as e:
         logger.warning(f"error processing {url}: {e}")
+        # sin las filas que alcanzo a guardar: si no, process/upload suben el match a medias
+        # (p.ej. round_detail y stats sin economy ni draft) y match_id lo da por subido
+        if tournament is not None:
+            purge_match_rows(tournament, url, folder=folder)
         result["status"] = "error"
         result["error"] = str(e)
         return result

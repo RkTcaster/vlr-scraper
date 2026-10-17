@@ -615,6 +615,11 @@ def get_team_economy(url, basic_match_info):
     soup = soup_open(url)
     soup_economy = soup_open(economy_page)
 
+    # vlr cambio la solapa en 2026-10: grid de divs (vlr-rounds) en vez de tabla mod-econ
+    if soup_economy.select_one(".vlr-rounds-row-col"):
+        add_economy_rounds_grid(soup, soup_economy, economy_dict, basic_match_info)
+        return [economy_dict]
+
     get_games_id = soup_economy.find_all("div", {"class": "vm-stats-game"})
     game_ids = [
         div.get("data-game-id") for div in get_games_id if div.has_attr("data-game-id")
@@ -683,6 +688,55 @@ def get_team_economy(url, basic_match_info):
                     economy_dict["event"].append(event)
 
     return [economy_dict]
+
+
+def parse_k(text):
+    """"4.1k" -> 4100 (round: int(4.1 * 1000) puede dar 4099)"""
+    return round(float(text.replace("k", "")) * 1000)
+
+
+def add_economy_rounds_grid(soup, soup_economy, economy_dict, basic_match_info):
+    """Layout de economy desde 2026-10: por mapa un div.vlr-rounds-row con una columna por ronda.
+
+    Cada columna tiene ecr-bank (title "VIT 0.2k"), ecc-c (title "4.1k", valor del loadout) de
+    mod-t1 (arriba = team_a) y mod-t2, y el bank de mod-t2. Siempre hay 24 columnas: las de
+    rondas no jugadas vienen sin title. vlr ya no muestra el overtime (rondas 25+) ni el valor
+    exacto (redondea a 0.1k).
+    """
+    for game_id, map_name in played_game_ids(soup).items():
+        div = soup_economy.find("div", {"class": "vm-stats-game", "data-game-id": game_id})
+        if div is None:
+            continue
+        teams_col = div.select_one(".vlr-rounds-row-col.mod-teams")
+        if teams_col is None:
+            continue
+        team_a = teams_col.select_one(".team.mod-t1").get_text(strip=True)
+        team_b = teams_col.select_one(".team.mod-t2").get_text(strip=True)
+
+        round_cols = [
+            col for col in div.select(".vlr-rounds-row-col")
+            if not {"mod-teams", "mod-spacing"} & set(col.get("class", []))
+        ]
+        for round, col in enumerate(round_cols, start=1):
+            econ_a = col.select_one(".ecc-c.mod-t1")
+            econ_b = col.select_one(".ecc-c.mod-t2")
+            bank_a = col.select_one(".ecr-bank.mod-t1")
+            bank_b = col.select_one(".ecr-bank.mod-t2")
+            if not all(tag is not None and tag.get("title") for tag in (econ_a, econ_b, bank_a, bank_b)):
+                continue  # ronda no jugada
+
+            economy_dict["team_a"].append(team_a)
+            economy_dict["team_b"].append(team_b)
+            economy_dict["team_a_economy"].append(parse_k(econ_a["title"]))
+            economy_dict["team_b_economy"].append(parse_k(econ_b["title"]))
+            economy_dict["round"].append(round)
+            # "VIT 0.2k" -> "0.2k", mismo formato que el layout viejo
+            economy_dict["team_a_bank"].append(bank_a["title"].rsplit(" ", 1)[-1])
+            economy_dict["team_b_bank"].append(bank_b["title"].rsplit(" ", 1)[-1])
+            economy_dict["map"].append(map_name)
+            economy_dict["date"].append(basic_match_info["date"])
+            economy_dict["source_url"].append(basic_match_info["source_url"])
+            economy_dict["event"].append(basic_match_info["event"])
 
 
 # Round logs (tab=logs): compras por jugador y eventos (kills / plant / defuse) por ronda
