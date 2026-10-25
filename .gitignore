@@ -4,6 +4,14 @@
 tables/
 backup/
 intermediate/
+# TEMPORAL (2026-10-20): los csv de la solapa logs del backfill quedan fuera de git hasta
+# decidir si round_buy / round_events / round_summary / round_situations van a Supabase.
+# Son ~55 MB de 537 matches. Mientras esten ignorados, csv/scrape_log.csv NO se commitea:
+# si se commitea con has_logs=True, Actions cree que los logs estan en el repo y no los baja.
+# Los dos de valorant_champions_2026 ya estaban versionados y siguen asi.
+# Para sacarlos de ignore: borrar estas lineas y commitear csv/ + scrape_log.csv juntos.
+csv/*/round_buy_*.csv
+csv/*/round_events_*.csv
 # carpeta suelta vieja (round_detail fuera de csv/)
 /vct_2026_china_stage_1/
 

@@ -1,9 +1,14 @@
 {
   "events": [
     {
+      "name": "Game Changers 2026 Championship Sao Paulo",
+      "url": "https://www.vlr.gg/event/matches/3134/game-changers-2026-championship-s-o-paulo/?series_id=all",
+      "active": true
+    },
+    {
       "name": "Valorant Champions 2026",
       "url": "https://www.vlr.gg/event/matches/2766/valorant-champions-2026/?series_id=all",
-      "active": true
+      "active": false
     },
     {
       "name": "VCT 2026 Americas Stage 2",

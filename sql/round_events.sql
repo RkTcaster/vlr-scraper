@@ -8,7 +8,7 @@
 -- player/team = killer (o quien planto/defuseo); victim solo en kills.
 -- pos_x/pos_y = victima (o spike), from_x/from_y = killer.
 -- is_team_kill: victima del mismo equipo (spike, caida); no cuenta para first blood ni trades.
--- is_trade: mata a quien mato a un companero hace <= 5 s; is_traded: esa muerte fue tradeada.
+-- is_trade: mata a quien mato a un companero hace <= TRADE_WINDOW (3 s); is_traded: esa muerte fue tradeada.
 create table if not exists public.round_events (
   "team_map_round_id" text not null,
   "ev_index" integer not null,

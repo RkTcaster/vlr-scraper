@@ -59,3 +59,12 @@ agent_path_name = [
     "waylay.png",
     "yoru.png",
 ]
+
+# Tricodes que vlr renombro despues de que scrapeamos round_detail: tag nuevo -> el que quedo en
+# round_info (que es el que forma team_map_round_id, table_teams y table_players). Sin esto las
+# solapas que se bajan ahora traen el tag nuevo y no joinean con las rondas viejas: el side y las
+# kills por equipo salen mal y el conteo de vivos de round_situations pierde las muertes.
+# Agregar a mano cuando aparezca un tag desconocido en los warnings de round_buy / round_events.
+team_aliases = {
+    "KRX": "DRX",  # DRX -> KRX, visto en vct_2026_pacific_kickoff (6 series)
+}

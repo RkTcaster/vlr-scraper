@@ -10,12 +10,15 @@ from tests.conftest import EXPECTED_DIR
 from vlr_pipeline.tables import (
     ROUND_EVENTS_COLUMNS,
     ROUND_SUMMARY_COLUMNS,
+    TRADE_WINDOW,
     build_all,
     build_round_buy,
     build_round_events,
     mark_trades,
     round_buy_columns,
 )
+from vlr_pipeline.parsers import json_text
+from vlr_pipeline.tables import canonical_teams
 from vlr_pipeline.tracking import LOG_COLUMNS, record, update_fields
 
 
@@ -73,7 +76,9 @@ def test_round_buy_one_row_per_round_linked_to_round_info(expected_tables):
 
 
 def test_round_buy_without_raw_files_writes_headers(tmp_path):
-    build_round_buy(pd.DataFrame(columns=["map_id", "reg_id", "tour_id"]), csv_dir=str(tmp_path), tables_dir=str(tmp_path))
+    build_round_buy(pd.DataFrame(columns=["map_id", "reg_id", "tour_id"]),
+                    pd.DataFrame(columns=["map_id", "round", "teamA", "teamB", "team_map_round_id"]),
+                    csv_dir=str(tmp_path), tables_dir=str(tmp_path))
     table = pd.read_csv(tmp_path / "table_round_buy.csv")
     assert table.empty
     assert list(table.columns) == round_buy_columns()
@@ -147,9 +152,9 @@ def _event(ev_index, t_sec, player, team, victim, victim_team):
 def test_mark_trades_window():
     events = pd.DataFrame([
         _event(0, 10, "b1", "B", "a1", "A"),  # b1 mata a a1
-        _event(1, 14, "a2", "A", "b1", "B"),  # a2 mata a b1 a los 4 s: trade
+        _event(1, 10 + TRADE_WINDOW, "a2", "A", "b1", "B"),  # mata al killer en el borde: trade
         _event(2, 20, "b2", "B", "a2", "A"),  # b2 mata a a2
-        _event(3, 26, "a3", "A", "b2", "B"),  # 6 s despues: no es trade
+        _event(3, 20 + TRADE_WINDOW + 1, "a3", "A", "b2", "B"),  # 1 s fuera de la ventana: no es trade
         _event(4, 27, "a3", "A", "a3", "A"),  # team kill (spike): se ignora
     ])
     is_trade, is_traded = mark_trades(events)
@@ -161,3 +166,43 @@ def test_round_events_without_raw_files_writes_headers(tmp_path):
     build_round_events(pd.DataFrame(), pd.DataFrame(), csv_dir=str(tmp_path), tables_dir=str(tmp_path))
     assert list(pd.read_csv(tmp_path / "table_round_events.csv").columns) == ROUND_EVENTS_COLUMNS
     assert list(pd.read_csv(tmp_path / "table_round_summary.csv").columns) == ROUND_SUMMARY_COLUMNS
+
+
+def test_json_text_matches_the_html_decoding():
+    """El nick del JSON de la solapa logs tiene que quedar como los que vienen del html.
+
+    soup_open decodifica como iso-8859-1, asi que un nick con acento viaja como sus bytes utf-8
+    reinterpretados y el csv termina en utf-8. json.loads devuelve el nick ya decodificado, y sin
+    convertirlo el csv queda en iso-8859-1 puro: no es utf-8 valido, el upload lo sube con
+    caracteres de reemplazo y el nick no joinea con round_buy ni con table_players.
+    """
+    nick = "Ros\u00e9"
+    html_form = nick.encode("utf-8").decode("iso-8859-1")   # lo que produce soup_open
+    assert json_text(nick) == html_form
+    # y guardado con iso-8859-1 los bytes vuelven a ser utf-8 validos
+    assert json_text(nick).encode("iso-8859-1").decode("utf-8") == nick
+    assert json_text(None) is None
+    assert json_text("Asuna") == "Asuna"            # ascii intacto
+    assert json_text(html_form) != html_form        # no es idempotente: se aplica una sola vez
+
+
+def test_canonical_teams_only_rewrites_unknown_tags():
+    """El alias de tricodes se aplica solo si el tag no es ninguno de los dos de la ronda.
+
+    vlr renombro DRX en KRX a mitad de temporada: las series viejas tienen DRX en round_info y
+    las nuevas KRX, asi que un replace global rompe unas o las otras.
+    """
+    tags = pd.Series(["KRX", "FS", "KRX", "DRX"])
+    team_a = pd.Series(["DRX", "DRX", "KRX", "DRX"])
+    team_b = pd.Series(["FS", "FS", "T1", "FS"])
+
+    result = canonical_teams(tags, team_a, team_b)
+    assert result.tolist() == [
+        "DRX",   # serie vieja: round_info dice DRX, el log trae KRX -> se mapea
+        "FS",    # ya es teamB: no se toca
+        "KRX",   # serie nueva: round_info ya dice KRX -> no se toca
+        "DRX",   # ya es teamA
+    ]
+    # un tag desconocido que no esta en team_aliases queda como vino (y el builder avisa)
+    unknown = canonical_teams(pd.Series(["XYZ"]), pd.Series(["DRX"]), pd.Series(["FS"]))
+    assert unknown.tolist() == ["XYZ"]

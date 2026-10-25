@@ -19,7 +19,12 @@ global flags go before the subcommand).
 Production runs in GitHub Actions (`.github/workflows/pipeline.yml`, daily 17:00 UTC; cron always incremental): scrapes the `active` events in
 `events.json`, rebuilds `tables/`, uploads to Supabase, and commits only `csv/` back to the repo. `csv/` (including
 `csv/scrape_log.csv`) is versioned; `tables/` is gitignored because it is fully regenerated from `csv/` (the package
-output was verified byte-identical to the notebook's). `.gitattributes` keeps `*.csv` line endings untouched.
+output was verified byte-identical to the notebook's). **Temporary exception (2026-10-20):** `csv/*/round_buy_*.csv`
+and `csv/*/round_events_*.csv` are gitignored too (~55 MB from the 537-match backfill) until it is decided whether
+the logs tables go to Supabase, so `csv/scrape_log.csv` must stay uncommitted as well — committing it with
+`has_logs=True` while those csv are absent makes Actions believe the logs are in the repo and it never fetches them.
+`scripts/backfill_all_logs.py --sync-has-logs` rebuilds `has_logs` from the csv on disk, with no requests to vlr,
+if the bot's daily commit overwrites it. The two `valorant_champions_2026` files were already tracked and stay so. `.gitattributes` keeps `*.csv` line endings untouched.
 Pull before running notebooks locally to avoid conflicts with the bot's commits. Comments are frequently in Spanish.
 
 ## Environment & running
@@ -73,9 +78,29 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
   kills/plant/defuse (`pos` = victim/spike, `from` = killer). `table_round_buy` pivots buys to one row per round,
   PK `team_map_round_id` (same `sort_teams` rule as round_info). `table_round_events` (PK `team_map_round_id, ev_index`) and
   `table_round_summary` (per round: first blood, plant, defuse, kills/trades) come from `round_events_` joined to
-  round_info on `map_id + round`; trades use a 5 s window (`TRADE_WINDOW`), team kills (spike/fall) are excluded. Matches scraped before this have `has_logs` empty
+  round_info on `map_id + round`; trades use a 3 s window (`TRADE_WINDOW`), team kills (spike/fall) are excluded. Matches scraped before this have `has_logs` empty
   in scrape_log: `python -m vlr_pipeline backfill-logs [--limit N] [--tournament X]` fills them without touching
   status/attempts. The Supabase tables are created by hand from `sql/round_buy.sql` and `sql/round_events.sql`.
+- **Team tags renamed by vlr** — `round_detail` was scraped months ago, so `round_info` holds the tricode the
+  team had back then, while a tab scraped today brings the current one (DRX -> KRX, 6 series of
+  `vct_2026_pacific_kickoff`). Every logs table therefore takes `team_map_round_id` **and** `team_a`/`team_b` from
+  `round_info` (join on `map_id + round`), never from its own raw tags — what is kept from the raw file is vlr's
+  positional order (its team 1 is `teamA` in every tab), which is what makes `player_N_team_a` line up.
+  `canonical_teams` (`tables.py`, list in `lookups.py: team_aliases`) rewrites a tag **only when it matches
+  neither team of that round**: the rename happened mid-season, so old series legitimately say DRX and new ones
+  KRX, and a global replace breaks one or the other. A tag that survives unmapped is logged as a warning by
+  `build_round_events` and `build_round_situations` — that is the signal to add it to `team_aliases`.
+- **XvY situations** — `table_round_situations` (PK `team_map_round_id, seg_index, team`) has one row per
+  (round, segment, team): a segment is a stretch of the round with the alive count already settled. Kills are
+  grouped into chained clusters (a kill joins if it is <= `SETTLE_WINDOW` after the previous kill *of the cluster*)
+  and the state only counts `SETTLE_WINDOW` s after the cluster's last kill, so a trade never produces a 5v4 that
+  was never played; `seg_index` 0 is the opening 5v5. Alive counts come from the **set** of dead players keyed on
+  `victim_team` (never `victim_id`, which carries the player's most recent team); team kills count as deaths, and
+  vlr does not log resurrects, so those rounds are flagged `has_revive` instead of yielding impossible counts.
+  `round_win` always comes from `rndA`/`rndB`: **0 alive does not decide the round** (a wiped team wins if the
+  planted spike detonates). Economy comes from `round_buy` (a round-start snapshot) in three sets: `*_start`,
+  `*_alive` and `*_rival_alive`. `table_situation_stats` aggregates win rate per tournament/team/side/situation and
+  is **not uploaded** (like `table_agent_info`); neither is `round_situations` yet — see `ROADMAP.md`.
 - **Economy tab** — since 2026-10 vlr renders it as a div grid (`vlr-rounds-row-col`, `ecc-c`/`ecr-bank` with
   `mod-t1` = team_a); `add_economy_rounds_grid` parses it, the old `mod-econ` table parser stays for old fixture html.
   vlr now rounds the loadout value to 0.1k and shows only 24 rounds (no overtime economy). If `process_match` fails
@@ -85,7 +110,13 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
 
 ## Encoding (recurring source of bugs)
 
-vlr.gg HTML is decoded as `iso-8859-1` (`soup_open(..., decode="iso-8859-1")`). CSVs are written with a mix of
+vlr.gg HTML is decoded as `iso-8859-1` (`soup_open(..., decode="iso-8859-1")`). The invariant this creates is
+that a non-ASCII nick travels in memory as **its utf-8 bytes reinterpreted as latin-1** ("Rosé" -> "RosÃ©"), so
+writing it back with `iso-8859-1` leaves the csv in utf-8 — which is why the readers use utf-8. Anything parsed
+from JSON instead of HTML breaks that invariant: `json.loads` returns the nick already decoded, and
+`parsers.json_text` exists to put it back into the html form (`get_round_logs` is the only such case today; without
+it `table_round_events.csv` stopped being valid utf-8, `upload.read_rows` would have pushed replacement
+characters to Supabase and the nick joined neither `round_buy` nor `table_players`). CSVs are written with a mix of
 `iso-8859-1` and `utf-8` depending on the cell. Notably, `table_round_info.csv` is written with
 `encoding="iso-8859-1"` but the resulting bytes are valid utf-8, so it must be **read back as utf-8** for team
 names to match other tables. When team names fail to join, suspect an encoding mismatch first.

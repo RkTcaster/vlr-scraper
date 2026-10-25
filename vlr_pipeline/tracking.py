@@ -156,8 +156,11 @@ def save_log(log, folder="csv"):
     os.makedirs(folder, exist_ok=True)
     path = _log_path(folder)
     tmp_path = path + ".tmp"
-    # los mensajes de error pueden traer caracteres fuera de latin-1
-    log.to_csv(tmp_path, index=False, encoding=RAW_ENCODING, errors="replace")
+    # los mensajes de error pueden traer caracteres fuera de latin-1.
+    # lineterminator fijo: to_csv usa os.linesep, asi que el log salia con LF en Actions y con
+    # CRLF en Windows y el archivo entero aparecia como cambiado segun donde se corriera (el
+    # resto de los csv los escribe csv.writer, que siempre pone CRLF; ver .gitattributes)
+    log.to_csv(tmp_path, index=False, encoding=RAW_ENCODING, errors="replace", lineterminator="\r\n")
     os.replace(tmp_path, path)
 
 

@@ -749,6 +749,24 @@ def parse_credits(text):
     return int(digits) if digits else 0
 
 
+def json_text(value):
+    """Texto salido del JSON de la solapa logs, pasado a la misma forma que el resto del scraper.
+
+    soup_open decodifica el html de vlr como iso-8859-1, asi que un nick con acento queda en
+    memoria como sus bytes utf-8 reinterpretados ("Rose" con e aguda -> "RosÃ©") y al guardarse
+    con iso-8859-1 el csv vuelve a quedar utf-8, que es lo que esperan concat_from_list y los
+    lectores de tables/ (ver la seccion Encoding de CLAUDE.md).
+
+    El JSON de div.lg-map[data-map] viene con la secuencia escapada (\\u00e9) y json.loads la
+    devuelve ya decodificada, asi que sin esta conversion el nick se guarda en iso-8859-1 puro:
+    el csv deja de ser utf-8 valido, el upload lo sube con caracteres de reemplazo y el nick no
+    joinea ni con round_buy ni con table_players.
+    """
+    if value is None:
+        return None
+    return str(value).encode("utf-8").decode("iso-8859-1")
+
+
 def played_game_ids(soup):
     """{game_id: mapa} de los mapas jugados segun el nav del match (sin "all" ni los mod-disabled)"""
     games = {}
@@ -882,7 +900,8 @@ def get_round_logs(soup, url, basic_match_info):
                 info = players.get(str(player_id))
                 if info is None:
                     return None, None
-                return info[2], band_tags.get(info[0])
+                # el nick sale del JSON (hay que normalizarlo); el tag sale del html del band
+                return json_text(info[2]), band_tags.get(info[0])
 
             for index, ev in enumerate(data.get("events", [])):
                 feed_row = feed_rows.get(index)
