@@ -4,6 +4,9 @@
 tables/
 backup/
 intermediate/
+# docs de intercambio entre repos (rktdata, rviewer, GroupCalculator): viven en handoff/,
+# solo en local; cada repo guarda su copia. Todo doc nuevo de este tipo va ahi.
+handoff/
 # TEMPORAL (2026-10-20): los csv de la solapa logs del backfill quedan fuera de git hasta
 # decidir si round_buy / round_events / round_summary / round_situations van a Supabase.
 # Son ~55 MB de 537 matches. Mientras esten ignorados, csv/scrape_log.csv NO se commitea:

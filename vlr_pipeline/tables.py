@@ -156,6 +156,9 @@ def build_teams(csv_dir="csv", tables_dir="tables"):
     df_team["team_id"] = df_team["team"]
 
     df_team = df_team.drop(["team"], axis=1)  # Need to add full name of the team.
+    # logo en rviewer/public/teams/: tricodes de GC traen punto (GEN.GC -> teams/GENGC.png);
+    # solo se sacan los puntos del path, el team_id queda igual (ver handoff/SCRAPER_TEAM_PATH.md)
+    df_team["team_path"] = "teams/" + df_team["team_id"].str.replace(".", "", regex=False) + ".png"
 
     df_team.to_csv(path_or_buf=os.path.join(tables_dir, 'table_teams.csv'), index=False, encoding='iso-8859-1')
 

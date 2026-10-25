@@ -45,7 +45,7 @@ Pull before running notebooks locally to avoid conflicts with the bot's commits.
 - **`csv_process.ipynb`** — consolidation pipeline. `concat_csv_from_different_folders(folder, prefix)` reads
   every per-tournament CSV with a given prefix across `csv/*/`, then builds the dimension/fact tables in
   `tables/table_*.csv` (region, tournament, teams, players, maps, round info, economy, drafts, performance).
-  Also exports group `standings.csv` / `h2h.csv` (see the INPUT_CONTRACT cells near the end).
+  Also exports group `standings.csv` / `h2h.csv` (see the INPUT_CONTRACT cells near the end; contract in `handoff/INPUT_CONTRACT.md`).
 - **`Webscraper.ipynb`** — legacy/older version of both the scraper and the downstream pipeline. Uses flat,
   hardcoded filenames (`picks.csv`, `Statsamer1.csv`, `bo5amer1.csv`) and lots of hardcoded region/tournament
   wiring. Prefer `vlr_scraper.ipynb` + `csv_process.ipynb`; keep this only as reference.
@@ -127,8 +127,11 @@ names to match other tables. When team names fail to join, suspect an encoding m
 - `tables/` — consolidated star-schema output (the deliverable; not in git, uploaded to Supabase).
 - New maps/agents must also be added to `vlr_pipeline/lookups.py`, since Actions builds tables with the package.
 - `table_players`: one row per nick, `player_id = <team>_<player>` with the team of the player's most recent match;
-  `table_teams` includes draft `team` and `rival`. `find_files_by_prefix` sorts files so output doesn't depend on OS
+  `table_teams` includes draft `team` and `rival`, plus `team_path = teams/<team_id without dots>.png` (logos in
+  rviewer; GC tricodes like `GEN.GC` -> `GENGC.png`, `team_id` keeps the dot; see `handoff/SCRAPER_TEAM_PATH.md`). `find_files_by_prefix` sorts files so output doesn't depend on OS
   (os.walk order differs on Linux). Changing a PK-forming rule leaves orphan rows in Supabase (upsert never deletes);
-  see `RKTDATA_CAMBIO_PLAYERS.md` for the 2026-09-14 players change handed off to the rktdata repo.
+  see `handoff/RKTDATA_CAMBIO_PLAYERS.md` for the 2026-09-14 players change handed off to the rktdata repo.
 - `backup/` — archived older tournaments and prior `tables/` snapshots.
 - `ROADMAP.md` — done/pending work; update it when finishing or adding a feature.
+- `handoff/` — docs exchanged with other repos (rktdata, rviewer, GroupCalculator: contracts, change notices).
+  Gitignored on purpose: every new doc of this kind goes there, never at the root or in git.

@@ -1,7 +1,7 @@
 # Roadmap
 
 Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
-Última actualización: 2026-10-20.
+Última actualización: 2026-10-25.
 
 ## Hecho
 
@@ -106,6 +106,12 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
   escribe `csv.writer`, siempre CRLF).
 - Tests nuevos en `test_round_logs.py` (`json_text`, `canonical_teams`); fixtures sin cambios y celdas 17-19 del
   notebook byte-idénticas al paquete.
+
+### 2026-10-25: Game Changers Championship y `teams.team_path`
+- Evento activo: Game Changers 2026 Championship São Paulo (Champions 2026 pasó a inactivo, terminado).
+- `table_teams` genera `team_path = teams/<team_id sin puntos>.png`: los tricodes de GC traen punto
+  (`GEN.GC`, `MIBR.GC`, `NOVA.GC`) y los logos de rviewer se guardaron sin él. El `team_id` no cambia.
+  Antes se completaba a mano en Supabase; ahora lo pisa el upsert de dimensiones (ver `handoff/SCRAPER_TEAM_PATH.md`).
 
 ## Pendiente
 
