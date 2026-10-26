@@ -13,6 +13,8 @@ import numpy as np
 import pandas as pd
 
 from vlr_pipeline.lookups import agent_path_name, map_info, region_id, region_name, team_aliases
+from vlr_pipeline.parsers import json_text
+from vlr_pipeline.save import normalize_filename
 
 logger = logging.getLogger(__name__)
 
@@ -131,6 +133,10 @@ def build_region_tournament(csv_dir="csv", tables_dir="tables"):
     tournaments = tournament_names(csv_dir)
     df_tournaments = pd.DataFrame(data=tournaments, columns=["tournament_name"])
 
+    # el nombre de carpeta viene como texto real ("são"); json_text lo pasa a la forma html para
+    # que al escribir con iso-8859-1 el csv quede en utf-8 valido (si no, Supabase recibe "s?o")
+    df_tournaments["tournament_name"] = df_tournaments["tournament_name"].apply(json_text)
+
     df_tournaments["event"] = df_tournaments["tournament_name"].apply(lambda x: x.replace("_", " "))
 
     df_tournaments['reg_id'] = df_tournaments['event'].apply(lambda x: region_by_id(x, df_region))
@@ -198,7 +204,6 @@ def build_ids(df_tournaments, csv_dir="csv", tables_dir="tables"):
 
     df_filter_map = df_round_detail["map"] != "all"
     df_round_detail_filter = df_round_detail[df_filter_map]
-    df_round_detail_filter["event"] = df_round_detail_filter["event"].apply(lambda x: x.replace(":", "").lower())
     df_round_detail_filter["vlr_id"] = df_round_detail_filter["source_url"].apply(
         match_id_vlr
     )
@@ -220,12 +225,16 @@ def build_ids(df_tournaments, csv_dir="csv", tables_dir="tables"):
 
     df_match_id["series_id"] = df_match_id["vlr_id"]
 
+    # se une por la carpeta (tour_id), que sale de normalize_filename(event): unir por el event en
+    # minuscula fallaba con no-ASCII ("São" llega como "SÃ£o", lower() -> "sã£o" vs carpeta "são")
+    df_round_detail_filter["tour_id"] = df_round_detail_filter["event"].apply(
+        lambda x: json_text(normalize_filename(x))
+    )
     df_round_detail_filter = pd.merge(
-        df_round_detail_filter,
+        df_round_detail_filter.drop(columns=["event"]),
         df_tournaments[["event", "reg_id", "tour_id"]],
         how="left",
-        left_on="event",
-        right_on="event",
+        on="tour_id",
     )
 
     df_match_id = pd.merge(
