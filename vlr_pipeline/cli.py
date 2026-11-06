@@ -30,6 +30,9 @@ def build_parser():
     p_scrape.add_argument("--events-file", default=config.DEFAULT_EVENTS_FILE)
     p_scrape.add_argument("--event-url", action="append", default=None,
                           help="url de pagina de matches de un evento; repetible, pisa events.json")
+    p_scrape.add_argument("--format", dest="match_format", choices=config.MATCH_FORMATS,
+                          default=config.DEFAULT_MATCH_FORMAT,
+                          help="formato de los --event-url (full con draft, reduced sin picks/bans)")
     p_scrape.add_argument("--all-events", action="store_true",
                           help="incluye tambien los eventos con active=false")
     p_scrape.add_argument("--csv-dir", default=config.DEFAULT_CSV_DIR)
@@ -80,7 +83,7 @@ def cmd_scrape(args):
     from vlr_pipeline.scraper import scrape_all
 
     if args.event_url:
-        events = [{"name": url, "url": url} for url in args.event_url]
+        events = [{"name": url, "url": url, "format": args.match_format} for url in args.event_url]
     else:
         events = config.load_events(args.events_file, only_active=not args.all_events)
 
@@ -165,6 +168,8 @@ def main(argv=None):
     parser = build_parser()
     args = parser.parse_args(argv)
     setup_logging(level=args.log_level, log_file=args.log_file)
+    # SUPABASE_URL / SUPABASE_SERVICE_KEY desde .env.local si no estan en el entorno
+    config.load_env_file()
 
     try:
         return COMMANDS[args.command](args)

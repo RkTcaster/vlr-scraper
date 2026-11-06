@@ -27,7 +27,7 @@ def test_process_match_network_error_is_status_error(monkeypatch, tmp_path):
 def test_scrape_all_continues_after_event_failure(monkeypatch, tmp_path):
     scraped = []
 
-    def fake_scrape_event(event_url, folder, encoding):
+    def fake_scrape_event(event_url, folder, encoding, match_format="full"):
         if "roto" in event_url:
             raise http_error(503)
         scraped.append(event_url)

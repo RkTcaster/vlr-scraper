@@ -39,6 +39,7 @@ agent_path_name = [
     "fade.png",
     "gekko.png",
     "harbor.png",
+    "hush.png",
     "iso.png",
     "jett.png",
     "kayo.png",

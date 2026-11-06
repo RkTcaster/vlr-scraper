@@ -5,6 +5,7 @@ import random
 import re
 import time
 
+from vlr_pipeline.config import DEFAULT_MATCH_FORMAT
 from vlr_pipeline.fetch import soup_open
 from vlr_pipeline.parsers import (
     get_basic_match_info,
@@ -31,6 +32,7 @@ from vlr_pipeline.tracking import (
     record,
     save_log,
     should_skip,
+    sync_match_format,
     update_fields,
 )
 
@@ -44,7 +46,7 @@ def get_invalid_reason(soup):
         soup (bs4.BeautifulSoup): BeautifulSoup object with the HTML info
 
     Returns:
-        str | None: "showmatch", "not_final" o None si el match es valido
+        str | None: "showmatch", "forfeit", "not_final" o None si el match es valido
     """
     event_text = soup.find("title").get_text(strip=True)
     regex = r"^([^|]+)\|([^|]+)\|([^|]+)\|([^|]+)\|([^|]+)$"
@@ -55,6 +57,9 @@ def get_invalid_reason(soup):
 
     if result and result.group(3).strip() == "Showmatch":
         return "showmatch"
+    # "forfeited by <equipo>": no se jugo ningun mapa (todos N/A), no hay nada que extraer
+    if status.lower().startswith("forfeit"):
+        return "forfeit"
     if status != "final":
         return "not_final"
     return None
@@ -141,10 +146,10 @@ def process_match(url, folder="csv", encoding="utf-8"):
         soup = soup_open(url)
 
         invalid_reason = get_invalid_reason(soup)
-        if invalid_reason == "showmatch":
-            logger.info(f"showmatch, lo salteo: {url}")
+        if invalid_reason in ("showmatch", "forfeit"):
+            logger.info(f"{invalid_reason}, lo salteo: {url}")
             result["status"] = "skipped"
-            result["error"] = "showmatch"
+            result["error"] = invalid_reason
             return result
         if invalid_reason is not None:
             # la card decia Completed pero el match no esta final: no se registra y se
@@ -212,7 +217,7 @@ def process_match(url, folder="csv", encoding="utf-8"):
     return result
 
 
-def scrape_event(event_url, folder="csv", encoding="iso-8859-1", log=None):
+def scrape_event(event_url, folder="csv", encoding="iso-8859-1", log=None, match_format=DEFAULT_MATCH_FORMAT):
     """Scrapea los matches jugados de una pagina de matches de un evento de vlr.
 
     Los matches ya registrados en scrape_log.csv como ok/skipped (o que agotaron los
@@ -220,6 +225,8 @@ def scrape_event(event_url, folder="csv", encoding="iso-8859-1", log=None):
 
     Args:
         log (pd.DataFrame, optional): scrape_log ya cargado; si es None se lee de folder
+        match_format (str): "format" del evento en events.json; se guarda en scrape_log y de
+            ahi pasa a table_match_id / table_tournament
 
     Returns:
         int: cantidad de matches que terminaron con status error en esta corrida
@@ -229,6 +236,10 @@ def scrape_event(event_url, folder="csv", encoding="iso-8859-1", log=None):
 
     logger.info(f"scraping event: {event_url}")
     match_urls = linkExtractor(event_url)
+    changed = sync_match_format(log, match_urls, match_format)
+    if changed:
+        logger.info(f"match_format={match_format} en {changed} matches ya registrados")
+        save_log(log, folder)
     pending = [url for url in match_urls if not should_skip(log, url)]
     logger.info(
         f"{len(match_urls)} completados / {len(match_urls) - len(pending)} ya en scrape_log"
@@ -249,6 +260,7 @@ def scrape_event(event_url, folder="csv", encoding="iso-8859-1", log=None):
             has_performance=result["has_performance"],
             has_economy=result["has_economy"],
             has_logs=result["has_logs"],
+            match_format=match_format,
         )
         # guardar despues de cada match: si la corrida se corta, lo hecho queda registrado
         save_log(log, folder)
@@ -268,7 +280,10 @@ def scrape_all(events, folder="csv", encoding="iso-8859-1"):
         logger.info(f"event: {event.get('name', event['url'])}")
         # se relee por evento porque scrape_event guarda el log despues de cada match
         try:
-            total_errors += scrape_event(event["url"], folder=folder, encoding=encoding)
+            total_errors += scrape_event(
+                event["url"], folder=folder, encoding=encoding,
+                match_format=event.get("format", DEFAULT_MATCH_FORMAT),
+            )
         except Exception:
             # p.ej. no se pudo leer la pagina de matches del evento: se sigue con los demas
             # y cuenta como un error mas para el ::warning:: del cli

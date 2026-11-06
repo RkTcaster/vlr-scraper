@@ -1,6 +1,12 @@
 {
   "events": [
     {
+      "name": "VCT 2027 EMEA Kickoff Europe Qualifier",
+      "url": "https://www.vlr.gg/event/matches/3175/vct-2027-emea-kickoff-europe-qualifier/?series_id=6092",
+      "active": true,
+      "format": "reduced"
+    },
+    {
       "name": "Game Changers 2026 Championship Sao Paulo",
       "url": "https://www.vlr.gg/event/matches/3134/game-changers-2026-championship-s-o-paulo/?series_id=all",
       "active": true

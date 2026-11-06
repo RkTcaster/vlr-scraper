@@ -7,6 +7,9 @@ from bs4 import BeautifulSoup
 
 from vlr_pipeline.tables import build_all
 
+# los tests nunca leen .env.local: main() no tiene que encontrar credenciales reales de Supabase
+os.environ["VLR_ENV_FILE"] = ""
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CSV_DIR = os.path.join(ROOT, "csv")
 FIXTURES_DIR = os.path.join(ROOT, "tests", "fixtures")

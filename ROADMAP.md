@@ -1,7 +1,7 @@
 # Roadmap
 
 Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
-Última actualización: 2026-10-25.
+Última actualización: 2026-11-06.
 
 ## Hecho
 
@@ -112,6 +112,29 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 - `table_teams` genera `team_path = teams/<team_id sin puntos>.png`: los tricodes de GC traen punto
   (`GEN.GC`, `MIBR.GC`, `NOVA.GC`) y los logos de rviewer se guardaron sin él. El `team_id` no cambia.
   Antes se completaba a mano en Supabase; ahora lo pisa el upsert de dimensiones (ver `handoff/SCRAPER_TEAM_PATH.md`).
+
+### 2026-11-06: torneos de formato reducido (qualifiers sin draft)
+- `events.json` acepta `"format": "reduced"` (default `full`; `--format` para `scrape --event-url`). Primer evento:
+  VCT 2027 EMEA Kickoff - Europe Qualifier, donde vlr no carga picks/bans ni el mapa decider.
+- `scrape_log` tiene la columna `match_format`; `scrape_event` la sincroniza sin requests, así que alcanza con
+  cambiar el `format` del evento en `events.json` para re-marcar lo ya scrapeado.
+- `table_match_id.match_format` (full/reduced) y `table_tournament.match_format` (full/reduced/mixed).
+  En Supabase: `sql/match_format.sql`. Aviso a rktdata: `handoff/RKTDATA_MATCH_FORMAT.md`.
+- `table_teams` suma los equipos de `round_detail`, porque los partidos sin draft no aparecían. Con los torneos
+  actuales es el mismo conjunto: la tabla no cambia.
+- Forfeits (`forfeited by X`, todos los mapas N/A): ahora quedan `skipped`/`forfeit`. Antes eran `not_final` y
+  se volvían a pedir en cada corrida.
+- La solapa logs de equipos chicos trae el tag con otra capitalización (`Rvan` frente a `RVAN` en round_detail):
+  `same_team_case` lo corrige (también con no-ASCII: `Mörk`/`MÖRK`, comparando el texto real) antes de `team_aliases` en `round_buy`, `round_events` y `round_situations`.
+- Primer upload del qualifier, bugs que destapó:
+  - Nicks y tags con espacios (`VRX Velcro` de `FL R`, y de antes `lovers rock`): performance partía la celda por
+    espacios, duplicaba la PK `(map_id, player)` y rechazaba la tabla entera. `performance_player_cell` lee nick y
+    `div.team-tag` por separado. Se re-scrapeó performance de 80 series (12 torneos viejos incluidos) y las 68 filas
+    huérfanas en Supabase (`player='lovers'`) se borran con `sql/cleanup_player_performance_split_nicks.sql`.
+  - Economía con rondas que no existen en round_info (784646 Sunset, 10-13 en 0): dejaban `win_A` vacío, la columna
+    pasaba a float (`"0.0"`) y el upsert smallint fallaba. Se descartan con un warning.
+  - Agente nuevo `Hush` en `lookups.py` y `csv_process.ipynb` (falta `agents/hush.png` en rviewer).
+  - En la solapa performance vlr trunca el tag a 4 caracteres (`Cava`, `GEN.`): no rompe nada (no es PK), queda así.
 
 ## Pendiente
 

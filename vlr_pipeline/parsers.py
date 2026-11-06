@@ -453,6 +453,25 @@ def get_round_detail(soup, basic_match_info=None, folder="csv", encoding="utf-8"
     return round_info
 
 
+def performance_player_cell(jugador_div):
+    """(nick, tag) de la celda de jugador de la solapa performance.
+
+    La celda es "<div>nick<div class="team-tag">TAG</div></div>". Antes se partia el texto por
+    espacios, y en los qualifiers hay nicks y tags con espacios ("VRX Velcro" de "FL R"): quedaba
+    player=VRX, team=Velcro y se duplicaba la PK (map_id, player). Sin div team-tag (html viejo)
+    se usa el split de siempre.
+    """
+    tag_div = jugador_div.find("div", class_="team-tag")
+    if tag_div is None:
+        parts = jugador_div.get_text().split()
+        return parts[0], parts[1]
+    team_tag = " ".join(tag_div.get_text().split())
+    nick = " ".join(
+        " ".join(str(text) for text in jugador_div.find_all(string=True, recursive=False)).split()
+    )
+    return nick, team_tag
+
+
 def get_player_performance(url, basic_match_info):
     """extract the player performance from a vlr match performance tab
 
@@ -538,14 +557,14 @@ def get_player_performance(url, basic_match_info):
 
                     jugador_div = celdas[0].find("div").find_all("div")[0]
 
-                    nombre_jugador = jugador_div.get_text().split()
+                    nick, team_tag = performance_player_cell(jugador_div)
 
                     def extraer_numero(text):
                         match = re.match(r"^\d+", text)
                         return int(match.group()) if match else 0
 
-                    performance_dict["player"].append(nombre_jugador[0])
-                    performance_dict["team"].append(nombre_jugador[1])
+                    performance_dict["player"].append(nick)
+                    performance_dict["team"].append(team_tag)
                     performance_dict["2K"].append(
                         extraer_numero(celdas[2].get_text(strip=True))
                     )

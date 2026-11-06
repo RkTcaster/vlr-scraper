@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 A scraping + data-processing pipeline for Valorant esports statistics from [vlr.gg](https://www.vlr.gg).
 Output is a star-schema set of CSVs under `tables/` that is upserted into Supabase Postgres tables
 (`vlr_pipeline/upload.py`, port of rktdata's `scripts/upload.mjs`: file → table → PK list) and consumed by rktdata.ar.
-Upload is **incremental** by default: dimension tables go in full, fact tables only for `series_id`s missing from
+Credentials come from the environment or, locally, from `.env.local` (`config.load_env_file`, called by the CLI; accepts rktdata's `NEXT_PUBLIC_SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` names, never overrides existing env vars; tests disable it via `VLR_ENV_FILE=""`). Upload is **incremental** by default: dimension tables go in full, fact tables only for `series_id`s missing from
 Supabase's `match_id` or re-scraped (scrape_log `last_attempt`) after the last all-ok upload; `match_id` is uploaded
 last and only for series whose facts succeeded, so failed chunks retry next run. `--full` (CLI, or the `full` input of
 "Run workflow") re-uploads everything — needed after changing table-building code or lookups, since existing matches'
@@ -29,8 +29,9 @@ Pull before running notebooks locally to avoid conflicts with the bot's commits.
 
 ## Environment & running
 
-- Conda env on Python 3.11 (win-64). `requirements.txt` is a conda spec, not pip:
-  `conda create --name <env> --file requirements.txt`
+- `requirements.txt` is a **pip** file (what Actions installs; includes `supabase`, needed only by `upload`):
+  `python -m pip install -r requirements.txt`. The old conda spec (Python 3.11, win-64) is `environment.conda.txt`:
+  `conda create --name <env> --file environment.conda.txt` (it has no `supabase`; pip-install it on top).
 - Core stack: `beautifulsoup4` + `urllib` (scraping), `pandas`/`numpy` (processing), `matplotlib`, `scikit-learn`.
 - Run notebooks in Jupyter, or execute headless:
   `jupyter nbconvert --to notebook --execute --inplace vlr_scraper.ipynb`
@@ -105,6 +106,13 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
   `mod-t1` = team_a); `add_economy_rounds_grid` parses it, the old `mod-econ` table parser stays for old fixture html.
   vlr now rounds the loadout value to 0.1k and shows only 24 rounds (no overtime economy). If `process_match` fails
   midway it purges the rows it already saved, so partial matches never reach the upload.
+- **Match format** — an event in `events.json` may carry `"format": "reduced"` (default `full`) for qualifiers
+  where vlr has no draft (no bans, no decider map). `scrape_event` writes it to scrape_log's `match_format`
+  (and re-syncs already-logged matches with no requests); `build_ids` / `build_region_tournament` read it into
+  `table_match_id.match_format` (full/reduced) and `table_tournament.match_format` (full/reduced/mixed). Supabase
+  columns come from `sql/match_format.sql`. Reduced matches have no `draft_` rows, so `table_teams` also takes
+  teams from `round_detail`. Forfeits (`forfeited by X`) are `skipped` with error `forfeit`. Small teams' logs tab
+  can bring the tag in another case (`Rvan` vs `RVAN`): `same_team_case` fixes it before `team_aliases`.
 - **Manual lookup lists** — new maps and agents must be added by hand to the hardcoded lists in
   `csv_process.ipynb` (map_info / agent_path_name), otherwise their rows won't get IDs/images.
 

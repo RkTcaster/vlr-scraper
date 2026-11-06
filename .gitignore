@@ -23,3 +23,9 @@ __pycache__/
 .ipynb_checkpoints/
 logs/
 *.tmp
+*.env.local
+*.env
+
+# credenciales locales de Supabase (las lee vlr_pipeline/config.load_env_file)
+.env
+.env.*

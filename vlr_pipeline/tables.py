@@ -12,6 +12,7 @@ from collections import Counter
 import numpy as np
 import pandas as pd
 
+from vlr_pipeline.config import DEFAULT_MATCH_FORMAT
 from vlr_pipeline.lookups import agent_path_name, map_info, region_id, region_name, team_aliases
 from vlr_pipeline.parsers import json_text
 from vlr_pipeline.save import normalize_filename
@@ -103,6 +104,25 @@ def sort_teams(team_string):
     return "-".join(sorted_teams) + "-" + map_info
 
 
+def tag_key(tag):
+    """Tag en mayusculas para comparar. Los tags viajan en forma html (utf-8 leido como latin-1,
+    ver CLAUDE.md): "Mörk" es "MÃ¶rk" y upper() da "MÃ¶RK", no "MÖRK" ("MÃRK"); se pasa a
+    texto real antes de upper()."""
+    if not isinstance(tag, str):
+        return tag
+    try:
+        tag = tag.encode("iso-8859-1").decode("utf-8")
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        pass
+    return tag.upper()
+
+
+def same_team_case(tags, team):
+    """Pone el tag como en team cuando solo difieren en mayusculas ("Rvan" -> "RVAN")."""
+    differs = tags.notna() & (tags != team) & (tags.map(tag_key) == team.map(tag_key))
+    return tags.mask(differs, team)
+
+
 def canonical_teams(tags, team_a, team_b):
     """Tricodes renombrados por vlr -> los de round_info (ver team_aliases en lookups.py).
 
@@ -112,7 +132,12 @@ def canonical_teams(tags, team_a, team_b):
     El alias se aplica **solo si el tag no es ninguno de los dos equipos de esa ronda**: vlr
     renombro a DRX en KRX a mitad de temporada, asi que las series viejas tienen DRX en
     round_info y las nuevas KRX, y un replace global rompe unas o las otras.
+
+    Antes del alias se corrige la capitalizacion: en equipos chicos (qualifiers) la solapa logs
+    trae el tag como "Rvan" y round_detail como "RVAN".
     """
+    tags = same_team_case(tags, team_a)
+    tags = same_team_case(tags, team_b)
     unknown = tags.notna() & (tags != team_a) & (tags != team_b)
     return tags.mask(unknown, tags.replace(team_aliases))
 
@@ -122,6 +147,32 @@ def match_id_vlr(url):
     if match:
         vlr_id = match.group(1)
         return vlr_id
+
+
+def load_match_formats(csv_dir="csv"):
+    """series_id -> match_format desde csv/scrape_log.csv (lo escribe scrape_event segun el
+    "format" del evento en events.json). Sin log, o con la celda vacia, el match es full.
+
+    Returns:
+        pd.DataFrame: columnas series_id, tournament (forma html, = tour_id) y match_format
+    """
+    path = os.path.join(csv_dir, "scrape_log.csv")
+    columns = ["series_id", "tournament", "match_format"]
+    if not os.path.exists(path):
+        return pd.DataFrame(columns=columns)
+    df_log = pd.read_csv(path, dtype=str, keep_default_na=False, encoding="iso-8859-1")
+    if "match_format" not in df_log.columns:
+        df_log["match_format"] = ""
+    df_log["match_format"] = df_log["match_format"].replace("", DEFAULT_MATCH_FORMAT)
+    return df_log[columns]
+
+
+def tournament_format(formats):
+    """Formato de un torneo a partir de los de sus matches: el unico que haya, o mixed."""
+    values = sorted(set(formats))
+    if not values:
+        return DEFAULT_MATCH_FORMAT
+    return values[0] if len(values) == 1 else "mixed"
 
 
 def build_region_tournament(csv_dir="csv", tables_dir="tables"):
@@ -145,6 +196,13 @@ def build_region_tournament(csv_dir="csv", tables_dir="tables"):
 
     df_tournaments = df_tournaments.drop(["tournament_name"], axis=1)
 
+    # full / reduced (sin draft) / mixed, desde los matches ok del torneo en scrape_log
+    df_formats = load_match_formats(csv_dir)
+    formats_by_tour = df_formats.groupby("tournament")["match_format"].apply(tournament_format)
+    df_tournaments["match_format"] = (
+        df_tournaments["tour_id"].map(formats_by_tour).fillna(DEFAULT_MATCH_FORMAT)
+    )
+
     df_region.to_csv(path_or_buf=os.path.join(tables_dir, 'table_region.csv'), index=False, encoding='iso-8859-1')
     df_tournaments.to_csv(path_or_buf=os.path.join(tables_dir, 'table_tournament.csv'), index=False, encoding='iso-8859-1')
 
@@ -154,9 +212,17 @@ def build_region_tournament(csv_dir="csv", tables_dir="tables"):
 def build_teams(csv_dir="csv", tables_dir="tables"):
     """Celda 7: table_teams.csv."""
     df_draft_concat = concat_csv_from_different_folders(folder=csv_dir, prefix="draft_")
+    df_draft_concat = df_draft_concat.reindex(columns=df_draft_concat.columns.union(["team", "rival"]))
+    # los torneos reduced (qualifiers) no tienen draft: sus equipos salen de round_detail, que
+    # trae los mismos tricodes (en los torneos full ambos conjuntos coinciden). El draft va
+    # primero para que el orden de la tabla no cambie
+    df_round_detail = concat_csv_from_different_folders(folder=csv_dir, prefix="round_detail")
     # el draft guarda un solo lado por serie (sin mirror): un equipo que solo aparece como
     # rival (p.ej. QTD) quedaba fuera de la tabla
-    teams = pd.concat([df_draft_concat["team"], df_draft_concat["rival"]]).unique()
+    teams = pd.concat([
+        df_draft_concat["team"], df_draft_concat["rival"],
+        df_round_detail["teamA"], df_round_detail["teamB"],
+    ]).dropna().unique()
     df_team = pd.DataFrame(teams, columns=["team"])
 
     df_team["team_id"] = df_team["team"]
@@ -268,6 +334,11 @@ def build_ids(df_tournaments, csv_dir="csv", tables_dir="tables"):
     df_maps_id.to_csv(path_or_buf=os.path.join(tables_dir, 'table_maps_id.csv'), index=False, encoding='iso-8859-1')
 
     df_match_id = df_match_id.drop(["vlr_id"], axis=1)
+
+    # despues del merge con df_maps_id, para que maps_id no herede la columna. full (con draft) / reduced (qualifiers sin picks/bans), segun events.json via scrape_log
+    df_formats = load_match_formats(csv_dir)[["series_id", "match_format"]].drop_duplicates("series_id")
+    df_match_id = pd.merge(df_match_id, df_formats, how="left", on="series_id")
+    df_match_id["match_format"] = df_match_id["match_format"].fillna(DEFAULT_MATCH_FORMAT)
 
     df_match_id.to_csv(path_or_buf=os.path.join(tables_dir, 'table_match_id.csv'), index=False, encoding='iso-8859-1')
 
@@ -442,6 +513,18 @@ def build_team_economy(df_maps_id, df_round_concat, csv_dir="csv", tables_dir="t
     df_team_economy = df_team_economy[df_team_economy["reg_id"] != "reg_2"]
 
     df_team_economy = pd.merge(df_team_economy, df_round_concat[["teamA", "teamB", "rndA", "rndB", "team_map_round_id", "winCon", "side"]], how="left", left_on="team_map_round_id", right_on="team_map_round_id")
+    # vlr a veces muestra rondas de mas en la grilla de economia (p.ej. 784646 Sunset, rondas 10-13
+    # en 0) que no existen en round_info: sin win_A, la columna pasaba a float ("0.0") y el upsert a
+    # la columna smallint fallaba para toda la tabla
+    no_round = df_team_economy["rndA"].isna()
+    if no_round.any():
+        logger.warning(
+            f"team_economy: descarto {int(no_round.sum())} filas sin ronda en round_info "
+            f"(series {sorted(df_team_economy.loc[no_round, 'series_id'].unique())})"
+        )
+        df_team_economy = df_team_economy[~no_round]
+        # el NaN del merge dejo rndA/rndB en float: volver a int para que win_A no salga "0.0"
+        df_team_economy = df_team_economy.astype({"rndA": int, "rndB": int})
     df_team_economy["side_b"] = np.where(df_team_economy["side"] == "atk", "def", "atk")
     df_team_economy["eco_side"] = np.where(df_team_economy["team_a"] == df_team_economy["teamA"], df_team_economy["side"], df_team_economy["side_b"])
     df_team_economy["eco_win_A"] = np.where(df_team_economy["team_a"] == df_team_economy["teamA"], df_team_economy["rndA"], df_team_economy["rndB"])
@@ -490,6 +573,9 @@ def build_round_buy(df_maps_id, df_round_concat, csv_dir="csv", tables_dir="tabl
     df_buy["map_id"] = df_buy["series_id"] + "-" + df_buy["map"]
     df_buy = pd.merge(df_buy, df_maps_id[["map_id", "reg_id", "tour_id"]], how="left", left_on="map_id", right_on="map_id")
 
+    # la solapa logs de equipos chicos trae "Rvan" donde el header dice "RVAN"
+    df_buy["team"] = same_team_case(df_buy["team"], df_buy["team_a"])
+    df_buy["team"] = same_team_case(df_buy["team"], df_buy["team_b"])
     unknown_team = (df_buy["team"] != df_buy["team_a"]) & (df_buy["team"] != df_buy["team_b"])
     if unknown_team.any():
         logger.warning(f"round_buy: {int(unknown_team.sum())} filas con un tag que no es team_a ni team_b")

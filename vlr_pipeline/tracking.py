@@ -35,8 +35,11 @@ LOG_COLUMNS = [
     "has_logs",
     "first_seen",
     "last_attempt",
+    # formato del evento segun events.json: full (con draft) o reduced (qualifiers sin
+    # picks/bans). Vacio = full (filas anteriores a la columna)
+    "match_format",
 ]
-# ok: match completo. skipped: showmatch, no se vuelve a pedir. error: se reintenta.
+# ok: match completo. skipped: showmatch o forfeit, no se vuelve a pedir. error: se reintenta.
 DONE_STATUSES = {"ok", "skipped"}
 MAX_ATTEMPTS = 3
 
@@ -178,7 +181,9 @@ def should_skip(log, url):
     return False
 
 
-def record(log, url, status, event="", error="", has_performance="", has_economy="", has_logs=""):
+def record(
+    log, url, status, event="", error="", has_performance="", has_economy="", has_logs="", match_format="full",
+):
     """Upsert de la fila del match por series_id. Devuelve el log actualizado."""
     series_id = get_series_id(url)
     now = _now()
@@ -190,6 +195,7 @@ def record(log, url, status, event="", error="", has_performance="", has_economy
         "has_economy": has_economy,
         "has_logs": has_logs,
         "last_attempt": now,
+        "match_format": match_format,
     }
     if event:
         values["event"] = event
@@ -208,6 +214,22 @@ def record(log, url, status, event="", error="", has_performance="", has_economy
     row = {column: "" for column in LOG_COLUMNS}
     row.update(values, series_id=series_id, attempts=1, first_seen=now)
     return pd.concat([log, pd.DataFrame([row], columns=LOG_COLUMNS)], ignore_index=True)
+
+
+def sync_match_format(log, urls, match_format):
+    """Pone match_format en las filas ya registradas de estos matches, sin requests a vlr.
+
+    Asi cambiar el "format" de un evento en events.json alcanza para re-marcar sus matches
+    ya scrapeados. No toca last_attempt: el formato se sube con match_id/tournament, que en
+    incremental solo van completas con --full (ver CLAUDE.md).
+
+    Returns:
+        int: cantidad de filas cambiadas
+    """
+    series_ids = {get_series_id(url) for url in urls}
+    mask = log["series_id"].isin(series_ids) & (log["match_format"] != match_format)
+    log.loc[mask, "match_format"] = match_format
+    return int(mask.sum())
 
 
 def update_fields(log, url, **fields):
