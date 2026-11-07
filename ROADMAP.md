@@ -158,13 +158,12 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 - `has_logs` en `scrape_log.csv`: 506 `True` (con compras y eventos en disco), 65 `False` (matches sin solapa logs
   en vlr) y 78 vacíos (los de status error).
 
-### csv de logs fuera de git (temporal, 2026-10-20)
-- `csv/*/round_buy_*.csv` y `csv/*/round_events_*.csv` están en `.gitignore` (~55 MB) hasta decidir si las tablas
-  de logs van a Supabase. Mientras siga así, **`csv/scrape_log.csv` tampoco se commitea**: con `has_logs=True` y
-  los csv ausentes, Actions cree que los logs están en el repo y no los baja.
-- Si el commit diario del bot pisa el log: `python scripts/backfill_all_logs.py --sync-has-logs` lo reconstruye
-  leyendo los csv de disco, sin pedir nada a vlr (recupera 472 de 537; los 65 sin solapa logs se re-intentan solos).
-- Para sacarlo de ignore: borrar esas líneas del `.gitignore` y commitear `csv/` junto con `scrape_log.csv`.
+### csv de logs en git (2026-11-07)
+- [x] `csv/*/round_buy_*.csv` y `csv/*/round_events_*.csv` salieron del `.gitignore` (estuvieron ignorados desde
+  2026-10-20). La regla "no commitear `scrape_log.csv`" no se podía cumplir: el bot lo commitea a diario, y 55
+  matches scrapeados por Actions (47 del qualifier EMEA 2027, 8 de GC Championship) quedaron con `has_logs=True`
+  y sus csv perdidos con el runner. Se re-bajaron con `backfill_all_logs.py --redo` y se commitearon junto con
+  `scrape_log.csv`. Peso: ~121 MB en disco, ~9 MB comprimidos en git.
 
 ### Situaciones XvY
 - [ ] Subir `round_situations` a Supabase: DDL en `sql/round_situations.sql` (todavía no escrito), alta en

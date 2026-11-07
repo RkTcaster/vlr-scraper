@@ -186,9 +186,9 @@ def reset_has_logs(csv_dir, series_ids, dry_run=False):
 def sync_has_logs(csv_dir, dry_run=False):
     """Marca has_logs en scrape_log.csv segun los round_events_ que ya estan en csv/, sin red.
 
-    Los csv de la solapa logs estan en .gitignore pero scrape_log.csv no, asi que el commit diario
-    del bot puede pisar el has_logs del backfill. Esto lo reconstruye leyendo que series tienen
-    filas de eventos en disco, en vez de volver a bajar 537 matches.
+    Sirve para recuperar scrape_log.csv despues de un conflicto con el commit del bot (o si alguna
+    vez se pierden csv de logs): lo reconstruye leyendo que series tienen filas de eventos en
+    disco, en vez de volver a bajar todos los matches.
     """
     series_on_disk = set()
     for path in sorted(glob.glob(os.path.join(csv_dir, "*", "round_events_*.csv"))):

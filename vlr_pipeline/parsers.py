@@ -1062,6 +1062,9 @@ def get_player_stats(soup, basic_match_info):
         map_div = game.find("div", class_="map")
         if map_div is not None:
             map_name = parse_map_name(map_div) or "unknown"
+            if map_name == "TBD":
+                # mapa no jugado (W.O. de ese mapa, ej. 784752): stats en 0, no es dato real
+                continue
             duration_div = map_div.find("div", class_="map-duration")
             map_duration = duration_div.get_text(strip=True) if duration_div else "unknown"
         else:

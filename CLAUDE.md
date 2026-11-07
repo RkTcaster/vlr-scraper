@@ -19,12 +19,14 @@ global flags go before the subcommand).
 Production runs in GitHub Actions (`.github/workflows/pipeline.yml`, daily 17:00 UTC; cron always incremental): scrapes the `active` events in
 `events.json`, rebuilds `tables/`, uploads to Supabase, and commits only `csv/` back to the repo. `csv/` (including
 `csv/scrape_log.csv`) is versioned; `tables/` is gitignored because it is fully regenerated from `csv/` (the package
-output was verified byte-identical to the notebook's). **Temporary exception (2026-10-20):** `csv/*/round_buy_*.csv`
-and `csv/*/round_events_*.csv` are gitignored too (~55 MB from the 537-match backfill) until it is decided whether
-the logs tables go to Supabase, so `csv/scrape_log.csv` must stay uncommitted as well — committing it with
-`has_logs=True` while those csv are absent makes Actions believe the logs are in the repo and it never fetches them.
-`scripts/backfill_all_logs.py --sync-has-logs` rebuilds `has_logs` from the csv on disk, with no requests to vlr,
-if the bot's daily commit overwrites it. The two `valorant_champions_2026` files were already tracked and stay so. `.gitattributes` keeps `*.csv` line endings untouched.
+output was verified byte-identical to the notebook's). The logs-tab csv (`round_buy_`, `round_events_`) are
+versioned too since 2026-11-07 (~9 MB compressed in git, ~15-20 MB/year): they were gitignored from 2026-10-20, but
+the bot commits `scrape_log.csv` every day anyway, so `has_logs=True` ended up pointing at csv that existed nowhere
+(55 matches scraped by Actions lost their logs with the runner). Invariant: `has_logs=True` means the match's
+`round_buy_`/`round_events_` rows are in `csv/` **in git** — never ignore those files again without changing that.
+`scripts/backfill_all_logs.py --sync-has-logs` rebuilds `has_logs` from the csv on disk, with no requests to vlr, and
+`--redo <series_id...>` re-downloads specific matches. GitHub's per-file limit is 100 MB (warns at 50 MB); the largest
+logs csv is ~20 MB (`round_buy_` of the 2027 EMEA kickoff qualifier, ~240 matches) — split a file if one ever approaches 50 MB. `.gitattributes` keeps `*.csv` line endings untouched.
 Pull before running notebooks locally to avoid conflicts with the bot's commits. `.gitattributes` maps
 `csv/**/*.csv` to the `vlr-csv` merge driver (`scripts/merge_csv.py`: 3-way merge per series, local wins when both
 sides changed one; must be registered once per clone with `git config`, see `COMMANDS.md`); `--resolve` fixes a

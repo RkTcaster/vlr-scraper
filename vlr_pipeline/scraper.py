@@ -60,6 +60,11 @@ def get_invalid_reason(soup):
     # "forfeited by <equipo>": no se jugo ningun mapa (todos N/A), no hay nada que extraer
     if status.lower().startswith("forfeit"):
         return "forfeit"
+    # W.O. que vlr marca "final" (ej. 2:0) sin jugar ningun mapa: todos los mapas son "TBD"
+    # con stats en 0 (784758). Se extraeria player_stats con map_id "<id>-TBD" repetido.
+    map_names = [m.get_text(" ", strip=True) for m in soup.select(".vm-stats-game-header .map")]
+    if map_names and all(name.split(" ")[0] == "TBD" for name in map_names):
+        return "forfeit"
     if status != "final":
         return "not_final"
     return None
