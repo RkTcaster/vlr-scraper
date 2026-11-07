@@ -6,6 +6,21 @@ para que no se rompan los nombres con acentos.
 
 Antes de correr algo local: `git pull` (el bot commitea `csv/` todos los días).
 
+## Merge de `csv/` con el bot (una vez por clon)
+
+```bash
+git config merge.vlr-csv.name "merge de csv/ por serie"
+git config merge.vlr-csv.driver "python scripts/merge_csv.py %O %A %B %P"
+```
+
+Con esto, `git pull` combina los csv de `csv/` por serie, así que no hay conflictos aunque el bot y vos hayan
+tocado el mismo archivo. Si los dos cambiaron la misma serie, gana la versión local y lo avisa en la salida. Si un
+merge ya quedó en conflicto (por ejemplo, desde un clon sin el driver configurado):
+
+```bash
+python scripts/merge_csv.py --resolve     # todos los csv/ en conflicto; despues git add y git commit
+```
+
 ## Pipeline completo
 
 ```bash

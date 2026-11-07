@@ -25,7 +25,10 @@ the logs tables go to Supabase, so `csv/scrape_log.csv` must stay uncommitted as
 `has_logs=True` while those csv are absent makes Actions believe the logs are in the repo and it never fetches them.
 `scripts/backfill_all_logs.py --sync-has-logs` rebuilds `has_logs` from the csv on disk, with no requests to vlr,
 if the bot's daily commit overwrites it. The two `valorant_champions_2026` files were already tracked and stay so. `.gitattributes` keeps `*.csv` line endings untouched.
-Pull before running notebooks locally to avoid conflicts with the bot's commits. Comments are frequently in Spanish.
+Pull before running notebooks locally to avoid conflicts with the bot's commits. `.gitattributes` maps
+`csv/**/*.csv` to the `vlr-csv` merge driver (`scripts/merge_csv.py`: 3-way merge per series, local wins when both
+sides changed one; must be registered once per clone with `git config`, see `COMMANDS.md`); `--resolve` fixes a
+merge that is already conflicted. Comments are frequently in Spanish.
 
 ## Environment & running
 

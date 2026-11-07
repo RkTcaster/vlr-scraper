@@ -1,3 +1,10 @@
 # Los csv se escriben con csv.writer (CRLF) en Windows y en Linux (Actions).
 # Sin conversion de fin de linea: evita archivos mezclados y diffs gigantes.
 *.csv -text
+
+# Merge por serie (scripts/merge_csv.py): el bot commitea csv/ todos los dias y un pull con cambios
+# locales en los mismos csv chocaba linea por linea. Hay que registrar el driver una vez por clon:
+#   git config merge.vlr-csv.name "merge de csv/ por serie"
+#   git config merge.vlr-csv.driver "python scripts/merge_csv.py %O %A %B %P"
+# Sin registrar, git ignora el atributo y hace el merge de siempre.
+csv/**/*.csv merge=vlr-csv

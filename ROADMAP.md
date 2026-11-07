@@ -138,6 +138,19 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 
 ## Pendiente
 
+### Re-scrapear China Kickoff y Stage 1 (2026-11-06, respuesta a rktdata)
+- Las 78 series (30 + 48) están en `error` (`list index out of range`) desde el 2026-09-13, con datos
+  parciales: a Kickoff le faltan 5 mapas en player_stats y 3 tienen 6 jugadores; a Stage 1 le faltan 6 de 119
+  mapas. vlr ya tiene todo y `process_match` actual saca 598922 completo y `ok`. Hay que correr
+  `scrape --event-url` de los dos eventos (attempts = 1, se reintentan) y después `upload`, con el merge de `csv/`
+  resuelto.
+- Performance/economy/logs de China: vlr dice "not available yet". No hay nada que sacar.
+- Los 3 mapas sin performance (`712828-Sunset`, `698906-Ascent`, `773438-Abyss`) vienen de vlr con la tabla vacía.
+- Agentes nuevos: `agent_info` no se sube (Supabase a mano, `sql/agent_hush.sql`). Huérfanas de GC con mojibake:
+  `sql/cleanup_gc_encoding.sql`. Respuesta completa: `handoff/RKTDATA_RESPUESTA_QUALIFIER.md`.
+- Latente: `scrape_log.tournament` guarda el nombre real (`são`), no la forma html de `tour_id`, así que
+  `load_match_formats` no matchea torneos con no-ASCII. Hoy no pasa nada porque GC es `full` (el default).
+
 ### Logs incompletos: es un hueco de vlr, no del scraper
 - Re-scrapeados con `--redo` el 2026-10-20 y vuelven **idénticos**: 698906-Ascent tiene eventos en 6 de 18 rondas,
   712828-Sunset en 17 de 23, y 595655-Abyss ronda 14 solo las 4 muertes por caída (faltan las 5 kills con las que
