@@ -915,3 +915,19 @@ run_at,run_id,mode,table,file,rows,series,failed_rows,status,error,duration_s
 2026-11-06T20:34:42+00:00,local,incremental,round_events,table_round_events.csv,63431,194,0,ok,,76.1
 2026-11-06T20:34:42+00:00,local,incremental,round_summary,table_round_summary.csv,8055,194,0,ok,,9.6
 2026-11-06T20:34:42+00:00,local,incremental,match_id,table_match_id.csv,200,200,0,ok,,0.3
+2026-11-07T11:30:10+00:00,42368119340,incremental,regions,table_region.csv,5,,0,ok,,0.3
+2026-11-07T11:30:10+00:00,42368119340,incremental,tournament,table_tournament.csv,18,,0,ok,,0.1
+2026-11-07T11:30:10+00:00,42368119340,incremental,teams,table_teams.csv,287,,0,ok,,0.2
+2026-11-07T11:30:10+00:00,42368119340,incremental,tournament_played,table_tournament_played.csv,437,,0,ok,,0.5
+2026-11-07T11:30:10+00:00,42368119340,incremental,players,table_players.csv,1545,,0,ok,,1.1
+2026-11-07T11:30:10+00:00,42368119340,incremental,maps_name_ids,table_maps_name_id.csv,13,,0,ok,,0.1
+2026-11-07T11:30:10+00:00,42368119340,incremental,maps_id,table_maps_id.csv,109,47,0,ok,,0.1
+2026-11-07T11:30:10+00:00,42368119340,incremental,draft,table_draft.csv,0,0,0,ok,,0
+2026-11-07T11:30:10+00:00,42368119340,incremental,round_info,table_round_info.csv,2222,47,0,ok,,2.1
+2026-11-07T11:30:10+00:00,42368119340,incremental,team_economy,table_team_economy.csv,2154,47,0,ok,,1.8
+2026-11-07T11:30:10+00:00,42368119340,incremental,player_stats,table_player_stats.csv,21358,,21358,invalid,"table_player_stats.csv: 10 claves ['map_id', 'player'] duplicadas, ej. [('784758-TBD', 'Leare'), ('784758-TBD', 'Prti'), ('784758-TBD', 'tomaszy')]",0
+2026-11-07T11:30:10+00:00,42368119340,incremental,player_performance,table_player_performance.csv,1090,47,0,ok,,1.0
+2026-11-07T11:30:10+00:00,42368119340,incremental,round_buy,table_round_buy.csv,2222,47,0,ok,,2.6
+2026-11-07T11:30:10+00:00,42368119340,incremental,round_events,table_round_events.csv,17650,47,0,ok,,11.9
+2026-11-07T11:30:10+00:00,42368119340,incremental,round_summary,table_round_summary.csv,2222,47,0,ok,,1.5
+2026-11-07T11:30:10+00:00,42368119340,incremental,match_id,table_match_id.csv,0,0,0,ok,,0
