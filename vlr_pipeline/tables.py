@@ -91,8 +91,11 @@ def tournament_names(folder='csv'):
 
 
 def region_by_id(touranment_name, region):
+    # vlr a veces nombra la region en singular ("VCT 2027: America Kickoff - North America Open
+    # Qualifier"): sin esto el torneo cae en global (reg_4). \b deja intacto "americas".
+    name = re.sub(r"\bamerica\b", "americas", touranment_name.lower())
     for _, row in region.iterrows():
-        if row['region'].lower() in touranment_name.lower():
+        if row['region'].lower() in name:
             return row['reg_id']
     return "reg_4"
 
@@ -175,6 +178,116 @@ def tournament_format(formats):
     return values[0] if len(values) == 1 else "mixed"
 
 
+def vlr_id_text(values):
+    """Ids de vlr como texto ("69551"); read_csv los trae float ("69551.0") si hay vacios."""
+    def one(value):
+        if pd.isna(value) or value == "":
+            return pd.NA
+        try:
+            return str(int(float(value)))
+        except (TypeError, ValueError):
+            return str(value)
+    return pd.Series([one(value) for value in values], index=values.index, dtype="object")
+
+
+def agent_key(values):
+    """Agente comparable entre fuentes: overview/round_buy dicen "Jett", performance/logs "jett"."""
+    return values.map(lambda value: str(value).strip().lower() if isinstance(value, str) and value else pd.NA)
+
+
+def nick_text(values):
+    """Nick como texto: read_csv convierte un nick numerico ("333") en int en un csv y no en otro."""
+    return values.map(lambda value: value if pd.isna(value) else str(value))
+
+
+def raw_player_ids(df):
+    """player_id_vlr de las filas crudas de player_stats, con fallback para jugadores sin perfil.
+
+    Algunos jugadores de qualifiers no tienen pagina en vlr (el overview muestra el nick con
+    "mod-tbd" y sin link /player/): no hay id que bajar. Si el mismo (team, nick) tiene un unico id
+    real en otro partido (vlr le creo el perfil despues), se usa ese; si no, "tbd_<team>_<nick>",
+    que no choca con los ids numericos de vlr. df tiene que traer todas las filas (todos los
+    torneos) para que el resultado no dependa de que parte se pase.
+    """
+    ids = df["player_id_vlr"] if "player_id_vlr" in df else pd.Series(pd.NA, index=df.index)
+    ids = vlr_id_text(ids)
+    team = df["team"].astype(str)
+    nick = nick_text(df["player"]).astype(str)
+    known = pd.DataFrame({"team": team, "nick": nick, "id": ids}).dropna(subset=["id"])
+    n_known = known.groupby(["team", "nick"])["id"].transform("nunique")
+    single = known[n_known == 1].drop_duplicates(subset=["team", "nick"]).set_index(["team", "nick"])["id"]
+    same_player = single.reindex(pd.MultiIndex.from_arrays([team, nick])).to_numpy()
+    fallback = pd.Series(same_player, index=df.index, dtype="object")
+    fallback = fallback.where(fallback.notna(), "tbd_" + team + "_" + nick)
+    return ids.where(ids.notna(), fallback)
+
+
+def match_nick(values):
+    """Nick para cruzar fuentes: el overview conserva espacios dobles ("No  Я") y performance los
+    colapsa; el performance viejo ademas tiene el nbsp de un caracter utf-8 cambiado por espacio
+    (ver parsers.html_words). Se comparan con todo espacio (nbsp incluido) colapsado a uno."""
+    return nick_text(values).map(lambda value: value if pd.isna(value) else " ".join(value.split()))
+
+
+def player_keys(csv_dir="csv"):
+    """Una fila por (map_id, jugador) del overview: player, agent_key y player_id_vlr.
+
+    Es el diccionario con el que performance y los logs (que no traen el id de vlr) encuentran el
+    player_id_vlr de cada fila: por map_id + nick, y si el nick se repite en el mapa (785988: dos
+    "Splotza" en RADI), por el agente, que en un mapa no se repite dentro de un equipo.
+    """
+    df = concat_csv_from_different_folders(folder=csv_dir, prefix="player_stats")
+    df = df[df["map"] != "all"].copy()
+    df["map_id"] = df["source_url"].apply(match_id_vlr) + "-" + df["map"]
+    df["player"] = nick_text(df["player"])
+    df["agent_key"] = agent_key(df["agent"])
+    df["player_id_vlr"] = raw_player_ids(df)
+    return df.loc[df["player_id_vlr"].notna(), ["map_id", "player", "agent_key", "player_id_vlr"]]
+
+
+PLAYER_KEYS_COLUMNS = ["map_id", "player", "agent_key", "player_id_vlr"]
+
+
+def resolve_player_ids(df, keys, player_col, agent_col=None, map_col="map_id"):
+    """player_id_vlr de cada fila de df (performance, round_buy, round_events) a partir de player_keys.
+
+    Primero por (map_id, nick) cuando el nick es unico en el mapa; si no, por (map_id, nick, agente).
+    Las filas viejas de performance/events no tienen agente, pero los nicks repetidos solo aparecen
+    en series scrapeadas despues de agregarlo (2026-11-07). Sin match devuelve NA.
+    """
+    if keys is None:
+        keys = pd.DataFrame(columns=PLAYER_KEYS_COLUMNS)
+    if df.empty or keys.empty:
+        return pd.Series(pd.NA, index=df.index, dtype="object")
+    keys = keys.assign(player=match_nick(keys["player"]))
+    players = match_nick(df[player_col])
+    n_ids = keys.groupby(["map_id", "player"])["player_id_vlr"].transform("nunique")
+
+    unique = keys[n_ids == 1].drop_duplicates(subset=["map_id", "player"]).set_index(["map_id", "player"])["player_id_vlr"]
+    index = pd.MultiIndex.from_arrays([df[map_col], players])
+    result = pd.Series(unique.reindex(index).to_numpy(), index=df.index, dtype="object")
+
+    if agent_col is not None and agent_col in df:
+        repeated = keys[n_ids > 1].drop_duplicates(subset=["map_id", "player", "agent_key"])
+        repeated = repeated.set_index(["map_id", "player", "agent_key"])["player_id_vlr"]
+        index = pd.MultiIndex.from_arrays([df[map_col], players, agent_key(df[agent_col])])
+        by_agent = pd.Series(repeated.reindex(index).to_numpy(), index=df.index, dtype="object")
+        result = result.where(result.notna(), by_agent)
+    return result
+
+
+def drop_without_player_id(df, table, column="player_id_vlr"):
+    """Saca (y avisa) las filas sin id de vlr: player_id_vlr es parte de la PK en Supabase."""
+    missing = df[column].isna()
+    if missing.any():
+        series = sorted(set(df.loc[missing, "series_id"].astype(str)))
+        logger.warning(
+            f"{table}: descarto {int(missing.sum())} filas sin player_id_vlr (series {series[:10]}); "
+            "correr scripts/backfill_player_ids.py"
+        )
+    return df[~missing]
+
+
 def build_region_tournament(csv_dir="csv", tables_dir="tables"):
     """Celdas 4-5: table_region.csv y table_tournament.csv."""
     region_data = {"region": region_name, "reg_id": region_id}
@@ -240,21 +353,27 @@ def build_teams(csv_dir="csv", tables_dir="tables"):
 def build_players(df_team, csv_dir="csv", tables_dir="tables"):
     """Celda 8: table_players.csv."""
     df_players_stats = concat_csv_from_different_folders(folder=csv_dir, prefix="player_stats")
-    # un jugador que cambio de equipo (o su equipo cambio de tag) queda con el equipo de su
-    # partido mas reciente; antes quedaba el del primer archivo leido
+    df_players_stats["player_id_vlr"] = raw_player_ids(df_players_stats)
+    df_players_stats["series_id"] = df_players_stats["source_url"].apply(match_id_vlr)
+    df_players_stats = drop_without_player_id(df_players_stats, "players")
+    # una fila por jugador de vlr (player_id_vlr, la PK): dos jugadores con el mismo nick son dos
+    # filas (785988). Nick y equipo son los de su partido mas reciente (un jugador que cambio de
+    # equipo, o de nick, queda con el ultimo). player_id (<team>_<nick>) queda como columna legacy
+    # para rktdata y ya no es unico
     df_players = (
-        df_players_stats[['player', 'team', 'date']]
+        df_players_stats[['player', 'team', 'date', 'player_id_vlr']]
         .sort_values('date', kind='stable')
-        .drop_duplicates(subset=['player'], keep='last')
+        .drop_duplicates(subset=['player_id_vlr'], keep='last')
         .sort_index()
         .drop(columns=['date'])
         .reset_index(drop=True)
     )
-    df_players["player_id"] = df_players["team"] + "_" + df_players["player"]
+    df_players["player_id"] = df_players["team"] + "_" + df_players["player"].astype(str)
 
     df_players_id = pd.merge(df_players, df_team[["team_id"]], how="left", left_on="team", right_on="team_id")
 
     df_players_id = df_players_id.drop(["team"], axis=1)
+    df_players_id = df_players_id[["player", "player_id", "team_id", "player_id_vlr"]]
 
     df_players_id.to_csv(path_or_buf=os.path.join(tables_dir, 'table_players.csv'), index=False, encoding='iso-8859-1')
 
@@ -347,8 +466,8 @@ def build_ids(df_tournaments, csv_dir="csv", tables_dir="tables"):
     return df_maps_id
 
 
-def build_player_performance(df_maps_id, csv_dir="csv", tables_dir="tables"):
-    """Celda 12: table_player_performance.csv."""
+def build_player_performance(df_maps_id, df_player_keys=None, csv_dir="csv", tables_dir="tables"):
+    """Celda 12: table_player_performance.csv. player_id_vlr sale del overview (resolve_player_ids)."""
     df_player_performance = concat_csv_from_different_folders(folder=csv_dir, prefix="player_performance")
 
     df_filter_map = df_player_performance["map"] != "all"
@@ -359,6 +478,12 @@ def build_player_performance(df_maps_id, csv_dir="csv", tables_dir="tables"):
     df_player_performance["map_id"] = (
         df_player_performance["series_id"] + "-" + df_player_performance["map"]
     )
+
+    df_player_performance["player_id_vlr"] = resolve_player_ids(
+        df_player_performance, df_player_keys, "player", agent_col="agent"
+    )
+    df_player_performance = drop_without_player_id(df_player_performance, "player_performance")
+    df_player_performance = df_player_performance.drop(columns=["agent"], errors="ignore")
 
     df_player_performance = pd.merge(df_player_performance, df_maps_id[["map_id", "reg_id", "tour_id"]], how="left", left_on="map_id", right_on="map_id")
 
@@ -377,6 +502,9 @@ def build_player_stats(df_maps_id, csv_dir="csv", tables_dir="tables"):
     df_player_stats["map_id"] = (
         df_player_stats["series_id"] + "-" + df_player_stats["map"]
     )
+
+    df_player_stats["player_id_vlr"] = raw_player_ids(df_player_stats)
+    df_player_stats = drop_without_player_id(df_player_stats, "player_stats")
 
     df_player_stats = pd.merge(df_player_stats, df_maps_id[["map_id", "reg_id", "tour_id"]], how="left", left_on="map_id", right_on="map_id")
 
@@ -536,7 +664,10 @@ def build_team_economy(df_maps_id, df_round_concat, csv_dir="csv", tables_dir="t
 
 ROUND_BUY_KEYS = ["team_map_round_id", "series_id", "map_id", "round", "team_a", "team_b", "side_team_a", "reg_id", "tour_id"]
 # campo del csv crudo -> sufijo de la columna ancha ("" = player_k_team_x a secas)
-ROUND_BUY_FIELDS = {"player": "", "agent": "_agent", "weapon": "_weapon", "shield": "_shield", "spent": "_spend", "bank": "_bank"}
+ROUND_BUY_FIELDS = {
+    "player": "", "agent": "_agent", "weapon": "_weapon", "shield": "_shield", "spent": "_spend", "bank": "_bank",
+    "player_id_vlr": "_id",
+}
 ROUND_BUY_SLOTS = range(1, 6)
 
 
@@ -548,7 +679,7 @@ def round_buy_columns():
     return columns
 
 
-def build_round_buy(df_maps_id, df_round_concat, csv_dir="csv", tables_dir="tables"):
+def build_round_buy(df_maps_id, df_round_concat, df_player_keys=None, csv_dir="csv", tables_dir="tables"):
     """table_round_buy.csv: una fila por ronda con la compra de los 10 jugadores.
 
     Viene de csv/*/round_buy_*.csv (largo, una fila por jugador y ronda). El slot es el orden
@@ -572,6 +703,8 @@ def build_round_buy(df_maps_id, df_round_concat, csv_dir="csv", tables_dir="tabl
     df_buy["series_id"] = df_buy["source_url"].apply(match_id_vlr)
     df_buy["map_id"] = df_buy["series_id"] + "-" + df_buy["map"]
     df_buy = pd.merge(df_buy, df_maps_id[["map_id", "reg_id", "tour_id"]], how="left", left_on="map_id", right_on="map_id")
+    # player_N_team_x_id: el id de vlr del jugador (el nick solo puede repetirse, 785988)
+    df_buy["player_id_vlr"] = resolve_player_ids(df_buy, df_player_keys, "player", agent_col="agent")
 
     # la solapa logs de equipos chicos trae "Rvan" donde el header dice "RVAN"
     df_buy["team"] = same_team_case(df_buy["team"], df_buy["team_a"])
@@ -631,12 +764,14 @@ ROUND_EVENTS_COLUMNS = [
     "t_sec", "type", "player", "player_id", "team", "side", "victim", "victim_id", "victim_team",
     "weapon", "site", "pos_x", "pos_y", "from_x", "from_y",
     "is_first_blood", "is_team_kill", "is_post_plant", "is_trade", "is_traded",
+    "player_id_vlr", "victim_id_vlr",
 ]
 ROUND_SUMMARY_COLUMNS = [
     "team_map_round_id", "series_id", "map_id", "round", "reg_id", "tour_id", "team_a", "team_b", "side_team_a",
     "fb_player_id", "fb_team", "fb_victim_id", "fb_t",
     "plant_t", "plant_site", "plant_player_id", "defuse_t", "defuse_player_id",
     "kills_team_a", "kills_team_b", "trades_team_a", "trades_team_b", "last_event_t",
+    "fb_player_id_vlr", "fb_victim_id_vlr", "plant_player_id_vlr", "defuse_player_id_vlr",
 ]
 
 
@@ -670,12 +805,13 @@ def mark_trades(df_events):
     return is_trade, is_traded
 
 
-def build_round_events(df_round_concat, df_players_id, csv_dir="csv", tables_dir="tables"):
+def build_round_events(df_round_concat, df_players_id, df_player_keys=None, csv_dir="csv", tables_dir="tables"):
     """table_round_events.csv (una fila por kill/plant/defuse) y table_round_summary.csv (una por ronda).
 
     Vienen de csv/*/round_events_*.csv. team_map_round_id, reg_id/tour_id y el lado salen de
-    round_info (join por map_id + round). player_id/victim_id son los de table_players (equipo
-    mas reciente del jugador); team/victim_team son los tags de ese match.
+    round_info (join por map_id + round). player_id_vlr/victim_id_vlr son los ids de vlr (por
+    map_id + nick, desempatando por agente); player_id/victim_id son el id legacy de table_players
+    (<team>_<nick>, equipo mas reciente). team/victim_team son los tags de ese match.
     """
     events_path = os.path.join(tables_dir, "table_round_events.csv")
     summary_path = os.path.join(tables_dir, "table_round_summary.csv")
@@ -720,12 +856,15 @@ def build_round_events(df_round_concat, df_players_id, csv_dir="csv", tables_dir
         np.where(df_events["side_team_a"] == "atk", "def", "atk"),
     )
 
-    player_ids = df_players_id.set_index("player")["player_id"]
-    df_events["player_id"] = df_events["player"].map(player_ids)
-    df_events["victim_id"] = df_events["victim"].map(player_ids)
-    no_id = df_events["player_id"].isna() | (df_events["victim"].notna() & df_events["victim_id"].isna())
+    df_events["player_id_vlr"] = resolve_player_ids(df_events, df_player_keys, "player", agent_col="by_agent")
+    df_events["victim_id_vlr"] = resolve_player_ids(df_events, df_player_keys, "victim", agent_col="victim_agent")
+    no_id = df_events["player_id_vlr"].isna() | (df_events["victim"].notna() & df_events["victim_id_vlr"].isna())
     if no_id.any():
-        logger.warning(f"round_events: {int(no_id.sum())} eventos con un jugador que no esta en table_players")
+        logger.warning(f"round_events: {int(no_id.sum())} eventos con un jugador sin player_id_vlr")
+    # id legacy: el de table_players para ese id de vlr
+    legacy_ids = df_players_id.set_index("player_id_vlr")["player_id"]
+    df_events["player_id"] = df_events["player_id_vlr"].map(legacy_ids)
+    df_events["victim_id"] = df_events["victim_id_vlr"].map(legacy_ids)
 
     is_kill = df_events["type"] == "kill"
     df_events["is_team_kill"] = is_kill & (df_events["team"] == df_events["victim_team"])
@@ -747,21 +886,29 @@ def build_round_events(df_round_concat, df_players_id, csv_dir="csv", tables_dir
 
     first_blood = df_events[df_events["is_first_blood"]].set_index("team_map_round_id")
     df_summary = df_summary.join(
-        first_blood[["player_id", "team", "victim_id", "t_sec"]].rename(
-            columns={"player_id": "fb_player_id", "team": "fb_team", "victim_id": "fb_victim_id", "t_sec": "fb_t"}
+        first_blood[["player_id", "team", "victim_id", "t_sec", "player_id_vlr", "victim_id_vlr"]].rename(
+            columns={
+                "player_id": "fb_player_id", "team": "fb_team", "victim_id": "fb_victim_id", "t_sec": "fb_t",
+                "player_id_vlr": "fb_player_id_vlr", "victim_id_vlr": "fb_victim_id_vlr",
+            }
         ),
         on="team_map_round_id",
     )
     plant = df_events[df_events["type"] == "plant"].drop_duplicates(subset=["team_map_round_id"]).set_index("team_map_round_id")
     df_summary = df_summary.join(
-        plant[["t_sec", "site", "player_id"]].rename(
-            columns={"t_sec": "plant_t", "site": "plant_site", "player_id": "plant_player_id"}
+        plant[["t_sec", "site", "player_id", "player_id_vlr"]].rename(
+            columns={
+                "t_sec": "plant_t", "site": "plant_site", "player_id": "plant_player_id",
+                "player_id_vlr": "plant_player_id_vlr",
+            }
         ),
         on="team_map_round_id",
     )
     defuse = df_events[df_events["type"] == "defuse"].drop_duplicates(subset=["team_map_round_id"]).set_index("team_map_round_id")
     df_summary = df_summary.join(
-        defuse[["t_sec", "player_id"]].rename(columns={"t_sec": "defuse_t", "player_id": "defuse_player_id"}),
+        defuse[["t_sec", "player_id", "player_id_vlr"]].rename(
+            columns={"t_sec": "defuse_t", "player_id": "defuse_player_id", "player_id_vlr": "defuse_player_id_vlr"}
+        ),
         on="team_map_round_id",
     )
 
@@ -822,6 +969,13 @@ SITUATION_STATS_COLUMNS = [
 ]
 
 
+def player_key(ids, nicks):
+    """Id de vlr del jugador, o su nick si no lo tiene (o si la tabla no trae la columna de ids)."""
+    if ids is None:
+        return nicks
+    return ids.where(ids.notna(), nicks)
+
+
 def round_buy_long(df_round_buy):
     """round_buy ancho -> largo: una fila por (ronda, which, slot) con nombre, arma, escudo, spend, bank.
 
@@ -840,6 +994,8 @@ def round_buy_long(df_round_buy):
                 "shield": df_round_buy[f"{base}_shield"],
                 "spend": df_round_buy[f"{base}_spend"],
                 "bank": df_round_buy[f"{base}_bank"],
+                # el id de vlr distingue a dos jugadores con el mismo nick; el nick si falta el id
+                "player_key": player_key(df_round_buy.get(f"{base}_id"), df_round_buy[base]),
             }))
     df_long = pd.concat(frames, ignore_index=True)
     return df_long[df_long["player"].notna()]
@@ -854,7 +1010,7 @@ def situation_economy(records, dead=frozenset()):
     if not records:
         return {field: pd.NA for field in ECONOMY_FIELDS}
 
-    alive = [record for record in records if record["player"] not in dead]
+    alive = [record for record in records if record["player_key"] not in dead]
     economy = {
         "bank": sum(record["bank"] for record in alive if not pd.isna(record["bank"])),
         "spend": sum(record["spend"] for record in alive if not pd.isna(record["spend"])),
@@ -886,6 +1042,9 @@ def build_round_situations(df_events, df_summary, df_round_buy, df_round_concat,
     """
     path = os.path.join(tables_dir, "table_round_situations.csv")
     kills = df_events[df_events["type"] == "kill"] if not df_events.empty else df_events
+    if not kills.empty:
+        # muertos por id de vlr (dos "Splotza" en el mismo equipo son dos muertes); nick si falta
+        kills = kills.assign(victim_key=player_key(kills.get("victim_id_vlr"), kills["victim"]))
     if kills.empty:
         # antes del backfill no hay round_events: tabla vacia con headers
         df_empty = pd.DataFrame(columns=ROUND_SITUATIONS_COLUMNS)
@@ -939,7 +1098,7 @@ def build_round_situations(df_events, df_summary, df_round_buy, df_round_concat,
 
         settle_last = int(clusters[-1][-1].t_sec) + SETTLE_WINDOW
         round_end_t = settle_last if pd.isna(last_event_t) else max(int(last_event_t), settle_last)
-        has_revive = bool(round_kills["victim"].duplicated().any())
+        has_revive = bool(round_kills["victim_key"].duplicated().any())
 
         dead = {which: set() for which in tags}
         unmatched = {which: 0 for which in tags}
@@ -958,11 +1117,11 @@ def build_round_situations(df_events, df_summary, df_round_buy, df_round_concat,
                     # quedarian de mas. Hay que agregar el tag a team_aliases (lookups.py).
                     unknown_tags[kill.victim_team] += 1
                     continue
-                if kill.victim not in dead[which]:
+                if kill.victim_key not in dead[which]:
                     deaths[which] += 1
-                    if records[which] and not any(record["player"] == kill.victim for record in records[which]):
+                    if records[which] and not any(record["player_key"] == kill.victim_key for record in records[which]):
                         unmatched[which] += 1
-                dead[which].add(kill.victim)
+                dead[which].add(kill.victim_key)
             settle = int(cluster[-1].t_sec) + SETTLE_WINDOW
             is_last = index + 1 == len(clusters)
             next_t = round_end_t if is_last else int(clusters[index + 1][0].t_sec)
@@ -1115,8 +1274,10 @@ def build_all(csv_dir="csv", tables_dir="tables"):
     logger.info("building table_maps_id / table_match_id / table_tournament_played")
     df_maps_id = build_ids(df_tournaments, csv_dir, tables_dir)
 
+    df_player_keys = player_keys(csv_dir)
+
     logger.info("building table_player_performance")
-    build_player_performance(df_maps_id, csv_dir, tables_dir)
+    build_player_performance(df_maps_id, df_player_keys, csv_dir, tables_dir)
 
     logger.info("building table_player_stats")
     build_player_stats(df_maps_id, csv_dir, tables_dir)
@@ -1131,10 +1292,10 @@ def build_all(csv_dir="csv", tables_dir="tables"):
     build_team_economy(df_maps_id, df_round_concat, csv_dir, tables_dir)
 
     logger.info("building table_round_buy")
-    df_round_buy = build_round_buy(df_maps_id, df_round_concat, csv_dir, tables_dir)
+    df_round_buy = build_round_buy(df_maps_id, df_round_concat, df_player_keys, csv_dir, tables_dir)
 
     logger.info("building table_round_events / table_round_summary")
-    df_events, df_summary = build_round_events(df_round_concat, df_players_id, csv_dir, tables_dir)
+    df_events, df_summary = build_round_events(df_round_concat, df_players_id, df_player_keys, csv_dir, tables_dir)
 
     logger.info("building table_round_situations")
     df_situations = build_round_situations(df_events, df_summary, df_round_buy, df_round_concat, tables_dir)

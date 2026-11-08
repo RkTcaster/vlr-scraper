@@ -8,6 +8,59 @@ import re
 logger = logging.getLogger(__name__)
 
 
+# latin-1 lee y escribe cualquier byte tal cual: sirve para reescribir un csv sin tocar su contenido
+# (los csv quedan en utf-8 aunque se escriban con iso-8859-1, ver "Encoding" en CLAUDE.md)
+BYTE_SAFE_ENCODING = "iso-8859-1"
+
+
+def append_dict_rows(file_path, data, encoding="utf-8"):
+    """Agrega las filas de un dict de listas al csv, alineadas al header del archivo.
+
+    Si el archivo existe con otro header (un parser sumo una columna, p.ej. player_id_vlr o
+    agent el 2026-11-07), primero lo reescribe agregando las columnas nuevas vacias al final;
+    sin esto las filas nuevas quedarian corridas respecto del header viejo. Una columna que el
+    archivo tiene y el dict no, queda vacia en las filas nuevas.
+    """
+    columns = list(data.keys())
+    if os.path.isfile(file_path):
+        with open(file_path, encoding=BYTE_SAFE_ENCODING, newline="") as f:
+            existing = next(csv.reader(f), [])
+        missing = [column for column in columns if column not in existing]
+        if missing:
+            add_csv_columns(file_path, missing)
+            existing = existing + missing
+            logger.info(f"{os.path.basename(file_path)}: agrego columnas {missing}")
+        header = existing
+        write_header = False
+    else:
+        header = columns
+        write_header = True
+
+    n_rows = len(data[columns[0]]) if columns else 0
+    empty = [""] * n_rows
+    ordered = [data.get(column, empty) for column in header]
+    with open(file_path, "a", newline="", encoding=encoding) as f:
+        writer = csv.writer(f)
+        if write_header:
+            writer.writerow(header)
+        writer.writerows(zip(*ordered))
+
+
+def add_csv_columns(file_path, new_columns):
+    """Reescribe el csv agregando columnas vacias al final, sin tocar los bytes del resto."""
+    with open(file_path, encoding=BYTE_SAFE_ENCODING, newline="") as f:
+        rows = list(csv.reader(f))
+    if not rows:
+        return
+    rows[0] = rows[0] + list(new_columns)
+    for row in rows[1:]:
+        row.extend([""] * len(new_columns))
+    tmp = file_path + ".tmp"
+    with open(tmp, "w", encoding=BYTE_SAFE_ENCODING, newline="") as f:
+        csv.writer(f).writerows(rows)
+    os.replace(tmp, file_path)
+
+
 def get_folder_path(folder_name, normalized_tournament, file_prefix):
     """Create the file path for the csv
 
@@ -135,15 +188,7 @@ def save_player_performance_to_csv(player_performance_dict, folder="csv", encodi
 
     file_path = get_folder_path(folder_name=folder, normalized_tournament=normalized_tournament, file_prefix="player_performance")
 
-    header = player_performance_dict.keys()
-    file_exists = os.path.isfile(file_path)
-
-    with open(file_path, "a", newline="", encoding=encoding) as f:
-        writer = csv.writer(f)
-        if not file_exists:
-            writer.writerow(header)
-
-        writer.writerows(zip(*player_performance_dict.values()))
+    append_dict_rows(file_path, player_performance_dict, encoding=encoding)
 
 
 def save_team_economy(economy_dict, folder="csv", encoding="utf-8"):
@@ -160,15 +205,7 @@ def save_team_economy(economy_dict, folder="csv", encoding="utf-8"):
 
     file_path = get_folder_path(folder_name=folder, normalized_tournament=normalized_tournament, file_prefix="team_economy")
 
-    header = economy_dict.keys()
-    file_exists = os.path.isfile(file_path)
-
-    with open(file_path, "a", newline="", encoding=encoding) as f:
-        writer = csv.writer(f)
-        if not file_exists:
-            writer.writerow(header)
-
-        writer.writerows(zip(*economy_dict.values()))
+    append_dict_rows(file_path, economy_dict, encoding=encoding)
 
 
 def save_player_stats_to_csv(player_stats_dict, folder="csv", encoding='utf-8'):
@@ -185,15 +222,7 @@ def save_player_stats_to_csv(player_stats_dict, folder="csv", encoding='utf-8'):
 
     file_path = get_folder_path(folder_name=folder, normalized_tournament=normalized_tournament, file_prefix="player_stats")
 
-    header = player_stats_dict.keys()
-    file_exists = os.path.isfile(file_path)
-
-    with open(file_path, "a", newline="", encoding=encoding) as f:
-        writer = csv.writer(f)
-        if not file_exists:
-            writer.writerow(header)
-
-        writer.writerows(zip(*player_stats_dict.values()))
+    append_dict_rows(file_path, player_stats_dict, encoding=encoding)
 
 
 def save_round_buy_to_csv(buy_dict, folder="csv", encoding="utf-8"):
@@ -210,15 +239,7 @@ def save_round_buy_to_csv(buy_dict, folder="csv", encoding="utf-8"):
 
     file_path = get_folder_path(folder_name=folder, normalized_tournament=normalized_tournament, file_prefix="round_buy")
 
-    header = buy_dict.keys()
-    file_exists = os.path.isfile(file_path)
-
-    with open(file_path, "a", newline="", encoding=encoding) as f:
-        writer = csv.writer(f)
-        if not file_exists:
-            writer.writerow(header)
-
-        writer.writerows(zip(*buy_dict.values()))
+    append_dict_rows(file_path, buy_dict, encoding=encoding)
 
 
 def save_round_events_to_csv(events_dict, folder="csv", encoding="utf-8"):
@@ -235,12 +256,4 @@ def save_round_events_to_csv(events_dict, folder="csv", encoding="utf-8"):
 
     file_path = get_folder_path(folder_name=folder, normalized_tournament=normalized_tournament, file_prefix="round_events")
 
-    header = events_dict.keys()
-    file_exists = os.path.isfile(file_path)
-
-    with open(file_path, "a", newline="", encoding=encoding) as f:
-        writer = csv.writer(f)
-        if not file_exists:
-            writer.writerow(header)
-
-        writer.writerows(zip(*events_dict.values()))
+    append_dict_rows(file_path, events_dict, encoding=encoding)

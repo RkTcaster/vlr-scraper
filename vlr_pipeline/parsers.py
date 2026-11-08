@@ -453,6 +453,19 @@ def get_round_detail(soup, basic_match_info=None, folder="csv", encoding="utf-8"
     return round_info
 
 
+HTML_SPACE_RE = re.compile(r"[ \t\n\r\f\v]+")
+
+
+def html_words(text):
+    """text.split() pero solo por espacios ASCII.
+
+    El html se decodifica como latin-1, asi que un caracter utf-8 de un nick puede traer bytes que
+    str.split() toma como espacio: "だ" es e3 81 a0 y a0 es el nbsp de latin-1. Partir por ahi
+    rompia el nick ("Toura だ#TG8", 785877) y dejaba utf-8 invalido en el csv.
+    """
+    return [word for word in HTML_SPACE_RE.split(text) if word]
+
+
 def performance_player_cell(jugador_div):
     """(nick, tag) de la celda de jugador de la solapa performance.
 
@@ -463,11 +476,11 @@ def performance_player_cell(jugador_div):
     """
     tag_div = jugador_div.find("div", class_="team-tag")
     if tag_div is None:
-        parts = jugador_div.get_text().split()
+        parts = html_words(jugador_div.get_text())
         return parts[0], parts[1]
-    team_tag = " ".join(tag_div.get_text().split())
+    team_tag = " ".join(html_words(tag_div.get_text()))
     nick = " ".join(
-        " ".join(str(text) for text in jugador_div.find_all(string=True, recursive=False)).split()
+        html_words(" ".join(str(text) for text in jugador_div.find_all(string=True, recursive=False)))
     )
     return nick, team_tag
 
@@ -501,6 +514,7 @@ def get_player_performance(url, basic_match_info):
         "date": [],
         "source_url": [],
         "event": [],
+        "agent": [],
     }
 
     performance_tab = "/?game=all&tab=performance"
@@ -565,6 +579,9 @@ def get_player_performance(url, basic_match_info):
 
                     performance_dict["player"].append(nick)
                     performance_dict["team"].append(team_tag)
+                    # el agente desempata a dos jugadores con el mismo nick en el mapa (785988)
+                    agent_img = celdas[1].find("img") if len(celdas) > 1 else None
+                    performance_dict["agent"].append(agent_from_img(agent_img))
                     performance_dict["2K"].append(
                         extraer_numero(celdas[2].get_text(strip=True))
                     )
@@ -853,6 +870,8 @@ def get_round_logs(soup, url, basic_match_info):
         "date": [],
         "event": [],
         "source_url": [],
+        "by_agent": [],
+        "victim_agent": [],
     }
 
     date = basic_match_info["date"]
@@ -918,16 +937,19 @@ def get_round_logs(soup, url, basic_match_info):
             def player_info(player_id):
                 info = players.get(str(player_id))
                 if info is None:
-                    return None, None
-                # el nick sale del JSON (hay que normalizarlo); el tag sale del html del band
-                return json_text(info[2]), band_tags.get(info[0])
+                    return None, None, None
+                # el nick sale del JSON (hay que normalizarlo); el tag sale del html del band.
+                # El agente desempata a dos jugadores con el mismo nick en el mapa (785988)
+                return json_text(info[2]), band_tags.get(info[0]), info[1]
 
             for index, ev in enumerate(data.get("events", [])):
                 feed_row = feed_rows.get(index)
                 source = feed_row.find(class_="lg-source") if feed_row else None
                 site = feed_row.find(class_="lg-site-text") if feed_row else None
-                by_player, by_team = player_info(ev.get("by"))
-                victim, victim_team = player_info(ev.get("vid")) if "vid" in ev else (None, None)
+                by_player, by_team, by_agent = player_info(ev.get("by"))
+                victim, victim_team, victim_agent = (
+                    player_info(ev.get("vid")) if "vid" in ev else (None, None, None)
+                )
                 # pos: donde ocurre el evento (la victima en una kill, el spike en plant/defuse);
                 # from: desde donde disparo el killer (solo kills). Coordenadas del svg del mapa
                 pos = ev.get("pos") or [None, None]
@@ -952,8 +974,54 @@ def get_round_logs(soup, url, basic_match_info):
                 events_dict["date"].append(date)
                 events_dict["event"].append(event)
                 events_dict["source_url"].append(source_url)
+                events_dict["by_agent"].append(by_agent)
+                events_dict["victim_agent"].append(victim_agent)
 
     return buy_dict, events_dict
+
+
+AGENT_SRC_RE = re.compile(r"/agents/([a-z0-9_-]+)\.png")
+
+
+def agent_from_img(img):
+    """Agente de un <img src=".../agents/jett.png"> de la solapa performance, o None."""
+    if img is None:
+        return None
+    match = AGENT_SRC_RE.search(img.get("src", ""))
+    return match.group(1) if match else None
+
+
+PLAYER_LINK_RE = re.compile(r"/player/(\d+)")
+
+
+def player_id_vlr(row):
+    """Id de vlr del jugador de una fila del overview (link /player/<id>/<slug>), o "".
+
+    Es lo unico que distingue a dos jugadores con el mismo nick (785988: dos "Splotza" en RADI).
+    """
+    for link in row.find_all("a", href=True):
+        match = PLAYER_LINK_RE.search(link["href"])
+        if match:
+            return match.group(1)
+    return ""
+
+
+def get_player_ids(soup):
+    """{(map_id_vlr, player, agent): player_id_vlr} del overview, para el backfill de ids.
+
+    map_id_vlr es el data-game-id del bloque ("all" en el agregado), igual que en player_stats_.
+    """
+    ids = {}
+    for game in soup.find_all("div", {"class": "vm-stats-game"}):
+        game_id = game.get("data-game-id")
+        for row in game.find_all("div", class_="ovw-row"):
+            name_div = row.find("div", class_="ovw-player-name")
+            if name_div is None:
+                continue
+            agent_img = row.select_one(".ovw-agents img")
+            agent = agent_img.get("title") if agent_img else None
+            ids[(str(game_id), name_div.get_text(strip=True), agent or "")] = player_id_vlr(row)
+    return ids
 
 
 def get_player_stats(soup, basic_match_info):
@@ -1016,6 +1084,7 @@ def get_player_stats(soup, basic_match_info):
         "date": [],
         "source_url": [],
         "event": [],
+        "player_id_vlr": [],
     }
 
     # data-col of each ovw-cell -> base name of the player_stats keys
@@ -1100,5 +1169,6 @@ def get_player_stats(soup, basic_match_info):
             player_stats["date"].append(date)
             player_stats["source_url"].append(source_url)
             player_stats["event"].append(event)
+            player_stats["player_id_vlr"].append(player_id_vlr(row))
 
     return player_stats

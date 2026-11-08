@@ -136,7 +136,48 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
   - Agente nuevo `Hush` en `lookups.py` y `csv_process.ipynb` (falta `agents/hush.png` en rviewer).
   - En la solapa performance vlr trunca el tag a 4 caracteres (`Cava`, `GEN.`): no rompe nada (no es PK), queda así.
 
+### 2026-11-07: W.O. con mapas TBD, Americas Kickoff y `player_id_vlr`
+- W.O. que vlr marca `final 2:0` sin jugar (784758: todos los mapas `TBD`, stats en 0): `get_invalid_reason` los
+  da `forfeit`. Un W.O. de un solo mapa (784752) se procesa, pero `get_player_stats` saltea el mapa `TBD`.
+- Eventos nuevos (`reduced`): Americas Kickoff NA Open Qualifier y LATAM South/North Open Qualifier. La región se
+  busca en el nombre y vlr dice "America" en singular: `region_by_id` lo normaliza a `americas`.
+- **Identidad del jugador = id de vlr.** Dos jugadores con el mismo nick en el mismo equipo (785988: dos "Splotza"
+  en RADI) duplicaban las PK `(map_id, player)` y `players.player_id`. Ahora:
+  - `player_stats_` guarda `player_id_vlr` (link `/player/<id>/` del overview); performance y round_events guardan
+    el agente (`agent`, `by_agent`, `victim_agent`) para desempatar nicks repetidos al armar las tablas.
+  - `table_players` es una fila por `player_id_vlr` (PK); `player_id` queda como columna legacy no única.
+  - PK en Supabase: `players (player_id_vlr)`, `player_stats` / `player_performance (map_id, player_id_vlr)`.
+    Columnas `*_id_vlr` en round_events / round_summary y `player_N_team_x_id` en round_buy. `sql/player_id_vlr.sql`.
+  - `round_situations` cuenta los muertos por id (con el nick, los dos Splotza eran uno).
+  - `scripts/backfill_player_ids.py` completó el id en todos los `player_stats_` viejos (1238 series, 77 min,
+    0 errores). Quedaron 97 filas por mapa sin id: jugadores de qualifiers sin perfil en vlr (nick con `mod-tbd`
+    y sin link). `tables.raw_player_ids` les da el id real del mismo `(team, nick)` si vlr le creó perfil después
+    y hay uno solo; si no, `tbd_<team>_<nick>` (34 jugadores).
+  - `parsers.html_words`: el nick de performance se partía con `str.split()`, que toma como espacio el byte
+    `\xa0` de un carácter utf-8 leído como latin-1 ("Toura だ#TG8" quedaba en utf-8 inválido). Los nicks se cruzan
+    con `match_nick` (todo espacio colapsado). Re-scrapeadas 785877/785907 (ese nick) y 785988/786010/786021
+    (Splotza: su performance era de antes de la columna `agent`).
+  - `csv_process.ipynb` celda 16: `drop(columns=..., axis=1)` fallaba con pandas nuevo. Celda 8 define
+    `match_id_vlr` (la usa antes de la celda 9). Tablas del notebook = package byte a byte.
+  - `save.append_dict_rows`: un parser que suma una columna ya no deja filas corridas bajo el header viejo.
+  - Aviso a rktdata: `handoff/RKTDATA_PLAYER_ID_VLR.md`.
+- rktdata reportó de nuevo la fila de Game Changers en mojibake (`s�o_paulo` en `tournament`, 10 filas con
+  `tour_id = ''` en `tournament_played`) y Hush faltante en `agent_info`. El pipeline ya no los genera: eran
+  `sql/cleanup_gc_encoding.sql` y `sql/agent_hush.sql`, que nunca se corrieron. Quedaron como paso 0 de
+  `sql/player_id_vlr.sql`. `agent_info` sigue cargándose a mano (rktdata mantiene la columna `rol`).
+
 ## Pendiente
+
+### rktdata: migrar a `player_id_vlr` (2026-11-07)
+- [ ] rktdata usa `player_id` (`<team>_<nick>`, ya no único) y `player` como identidad: pasar a `player_id_vlr`
+  (ver `handoff/RKTDATA_PLAYER_ID_VLR.md`). Cuando esté, evaluar sacar `player_id` legacy de las tablas.
+- [ ] `vlr_scraper.ipynb` no tiene `json_text` en `get_round_logs` (el package sí, ver "Encoding" en CLAUDE.md):
+  los nicks no-ASCII de los logs quedan distintos si se scrapea con el notebook.
+- [ ] `table_players.team_id` vacío en 1449 jugadores (ya pasaba antes del cambio): en los qualifiers el overview
+  trae el tag en otra capitalización que round_detail (`Risi` vs `RISI`, 785833), y `build_players` cruza exacto
+  con `table_teams`. 266 de los 270 tags sin match se resuelven ignorando mayúsculas (como `same_team_case` en
+  los logs); los otros 4 son tags no-ASCII (`MÃ¶rk`). Decidir cuál tag es el canónico antes de tocarlo: también
+  es la columna `team` de `player_stats`.
 
 ### Re-scrapear China Kickoff y Stage 1 (2026-11-06, respuesta a rktdata)
 - Las 78 series (30 + 48) están en `error` (`list index out of range`) desde el 2026-09-13, con datos

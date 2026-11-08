@@ -72,6 +72,29 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
 - **ID scheme** — `series_id` is parsed from the match URL via `re.search(r"vlr\.gg/(\d+)", url)`;
   `map_id = f"{series_id}-{map}"`. Joins across tables rely on these. Region/tournament IDs (`reg_*`, `tour_id`)
   are assigned from the normalized tournament folder name.
+- **Player identity (`player_id_vlr`, 2026-11-07)** — a player is vlr's `/player/<id>/`, never the nick: two
+  players can share a nick on the same team (785988, LATAM South: two "Splotza" in RADI, 69551 and 50487).
+  Only the overview links to the player, so `get_player_stats` writes `player_id_vlr` to `player_stats_`, and
+  performance / logs rows get it at table-build time from `player_keys` + `resolve_player_ids` (`tables.py`): by
+  `map_id + nick`, and when the nick repeats in that map, by agent (raw `agent` in performance, `by_agent` /
+  `victim_agent` in round_events, `agent` in round_buy; agent names are compared lowercased because the overview
+  says `Jett` and the logs JSON `jett`). Old performance/events csv have no agent column, which is fine: repeated
+  nicks only exist in series scraped after it was added. `table_players` has one row per `player_id_vlr` (PK);
+  `player_id = <team>_<nick>` stays as a non-unique legacy column for rktdata. Supabase PKs: `players
+  (player_id_vlr)`, `player_stats` / `player_performance (map_id, player_id_vlr)`; logs tables add `*_id_vlr`
+  columns (`player_N_team_x_id` in round_buy). Schema change: `sql/player_id_vlr.sql` (empties the three tables,
+  then `upload --full`). Some qualifier players have no vlr profile (nick with `mod-tbd`, no link):
+  `raw_player_ids` gives them the real id of the same `(team, nick)` if vlr created the profile later and there
+  is exactly one, else `tbd_<team>_<nick>`. Nicks are matched with `match_nick` (all whitespace collapsed:
+  the overview keeps double spaces, performance does not). Performance/logs rows that still resolve to no id
+  are dropped with a warning (`drop_without_player_id`); raw `player_stats_` with an empty id column (scraped
+  before it existed) are filled by `scripts/backfill_player_ids.py` (1 overview request per match; run for every
+  match on 2026-11-07). Split html text with `parsers.html_words` (ASCII whitespace only), never `str.split()`:
+  latin-1-decoded utf-8 contains `\xa0`/`\x85` bytes that `split()` treats as spaces.
+- **New raw columns** — the `save_*` functions append through `save.append_dict_rows`, which rewrites an
+  existing csv once (byte-safe, latin-1) adding any column the parser now produces, so a parser can gain a column
+  without leaving appended rows misaligned under an old header. Add new columns at the **end** of the parser's
+  dict: that keeps existing columns in place and the fixtures diff readable.
 - **`map == "all"` rows** are aggregate rows from vlr and must be filtered out before per-map processing.
 - **Idempotency** — `csv/scrape_log.csv` (`vlr_pipeline/tracking.py`, mirrored in `vlr_scraper.ipynb` cell 3) has one
   row per match keyed by `series_id` (never the full URL: vlr changes the slug when a `tbd-...` match gets teams)
@@ -100,8 +123,9 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
   (round, segment, team): a segment is a stretch of the round with the alive count already settled. Kills are
   grouped into chained clusters (a kill joins if it is <= `SETTLE_WINDOW` after the previous kill *of the cluster*)
   and the state only counts `SETTLE_WINDOW` s after the cluster's last kill, so a trade never produces a 5v4 that
-  was never played; `seg_index` 0 is the opening 5v5. Alive counts come from the **set** of dead players keyed on
-  `victim_team` (never `victim_id`, which carries the player's most recent team); team kills count as deaths, and
+  was never played; `seg_index` 0 is the opening 5v5. Alive counts come from the **set** of dead players
+  (`victim_id_vlr`, nick only as fallback) grouped by `victim_team` (never by the legacy `victim_id`, which carries
+  the player's most recent team); team kills count as deaths, and
   vlr does not log resurrects, so those rounds are flagged `has_revive` instead of yielding impossible counts.
   `round_win` always comes from `rndA`/`rndB`: **0 alive does not decide the round** (a wiped team wins if the
   planted spike detonates). Economy comes from `round_buy` (a round-start snapshot) in three sets: `*_start`,
@@ -139,7 +163,8 @@ names to match other tables. When team names fail to join, suspect an encoding m
 - `csv/<tournament>/` — raw per-tournament scraper output (one subfolder per event).
 - `tables/` — consolidated star-schema output (the deliverable; not in git, uploaded to Supabase).
 - New maps/agents must also be added to `vlr_pipeline/lookups.py`, since Actions builds tables with the package.
-- `table_players`: one row per nick, `player_id = <team>_<player>` with the team of the player's most recent match;
+- `table_players`: one row per `player_id_vlr` (see "Player identity"); nick, `team_id` and the legacy
+  `player_id = <team>_<player>` come from the player's most recent match;
   `table_teams` includes draft `team` and `rival`, plus `team_path = teams/<team_id without dots>.png` (logos in
   rviewer; GC tricodes like `GEN.GC` -> `GENGC.png`, `team_id` keeps the dot; see `handoff/SCRAPER_TEAM_PATH.md`). `find_files_by_prefix` sorts files so output doesn't depend on OS
   (os.walk order differs on Linux). Changing a PK-forming rule leaves orphan rows in Supabase (upsert never deletes);
