@@ -86,3 +86,13 @@ def test_player_without_profile_takes_id_from_same_team_and_nick():
         "player_id_vlr": [None, "69932", "69551", "50487", None],
     })
     assert raw_player_ids(raw).tolist() == ["69932", "69932", "69551", "50487", "tbd_RADI_Splotza"]
+
+
+def test_team_tags_uppercase_including_non_ascii():
+    from vlr_pipeline.tables import upper_tag, upper_team_tags
+    # tags en la forma html (utf-8 leido como latin-1): "Mörk" llega como "MÃ¶rk"
+    assert upper_tag("Risi") == "RISI"
+    assert upper_tag("M\u00c3\u00b6rk").encode("iso-8859-1").decode("utf-8") == "M\u00d6RK"
+    assert upper_tag("GEN.GC") == "GEN.GC" and upper_tag(None) is None
+    df = upper_team_tags(pd.DataFrame({"team": ["Sun"], "team_a_bank": ["0.1k"], "player": ["cubinho"]}))
+    assert df.iloc[0].tolist() == ["SUN", "0.1k", "cubinho"]

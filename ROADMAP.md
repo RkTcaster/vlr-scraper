@@ -159,6 +159,13 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
     (Splotza: su performance era de antes de la columna `agent`).
   - `csv_process.ipynb` celda 16: `drop(columns=..., axis=1)` fallaba con pandas nuevo. Celda 8 define
     `match_id_vlr` (la usa antes de la celda 9). Tablas del notebook = package byte a byte.
+  - **Tricodes siempre en mayúsculas** (`tables.upper_tag`, aplicado al leer el crudo en
+    `concat_csv_from_different_folders` y en round_buy / round_events; los csv crudos no cambian). vlr mezcla:
+    en qualifiers el overview trae `Risi` y round_detail `RISI`, y `players.team_id` quedaba vacío en 1449
+    jugadores (ahora 0). Hay equipos con el tricode en mixto (`Sun`, `Ortx`, `eOSU`): 23 `team_id` cambian
+    (`boom` y `BOOM` se unifican) y con ellos ~1045 `team_map_round_id`; el paso 0b de `sql/player_id_vlr.sql`
+    borra esas filas viejas en Supabase antes del `upload --full`. `team_path` también pasa a mayúsculas
+    (`teams/SUN.png`). Los tags no-ASCII se decodifican antes del `upper()` (`MÃ¶rk` -> `MÖRK`).
   - `save.append_dict_rows`: un parser que suma una columna ya no deja filas corridas bajo el header viejo.
   - Aviso a rktdata: `handoff/RKTDATA_PLAYER_ID_VLR.md`.
 - rktdata reportó de nuevo la fila de Game Changers en mojibake (`s�o_paulo` en `tournament`, 10 filas con
@@ -173,11 +180,6 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
   (ver `handoff/RKTDATA_PLAYER_ID_VLR.md`). Cuando esté, evaluar sacar `player_id` legacy de las tablas.
 - [ ] `vlr_scraper.ipynb` no tiene `json_text` en `get_round_logs` (el package sí, ver "Encoding" en CLAUDE.md):
   los nicks no-ASCII de los logs quedan distintos si se scrapea con el notebook.
-- [ ] `table_players.team_id` vacío en 1449 jugadores (ya pasaba antes del cambio): en los qualifiers el overview
-  trae el tag en otra capitalización que round_detail (`Risi` vs `RISI`, 785833), y `build_players` cruza exacto
-  con `table_teams`. 266 de los 270 tags sin match se resuelven ignorando mayúsculas (como `same_team_case` en
-  los logs); los otros 4 son tags no-ASCII (`MÃ¶rk`). Decidir cuál tag es el canónico antes de tocarlo: también
-  es la columna `team` de `player_stats`.
 
 ### Re-scrapear China Kickoff y Stage 1 (2026-11-06, respuesta a rktdata)
 - Las 78 series (30 + 48) están en `error` (`list index out of range`) desde el 2026-09-13, con datos

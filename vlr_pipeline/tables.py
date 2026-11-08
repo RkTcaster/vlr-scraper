@@ -65,13 +65,43 @@ def concat_from_list(file_list, encoding='iso-8859-1'):
         return pd.DataFrame()
 
 
+# columnas con el tricode de un equipo en los csv crudos (draft, player_stats, performance,
+# round_detail, team_economy, round_buy, round_events)
+TEAM_TAG_COLUMNS = ("team", "rival", "teamA", "teamB", "team_a", "team_b", "by_team", "victim_team")
+
+
+def upper_tag(tag):
+    """Tricode en mayusculas: es la forma canonica de un equipo en todas las tablas (2026-11-07).
+
+    vlr no es consistente: en los qualifiers el overview trae "Risi" y round_detail "RISI", la
+    solapa logs "Rvan" y round_detail "RVAN", y algunos equipos tienen el tricode en mixto ("Sun").
+    El tag viaja en la forma html (utf-8 leido como latin-1, ver "Encoding" en CLAUDE.md): se
+    decodifica antes de upper() para que "MÃ¶rk" de "MÖRK" y no "MÃ¶RK".
+    """
+    if not isinstance(tag, str):
+        return tag
+    try:
+        text = tag.encode("iso-8859-1").decode("utf-8")
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        return tag.upper()
+    return text.upper().encode("utf-8").decode("iso-8859-1")
+
+
+def upper_team_tags(df):
+    """upper_tag en todas las columnas de TEAM_TAG_COLUMNS que tenga df."""
+    for column in TEAM_TAG_COLUMNS:
+        if column in df:
+            df[column] = df[column].map(upper_tag)
+    return df
+
+
 def concat_csv_from_different_folders(folder="csv", prefix=None):
     if prefix is None:
         logger.warning("Add a prefix")
 
     file_list = find_files_by_prefix(root_folder=folder, prefix=prefix)
     df_concat = concat_from_list(file_list)
-    return df_concat
+    return upper_team_tags(df_concat)
 
 
 def text_to_index(df, name, number=0, extra_id=""):
@@ -699,7 +729,7 @@ def build_round_buy(df_maps_id, df_round_concat, df_player_keys=None, csv_dir="c
         df_empty.to_csv(path_or_buf=path, index=False, encoding="iso-8859-1")
         return df_empty
 
-    df_buy = concat_from_list(file_list)
+    df_buy = upper_team_tags(concat_from_list(file_list))
     df_buy["series_id"] = df_buy["source_url"].apply(match_id_vlr)
     df_buy["map_id"] = df_buy["series_id"] + "-" + df_buy["map"]
     df_buy = pd.merge(df_buy, df_maps_id[["map_id", "reg_id", "tour_id"]], how="left", left_on="map_id", right_on="map_id")
@@ -824,7 +854,7 @@ def build_round_events(df_round_concat, df_players_id, df_player_keys=None, csv_
         df_empty_summary.to_csv(path_or_buf=summary_path, index=False, encoding="iso-8859-1")
         return df_empty_events, df_empty_summary
 
-    df_events = concat_from_list(file_list)
+    df_events = upper_team_tags(concat_from_list(file_list))
     df_events["series_id"] = df_events["source_url"].apply(match_id_vlr)
     df_events["map_id"] = df_events["series_id"] + "-" + df_events["map"]
     df_events = pd.merge(

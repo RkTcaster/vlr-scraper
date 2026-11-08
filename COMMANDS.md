@@ -100,7 +100,11 @@ python scripts/backfill_all_logs.py --redo 784555 784556                   # re-
 python scripts/backfill_player_ids.py --dry-run   # agrega la columna a player_stats_ (sin red) y muestra cuántas series faltan
 python scripts/backfill_player_ids.py --max 5     # prueba corta
 python scripts/backfill_player_ids.py             # todo lo pendiente (1 request por match, reanudable)
+python scripts/backfill_player_ids.py --recheck   # re-pide los matches con jugadores sin perfil en vlr
 ```
+
+Que queden filas sin id es normal: son jugadores de qualifiers sin perfil en vlr (41 matches). El script ya no los
+toma como pendientes y `process` les da un id (`tbd_<team>_<nick>` o el real si vlr les creó perfil después).
 
 Cambio de esquema en Supabase (una vez): correr `sql/player_id_vlr.sql` en el SQL editor y en seguida
 `python -m vlr_pipeline upload --full` (el SQL vacía `players`, `player_stats` y `player_performance`).

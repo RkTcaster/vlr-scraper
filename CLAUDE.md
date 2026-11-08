@@ -141,7 +141,11 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
   `table_match_id.match_format` (full/reduced) and `table_tournament.match_format` (full/reduced/mixed). Supabase
   columns come from `sql/match_format.sql`. Reduced matches have no `draft_` rows, so `table_teams` also takes
   teams from `round_detail`. Forfeits (`forfeited by X`) are `skipped` with error `forfeit`. Small teams' logs tab
-  can bring the tag in another case (`Rvan` vs `RVAN`): `same_team_case` fixes it before `team_aliases`.
+  can bring the tag in another case (`Rvan` vs `RVAN`). **Team tags are always uppercase in `tables/`**
+  (2026-11-07): `upper_tag` runs on every tag column (`TEAM_TAG_COLUMNS`) when raw csv are read
+  (`concat_csv_from_different_folders`, round_buy/round_events), so every PK, join and `team_path` uses the
+  uppercase tricode while raw `csv/` keeps vlr's case. It decodes the html form first (`MÃ¶rk` -> `MÖRK`).
+  `same_team_case` stays as a no-op safety net before `team_aliases` (whose keys must be uppercase).
 - **Manual lookup lists** — new maps and agents must be added by hand to the hardcoded lists in
   `csv_process.ipynb` (map_info / agent_path_name), otherwise their rows won't get IDs/images.
 

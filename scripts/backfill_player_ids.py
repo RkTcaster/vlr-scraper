@@ -9,16 +9,21 @@ Pasos:
 1. Sin red: agrega la columna player_id_vlr (vacia) a todo player_stats_*.csv que no la tenga.
    Hace falta antes de cualquier scrape nuevo: save_player_stats_to_csv agrega filas con el header
    del dict, y en un csv sin la columna quedarian corridas.
-2. Por cada match con filas sin id: pide solo el overview (1 request) y llena el id cruzando por
+2. Por cada match sin ningun id (scrapeado antes de la columna): pide solo el overview (1 request)
+   y llena el id cruzando por
    (map_id_vlr, player, agent). Si vlr renombro al jugador desde el scrape, cae a la posicion de
    la fila dentro del mapa (el orden del csv es el de la pagina) cuando la cantidad coincide.
    Guarda cada --save-every matches: cortarlo y volver a correrlo retoma donde quedo.
+   Un match con algunos ids y otros vacios ya se proceso: los vacios son jugadores sin perfil en vlr
+   (nick con mod-tbd, sin link) y no hay nada que bajar; tables.raw_player_ids les da un id. Con
+   --recheck se vuelven a pedir igual (por si vlr les creo perfil).
 
 Uso:
 
     python scripts/backfill_player_ids.py --dry-run       # plan, sin red (igual hace el paso 1)
     python scripts/backfill_player_ids.py --max 5         # prueba corta
     python scripts/backfill_player_ids.py                 # todo (~1 request por match)
+    python scripts/backfill_player_ids.py --recheck       # tambien los matches con jugadores sin perfil
 """
 
 import argparse
@@ -74,8 +79,8 @@ def ensure_id_column(paths, dry_run=False):
     return changed
 
 
-def pending_by_file(paths):
-    """{path: {series_id: source_url}} de las series con alguna fila sin id."""
+def pending_by_file(paths, recheck=False):
+    """{path: {series_id: source_url}} de las series sin ningun id (con recheck: con alguna fila sin id)."""
     pending = {}
     for path in paths:
         rows = read_csv_rows(path)
@@ -83,12 +88,17 @@ def pending_by_file(paths):
         if ID_COLUMN not in header:
             continue
         i_id, i_url = header.index(ID_COLUMN), header.index("source_url")
-        series = {}
+        series, with_id = {}, set()
         for row in rows[1:]:
-            if not row[i_id]:
-                match = SERIES_RE.search(row[i_url])
-                if match:
-                    series.setdefault(match.group(1), row[i_url])
+            match = SERIES_RE.search(row[i_url])
+            if not match:
+                continue
+            if row[i_id]:
+                with_id.add(match.group(1))
+            else:
+                series.setdefault(match.group(1), row[i_url])
+        if not recheck:
+            series = {key: url for key, url in series.items() if key not in with_id}
         if series:
             pending[path] = series
     return pending
@@ -131,6 +141,8 @@ def build_parser():
     parser.add_argument("--jitter", type=float, default=1.5, help="segundos aleatorios extra entre requests")
     parser.add_argument("--save-every", type=int, default=10, help="matches entre guardados")
     parser.add_argument("--max", type=int, default=None, help="tope de matches en esta corrida")
+    parser.add_argument("--recheck", action="store_true",
+                        help="volver a pedir los matches con jugadores sin perfil en vlr (ids vacios parciales)")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--log-level", default="INFO")
     parser.add_argument("--log-file", default=os.path.join("logs", "backfill_player_ids.log"))
@@ -142,7 +154,7 @@ def run(args):
     changed = ensure_id_column(paths, dry_run=args.dry_run)
     logger.info(f"paso 1: columna {ID_COLUMN} agregada a {changed} de {len(paths)} archivos")
 
-    pending = pending_by_file(paths)
+    pending = pending_by_file(paths, recheck=args.recheck)
     total = sum(len(series) for series in pending.values())
     target = total if args.max is None else min(total, args.max)
     logger.info(f"paso 2: {total} series sin id en {len(pending)} archivos; voy a procesar {target}")
@@ -176,7 +188,8 @@ def run(args):
             filled_total += filled
             missing_total += missing
             if missing:
-                logger.warning(f"{series_id}: {missing} filas sin id ({url})")
+                # jugadores sin perfil en vlr (mod-tbd): normal en qualifiers, raw_player_ids los cubre
+                logger.info(f"{series_id}: {missing} filas sin perfil en vlr ({url})")
             unsaved += 1
             if unsaved >= args.save_every:
                 write_csv_rows(path, rows)

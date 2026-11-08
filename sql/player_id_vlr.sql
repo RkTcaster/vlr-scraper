@@ -6,7 +6,7 @@
 --
 -- Correr una vez en el SQL editor de Supabase y en seguida `python -m vlr_pipeline upload --full`
 -- (con tables/ ya regenerado con este cambio). Incluye al principio las limpiezas de Game Changers
--- y Hush que reporto rktdata (paso 0):
+-- y Hush que reporto rktdata (paso 0) y el borrado de las filas con tricodes en minuscula (paso 0b):
 --   * players, player_stats y player_performance se VACIAN: sus filas viejas no tienen
 --     player_id_vlr y no pueden quedar en una PK not null. Quedan vacias hasta que termina el
 --     upload --full (unos minutos), asi que rktdata no ve jugadores en ese rato.
@@ -28,6 +28,22 @@ where tour_id like 'game_changers_2026_championship_s%o_paulo'
 insert into public.agent_info (agent_name, agent_path)
 select 'Hush', 'agents/hush.png'
 where not exists (select 1 from public.agent_info where agent_name = 'Hush');
+
+-- 0b. tricodes en mayusculas (tables.upper_tag, 2026-11-07) -------------------------------------
+-- El pipeline pasa todo tag de equipo a mayusculas ("Sun" -> "SUN", "Risi" -> "RISI"). Cambia la PK
+-- de las filas de esos equipos (team_id, (tour_id, teamA), team_map_round_id lleva los tags): las
+-- viejas quedarian huerfanas, el upsert nunca borra. Se borran aca y el upload --full las vuelve a
+-- subir con el tag nuevo (~23 equipos de qualifiers, ~1045 rondas). round_events no tiene team_a/b:
+-- va por los team_map_round_id de round_info, antes de borrar round_info.
+delete from public.round_events where team_map_round_id in (
+  select team_map_round_id from public.round_info
+  where "teamA" <> upper("teamA") or "teamB" <> upper("teamB"));
+delete from public.round_summary where team_a <> upper(team_a) or team_b <> upper(team_b);
+delete from public.round_buy where team_a <> upper(team_a) or team_b <> upper(team_b);
+delete from public.team_economy where team_a <> upper(team_a) or team_b <> upper(team_b);
+delete from public.round_info where "teamA" <> upper("teamA") or "teamB" <> upper("teamB");
+delete from public.tournament_played where "teamA" <> upper("teamA");
+delete from public.teams where team_id <> upper(team_id);
 
 -- 1. columnas nuevas ---------------------------------------------------------------------------
 alter table public.players add column if not exists "player_id_vlr" text;
