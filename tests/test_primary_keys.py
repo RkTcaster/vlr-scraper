@@ -12,7 +12,11 @@ from vlr_pipeline.upload import FILES_TO_UPLOAD, read_rows, validate_rows
 
 # tablas que pueden salir vacias: las de la solapa logs hasta correr backfill-logs sobre csv/
 # (igual se testean con los fixtures en test_round_logs.py)
-OPTIONAL_FILES = {"table_round_buy.csv", "table_round_events.csv", "table_round_summary.csv"}
+# table_tournament_slots: vacia mientras ningun evento de events.json tenga "slots"
+OPTIONAL_FILES = {
+    "table_round_buy.csv", "table_round_events.csv", "table_round_summary.csv",
+    "table_tournament_slots.csv",
+}
 
 
 @pytest.mark.parametrize("file, table, pk, kind", FILES_TO_UPLOAD, ids=[entry[0] for entry in FILES_TO_UPLOAD])

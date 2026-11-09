@@ -63,6 +63,8 @@ FILES_TO_UPLOAD = [
     # que existir antes (en upload.mjs teams iba despues de players)
     ("table_teams.csv", "teams", "team_id", DIMENSION),
     ("table_tournament_played.csv", "tournament_played", "tour_id, teamA", DIMENSION),
+    # plazas de cada evento (slots / relevant_teams de events.json); team_id vacio = plaza sin definir
+    ("table_tournament_slots.csv", "tournament_slots", "tour_id, slot", DIMENSION),
     ("table_players.csv", "players", "player_id_vlr", DIMENSION),
     ("table_maps_name_id.csv", "maps_name_ids", "map_id", DIMENSION),
     ("table_maps_id.csv", "maps_id", "map_id", FACT),
@@ -82,7 +84,7 @@ FILES_TO_UPLOAD = [
 # tablas con columnas numericas que pueden venir vacias (p.ej. un slot sin jugador en round_buy):
 # "" no es un integer valido en Postgres, asi que se manda NULL. tournament: stage / subregion
 # null (liga, internacionales, etapa desconocida) tienen que llegar NULL, no ""
-EMPTY_AS_NULL = {"round_buy", "round_events", "round_summary", "tournament"}
+EMPTY_AS_NULL = {"round_buy", "round_events", "round_summary", "tournament", "tournament_slots"}
 
 
 def has_credentials():

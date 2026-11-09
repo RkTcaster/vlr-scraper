@@ -203,6 +203,16 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 - Primer scrape de Brazil (local): 163 ok, 24 forfeit. 787313 falló porque vlr mostró un ACS CT de `1,079`
   con separador de miles; `parse_stat_value` (overview, también en `vlr_scraper.ipynb`) ahora saca las comas.
 
+### 2026-11-09: plazas por evento (`slots` / `relevant_teams`)
+- `events.json` acepta `"slots": N` y `"relevant_teams"` (tricodes a mano, en orden, hasta N). `process` (y
+  `csv_process.ipynb`) generan `table_tournament_slots` (`tour_id, slot, team_id`), que se sube como dimensión a
+  la tabla nueva `tournament_slots` (`sql/tournament_slots.sql`). No toca `teams.relevant`. Ver `COMMANDS.md`.
+
+### 2026-11-09: `end_date` en eventos
+- `events.json` acepta `"end_date": "YYYY-MM-DD"`: el evento se deja de scrapear `end_date` + 3 días después, sin
+  reescribir el archivo (`config.is_active`). Fechas cargadas desde "Dates" de vlr: Americas Open Qualifiers (NA,
+  Brazil, LATAM South/North) 2026-11-16, Europe Qualifier 2026-12-05, MENA Qualifier 2026-12-06.
+
 ## Pendiente
 
 ### rktdata: migrar a `player_id_vlr` (2026-11-07)

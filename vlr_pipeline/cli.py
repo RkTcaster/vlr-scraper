@@ -49,6 +49,8 @@ def build_parser():
     p_process = sub.add_parser("process", help="consolida csv/ en tables/table_*.csv")
     p_process.add_argument("--csv-dir", default=config.DEFAULT_CSV_DIR)
     p_process.add_argument("--tables-dir", default=config.DEFAULT_TABLES_DIR)
+    p_process.add_argument("--events-file", default=config.DEFAULT_EVENTS_FILE,
+                           help="de donde salen los slots / relevant_teams de table_tournament_slots")
 
     p_upload = sub.add_parser("upload", help="upsert de tables/table_*.csv en las tablas de Supabase")
     p_upload.add_argument("--tables-dir", default=config.DEFAULT_TABLES_DIR)
@@ -111,7 +113,7 @@ def cmd_backfill_logs(args):
 def cmd_process(args):
     from vlr_pipeline.tables import build_all
 
-    build_all(csv_dir=args.csv_dir, tables_dir=args.tables_dir)
+    build_all(csv_dir=args.csv_dir, tables_dir=args.tables_dir, events_file=args.events_file)
     return 0
 
 
@@ -141,7 +143,7 @@ def cmd_all(args):
     else:
         logger.warning("No hay eventos activos en %s; salto el scrape", args.events_file)
 
-    build_all(csv_dir=args.csv_dir, tables_dir=args.tables_dir)
+    build_all(csv_dir=args.csv_dir, tables_dir=args.tables_dir, events_file=args.events_file)
 
     if args.skip_upload:
         logger.info("upload salteado (--skip-upload)")

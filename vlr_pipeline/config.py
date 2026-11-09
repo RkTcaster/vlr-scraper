@@ -1,6 +1,8 @@
 import json
 import logging
 import os
+import re
+from datetime import date, datetime, timedelta, timezone
 
 logger = logging.getLogger(__name__)
 
@@ -24,9 +26,70 @@ DEFAULT_SCRAPE_ENCODING = "iso-8859-1"
 MATCH_FORMATS = ("full", "reduced")
 DEFAULT_MATCH_FORMAT = "full"
 
+# "end_date" (YYYY-MM-DD, opcional) de un evento: deja de scrapearse END_DATE_GRACE_DAYS dias
+# despues, aunque siga con "active": true. El margen cubre la corrida posterior a la final, los
+# partidos que vlr cierra tarde y los 3 reintentos de un match con error (uno por corrida).
+END_DATE_GRACE_DAYS = 3
 
-def load_events(path=DEFAULT_EVENTS_FILE, only_active=True):
-    """Lee events.json y devuelve la lista de eventos (dicts con name/url/active/format)."""
+
+def validate_slots(event, path=DEFAULT_EVENTS_FILE):
+    """slots (plazas que da el evento) y relevant_teams (tricodes que las ocupan, a mano).
+
+    Los dos son opcionales; relevant_teams pide slots y no puede tener mas equipos que plazas.
+    Terminan en table_tournament_slots (tables.build_tournament_slots).
+    """
+    name = event.get("name", event.get("url"))
+    slots = event.get("slots")
+    teams = event.get("relevant_teams")
+    if slots is not None and (isinstance(slots, bool) or not isinstance(slots, int) or slots < 1):
+        raise ValueError(f"slots invalido en {path} para {name}: {slots!r} (entero >= 1)")
+    if teams is None:
+        return
+    if slots is None:
+        raise ValueError(f"relevant_teams sin slots en {path} para {name}")
+    if not isinstance(teams, list) or not all(isinstance(team, str) and team.strip() for team in teams):
+        raise ValueError(f"relevant_teams invalido en {path} para {name}: lista de tricodes")
+    if len(teams) > slots:
+        raise ValueError(f"{name} en {path}: {len(teams)} relevant_teams para {slots} slots")
+    if len({team.strip().upper() for team in teams}) != len(teams):
+        raise ValueError(f"relevant_teams repetidos en {path} para {name}: {teams}")
+
+
+def parse_end_date(event, path=DEFAULT_EVENTS_FILE):
+    """end_date del evento como date, o None si no tiene. Falla si no es YYYY-MM-DD."""
+    value = event.get("end_date")
+    if value is None:
+        return None
+    # fromisoformat solo sobre YYYY-MM-DD: en Python 3.11+ tambien acepta "20261116"
+    if isinstance(value, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+        try:
+            return date.fromisoformat(value)
+        except ValueError:  # 2026-02-30
+            pass
+    raise ValueError(
+        f"end_date invalido en {path} para {event.get('name', event.get('url'))}: {value!r} (YYYY-MM-DD)"
+    )
+
+
+def is_active(event, today=None):
+    """active en events.json y, si tiene end_date, hoy (UTC) <= end_date + END_DATE_GRACE_DAYS.
+
+    No reescribe events.json: "active" queda en true y el evento solo deja de devolverse.
+    """
+    if not event.get("active"):
+        return False
+    end_date = parse_end_date(event)
+    if end_date is None:
+        return True
+    today = today or datetime.now(timezone.utc).date()
+    return today <= end_date + timedelta(days=END_DATE_GRACE_DAYS)
+
+
+def load_events(path=DEFAULT_EVENTS_FILE, only_active=True, today=None):
+    """Lee events.json y devuelve la lista de eventos (dicts con name/url/active/format).
+
+    Con only_active, solo los que is_active da por vigentes (active y end_date + margen sin vencer).
+    """
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
 
@@ -38,8 +101,16 @@ def load_events(path=DEFAULT_EVENTS_FILE, only_active=True):
                 f"format invalido en {path} para {event.get('name', event.get('url'))}: "
                 f"{event['format']!r} (opciones: {', '.join(MATCH_FORMATS)})"
             )
+        validate_slots(event, path)
+        parse_end_date(event, path)
     if only_active:
-        events = [event for event in events if event.get("active")]
+        expired = [event for event in events if event.get("active") and not is_active(event, today)]
+        for event in expired:
+            logger.info(
+                "%s: end_date %s + %d dias vencido, no se scrapea (sacar \"active\" o el end_date en %s)",
+                event.get("name", event.get("url")), event["end_date"], END_DATE_GRACE_DAYS, path,
+            )
+        events = [event for event in events if is_active(event, today)]
     return events
 
 

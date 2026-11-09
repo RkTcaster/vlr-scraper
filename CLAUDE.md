@@ -155,6 +155,14 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
   stage goes null and a new subregion goes Title Case, both with a warning — add it and tell rviewer. The csv owns
   these columns (upsert overwrites manual edits), so they must always be computed; empty cells go as NULL
   (`tournament` is in `upload.EMPTY_AS_NULL`).
+- **Event end date** — an event may carry `"end_date": "YYYY-MM-DD"`; `config.load_events(only_active=True)` drops it
+  once today (UTC) is past `end_date + END_DATE_GRACE_DAYS` (3), even with `"active": true` (`is_active`).
+  `events.json` is never rewritten (the bot only commits `csv/`).
+- **Event slots** — an event in `events.json` may carry `"slots": N` and `"relevant_teams": [tricodes]` (hand-written,
+  in order, at most N; validated in `config.validate_slots`). `build_tournament_slots` writes
+  `table_tournament_slots` (PK `tour_id, slot`, `team_id` empty = slot not decided yet), matching the event to its
+  `tour_id` by `event_key` (ascii alphanumerics of the url slug vs the tour_id). Supabase table from
+  `sql/tournament_slots.sql`. It never writes `teams.relevant`, which rviewer edits by hand.
 - **Manual lookup lists** — new maps and agents must be added by hand to the hardcoded lists in
   `csv_process.ipynb` (map_info / agent_path_name), otherwise their rows won't get IDs/images.
 

@@ -18,7 +18,7 @@ def events_file(tmp_path):
 
 def run_all(monkeypatch, tmp_path, events_file, error_count):
     monkeypatch.setattr(scraper, "scrape_all", lambda events, folder, encoding: error_count)
-    monkeypatch.setattr(tables, "build_all", lambda csv_dir, tables_dir: None)
+    monkeypatch.setattr(tables, "build_all", lambda csv_dir, tables_dir, events_file: None)
     return main(["all", "--events-file", events_file, "--csv-dir", str(tmp_path), "--tables-dir", str(tmp_path), "--skip-upload"])
 
 

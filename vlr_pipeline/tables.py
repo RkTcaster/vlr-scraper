@@ -12,7 +12,7 @@ from collections import Counter
 import numpy as np
 import pandas as pd
 
-from vlr_pipeline.config import DEFAULT_MATCH_FORMAT
+from vlr_pipeline.config import DEFAULT_EVENTS_FILE, DEFAULT_MATCH_FORMAT, load_events
 from vlr_pipeline.lookups import (
     agent_path_name, map_info, region_id, region_name, subregion_names, team_aliases,
 )
@@ -437,6 +437,64 @@ def build_teams(csv_dir="csv", tables_dir="tables"):
     df_team.to_csv(path_or_buf=os.path.join(tables_dir, 'table_teams.csv'), index=False, encoding='iso-8859-1')
 
     return df_team
+
+
+TOURNAMENT_SLOTS_COLUMNS = ["tour_id", "slot", "team_id"]
+
+
+def event_key(text):
+    """Clave para cruzar un evento de events.json con su tour_id: solo [a-z0-9] ascii.
+
+    El slug de vlr cambia cada caracter raro por "-" ("s-o-paulo") y el tour_id lo conserva en
+    la forma html ("sÃ£o"): sacando lo no-ascii y la puntuacion los dos quedan "sopaulo".
+    """
+    return re.sub(r"[^a-z0-9]", "", text.lower().encode("ascii", "ignore").decode("ascii"))
+
+
+def event_slug(url):
+    """Slug del evento en la url de events.json (/event/matches/<id>/<slug>/...), o None."""
+    match = re.search(r"/event/(?:matches/)?\d+/([^/?#]+)", url or "")
+    return match.group(1) if match else None
+
+
+def build_tournament_slots(df_tournaments, df_team=None, events_file=DEFAULT_EVENTS_FILE, tables_dir="tables"):
+    """table_tournament_slots.csv: una fila por plaza (slot 1..N) de los eventos con "slots".
+
+    Los equipos salen a mano de "relevant_teams" en events.json, en orden; las plazas sin equipo
+    van con team_id vacio (NULL en Supabase). Se leen todos los eventos, activos o no: un
+    qualifier terminado conserva sus plazas. Un evento que todavia no tiene tour_id (sin
+    partidos scrapeados) se saltea con un warning.
+    """
+    events = load_events(events_file, only_active=False) if os.path.exists(events_file) else []
+    tour_by_key = {event_key(tour_id): tour_id for tour_id in df_tournaments["tour_id"]}
+    known_teams = set(df_team["team_id"]) if df_team is not None else None
+
+    rows = []
+    for event in events:
+        if event.get("slots") is None:
+            continue
+        name = event.get("name", event.get("url"))
+        slug = event_slug(event.get("url"))
+        tour_id = tour_by_key.get(event_key(slug)) if slug else None
+        if tour_id is None:
+            logger.warning(f"tournament_slots: {name} no tiene tour_id en tables (sin partidos?), lo salteo")
+            continue
+        teams = [upper_tag(json_text(team.strip())) for team in event.get("relevant_teams", [])]
+        for team in teams:
+            if known_teams is not None and team not in known_teams:
+                logger.warning(f"tournament_slots: {name}: {team!r} no esta en table_teams (typo?)")
+        for slot in range(1, event["slots"] + 1):
+            rows.append({
+                "tour_id": tour_id,
+                "slot": slot,
+                "team_id": teams[slot - 1] if slot <= len(teams) else "",
+            })
+
+    df_slots = pd.DataFrame(rows, columns=TOURNAMENT_SLOTS_COLUMNS)
+    df_slots.to_csv(
+        path_or_buf=os.path.join(tables_dir, "table_tournament_slots.csv"), index=False, encoding="iso-8859-1"
+    )
+    return df_slots
 
 
 def build_players(df_team, csv_dir="csv", tables_dir="tables"):
@@ -1347,7 +1405,7 @@ def build_agent_info(tables_dir="tables"):
     )
 
 
-def build_all(csv_dir="csv", tables_dir="tables"):
+def build_all(csv_dir="csv", tables_dir="tables", events_file=DEFAULT_EVENTS_FILE):
     """Corre todas las tablas en el mismo orden que el notebook."""
     os.makedirs(tables_dir, exist_ok=True)
 
@@ -1356,6 +1414,9 @@ def build_all(csv_dir="csv", tables_dir="tables"):
 
     logger.info("building table_teams")
     df_team = build_teams(csv_dir, tables_dir)
+
+    logger.info("building table_tournament_slots")
+    build_tournament_slots(df_tournaments, df_team, events_file, tables_dir)
 
     logger.info("building table_players")
     df_players_id = build_players(df_team, csv_dir, tables_dir)

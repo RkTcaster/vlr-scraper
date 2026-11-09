@@ -4,42 +4,48 @@
       "name": "VCT 2027 EMEA Kickoff MENA Qualifier",
       "url": "https://www.vlr.gg/event/matches/3167/vct-2027-emea-kickoff-mena-qualifier/?series_id=all",
       "active": true,
-      "format": "reduced"
+      "format": "reduced",
+      "end_date": "2026-12-06"
     },
     {
       "name": "VCT 2027 Americas Kickoff Brazil Open Qualifier",
       "url": "https://www.vlr.gg/event/matches/3187/vct-2027-america-kickoff-brazil-open-qualifier/?series_id=all",
       "active": true,
-      "format": "reduced"
+      "format": "reduced",
+      "end_date": "2026-11-16"
     },
     {
       "name": "VCT 2027 Americas Kickoff LATAM South Open Qualifier",
       "url": "https://www.vlr.gg/event/matches/3190/vct-2027-america-kickoff-latam-south-open-qualifier/?series_id=all",
       "active": true,
-      "format": "reduced"
+      "format": "reduced",
+      "end_date": "2026-11-16"
     },
     {
       "name": "VCT 2027 Americas Kickoff LATAM North Open Qualifier",
       "url": "https://www.vlr.gg/event/matches/3189/vct-2027-america-kickoff-latam-north-open-qualifier/?series_id=all",
       "active": true,
-      "format": "reduced"
+      "format": "reduced",
+      "end_date": "2026-11-16"
     },
     {
       "name": "VCT 2027 Americas Kickoff North America Open Qualifier",
       "url": "https://www.vlr.gg/event/matches/3186/vct-2027-america-kickoff-north-america-open-qualifier/?series_id=all",
       "active": true,
-      "format": "reduced"
+      "format": "reduced",
+      "end_date": "2026-11-16"
     },
     {
       "name": "VCT 2027 EMEA Kickoff Europe Qualifier",
       "url": "https://www.vlr.gg/event/matches/3175/vct-2027-emea-kickoff-europe-qualifier/?series_id=6092",
       "active": true,
-      "format": "reduced"
+      "format": "reduced",
+      "end_date": "2026-12-05"
     },
     {
       "name": "Game Changers 2026 Championship Sao Paulo",
       "url": "https://www.vlr.gg/event/matches/3134/game-changers-2026-championship-s-o-paulo/?series_id=all",
-      "active": true
+      "active": false
     },
     {
       "name": "Valorant Champions 2026",

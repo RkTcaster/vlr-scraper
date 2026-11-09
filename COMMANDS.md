@@ -84,6 +84,38 @@ python -m vlr_pipeline upload
 Si se cambia el `format` de un evento ya scrapeado, el próximo `scrape` re-marca sus partidos sin pedir nada a vlr.
 Para que `match_id` en Supabase lo refleje: `upload --full`.
 
+## Fin de un evento (`end_date`)
+
+Un evento puede llevar `"end_date": "YYYY-MM-DD"` (el último día que muestra vlr en "Dates" de la página del
+evento). Se sigue scrapeando hasta `end_date` + 3 días (`config.END_DATE_GRACE_DAYS`) y después `scrape` / `all`
+lo saltean aunque tenga `"active": true`. El log lo avisa (`end_date ... vencido, no se scrapea`).
+`events.json` no se reescribe: para reactivar uno vencido, correr la fecha o sacar el `end_date`.
+Sin `end_date`, el evento depende solo de `active`. `scrape --all-events` ignora las dos cosas.
+
+## Plazas de un evento (`slots` / `relevant_teams`)
+
+Antes de usarlo por primera vez, correr `sql/tournament_slots.sql` en el SQL editor de Supabase.
+
+Un evento de `events.json` puede declarar cuántas plazas da (`slots`) y, a mano y en orden, qué equipos las
+ocupan (`relevant_teams`, tricodes como en `teams.team_id`; mayúsculas/minúsculas da igual):
+
+```json
+{
+  "name": "VCT 2027 EMEA Kickoff Europe Qualifier",
+  "url": "https://www.vlr.gg/event/matches/3175/vct-2027-emea-kickoff-europe-qualifier/?series_id=6092",
+  "active": true,
+  "format": "reduced",
+  "slots": 2,
+  "relevant_teams": ["AURA", "YCAT"]
+}
+```
+
+- `process` genera `tables/table_tournament_slots.csv` (`tour_id, slot, team_id`): una fila por plaza, `team_id`
+  vacío (NULL) mientras falten equipos. Sirve con el evento activo o no.
+- `relevant_teams` no puede tener más equipos que `slots`; si un tricode no está en `table_teams` sale un warning.
+- No toca `teams.relevant` (columna manual de rviewer).
+- El upsert no borra: si se bajan los `slots` de un evento, borrar a mano las filas sobrantes en Supabase.
+
 ## Logs (compras / kills por ronda)
 
 ```bash

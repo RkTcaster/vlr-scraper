@@ -155,3 +155,30 @@ def test_forfeit_purges_rows_of_an_already_scraped_match(tmp_path, monkeypatch):
 
     assert (result["status"], result["error"]) == ("skipped", "forfeit")
     assert draft.read_text(encoding="iso-8859-1") == f"team,source_url\nX,{URL_B}\n"
+
+
+def test_end_date_deactivates_after_grace_days(tmp_path):
+    from datetime import date
+
+    path = write_events(tmp_path, [
+        {"name": "fin", "url": "u1", "active": True, "end_date": "2026-11-16"},
+        {"name": "sin_fecha", "url": "u2", "active": True},
+        {"name": "inactivo", "url": "u3", "active": False, "end_date": "2026-12-31"},
+    ])
+
+    def active_names(today):
+        return [event["name"] for event in config.load_events(path, today=today)]
+
+    # end_date + 3 dias de margen (END_DATE_GRACE_DAYS) todavia se scrapea
+    assert active_names(date(2026, 11, 16)) == ["fin", "sin_fecha"]
+    assert active_names(date(2026, 11, 19)) == ["fin", "sin_fecha"]
+    assert active_names(date(2026, 11, 20)) == ["sin_fecha"]
+    # active false manda aunque la fecha no haya vencido; only_active=False devuelve todo
+    assert len(config.load_events(path, only_active=False, today=date(2027, 1, 1))) == 3
+
+
+@pytest.mark.parametrize("value", ["16/11/2026", "2026-11-31", "20261116", 20261116, ""])
+def test_invalid_end_date_fails_on_load(tmp_path, value):
+    path = write_events(tmp_path, [{"name": "x", "url": "u", "active": True, "end_date": value}])
+    with pytest.raises(ValueError, match="end_date invalido"):
+        config.load_events(path)
