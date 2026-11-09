@@ -1,6 +1,18 @@
 {
   "events": [
     {
+      "name": "VCT 2027 EMEA Kickoff MENA Qualifier",
+      "url": "https://www.vlr.gg/event/matches/3167/vct-2027-emea-kickoff-mena-qualifier/?series_id=all",
+      "active": true,
+      "format": "reduced"
+    },
+    {
+      "name": "VCT 2027 Americas Kickoff Brazil Open Qualifier",
+      "url": "https://www.vlr.gg/event/matches/3187/vct-2027-america-kickoff-brazil-open-qualifier/?series_id=all",
+      "active": true,
+      "format": "reduced"
+    },
+    {
       "name": "VCT 2027 Americas Kickoff LATAM South Open Qualifier",
       "url": "https://www.vlr.gg/event/matches/3190/vct-2027-america-kickoff-latam-south-open-qualifier/?series_id=all",
       "active": true,

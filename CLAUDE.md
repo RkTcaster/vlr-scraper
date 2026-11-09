@@ -140,12 +140,21 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
   (and re-syncs already-logged matches with no requests); `build_ids` / `build_region_tournament` read it into
   `table_match_id.match_format` (full/reduced) and `table_tournament.match_format` (full/reduced/mixed). Supabase
   columns come from `sql/match_format.sql`. Reduced matches have no `draft_` rows, so `table_teams` also takes
-  teams from `round_detail`. Forfeits (`forfeited by X`) are `skipped` with error `forfeit`. Small teams' logs tab
+  teams from `round_detail`. Forfeits (`forfeited by X`) are `skipped` with error `forfeit`, and any rows from an earlier scrape are
+  purged (vlr can turn a played match into a forfeit after a disqualification, 784786; the tournament comes from
+  `scraper.title_event` because the page has no tricodes). Small teams' logs tab
   can bring the tag in another case (`Rvan` vs `RVAN`). **Team tags are always uppercase in `tables/`**
   (2026-11-07): `upper_tag` runs on every tag column (`TEAM_TAG_COLUMNS`) when raw csv are read
   (`concat_csv_from_different_folders`, round_buy/round_events), so every PK, join and `team_path` uses the
   uppercase tricode while raw `csv/` keeps vlr's case. It decodes the html form first (`MÃ¶rk` -> `MÖRK`).
   `same_team_case` stays as a no-op safety net before `team_aliases` (whose keys must be uppercase).
+- **Tournament hierarchy** — `table_tournament` has `year` / `stage` / `subregion` for rviewer's
+  Year → Region → Subregion → Tournament filter (`tournament_hierarchy` in `tables.py`, contract in
+  `handoff/VLR_SCRAPER_TOURNAMENT_HIERARCHY.md`). They are parsed from `tour_id`; `stage` is a fixed set
+  (`STAGE_PATTERNS`), `subregion` only for qualifiers with chip texts from `lookups.subregion_names`. An unknown
+  stage goes null and a new subregion goes Title Case, both with a warning — add it and tell rviewer. The csv owns
+  these columns (upsert overwrites manual edits), so they must always be computed; empty cells go as NULL
+  (`tournament` is in `upload.EMPTY_AS_NULL`).
 - **Manual lookup lists** — new maps and agents must be added by hand to the hardcoded lists in
   `csv_process.ipynb` (map_info / agent_path_name), otherwise their rows won't get IDs/images.
 

@@ -13,7 +13,9 @@ import numpy as np
 import pandas as pd
 
 from vlr_pipeline.config import DEFAULT_MATCH_FORMAT
-from vlr_pipeline.lookups import agent_path_name, map_info, region_id, region_name, team_aliases
+from vlr_pipeline.lookups import (
+    agent_path_name, map_info, region_id, region_name, subregion_names, team_aliases,
+)
 from vlr_pipeline.parsers import json_text
 from vlr_pipeline.save import normalize_filename
 
@@ -128,6 +130,55 @@ def region_by_id(touranment_name, region):
         if row['region'].lower() in name:
             return row['reg_id']
     return "reg_4"
+
+
+# Etapas de rviewer en orden de chequeo: los qualifiers primero (su nombre trae "kickoff") y
+# game changers antes que champions ("game_changers_2026_championship")
+STAGE_PATTERNS = [
+    ("closed_qualifier", r"\bclosed qualifier\b"),
+    ("open_qualifier", r"\bqualifier\b"),  # "open qualifier" y "europe qualifier" (2027)
+    ("game_changers", r"\bgame changers\b"),
+    ("ewc", r"\besports world cup\b"),
+    ("champions", r"\bchampions\b"),
+    ("masters", r"\bmasters\b"),
+    ("kickoff", r"\bkickoff\b"),
+    ("stage_1", r"\bstage 1\b"),
+    ("stage_2", r"\bstage 2\b"),
+]
+
+
+def tournament_hierarchy(tour_id):
+    """(year, stage, subregion) del torneo para el filtro de rviewer.
+
+    year es la temporada del nombre (los qualifiers del Kickoff 2027 se juegan en 2026),
+    stage uno de STAGE_PATTERNS o None, subregion solo en qualifiers. Ver
+    handoff/VLR_SCRAPER_TOURNAMENT_HIERARCHY.md.
+    """
+    name = tour_id.lower().replace("_", " ")
+    year_match = re.search(r"\b(20\d\d)\b", name)
+    year = int(year_match.group(1)) if year_match else None
+    if year is None:
+        logger.warning(f"tournament {tour_id}: sin year en el nombre")
+
+    stage = next((stage for stage, pattern in STAGE_PATTERNS if re.search(pattern, name)), None)
+    if stage is None:
+        logger.warning(f"tournament {tour_id}: stage desconocido (va null, avisar a rviewer)")
+
+    subregion = None
+    if stage in ("open_qualifier", "closed_qualifier"):
+        sub_match = re.search(r" - (.+?) (?:open |closed )?qualifier\b", name)
+        if sub_match:
+            raw = sub_match.group(1).strip()
+            subregion = subregion_names.get(raw)
+            if subregion is None:
+                subregion = raw.title()
+                logger.warning(
+                    f"tournament {tour_id}: subregion nueva {subregion!r} "
+                    "(agregar a lookups.subregion_names y avisar a rviewer)"
+                )
+        else:
+            logger.warning(f"tournament {tour_id}: qualifier sin subregion en el nombre")
+    return year, stage, subregion
 
 
 def sort_teams(team_string):
@@ -345,6 +396,14 @@ def build_region_tournament(csv_dir="csv", tables_dir="tables"):
     df_tournaments["match_format"] = (
         df_tournaments["tour_id"].map(formats_by_tour).fillna(DEFAULT_MATCH_FORMAT)
     )
+
+    # filtro Año -> Region -> Subregion -> Torneo de rviewer. Este csv es el unico dueño de las
+    # tres columnas: el upsert pisa lo cargado a mano en Supabase, asi que tienen que venir
+    # siempre calculadas (vacio = NULL, ver upload.EMPTY_AS_NULL)
+    hierarchy = df_tournaments["tour_id"].apply(tournament_hierarchy)
+    df_tournaments["year"] = pd.array([h[0] for h in hierarchy], dtype="Int64")
+    df_tournaments["stage"] = [h[1] for h in hierarchy]
+    df_tournaments["subregion"] = [h[2] for h in hierarchy]
 
     df_region.to_csv(path_or_buf=os.path.join(tables_dir, 'table_region.csv'), index=False, encoding='iso-8859-1')
     df_tournaments.to_csv(path_or_buf=os.path.join(tables_dir, 'table_tournament.csv'), index=False, encoding='iso-8859-1')

@@ -39,6 +39,16 @@ from vlr_pipeline.tracking import (
 logger = logging.getLogger(__name__)
 
 
+def title_event(soup):
+    """Evento del <title> ("A vs. B | <evento> | ..."), o None.
+
+    Para los forfeit, donde get_basic_match_info falla (no hay tricodes en la pagina).
+    """
+    title = soup.find("title")
+    parts = title.get_text(strip=True).split("|") if title else []
+    return parts[1].strip() if len(parts) > 1 and parts[1].strip() else None
+
+
 def get_invalid_reason(soup):
     """Why a match can't be processed, or None if it's valid
 
@@ -153,6 +163,11 @@ def process_match(url, folder="csv", encoding="utf-8"):
         invalid_reason = get_invalid_reason(soup)
         if invalid_reason in ("showmatch", "forfeit"):
             logger.info(f"{invalid_reason}, lo salteo: {url}")
+            # un match ya scrapeado que vlr despues da por forfeit (BONK descalificado en el
+            # Europe Qualifier, 784786): sin esto sus filas viejas quedaban en csv/
+            event = title_event(soup)
+            if event:
+                purge_match_rows(normalize_filename(event), url, folder=folder)
             result["status"] = "skipped"
             result["error"] = invalid_reason
             return result

@@ -7,6 +7,18 @@ Mapas y agentes nuevos se agregan aca; si faltan, sus filas no reciben id/imagen
 region_name = ["americas", "emea", "china", "pacific", "global"]
 region_id = ["reg_0", "reg_1", "reg_2", "reg_3", "reg_4"]
 
+# Texto exacto del chip de subregion en rviewer (handoff/VLR_SCRAPER_TOURNAMENT_HIERARCHY.md),
+# por la parte del tour_id entre "_-_" y "_[open|closed_]qualifier". Una subregion que no este
+# aca sale en Title Case con un warning: agregarla y avisar a rviewer.
+subregion_names = {
+    "north america": "North America",
+    "latam north": "LATAM North",
+    "latam south": "LATAM South",
+    "europe": "Europe",
+    "mena": "MENA",  # 2026-11-09, avisado a rviewer (handoff/RVIEWER_SUBREGIONES_NUEVAS.md)
+    "brazil": "Brazil",
+}
+
 # table with the maps force the maps I should add new maps manually
 map_info = {
     "map": [

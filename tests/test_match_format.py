@@ -135,3 +135,23 @@ def test_tag_case_with_non_ascii_html_form():
     html = lambda text: text.encode("utf-8").decode("iso-8859-1")
     tags = pd.Series([html("Mörk")])
     assert same_team_case(tags, pd.Series([html("MÖRK")])).tolist() == [html("MÖRK")]
+
+
+def test_forfeit_purges_rows_of_an_already_scraped_match(tmp_path, monkeypatch):
+    # 784786: BONK vs Aurora se scrapeo jugado y despues vlr lo paso a "forfeited by BONK"
+    from vlr_pipeline import scraper
+    from vlr_pipeline.save import normalize_filename
+
+    soup = match_soup("forfeited by BONK")
+    tournament = normalize_filename(scraper.title_event(soup))
+    folder = tmp_path / tournament
+    folder.mkdir()
+    draft = folder / f"draft_{tournament}.csv"
+    draft.write_text(f"team,source_url\nBONK,{URL_A}\nX,{URL_B}\n", encoding="iso-8859-1")
+    monkeypatch.setattr(scraper, "soup_open", lambda url, decode="iso-8859-1": soup)
+    monkeypatch.setattr(scraper.time, "sleep", lambda seconds: None)
+
+    result = scraper.process_match(URL_A, folder=str(tmp_path))
+
+    assert (result["status"], result["error"]) == ("skipped", "forfeit")
+    assert draft.read_text(encoding="iso-8859-1") == f"team,source_url\nX,{URL_B}\n"

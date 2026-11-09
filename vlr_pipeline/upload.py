@@ -80,8 +80,9 @@ FILES_TO_UPLOAD = [
 
 
 # tablas con columnas numericas que pueden venir vacias (p.ej. un slot sin jugador en round_buy):
-# "" no es un integer valido en Postgres, asi que se manda NULL
-EMPTY_AS_NULL = {"round_buy", "round_events", "round_summary"}
+# "" no es un integer valido en Postgres, asi que se manda NULL. tournament: stage / subregion
+# null (liga, internacionales, etapa desconocida) tienen que llegar NULL, no ""
+EMPTY_AS_NULL = {"round_buy", "round_events", "round_summary", "tournament"}
 
 
 def has_credentials():

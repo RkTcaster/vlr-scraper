@@ -173,6 +173,36 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
   `sql/cleanup_gc_encoding.sql` y `sql/agent_hush.sql`, que nunca se corrieron. Quedaron como paso 0 de
   `sql/player_id_vlr.sql`. `agent_info` sigue cargándose a mano (rktdata mantiene la columna `rol`).
 
+### 2026-11-09: `year` / `stage` / `subregion` en `tournament`
+- Pedido de rviewer (`handoff/VLR_SCRAPER_TOURNAMENT_HIERARCHY.md`) para el filtro Año → Región → Subregión →
+  Torneo. `tables.tournament_hierarchy` los saca del `tour_id`: `year` = temporada del nombre (los qualifiers del
+  Kickoff 2027 son 2027), `stage` con `STAGE_PATTERNS` (qualifiers antes que kickoff, game changers antes que
+  champions; "Europe Qualifier" sin open/closed = `open_qualifier`), `subregion` solo en qualifiers, con el texto
+  exacto del chip en `lookups.subregion_names`. Etapa desconocida -> `null` y subregión nueva -> Title Case,
+  ambas con warning: agregarlas y avisar a rviewer. Mismo código en `csv_process.ipynb` (celda de torneos).
+- `tournament` entra en `upload.EMPTY_AS_NULL`, así los `null` llegan como NULL y no como `""`. El csv ahora es
+  el dueño de las tres columnas: lo cargado a mano el 2026-11-08 se pisa con lo mismo (test con esa tabla).
+
+### 2026-11-09: BONK descalificado en el Europe Qualifier
+- vlr hizo rollback desde el ro32: 784786 (BONK vs Aurora) pasó a `forfeited by BONK` y en 784798 / 784804
+  (ro16 / ro8, mismos `series_id`) ahora juega Aurora. Se borraron del `scrape_log` y se re-scrapearon; los
+  tres partidos anteriores de BONK no cambiaron.
+- Bug: un match ya scrapeado que después pasa a forfeit/showmatch quedaba `skipped` pero con sus filas viejas en
+  `csv/` (la rama skipped volvía antes de purgar, y `get_basic_match_info` falla sin tricodes). Ahora purga con el
+  evento del `<title>` (`scraper.title_event`; también en `vlr_scraper.ipynb`).
+- Supabase: `sql/cleanup_bonk_dq_europe_qualifier.sql` borra las tres series de las tablas fact y de
+  `match_id` (las filas viejas tienen otra PK y el upsert no las pisa). Correrlo antes del próximo upload.
+
+### 2026-11-09: MENA Qualifier y Brazil Open Qualifier
+- Eventos nuevos (`reduced`) en `events.json`: VCT 2027 EMEA Kickoff - MENA Qualifier (3167, todavía sin jugar)
+  y VCT 2027 Americas Kickoff - Brazil Open Qualifier (3187). Subregiones nuevas en `lookups.subregion_names`:
+  `MENA` y `Brazil` (aviso a rviewer: `handoff/RVIEWER_SUBREGIONES_NUEVAS.md`).
+- Brazil: 19 partidos quedaron en `live` en vlr con rondas posteriores ya jugadas (algunos con 1-2 mapas
+  cargados). No se registran en scrape_log y se vuelven a mirar en cada corrida sin requests: entran solos si
+  vlr los cierra. Si no los cierra nunca, esas series faltan (pendiente decidir si se fuerzan).
+- Primer scrape de Brazil (local): 163 ok, 24 forfeit. 787313 falló porque vlr mostró un ACS CT de `1,079`
+  con separador de miles; `parse_stat_value` (overview, también en `vlr_scraper.ipynb`) ahora saca las comas.
+
 ## Pendiente
 
 ### rktdata: migrar a `player_id_vlr` (2026-11-07)

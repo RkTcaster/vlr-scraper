@@ -1105,7 +1105,8 @@ def get_player_stats(soup, basic_match_info):
     }
 
     def parse_stat_value(text):
-        text = text.strip().replace("\xa0", "0")
+        # vlr pone separador de miles: ACS CT de 1,079 en un mapa de pocas rondas (787313)
+        text = text.strip().replace("\xa0", "0").replace(",", "")
         if text == "":
             return 0.0
         if text[-1] == "%":
