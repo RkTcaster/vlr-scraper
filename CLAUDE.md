@@ -91,6 +91,19 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
   before it existed) are filled by `scripts/backfill_player_ids.py` (1 overview request per match; run for every
   match on 2026-11-07). Split html text with `parsers.html_words` (ASCII whitespace only), never `str.split()`:
   latin-1-decoded utf-8 contains `\xa0`/`\x85` bytes that `split()` treats as spaces.
+- **Team identity (`team_id_vlr`, 2026-11-10, phase 1)** — a team is vlr's `/team/<id>/`, never the tricode:
+  20 tags are shared by unrelated teams (`THE` in four qualifiers, `FUR` = FURIA and a Brazil qualifier team) and
+  785082 is `FAKE` vs `FAKE`. `get_team_ids` reads the match header (`a.match-header-link` `mod-1`/`mod-2`);
+  `round_detail_` stores `team_a_id_vlr`, `team_b_id_vlr`, `team_a_name`, `team_b_name` and `player_stats_`
+  stores `team_id_vlr` **by ovw-table position** (first table of each map = team_a), never by tag. At build time
+  `team_keys` + `resolve_team_ids` (`tables.py`) give the id by `(series_id, tag)` when the tag is unique in that
+  series; anything without an id becomes `tbd_<TAG>` (team without a vlr page, or csv not backfilled:
+  `scripts/backfill_team_ids.py`, 1 overview request per series). `table_teams` has one row per `team_id_vlr`
+  (Supabase PK) with `team_id` (tag, no longer unique) and `name` from the team's latest match; `players`,
+  `player_stats` and `round_info` (`team_a_id_vlr`/`team_b_id_vlr`) carry the id. The fact tables' PKs
+  (`team_map_round_id`, `tournament_played (tour_id, teamA)`, `team_economy`, logs tables) still use tags:
+  that is phase 2 (ROADMAP). Schema change: `sql/team_id_vlr.sql` (paso A, `upload --full`, paso B restores
+  rviewer's manual `teams.relevant`).
 - **New raw columns** — the `save_*` functions append through `save.append_dict_rows`, which rewrites an
   existing csv once (byte-safe, latin-1) adding any column the parser now produces, so a parser can gain a column
   without leaving appended rows misaligned under an old header. Add new columns at the **end** of the parser's

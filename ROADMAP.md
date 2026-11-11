@@ -1,7 +1,7 @@
 # Roadmap
 
 Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
-Última actualización: 2026-11-06.
+Última actualización: 2026-11-10.
 
 ## Hecho
 
@@ -199,7 +199,7 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
   `MENA` y `Brazil` (aviso a rviewer: `handoff/RVIEWER_SUBREGIONES_NUEVAS.md`).
 - Brazil: 19 partidos quedaron en `live` en vlr con rondas posteriores ya jugadas (algunos con 1-2 mapas
   cargados). No se registran en scrape_log y se vuelven a mirar en cada corrida sin requests: entran solos si
-  vlr los cierra. Si no los cierra nunca, esas series faltan (pendiente decidir si se fuerzan).
+  vlr los cierra. Si no los cierra nunca, esas series faltan: no se fuerzan (ver "Partidos sin terminar").
 - Primer scrape de Brazil (local): 163 ok, 24 forfeit. 787313 falló porque vlr mostró un ACS CT de `1,079`
   con separador de miles; `parse_stat_value` (overview, también en `vlr_scraper.ipynb`) ahora saca las comas.
 
@@ -213,6 +213,21 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
   reescribir el archivo (`config.is_active`). Fechas cargadas desde "Dates" de vlr: Americas Open Qualifiers (NA,
   Brazil, LATAM South/North) 2026-11-16, Europe Qualifier 2026-12-05, MENA Qualifier 2026-12-06.
 
+### 2026-11-10: id de equipo de vlr (`team_id_vlr`, fase 1)
+- El tricode no identifica al equipo: 20 tags compartidos por equipos sin relación (`THE` en cuatro qualifiers,
+  `LOS` en tres, `FUR` = FURIA y un equipo del Brazil Open Qualifier, `NOVA`, `TS`, `MIBR`) y 785082 es
+  `FAKE` vs `FAKE`. En `teams` se mezclaban en una fila y `players.team_id` apuntaba a cualquiera.
+- `get_team_ids` saca el id del header del match (`a.match-header-link` mod-1/mod-2). Crudos: `round_detail_`
+  suma `team_a_id_vlr`, `team_b_id_vlr`, `team_a_name`, `team_b_name`; `player_stats_` suma `team_id_vlr`
+  por posición de la `ovw-table` (no por tag, por FAKE vs FAKE).
+- Tablas: `teams` una fila por `team_id_vlr` (PK nueva) con `team_id` (tag, ya no único) y `name` del partido más
+  reciente; `team_id_vlr` en `players` y `player_stats`, `team_a_id_vlr`/`team_b_id_vlr` en `round_info`. Sin id
+  (equipo sin página en vlr): `tbd_<TAG>`. `players.team_id` ya no sale de un merge con `teams` (con tags
+  repetidos duplicaba jugadores). Las demás tablas no cambian (verificado contra el build anterior).
+- `scripts/backfill_team_ids.py`: 1 request al overview por serie, reanudable; solo agrega columnas (verificado
+  byte a byte). SQL: `sql/team_id_vlr.sql`. Notebooks en sync (`vlr_scraper.ipynb` celda 2, `csv_process.ipynb`
+  celdas 7, 9, 14 y 16). Tests en `tests/test_team_ids.py`.
+
 ## Pendiente
 
 ### rktdata: migrar a `player_id_vlr` (2026-11-07)
@@ -221,18 +236,42 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 - [ ] `vlr_scraper.ipynb` no tiene `json_text` en `get_round_logs` (el package sí, ver "Encoding" en CLAUDE.md):
   los nicks no-ASCII de los logs quedan distintos si se scrapea con el notebook.
 
-### Re-scrapear China Kickoff y Stage 1 (2026-11-06, respuesta a rktdata)
-- Las 78 series (30 + 48) están en `error` (`list index out of range`) desde el 2026-09-13, con datos
-  parciales: a Kickoff le faltan 5 mapas en player_stats y 3 tienen 6 jugadores; a Stage 1 le faltan 6 de 119
-  mapas. vlr ya tiene todo y `process_match` actual saca 598922 completo y `ok`. Hay que correr
-  `scrape --event-url` de los dos eventos (attempts = 1, se reintentan) y después `upload`, con el merge de `csv/`
-  resuelto.
-- Performance/economy/logs de China: vlr dice "not available yet". No hay nada que sacar.
-- Los 3 mapas sin performance (`712828-Sunset`, `698906-Ascent`, `773438-Abyss`) vienen de vlr con la tabla vacía.
-- Agentes nuevos: `agent_info` no se sube (Supabase a mano, `sql/agent_hush.sql`). Huérfanas de GC con mojibake:
-  `sql/cleanup_gc_encoding.sql`. Respuesta completa: `handoff/RKTDATA_RESPUESTA_QUALIFIER.md`.
-- Latente: `scrape_log.tournament` guarda el nombre real (`são`), no la forma html de `tour_id`, así que
-  `load_match_formats` no matchea torneos con no-ASCII. Hoy no pasa nada porque GC es `full` (el default).
+### Cerrado sin hacer (2026-11-10)
+- China Kickoff / Stage 1 2026 (78 series en `error` con datos parciales) y Game Changers 2026: temporada
+  pasada, no se re-scrapean. Las series quedan como están.
+
+### Partidos sin terminar al cerrar un evento (diseño, prioridad baja)
+Caso: Brazil Open Qualifier tiene 19 partidos en `LIVE` en vlr con rondas posteriores ya jugadas. Si vlr no los
+cierra antes de `end_date` + 3 días, el evento se cierra igual (`config.is_active`) y esos partidos quedan sin
+datos. No se fuerzan ni se procesan a medias. Hoy además no queda registro: `linkExtractor` descarta las cards que
+no son `Completed`, así que nada dice que faltan.
+- [ ] Registrar los no completados sin pedir la página del match: `linkExtractor` devuelve también las cards
+  `LIVE`/`Upcoming` (series_id + estado de la card) y `scrape_event` las escribe en `scrape_log` con status
+  `pending` y `error` = estado de la card (`live` / `upcoming`). `pending` no se saltea: se re-mira en cada
+  corrida y pasa a `ok` cuando vlr lo cierra (mismo camino que hoy).
+- [ ] "Sin terminar" no es un estado guardado, se deriva al armar las tablas: fila `pending` cuyo evento ya no
+  está activo (`end_date` vencido o `active: false`). Así no hay que reescribir nada cuando el evento cierra.
+- [ ] Flag a nivel evento: `table_tournament.unfinished_series` (cantidad; 0 = completo). El detalle (qué
+  series) queda en `scrape_log` (`status=pending`), sin tabla nueva en Supabase salvo que rviewer/rktdata lo pida.
+- [ ] `::warning::` en Actions la última corrida antes del cierre (o la primera después) si quedan `pending`.
+- Abierto: los `Upcoming` de un evento cerrado probablemente sean cancelados, no "sin terminar"; contarlos aparte
+  (`live` vs `upcoming`) o solo contar `live`.
+
+### Identidad de equipo: fase 2 y pendientes de `team_id_vlr`
+- [ ] Correr `sql/team_id_vlr.sql` (paso A) en Supabase, `upload --full` y el paso B (`teams.relevant`): los tags
+  compartidos (FUR, MIBR, NOVA, TS...) quedan con el relevant copiado a todos sus equipos y hay que dejarlo solo
+  en el de liga. Aviso a rktdata/rviewer: `handoff/RKTDATA_TEAM_ID_VLR.md`.
+- [ ] Fase 2, PKs de las tablas fact con id en vez de tag: `team_map_round_id` (round_info, round_buy,
+  round_events, round_summary, team_economy, round_situations), `tournament_played (tour_id, teamA)` (hoy dos
+  equipos con el mismo tag en un torneo, como FAKE/FAKE en el NA Open Qualifier, colapsan en una fila) y `draft`.
+  Con eso `team_aliases` / `canonical_teams` / `same_team_case` dejan de hacer falta. 785082 (FAKE vs FAKE)
+  sigue roto en side / kills por equipo / vivos hasta esta fase.
+- [ ] `tournament_slots` guarda el tag de `relevant_teams`: sumar `team_id_vlr` resuelto con los equipos del torneo.
+- [ ] `team_path` sigue por tag (dos equipos con el mismo tag comparten logo): decidir con rviewer si pasa a
+  `teams/<team_id_vlr>.png`.
+- [ ] Drafts del NA Open Qualifier con el nombre del equipo en vez del tricode (785006: `Archaic`, no `ARCH`):
+  antes generaban 8 filas basura en `teams` (ARCHAIC, BABOONS...), ahora solo un warning. Revisar `get_picks_bans`
+  para los `reduced` que sí traen draft.
 
 ### Logs incompletos: es un hueco de vlr, no del scraper
 - Re-scrapeados con `--redo` el 2026-10-20 y vuelven **idénticos**: 698906-Ascent tiene eventos en 6 de 18 rondas,
@@ -266,7 +305,6 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 
 ### Revisión 2026-10-08 (otros puntos)
 - [ ] `winCon` truncado por `rstrip(".webp")` (`defus`, `tim`): verificar cómo lo usa rktdata antes de cambiarlo; después hace falta `upload --full`.
-- [ ] Re-scrapear China Kickoff y Stage 1 (78 series en error heredadas del bootstrap) con `--event-url`.
 - [ ] Request redundante en `get_team_economy`.
 - [ ] Economy del overtime (rondas 25+): vlr ya no lo muestra. Opción: completar el bank desde `round_buy` y dejar el gasto vacío.
 - [ ] `convert_k` trunca (`int(32.3 * 1000)` = 32299): usar `round`.

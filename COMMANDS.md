@@ -141,6 +141,17 @@ toma como pendientes y `process` les da un id (`tbd_<team>_<nick>` o el real si 
 Cambio de esquema en Supabase (una vez): correr `sql/player_id_vlr.sql` en el SQL editor y en seguida
 `python -m vlr_pipeline upload --full` (el SQL vacía `players`, `player_stats` y `player_performance`).
 
+## Ids de equipo de vlr (`team_id_vlr`)
+
+```bash
+python scripts/backfill_team_ids.py --dry-run   # agrega las columnas a round_detail_ / player_stats_ (sin red) y muestra cuántas series faltan
+python scripts/backfill_team_ids.py --max 5     # prueba corta
+python scripts/backfill_team_ids.py             # todo lo pendiente (1 request por serie, reanudable)
+```
+
+Cambio de esquema en Supabase (una vez, con `tables/` regenerado después del backfill): paso A de
+`sql/team_id_vlr.sql`, `python -m vlr_pipeline upload --full` y después el paso B (restaura `teams.relevant`).
+
 ## GitHub Actions
 
 ```bash

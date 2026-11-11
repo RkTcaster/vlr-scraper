@@ -61,7 +61,8 @@ FILES_TO_UPLOAD = [
     ("table_tournament.csv", "tournament", "tour_id", DIMENSION),
     # teams antes que players / tournament_played: si hay FK a teams, un equipo nuevo tiene
     # que existir antes (en upload.mjs teams iba despues de players)
-    ("table_teams.csv", "teams", "team_id", DIMENSION),
+    # PK = id de equipo de vlr desde 2026-11-10 (el tag se repite entre equipos, sql/team_id_vlr.sql)
+    ("table_teams.csv", "teams", "team_id_vlr", DIMENSION),
     ("table_tournament_played.csv", "tournament_played", "tour_id, teamA", DIMENSION),
     # plazas de cada evento (slots / relevant_teams de events.json); team_id vacio = plaza sin definir
     ("table_tournament_slots.csv", "tournament_slots", "tour_id, slot", DIMENSION),

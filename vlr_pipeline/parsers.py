@@ -77,7 +77,9 @@ def get_basic_match_info(soup, url):
         "patch": None,
         "tournament_instance": None,
         "type": None,
-        "source_url": None
+        "source_url": None,
+        "team_a_id_vlr": None,
+        "team_b_id_vlr": None,
     }
 
     event = basic_match_info["event"]
@@ -128,8 +130,37 @@ def get_basic_match_info(soup, url):
     team_dict["date"] = date
     team_dict["patch"] = patch
     team_dict["source_url"] = url
+    team_dict["team_a_id_vlr"], team_dict["team_b_id_vlr"] = get_team_ids(soup)
 
     return team_dict
+
+
+TEAM_LINK_RE = re.compile(r"/team/(\d+)")
+
+
+def get_team_ids(soup):
+    """(team_a_id_vlr, team_b_id_vlr) del header del match (a.match-header-link mod-1 / mod-2).
+
+    Es la identidad del equipo (2026-11-10): el tricode se repite entre equipos distintos ("THE" en
+    cuatro qualifiers, 785082 es FAKE vs FAKE) y cambia con los renombres (DRX -> KRX). Un equipo
+    sin pagina en vlr da "" (tables le pone tbd_<TAG>).
+    """
+    ids = []
+    for mod in ("mod-1", "mod-2"):
+        link = soup.select_one(f"a.match-header-link.{mod}")
+        match = TEAM_LINK_RE.search(link.get("href", "")) if link is not None else None
+        ids.append(match.group(1) if match else "")
+    return ids[0], ids[1]
+
+
+def team_fields(basic_match_info):
+    """Columnas de equipo que round_detail_ agrega al final (id de vlr y nombre completo)."""
+    return {
+        "team_a_id_vlr": basic_match_info.get("team_a_id_vlr") or "",
+        "team_b_id_vlr": basic_match_info.get("team_b_id_vlr") or "",
+        "team_a_name": basic_match_info.get("team_a") or "",
+        "team_b_name": basic_match_info.get("team_b") or "",
+    }
 
 
 # Map draft:
@@ -254,6 +285,9 @@ def get_picks_bans(soup, basic_match_info=None):
 # Round detail
 
 
+TEAM_FIELDS = ("team_a_id_vlr", "team_b_id_vlr", "team_a_name", "team_b_name")
+
+
 def round_detail_to_dict(round_detail, folder="csv", encoding="utf-8"):
     """process the get_round_detail() dict to a valid format and save the csv
 
@@ -273,7 +307,12 @@ def round_detail_to_dict(round_detail, folder="csv", encoding="utf-8"):
         "map_order": [],
         "event": [],
         "source_url": [],
+        "team_a_id_vlr": [],
+        "team_b_id_vlr": [],
+        "team_a_name": [],
+        "team_b_name": [],
     }
+    teams = round_detail.get("teams") or {}
 
     for count, rondaAtk in enumerate(round_detail["teamATT"]):
         round_detail_for_csv["teamA"].append(round_detail["team_a"])
@@ -288,6 +327,8 @@ def round_detail_to_dict(round_detail, folder="csv", encoding="utf-8"):
         round_detail_for_csv["map_order"].append(round_detail["map_order"])
         round_detail_for_csv["event"].append(round_detail["event"])
         round_detail_for_csv["source_url"].append(round_detail["source_url"])
+        for column in TEAM_FIELDS:
+            round_detail_for_csv[column].append(teams.get(column, ""))
 
     for count, rondaDef in enumerate(round_detail["teamACT"]):
         round_detail_for_csv["teamA"].append(round_detail["team_a"])
@@ -302,6 +343,8 @@ def round_detail_to_dict(round_detail, folder="csv", encoding="utf-8"):
         round_detail_for_csv["map_order"].append(round_detail["map_order"])
         round_detail_for_csv["event"].append(round_detail["event"])
         round_detail_for_csv["source_url"].append(round_detail["source_url"])
+        for column in TEAM_FIELDS:
+            round_detail_for_csv[column].append(teams.get(column, ""))
 
     save_round_detail_to_csv(round_detail_for_csv, folder=folder, encoding=encoding)
 
@@ -363,6 +406,7 @@ def get_round_detail(soup, basic_match_info=None, folder="csv", encoding="utf-8"
         try:
             round_info["team_a"] = basic_match_info["team_a_tricode"]
             round_info["team_b"] = basic_match_info["team_b_tricode"]
+            round_info["teams"] = team_fields(basic_match_info)
             value = int(ronda.find_all("div", class_="rnd-num")[0].text.strip())
             imgUrl = str(ronda.find_all("img")[0])
             victory_condition = imgUrl[0:-3].split("/")[-1].rstrip(".webp")
@@ -415,6 +459,7 @@ def get_round_detail(soup, basic_match_info=None, folder="csv", encoding="utf-8"
 
                 round_info["team_a"] = basic_match_info["team_a_tricode"]
                 round_info["team_b"] = basic_match_info["team_b_tricode"]
+                round_info["teams"] = team_fields(basic_match_info)
                 round_info["source_url"] = basic_match_info["source_url"]
 
                 round_info["map_order"] = mapNumber
@@ -1085,6 +1130,7 @@ def get_player_stats(soup, basic_match_info):
         "source_url": [],
         "event": [],
         "player_id_vlr": [],
+        "team_id_vlr": [],
     }
 
     # data-col of each ovw-cell -> base name of the player_stats keys
@@ -1125,6 +1171,7 @@ def get_player_stats(soup, basic_match_info):
     source_url = basic_match_info["source_url"]
 
     vm_stats = soup.find_all("div", {"class": "vm-stats-game"})
+    team_ids = (basic_match_info.get("team_a_id_vlr") or "", basic_match_info.get("team_b_id_vlr") or "")
 
     for game in vm_stats:
         game_id = game.get("data-game-id")
@@ -1142,6 +1189,7 @@ def get_player_stats(soup, basic_match_info):
             map_name = "all"
             map_duration = "all"
 
+        tables = game.find_all("div", class_="ovw-table")
         for row in game.find_all("div", class_="ovw-row"):
             name_div = row.find("div", class_="ovw-player-name")
             if name_div is None:
@@ -1171,5 +1219,20 @@ def get_player_stats(soup, basic_match_info):
             player_stats["source_url"].append(source_url)
             player_stats["event"].append(event)
             player_stats["player_id_vlr"].append(player_id_vlr(row))
+            player_stats["team_id_vlr"].append(row_team_id(row, tables, team_ids))
 
     return player_stats
+
+
+def row_team_id(row, tables, team_ids):
+    """team_id_vlr de una fila del overview: cada mapa trae dos ovw-table, la primera es team_a.
+
+    Por posicion y no por tag: en 785082 (FAKE vs FAKE) el tag no distingue a los equipos.
+    """
+    if len(tables) != 2:
+        return ""
+    table = row.find_parent("div", class_="ovw-table")
+    for position, candidate in enumerate(tables):
+        if candidate is table:
+            return team_ids[position]
+    return ""

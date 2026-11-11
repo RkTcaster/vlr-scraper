@@ -357,6 +357,70 @@ def resolve_player_ids(df, keys, player_col, agent_col=None, map_col="map_id"):
     return result
 
 
+TEAM_KEYS_COLUMNS = ["series_id", "tag", "team_id_vlr", "name", "date"]
+TEAM_RAW_COLUMNS = ["team_a_id_vlr", "team_b_id_vlr", "team_a_name", "team_b_name"]
+
+
+def team_id_fallback(tags):
+    """Id para un equipo sin id de vlr (sin pagina, o csv viejo sin backfill): tbd_<TAG>."""
+    return "tbd_" + tags.astype(str)
+
+
+def text_or_na(values):
+    return values.map(lambda value: value if isinstance(value, str) and value else pd.NA)
+
+
+def team_keys(df_round):
+    """Una fila por (serie, equipo) desde round_detail crudo: tag, team_id_vlr, nombre y fecha.
+
+    round_detail_ guarda el id de vlr de los dos equipos (team_a_id_vlr / team_b_id_vlr, del header
+    del match) desde 2026-11-10; es la identidad del equipo, el tag no: se repite entre equipos
+    distintos ("THE" en cuatro qualifiers) y hasta en un mismo match (785082, FAKE vs FAKE). Sin id
+    (equipo sin pagina en vlr, o csv sin backfill) queda tbd_<TAG>. df_round ya viene con los tags
+    en mayusculas (concat_csv_from_different_folders).
+    """
+    if df_round.empty:
+        return pd.DataFrame(columns=TEAM_KEYS_COLUMNS)
+    df = df_round.reindex(columns=df_round.columns.union(TEAM_RAW_COLUMNS, sort=False))
+    series_id = df["source_url"].apply(match_id_vlr)
+    sides = []
+    for side, tag_col in (("a", "teamA"), ("b", "teamB")):
+        sides.append(pd.DataFrame({
+            "series_id": series_id,
+            "tag": df[tag_col],
+            "team_id_vlr": vlr_id_text(df[f"team_{side}_id_vlr"]),
+            "name": text_or_na(df[f"team_{side}_name"]),
+            "date": df["date"],
+        }))
+    keys = pd.concat(sides, ignore_index=True).dropna(subset=["tag"])
+    keys["team_id_vlr"] = keys["team_id_vlr"].where(keys["team_id_vlr"].notna(), team_id_fallback(keys["tag"]))
+    keys = keys.drop_duplicates(subset=["series_id", "tag", "team_id_vlr"]).reset_index(drop=True)
+    return keys[TEAM_KEYS_COLUMNS]
+
+
+def resolve_team_ids(df, keys, tag_col, raw_col=None, series_col="series_id"):
+    """team_id_vlr de cada fila de df: el crudo si lo trae, si no por (serie, tag) en team_keys.
+
+    Un tag repetido en la misma serie (785082) no se resuelve por tag: ahi solo vale el crudo
+    (player_stats_ lo guarda por posicion de la tabla del overview). Sin nada, tbd_<TAG>.
+    """
+    if raw_col is not None and raw_col in df:
+        raw = vlr_id_text(df[raw_col])
+    else:
+        raw = pd.Series(pd.NA, index=df.index, dtype="object")
+    n_ids = keys.groupby(["series_id", "tag"])["team_id_vlr"].transform("nunique")
+    unique = keys[n_ids == 1].drop_duplicates(subset=["series_id", "tag"]).set_index(["series_id", "tag"])["team_id_vlr"]
+    index = pd.MultiIndex.from_arrays([df[series_col].astype(str), df[tag_col]])
+    by_tag = pd.Series(unique.reindex(index).to_numpy(), index=df.index, dtype="object")
+    result = raw.where(raw.notna(), by_tag)
+    return result.where(result.notna(), team_id_fallback(df[tag_col]))
+
+
+def last_name(names):
+    names = names.dropna()
+    return names.iloc[-1] if len(names) else pd.NA
+
+
 def drop_without_player_id(df, table, column="player_id_vlr"):
     """Saca (y avisa) las filas sin id de vlr: player_id_vlr es parte de la PK en Supabase."""
     missing = df[column].isna()
@@ -411,28 +475,44 @@ def build_region_tournament(csv_dir="csv", tables_dir="tables"):
     return df_region, df_tournaments
 
 
+TEAMS_COLUMNS = ["team_id", "team_path", "team_id_vlr", "name"]
+
+
 def build_teams(csv_dir="csv", tables_dir="tables"):
-    """Celda 7: table_teams.csv."""
+    """Celda 7: table_teams.csv, una fila por equipo de vlr (team_id_vlr, la PK desde 2026-11-10).
+
+    team_id (el tricode) y name son los del partido mas reciente del equipo: dos equipos con el
+    mismo tag son dos filas con el mismo team_id. Todo partido procesado tiene round_detail, que
+    trae los ids; un tag del draft que no este ahi solo se avisa.
+    """
+    df_round_detail = concat_csv_from_different_folders(folder=csv_dir, prefix="round_detail")
+    keys = team_keys(df_round_detail)
+
+    df_team = (
+        keys.assign(order=range(len(keys)))
+        .sort_values(["date", "order"], kind="stable")
+        .groupby("team_id_vlr", sort=False)
+        .agg(team_id=("tag", "last"), name=("name", last_name), order=("order", "min"))
+        .reset_index()
+        .sort_values("order", kind="stable")
+        .reset_index(drop=True)
+    )
+
     df_draft_concat = concat_csv_from_different_folders(folder=csv_dir, prefix="draft_")
     df_draft_concat = df_draft_concat.reindex(columns=df_draft_concat.columns.union(["team", "rival"]))
-    # los torneos reduced (qualifiers) no tienen draft: sus equipos salen de round_detail, que
-    # trae los mismos tricodes (en los torneos full ambos conjuntos coinciden). El draft va
-    # primero para que el orden de la tabla no cambie
-    df_round_detail = concat_csv_from_different_folders(folder=csv_dir, prefix="round_detail")
-    # el draft guarda un solo lado por serie (sin mirror): un equipo que solo aparece como
-    # rival (p.ej. QTD) quedaba fuera de la tabla
-    teams = pd.concat([
-        df_draft_concat["team"], df_draft_concat["rival"],
-        df_round_detail["teamA"], df_round_detail["teamB"],
-    ]).dropna().unique()
-    df_team = pd.DataFrame(teams, columns=["team"])
+    draft_tags = set(pd.concat([df_draft_concat["team"], df_draft_concat["rival"]]).dropna())
+    unknown = sorted(draft_tags - set(keys["tag"]))
+    if unknown:
+        logger.warning(f"teams: tags del draft sin round_detail (sin team_id_vlr): {unknown}")
 
-    df_team["team_id"] = df_team["team"]
-
-    df_team = df_team.drop(["team"], axis=1)  # Need to add full name of the team.
     # logo en rviewer/public/teams/: tricodes de GC traen punto (GEN.GC -> teams/GENGC.png);
     # solo se sacan los puntos del path, el team_id queda igual (ver handoff/SCRAPER_TEAM_PATH.md)
     df_team["team_path"] = "teams/" + df_team["team_id"].str.replace(".", "", regex=False) + ".png"
+    df_team = df_team[TEAMS_COLUMNS]
+
+    repeated = df_team.loc[df_team["team_id"].duplicated(keep=False), "team_id"]
+    if not repeated.empty:
+        logger.info(f"teams: {repeated.nunique()} tags compartidos por mas de un equipo de vlr")
 
     df_team.to_csv(path_or_buf=os.path.join(tables_dir, 'table_teams.csv'), index=False, encoding='iso-8859-1')
 
@@ -503,12 +583,15 @@ def build_players(df_team, csv_dir="csv", tables_dir="tables"):
     df_players_stats["player_id_vlr"] = raw_player_ids(df_players_stats)
     df_players_stats["series_id"] = df_players_stats["source_url"].apply(match_id_vlr)
     df_players_stats = drop_without_player_id(df_players_stats, "players")
+    df_round_detail = concat_csv_from_different_folders(folder=csv_dir, prefix="round_detail")
+    df_players_stats["team_id_vlr"] = resolve_team_ids(
+        df_players_stats, team_keys(df_round_detail), "team", raw_col="team_id_vlr")
     # una fila por jugador de vlr (player_id_vlr, la PK): dos jugadores con el mismo nick son dos
     # filas (785988). Nick y equipo son los de su partido mas reciente (un jugador que cambio de
     # equipo, o de nick, queda con el ultimo). player_id (<team>_<nick>) queda como columna legacy
     # para rktdata y ya no es unico
     df_players = (
-        df_players_stats[['player', 'team', 'date', 'player_id_vlr']]
+        df_players_stats[['player', 'team', 'date', 'player_id_vlr', 'team_id_vlr']]
         .sort_values('date', kind='stable')
         .drop_duplicates(subset=['player_id_vlr'], keep='last')
         .sort_index()
@@ -517,10 +600,10 @@ def build_players(df_team, csv_dir="csv", tables_dir="tables"):
     )
     df_players["player_id"] = df_players["team"] + "_" + df_players["player"].astype(str)
 
-    df_players_id = pd.merge(df_players, df_team[["team_id"]], how="left", left_on="team", right_on="team_id")
-
-    df_players_id = df_players_id.drop(["team"], axis=1)
-    df_players_id = df_players_id[["player", "player_id", "team_id", "player_id_vlr"]]
+    # team_id = el tag si esta en teams (antes un merge con df_team, que con tags repetidos en teams
+    # duplicaba al jugador). El equipo de verdad es team_id_vlr
+    df_players["team_id"] = df_players["team"].where(df_players["team"].isin(set(df_team["team_id"])))
+    df_players_id = df_players[["player", "player_id", "team_id", "player_id_vlr", "team_id_vlr"]]
 
     df_players_id.to_csv(path_or_buf=os.path.join(tables_dir, 'table_players.csv'), index=False, encoding='iso-8859-1')
 
@@ -652,6 +735,9 @@ def build_player_stats(df_maps_id, csv_dir="csv", tables_dir="tables"):
 
     df_player_stats["player_id_vlr"] = raw_player_ids(df_player_stats)
     df_player_stats = drop_without_player_id(df_player_stats, "player_stats")
+    df_round_detail = concat_csv_from_different_folders(folder=csv_dir, prefix="round_detail")
+    df_player_stats["team_id_vlr"] = resolve_team_ids(
+        df_player_stats, team_keys(df_round_detail), "team", raw_col="team_id_vlr")
 
     df_player_stats = pd.merge(df_player_stats, df_maps_id[["map_id", "reg_id", "tour_id"]], how="left", left_on="map_id", right_on="map_id")
 
@@ -756,11 +842,26 @@ def build_maps_and_round_info(df_maps_id, csv_dir="csv", tables_dir="tables"):
         sort_teams
     )
 
+    # ids de vlr de los dos equipos (crudo, o tbd_<TAG>), al final; el nombre completo va solo en teams
+    df_round_concat = df_round_concat.drop(columns=TEAM_RAW_COLUMNS, errors="ignore").join(
+        round_team_ids(df_round_concat))
+
     df_round_concat.to_csv(
         path_or_buf=os.path.join(tables_dir, "table_round_info.csv"), index=False, encoding="iso-8859-1"
     )
 
     return df_round_concat
+
+
+def round_team_ids(df_round):
+    """team_a_id_vlr / team_b_id_vlr de cada fila de round_detail (crudo, o tbd_<TAG>)."""
+    result = pd.DataFrame(index=df_round.index)
+    for side, tag_col in (("a", "teamA"), ("b", "teamB")):
+        column = f"team_{side}_id_vlr"
+        raw = df_round[column] if column in df_round else pd.Series(pd.NA, index=df_round.index)
+        ids = vlr_id_text(raw)
+        result[column] = ids.where(ids.notna(), team_id_fallback(df_round[tag_col]))
+    return result
 
 
 def build_team_economy(df_maps_id, df_round_concat, csv_dir="csv", tables_dir="tables"):
