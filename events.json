@@ -1,6 +1,13 @@
 {
   "events": [
     {
+      "name": "VCT 2027: EMEA Kickoff - Türkiye Qualifier",
+      "url": "https://www.vlr.gg/event/matches/3177/vct-2027-emea-kickoff-t-rkiye-qualifier/?series_id=all",
+      "active": true,
+      "format": "reduced",
+      "end_date": "2026-12-06"
+    },
+    {
       "name": "VCT 2027 EMEA Kickoff MENA Qualifier",
       "url": "https://www.vlr.gg/event/matches/3167/vct-2027-emea-kickoff-mena-qualifier/?series_id=all",
       "active": true,

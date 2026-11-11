@@ -17,6 +17,7 @@ subregion_names = {
     "europe": "Europe",
     "mena": "MENA",  # 2026-11-09, avisado a rviewer (handoff/RVIEWER_SUBREGIONES_NUEVAS.md)
     "brazil": "Brazil",
+    "türkiye": "Türkiye",  # 2026-11-11, avisado a rviewer (handoff/RVIEWER_SUBREGIONES_NUEVAS.md)
 }
 
 # table with the maps force the maps I should add new maps manually
