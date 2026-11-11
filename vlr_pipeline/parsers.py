@@ -511,6 +511,16 @@ def html_words(text):
     return [word for word in HTML_SPACE_RE.split(text) if word]
 
 
+def html_text(node):
+    """node.get_text(strip=True) pero recortando solo espacios ASCII.
+
+    strip() de str tambien recorta \x85 y \xa0, que en el html decodificado como latin-1 son el
+    ultimo byte de un caracter utf-8: el nick "blong \u0e05" (e0 b8 85, jugador 70389) quedaba sin el
+    85 en player_stats_ y round_buy_, o sea utf-8 invalido en el csv. Usar esto para nicks y tags.
+    """
+    return node.get_text().strip(" \t\n\r\f\v")
+
+
 def performance_player_cell(jugador_div):
     """(nick, tag) de la celda de jugador de la solapa performance.
 
@@ -935,7 +945,7 @@ def get_round_logs(soup, url, basic_match_info):
             # tag de t1 / t2 (los ids de equipo del JSON de eventos)
             band_tags = {}
             for band_team in round_div.select(".lg-band .lg-band-team"):
-                tag = band_team.find(class_="lg-band-tag").get_text(strip=True)
+                tag = html_text(band_team.find(class_="lg-band-tag"))
                 band_tags[1 if "mod-t1" in band_team["class"] else 2] = tag
 
             # compras
@@ -952,10 +962,10 @@ def get_round_logs(soup, url, basic_match_info):
                     buy_dict["map"].append(map_name)
                     buy_dict["map_id_vlr"].append(game_id)
                     buy_dict["round"].append(round_number)
-                    buy_dict["team"].append(row.find(class_="lg-mir-tag").get_text(strip=True))
+                    buy_dict["team"].append(html_text(row.find(class_="lg-mir-tag")))
                     buy_dict["side"].append(side)
                     buy_dict["slot"].append(slot)
-                    buy_dict["player"].append(row.find(class_="lg-mir-name").get_text(strip=True))
+                    buy_dict["player"].append(html_text(row.find(class_="lg-mir-name")))
                     buy_dict["agent"].append(agent.group(1) if agent else None)
                     buy_dict["shield"].append(
                         SHIELD_NAMES.get(shield_img.get("title"), shield_img.get("title")) if shield_img else "No armor"
@@ -1065,7 +1075,7 @@ def get_player_ids(soup):
                 continue
             agent_img = row.select_one(".ovw-agents img")
             agent = agent_img.get("title") if agent_img else None
-            ids[(str(game_id), name_div.get_text(strip=True), agent or "")] = player_id_vlr(row)
+            ids[(str(game_id), html_text(name_div), agent or "")] = player_id_vlr(row)
     return ids
 
 
@@ -1198,8 +1208,8 @@ def get_player_stats(soup, basic_match_info):
             team_div = row.find("div", class_="ovw-player-tag")
             agent_img = row.select_one(".ovw-agents img")
 
-            player_stats["player"].append(name_div.get_text(strip=True))
-            player_stats["team"].append(team_div.get_text(strip=True) if team_div else "")
+            player_stats["player"].append(html_text(name_div))
+            player_stats["team"].append(html_text(team_div) if team_div else "")
             player_stats["agent"].append(agent_img.get("title") if agent_img else None)
 
             for col, keys in col_to_key.items():

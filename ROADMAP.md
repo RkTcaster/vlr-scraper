@@ -1,7 +1,7 @@
 # Roadmap
 
 Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
-Última actualización: 2026-11-10.
+Última actualización: 2026-11-11.
 
 ## Hecho
 
@@ -228,6 +228,14 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
   byte a byte). SQL: `sql/team_id_vlr.sql`. Notebooks en sync (`vlr_scraper.ipynb` celda 2, `csv_process.ipynb`
   celdas 7, 9, 14 y 16). Tests en `tests/test_team_ids.py`.
 
+### 2026-11-11: nick cortado por `get_text(strip=True)`
+- `strip()` de str recorta `\x85` y `\xa0`, que en el html decodificado como latin-1 son el último byte de un
+  carácter utf-8: "blong ฅ" (jugador 70389, Brazil Open Qualifier) quedaba sin el `85` en `player_stats_` y
+  `round_buy_` y dejaba utf-8 inválido en 5 tablas. Las stats no se perdían (`match_nick` igualaba los dos nicks).
+- `parsers.html_text` (strip solo ASCII) en los nicks y tags del overview y de la solapa logs; notebook en sync
+  (`vlr_scraper.ipynb` celda 2). Series 787305 y 787378 re-scrapeadas; `csv/` y `tables/` sin líneas no utf-8.
+  Quedan con `get_text(strip=True)` los tricodes del header y los tags de economy (sin casos conocidos).
+
 ## Pendiente
 
 ### rktdata: migrar a `player_id_vlr` (2026-11-07)
@@ -258,9 +266,29 @@ no son `Completed`, así que nada dice que faltan.
   (`live` vs `upcoming`) o solo contar `live`.
 
 ### Identidad de equipo: fase 2 y pendientes de `team_id_vlr`
-- [ ] Correr `sql/team_id_vlr.sql` (paso A) en Supabase, `upload --full` y el paso B (`teams.relevant`): los tags
-  compartidos (FUR, MIBR, NOVA, TS...) quedan con el relevant copiado a todos sus equipos y hay que dejarlo solo
-  en el de liga. Aviso a rktdata/rviewer: `handoff/RKTDATA_TEAM_ID_VLR.md`.
+- [x] 2026-11-11: paso A, `upload --full` (16 tablas ok) y paso B corridos; `teams_relevant_backup` ya borrada.
+  Verificado: 972 teams = csv, sin `tbd_`; players / player_stats con `team_id_vlr` en todas las filas.
+- [ ] `teams.relevant` en tags compartidos: 8 tags con más de un equipo en `true`. Claros (pasar a false):
+  `team_id_vlr in ('24625','24504','16255','23958','24506')` (100Throwers, FURIA GC, Made in Brampton, Timstone,
+  solari). A decidir a mano: NOVA 20630 (otro "Nova Esports"), PXL (5548 / 17177), FAKE (21068 / 23815), los 9 THE.
+- [ ] Huérfanas en Supabase (previas a esta fase): 644656 y 644659 (Pacific Stage 1) siguen con tag `DRX` en
+  `round_info` y `team_economy` (121 filas c/u, `team_map_round_id like 'DRX-%-6446{56,59}-%'`) y una fila
+  `tournament_played (DRX, vct_2026_pacific_stage_1)`; el csv ya dice KRX. Borrarlas; `round_info` debe quedar
+  en 71290 filas.
+- [ ] Más huérfanas (revisión 2026-11-11, Supabase vs csv): `team_economy` 6304 filas espejo en americas / emea /
+  pacific kickoff 2026 y masters santiago (mismo `team_map_round_id`, `team_a` invertido; la buena coincide con
+  `round_info."teamA"`); `round_events` 8150 del NA Open Qualifier con tags en minúscula (23 series); `draft`
+  701037 (no está en el csv). SQL en `handoff/RKTDATA_RESPUESTA_TEAM_ID_Y_DATOS.md`. Deben quedar
+  `team_economy` 62973, `round_events` 503462, `draft` 738.
+- [ ] PK de `team_economy` a `team_map_round_id` solo (hoy `team_a, team_map_round_id`, que es lo que dejó
+  duplicar): constraint en Supabase + `FILES_TO_UPLOAD`. Después de limpiar las filas espejo.
+- [ ] `match_instance` del draft sale del final de la url y vlr corta los slugs largos: basura (`ier`, `pen`) en
+  los 72 drafts del NA Open Qualifier.
+- [ ] Decidir con rviewer si `match_format` pasa a ser por serie (NA Open Qualifier es `reduced` y tiene 72 drafts).
+- [ ] Avisar a rktdata/rviewer: `handoff/RKTDATA_TEAM_ID_VLR.md`, `handoff/RKTDATA_RESPUESTA_TEAM_ID_Y_DATOS.md`
+  (y Türkiye en `handoff/RVIEWER_SUBREGIONES_NUEVAS.md`).
+- [ ] `slots` / `relevant_teams` en `events.json`: ningún evento los usa todavía. Falta saber cuántas plazas dan
+  Türkiye, MENA y Europe (vlr no lo muestra).
 - [ ] Fase 2, PKs de las tablas fact con id en vez de tag: `team_map_round_id` (round_info, round_buy,
   round_events, round_summary, team_economy, round_situations), `tournament_played (tour_id, teamA)` (hoy dos
   equipos con el mismo tag en un torneo, como FAKE/FAKE en el NA Open Qualifier, colapsan en una fila) y `draft`.
