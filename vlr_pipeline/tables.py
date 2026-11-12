@@ -154,7 +154,14 @@ def tournament_hierarchy(tour_id):
     stage uno de STAGE_PATTERNS o None, subregion solo en qualifiers. Ver
     handoff/VLR_SCRAPER_TOURNAMENT_HIERARCHY.md.
     """
-    name = tour_id.lower().replace("_", " ")
+    # tour_id llega en forma html ("tÃ¼rkiye"): lower() sobre eso rompe los bytes y la subregion no
+    # se encontraba en subregion_names, que tiene texto real. La subregion vuelve en forma html
+    # porque table_tournament.csv se escribe con iso-8859-1 (ver "Encoding" en CLAUDE.md)
+    try:
+        name = tour_id.encode("iso-8859-1").decode("utf-8")
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        name = tour_id
+    name = name.lower().replace("_", " ")
     year_match = re.search(r"\b(20\d\d)\b", name)
     year = int(year_match.group(1)) if year_match else None
     if year is None:
@@ -178,7 +185,7 @@ def tournament_hierarchy(tour_id):
                 )
         else:
             logger.warning(f"tournament {tour_id}: qualifier sin subregion en el nombre")
-    return year, stage, subregion
+    return year, stage, json_text(subregion)
 
 
 def sort_teams(team_string):
@@ -247,6 +254,9 @@ def load_match_formats(csv_dir="csv"):
     df_log = pd.read_csv(path, dtype=str, keep_default_na=False, encoding="iso-8859-1")
     if "match_format" not in df_log.columns:
         df_log["match_format"] = ""
+    # scrape_log guarda tournament como texto real ("türkiye") y el tour_id de las tablas va en forma
+    # html: sin esto un torneo no-ASCII no encontraba su formato y table_tournament decia full
+    df_log["tournament"] = df_log["tournament"].map(json_text)
     df_log["match_format"] = df_log["match_format"].replace("", DEFAULT_MATCH_FORMAT)
     return df_log[columns]
 

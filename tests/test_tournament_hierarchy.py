@@ -22,7 +22,26 @@ EXPECTED = {
     # agregados 2026-11-09 (no estaban en la tabla de rviewer)
     "vct_2027_emea_kickoff_-_mena_qualifier": (2027, "open_qualifier", "MENA"),
     "vct_2027_america_kickoff_-_brazil_open_qualifier": (2027, "open_qualifier", "Brazil"),
+    # 2026-11-11: tour_id y subregion en forma html ("ü" leido como latin-1); lower() sobre el tour_id
+    # sin decodificar daba "tã¼rkiye" y la subregion salia "Tã¼Rkiye"
+    "vct_2027_emea_kickoff_-_tÃ¼rkiye_qualifier": (2027, "open_qualifier", "TÃ¼rkiye"),
 }
+
+
+def test_normalize_filename_html_form():
+    """La carpeta / tour_id sale del event en forma html: decodificar antes de lower()."""
+    from vlr_pipeline.save import normalize_filename
+
+    assert normalize_filename("VCT 2027: EMEA Kickoff - TÃ¼rkiye Qualifier") == (
+        "vct_2027_emea_kickoff_-_türkiye_qualifier"
+    )
+    assert normalize_filename("Game Changers 2026: Championship SÃ£o Paulo") == (
+        "game_changers_2026_championship_são_paulo"
+    )
+    # ya decodificado (nombre de carpeta): no cambia
+    assert normalize_filename("vct_2027_emea_kickoff_-_türkiye_qualifier") == (
+        "vct_2027_emea_kickoff_-_türkiye_qualifier"
+    )
 
 
 @pytest.mark.parametrize("tour_id, expected", EXPECTED.items())

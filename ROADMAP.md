@@ -236,6 +236,18 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
   (`vlr_scraper.ipynb` celda 2). Series 787305 y 787378 re-scrapeadas; `csv/` y `tables/` sin líneas no utf-8.
   Quedan con `get_text(strip=True)` los tricodes del header y los tags de economy (sin casos conocidos).
 
+### 2026-11-11: `tour_id` roto de Türkiye
+- `normalize_filename` hacía `lower()` sobre el event en forma html: "TÃ¼rkiye" -> "tã¼rkiye" (São Paulo salía
+  bien solo porque el regex borraba el "£"). Las 48 series de la corrida del 11/11 12:29 UTC quedaron en la
+  carpeta y con el `tour_id` `vct_2027_emea_kickoff_-_tã¼rkiye_qualifier`, `subregion` con carácter de reemplazo
+  y `tournament.match_format = full`.
+- Tres arreglos (paquete + notebooks): `normalize_filename` decodifica antes de `lower()`; `tournament_hierarchy`
+  decodifica el `tour_id` y devuelve la subregion en forma html; `load_match_formats` pasa el `tournament` de
+  scrape_log (texto real) a forma html, que es como va el `tour_id`. Carpeta, archivos y scrape_log renombrados
+  a `…_türkiye_qualifier`. Tests en `tests/test_tournament_hierarchy.py`.
+- [ ] Supabase: correr `sql/cleanup_tour_id_turkiye.sql` y después `upload` (incremental alcanza: al borrar las
+  series de `match_id` quedan pendientes).
+
 ## Pendiente
 
 ### rktdata: migrar a `player_id_vlr` (2026-11-07)

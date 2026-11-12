@@ -92,6 +92,13 @@ def normalize_filename(name):
     Returns:
         string: normalized tournament name
     """
+    # el nombre llega en forma html (utf-8 leido como latin-1, ver "Encoding" en CLAUDE.md) y lower()
+    # sobre eso rompe los bytes: "TÃ¼rkiye" daba "tã¼rkiye" ("SÃ£o" salia bien solo porque el regex
+    # borraba el "£"). Se decodifica primero; un nombre ya decodificado no es utf-8 valido y pasa igual
+    try:
+        name = name.encode("iso-8859-1").decode("utf-8")
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        pass
     name = name.lower()
     name = re.sub(r'[^\w\s-]', '', name)
     name = re.sub(r'\s+', '_', name)

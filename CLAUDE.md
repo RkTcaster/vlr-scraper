@@ -187,7 +187,11 @@ writing it back with `iso-8859-1` leaves the csv in utf-8 — which is why the r
 from JSON instead of HTML breaks that invariant: `json.loads` returns the nick already decoded, and
 `parsers.json_text` exists to put it back into the html form (`get_round_logs` is the only such case today; without
 it `table_round_events.csv` stopped being valid utf-8, `upload.read_rows` would have pushed replacement
-characters to Supabase and the nick joined neither `round_buy` nor `table_players`). CSVs are written with a mix of
+characters to Supabase and the nick joined neither `round_buy` nor `table_players`). Never call `lower()` /
+`upper()` / `strip()` on html-form text: `lower()` turns `Ã` into `ã` and breaks the bytes ("TÃ¼rkiye" became the
+`tour_id` `tã¼rkiye`, 2026-11-11), and `strip()` eats a trailing `\x85`/`\xa0` byte (use `parsers.html_text`).
+`normalize_filename` and `tournament_hierarchy` decode first; the folder name and scrape_log's `tournament` are
+real text (`türkiye`), while `tour_id` in `tables/` is the html form (`json_text` of the folder). CSVs are written with a mix of
 `iso-8859-1` and `utf-8` depending on the cell. Notably, `table_round_info.csv` is written with
 `encoding="iso-8859-1"` but the resulting bytes are valid utf-8, so it must be **read back as utf-8** for team
 names to match other tables. When team names fail to join, suspect an encoding mismatch first.
