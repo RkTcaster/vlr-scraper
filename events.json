@@ -1,6 +1,55 @@
 {
   "events": [
     {
+      "name": "VCT 2027: Pacific Kickoff - Korea Qualifier",
+      "url": "https://www.vlr.gg/event/matches/3211/vct-2027-pacific-kickoff-korea-qualifier/?series_id=all",
+      "active": true,
+      "format": "reduced",
+      "end_date": "2026-12-12"
+    },
+    {
+      "name": "VCT 2027: Pacific Kickoff - Thailand Qualifier 1",
+      "url": "https://www.vlr.gg/event/matches/3202/vct-2027-pacific-kickoff-thailand-qualifier-1/?series_id=all",
+      "active": true,
+      "format": "reduced",
+      "end_date": "2026-12-12"
+    },
+    {
+      "name": "VCT 2027: Pacific Kickoff - Indonesia Qualifier",
+      "url": "https://www.vlr.gg/event/matches/3204/vct-2027-pacific-kickoff-indonesia-qualifier/?series_id=all",
+      "active": true,
+      "format": "reduced",
+      "end_date": "2026-12-12"
+    },
+    {
+      "name": "VCT 2027: Pacific Kickoff - Southeast Asia Qualifier 1",
+      "url": "https://www.vlr.gg/event/stats/3203/vct-2027-pacific-kickoff-southeast-asia-qualifier-1/?series_id=all",
+      "active": true,
+      "format": "reduced",
+      "end_date": "2026-12-12"
+    },
+    {
+      "name": "VCT 2027: Pacific Kickoff - South Asia Qualifier",
+      "url": "https://www.vlr.gg/event/matches/3206/vct-2027-pacific-kickoff-south-asia-qualifier/?series_id=all",
+      "active": true,
+      "format": "reduced",
+      "end_date": "2026-12-12"
+    },
+    {
+      "name": "VCT 2027: Pacific Kickoff - Oceania Qualifier",
+      "url": "https://www.vlr.gg/event/matches/3205/vct-2027-pacific-kickoff-oceania-qualifier/?series_id=all",
+      "active": true,
+      "format": "reduced",
+      "end_date": "2026-12-12"
+    },
+    {
+      "name": "VCT 2027: Pacific Kickoff - Vietnam Qualifier",
+      "url": "https://www.vlr.gg/event/matches/3201/vct-2027-pacific-kickoff-vietnam-qualifier/?series_id=all",
+      "active": true,
+      "format": "reduced",
+      "end_date": "2026-12-12"
+    },
+    {
       "name": "VCT 2027: EMEA Kickoff - Türkiye Qualifier",
       "url": "https://www.vlr.gg/event/matches/3177/vct-2027-emea-kickoff-t-rkiye-qualifier/?series_id=all",
       "active": true,
