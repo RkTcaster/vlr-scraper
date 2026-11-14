@@ -63,7 +63,8 @@ FILES_TO_UPLOAD = [
     # que existir antes (en upload.mjs teams iba despues de players)
     # PK = id de equipo de vlr desde 2026-11-10 (el tag se repite entre equipos, sql/team_id_vlr.sql)
     ("table_teams.csv", "teams", "team_id_vlr", DIMENSION),
-    ("table_tournament_played.csv", "tournament_played", "tour_id, teamA", DIMENSION),
+    # PK por id de equipo desde la fase 2 (sql/team_id_vlr_fase2.sql): FAKE/FAKE son dos filas
+    ("table_tournament_played.csv", "tournament_played", "tour_id, team_id_vlr", DIMENSION),
     # plazas de cada evento (slots / relevant_teams de events.json); team_id vacio = plaza sin definir
     ("table_tournament_slots.csv", "tournament_slots", "tour_id, slot", DIMENSION),
     ("table_players.csv", "players", "player_id_vlr", DIMENSION),
@@ -71,7 +72,9 @@ FILES_TO_UPLOAD = [
     ("table_maps_id.csv", "maps_id", "map_id", FACT),
     ("table_draft.csv", "draft", "series_id", FACT),
     ("table_round_info.csv", "round_info", "team_map_round_id", FACT),
-    ("table_team_economy.csv", "team_economy", "team_a, team_map_round_id", FACT),
+    # una fila por ronda: con (team_a, team_map_round_id) un cambio de orden de los equipos dejaba
+    # la fila espejo (6304 filas, limpiadas el 2026-11-11)
+    ("table_team_economy.csv", "team_economy", "team_map_round_id", FACT),
     ("table_player_stats.csv", "player_stats", "map_id, player_id_vlr", FACT),
     ("table_player_performance.csv", "player_performance", "map_id, player_id_vlr", FACT),
     ("table_round_buy.csv", "round_buy", "team_map_round_id", FACT),

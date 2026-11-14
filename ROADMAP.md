@@ -248,6 +248,27 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 - [ ] Supabase: correr `sql/cleanup_tour_id_turkiye.sql` y después `upload` (incremental alcanza: al borrar las
   series de `match_id` quedan pendientes).
 
+### 2026-11-13: `team_id_vlr` fase 2 (pedido de rviewer) y mapas no jugados
+- Pedido: `handoff/VLR_SCRAPER_TEAM_ID_FASE_2.md`. Columnas de id **al lado** de cada tag, sin cambiar
+  `team_map_round_id`: `draft` (`team_id_vlr`, `rival_id_vlr`), `team_economy` / `round_buy` / `round_summary`
+  (`team_a_id_vlr`, `team_b_id_vlr`; summary suma `fb_team_id_vlr`), `round_events` (`team_id_vlr`,
+  `victim_team_id_vlr`), `player_performance` (`team_id_vlr`), `tournament_played` (`team_id_vlr`, PK nueva
+  `(tour_id, team_id_vlr)`: +18 filas: 17 tags se repiten dentro de un mismo torneo, no solo FAKE).
+- El equipo de un jugador sale del overview (`player_keys` + `player_team_ids`), y si no, del tag contra
+  round_info (`side_team_ids`). round_events compara por id (side, team kill, trades, kills por equipo) y
+  round_buy arma `which` con el equipo del jugador: 785082 (FAKE vs FAKE) queda bien en las tres tablas.
+- Draft con nombre en vez de tag (16 del NA Open Qualifier): el otro equipo de la serie (`draft_team_ids`).
+  0 `tbd_` y 0 nulos en todas las columnas nuevas.
+- `team_path`: con tag compartido, el equipo con más series conserva `teams/<TAG>.png` y el resto va por
+  `teams/<team_id_vlr>.png` (70 equipos de 55 tags compartidos). `team_economy` con PK `team_map_round_id`.
+- Mapas no jugados (`parsers.game_was_played`): vlr muestra el mapa 3 de un 2-0 con stats en 0 (80 filas de
+  `player_stats` con `tour_id` vacío) y, si el no jugado iba **antes**, `round_detail` le ponía su nombre a las
+  rondas del jugado: 787286-TBD (=Bind), 787408-Bind (=Corrode), 788432-Corrode (=Sunset), 788465-Lotus (=Abyss).
+  Esas 4 series no unían con economy/compras/eventos. Re-scrapeadas las 8 series; `drop_unplayed_maps` cubre csv
+  viejos.
+- SQL: `sql/team_id_vlr_fase2.sql` (columnas, PKs, borra los 4 map_id viejos y los player_stats sin tour_id) +
+  `upload --full`. Aviso: `handoff/RVIEWER_TEAM_ID_FASE_2_RESPUESTA.md`.
+
 ## Pendiente
 
 ### rktdata: migrar a `player_id_vlr` (2026-11-07)
@@ -292,8 +313,6 @@ no son `Completed`, así que nada dice que faltan.
   `round_info."teamA"`); `round_events` 8150 del NA Open Qualifier con tags en minúscula (23 series); `draft`
   701037 (no está en el csv). SQL en `handoff/RKTDATA_RESPUESTA_TEAM_ID_Y_DATOS.md`. Deben quedar
   `team_economy` 62973, `round_events` 503462, `draft` 738.
-- [ ] PK de `team_economy` a `team_map_round_id` solo (hoy `team_a, team_map_round_id`, que es lo que dejó
-  duplicar): constraint en Supabase + `FILES_TO_UPLOAD`. Después de limpiar las filas espejo.
 - [ ] `match_instance` del draft sale del final de la url y vlr corta los slugs largos: basura (`ier`, `pen`) en
   los 72 drafts del NA Open Qualifier.
 - [ ] Decidir con rviewer si `match_format` pasa a ser por serie (NA Open Qualifier es `reduced` y tiene 72 drafts).
@@ -301,14 +320,12 @@ no son `Completed`, así que nada dice que faltan.
   (y Türkiye en `handoff/RVIEWER_SUBREGIONES_NUEVAS.md`).
 - [ ] `slots` / `relevant_teams` en `events.json`: ningún evento los usa todavía. Falta saber cuántas plazas dan
   Türkiye, MENA y Europe (vlr no lo muestra).
-- [ ] Fase 2, PKs de las tablas fact con id en vez de tag: `team_map_round_id` (round_info, round_buy,
-  round_events, round_summary, team_economy, round_situations), `tournament_played (tour_id, teamA)` (hoy dos
-  equipos con el mismo tag en un torneo, como FAKE/FAKE en el NA Open Qualifier, colapsan en una fila) y `draft`.
-  Con eso `team_aliases` / `canonical_teams` / `same_team_case` dejan de hacer falta. 785082 (FAKE vs FAKE)
-  sigue roto en side / kills por equipo / vivos hasta esta fase.
+- [ ] Correr `sql/team_id_vlr_fase2.sql` + `upload --full` y avisar a rviewer
+  (`handoff/RVIEWER_TEAM_ID_FASE_2_RESPUESTA.md`).
+- [ ] Fase 3 (opcional, rviewer no la pide): PKs con id en vez de tag (`team_map_round_id`, `draft`). Con eso
+  `team_aliases` / `canonical_teams` / `same_team_case` dejan de hacer falta. `round_situations` (no se sube)
+  sigue agrupando por tag: 785082 sale mal en vivos por equipo.
 - [ ] `tournament_slots` guarda el tag de `relevant_teams`: sumar `team_id_vlr` resuelto con los equipos del torneo.
-- [ ] `team_path` sigue por tag (dos equipos con el mismo tag comparten logo): decidir con rviewer si pasa a
-  `teams/<team_id_vlr>.png`.
 - [ ] Drafts del NA Open Qualifier con el nombre del equipo en vez del tricode (785006: `Archaic`, no `ARCH`):
   antes generaban 8 filas basura en `teams` (ARCHAIC, BABOONS...), ahora solo un warning. Revisar `get_picks_bans`
   para los `reduced` que sí traen draft.

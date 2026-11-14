@@ -143,10 +143,13 @@ def test_round_summary_one_row_per_round(expected_tables):
     assert pd.api.types.is_integer_dtype(summary["kills_team_a"])
 
 
-def _event(ev_index, t_sec, player, team, victim, victim_team):
+def _event(ev_index, t_sec, player, team, victim, victim_team, team_id=None, victim_team_id=None):
+    team_id = team_id or f"id_{team}"
+    victim_team_id = victim_team_id or f"id_{victim_team}"
     return {"team_map_round_id": "A-B-1-Ascent-1", "ev_index": ev_index, "t_sec": t_sec, "type": "kill",
             "player": player, "team": team, "victim": victim, "victim_team": victim_team,
-            "is_team_kill": team == victim_team}
+            "team_id_vlr": team_id, "victim_team_id_vlr": victim_team_id,
+            "is_team_kill": team_id == victim_team_id}
 
 
 def test_mark_trades_window():
@@ -160,6 +163,17 @@ def test_mark_trades_window():
     is_trade, is_traded = mark_trades(events)
     assert is_trade.tolist() == [False, True, False, False, False]
     assert is_traded.tolist() == [True, False, False, False, False]
+
+
+def test_mark_trades_same_tag_uses_team_ids():
+    """785082 (FAKE vs FAKE): con el tag igual en los dos equipos, el trade sale por el id."""
+    events = pd.DataFrame([
+        _event(0, 10, "b1", "FAKE", "a1", "FAKE", team_id="2", victim_team_id="1"),
+        _event(1, 11, "a2", "FAKE", "b1", "FAKE", team_id="1", victim_team_id="2"),
+    ])
+    is_trade, is_traded = mark_trades(events)
+    assert is_trade.tolist() == [False, True]
+    assert is_traded.tolist() == [True, False]
 
 
 def test_round_events_without_raw_files_writes_headers(tmp_path):

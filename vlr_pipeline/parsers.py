@@ -29,6 +29,19 @@ def parse_map_name(map_div):
     return text.strip() if text else None
 
 
+def game_was_played(map_div):
+    """False si el bloque vm-stats-game del div.map no tiene ninguna ronda ganada.
+
+    vlr muestra el mapa siguiente de una serie que termino antes (el mapa 3 de un 2-0, 787312
+    Sunset) o un mapa no jugado (787286 mapa 1, "TBD") con la grilla de rondas vacia y stats en 0,
+    sin mod-disabled en el nav. No son datos reales: van fuera de player_stats y de round_detail.
+    """
+    game = map_div.find_parent("div", class_="vm-stats-game")
+    if game is None or game.select_one("div.vlr-rounds-row-col") is None:
+        return True  # sin grilla no hay como saberlo: se asume jugado, como antes
+    return game.select_one("div.rnd-sq.mod-win") is not None
+
+
 def get_basic_match_info(soup, url):
     """extract the basic match info from the vlr match page, used in other functions and for check the match status:
         ["team_a"
@@ -388,6 +401,10 @@ def get_round_detail(soup, basic_match_info=None, folder="csv", encoding="utf-8"
         map_name = parse_map_name(map)
         if map_name is None:
             continue  # bloque sin nombre de mapa: no lo contamos para no desalinear maps[]
+        if not game_was_played(map):
+            # sin rondas: no aporta bloques a la grilla, contarlo corre los nombres (787286: el
+            # mapa 1 no jugado, "TBD", le daba su nombre a las rondas de Bind)
+            continue
         maps.append(map_name)
 
     bloques = soup.find_all("div", class_="vlr-rounds-row-col")
@@ -1189,8 +1206,9 @@ def get_player_stats(soup, basic_match_info):
         map_div = game.find("div", class_="map")
         if map_div is not None:
             map_name = parse_map_name(map_div) or "unknown"
-            if map_name == "TBD":
-                # mapa no jugado (W.O. de ese mapa, ej. 784752): stats en 0, no es dato real
+            if map_name == "TBD" or not game_was_played(map_div):
+                # mapa no jugado (W.O. de ese mapa, ej. 784752, o el mapa 3 de un 2-0, 787312):
+                # stats en 0, no es dato real
                 continue
             duration_div = map_div.find("div", class_="map-duration")
             map_duration = duration_div.get_text(strip=True) if duration_div else "unknown"

@@ -329,14 +329,51 @@ def player_keys(csv_dir="csv"):
     """
     df = concat_csv_from_different_folders(folder=csv_dir, prefix="player_stats")
     df = df[df["map"] != "all"].copy()
-    df["map_id"] = df["source_url"].apply(match_id_vlr) + "-" + df["map"]
+    df["series_id"] = df["source_url"].apply(match_id_vlr)
+    df["map_id"] = df["series_id"] + "-" + df["map"]
     df["player"] = nick_text(df["player"])
     df["agent_key"] = agent_key(df["agent"])
     df["player_id_vlr"] = raw_player_ids(df)
-    return df.loc[df["player_id_vlr"].notna(), ["map_id", "player", "agent_key", "player_id_vlr"]]
+    # equipo del jugador en ese mapa: player_stats_ lo guarda por posicion de la tabla del overview,
+    # asi que separa a los dos FAKE de 785082 y no depende de que vlr haya renombrado el tag
+    df_round_detail = concat_csv_from_different_folders(folder=csv_dir, prefix="round_detail")
+    df["team_id_vlr"] = resolve_team_ids(df, team_keys(df_round_detail), "team", raw_col="team_id_vlr")
+    return df.loc[df["player_id_vlr"].notna(), PLAYER_KEYS_COLUMNS]
 
 
-PLAYER_KEYS_COLUMNS = ["map_id", "player", "agent_key", "player_id_vlr"]
+PLAYER_KEYS_COLUMNS = ["map_id", "player", "agent_key", "player_id_vlr", "team_id_vlr"]
+
+
+def player_team_ids(df, keys, player_id_col="player_id_vlr", map_col="map_id"):
+    """team_id_vlr de cada fila de df por (map_id, player_id_vlr) en player_keys; NA si no esta.
+
+    Es como performance y los logs (que solo traen el tag) saben de que equipo de vlr es un
+    jugador: el tag no alcanza cuando los dos equipos de la serie lo comparten (785082).
+    """
+    if keys is None or keys.empty or df.empty or "team_id_vlr" not in keys:
+        return pd.Series(pd.NA, index=df.index, dtype="object")
+    lookup = (
+        keys.dropna(subset=["team_id_vlr"])
+        .drop_duplicates(subset=["map_id", "player_id_vlr"])
+        .set_index(["map_id", "player_id_vlr"])["team_id_vlr"]
+    )
+    index = pd.MultiIndex.from_arrays([df[map_col], df[player_id_col]])
+    return pd.Series(lookup.reindex(index).to_numpy(), index=df.index, dtype="object")
+
+
+def side_team_ids(tags, team_a, team_b, id_a, id_b):
+    """Id de vlr de un tag dentro de una ronda: el de team_a o team_b de round_info segun cual sea.
+
+    Para cuando no hay jugador por el que resolverlo. Un tag que no es ninguno de los dos queda
+    tbd_<TAG>, y uno vacio NA. Si los dos equipos comparten el tag (785082) gana team_a: por eso
+    el tag es el ultimo recurso.
+    """
+    result = pd.Series(
+        np.where(tags == team_a, id_a, np.where(tags == team_b, id_b, None)), index=tags.index, dtype="object"
+    )
+    unknown = result.isna() & tags.notna()
+    result[unknown] = team_id_fallback(tags[unknown])
+    return result.where(result.notna(), pd.NA)
 
 
 def resolve_player_ids(df, keys, player_col, agent_col=None, map_col="map_id"):
@@ -443,6 +480,20 @@ def drop_without_player_id(df, table, column="player_id_vlr"):
     return df[~missing]
 
 
+def drop_unplayed_maps(df, df_maps_id, table):
+    """Saca (y avisa) las filas de un mapa que no esta en maps_id (sin round_detail).
+
+    Son mapas que no se jugaron (el mapa 3 de un 2-0, 787312 Sunset) y que el overview viejo
+    traia con stats en 0: subian con tour_id vacio. El parser ya no los genera
+    (parsers.game_was_played); esto cubre csv scrapeados antes.
+    """
+    unplayed = ~df["map_id"].isin(df_maps_id["map_id"])
+    if unplayed.any():
+        maps = sorted(set(df.loc[unplayed, "map_id"].astype(str)))
+        logger.warning(f"{table}: descarto {int(unplayed.sum())} filas de mapas sin round_detail {maps[:10]}")
+    return df[~unplayed]
+
+
 def build_region_tournament(csv_dir="csv", tables_dir="tables"):
     """Celdas 4-5: table_region.csv y table_tournament.csv."""
     region_data = {"region": region_name, "reg_id": region_id}
@@ -502,7 +553,10 @@ def build_teams(csv_dir="csv", tables_dir="tables"):
         keys.assign(order=range(len(keys)))
         .sort_values(["date", "order"], kind="stable")
         .groupby("team_id_vlr", sort=False)
-        .agg(team_id=("tag", "last"), name=("name", last_name), order=("order", "min"))
+        .agg(
+            team_id=("tag", "last"), name=("name", last_name), order=("order", "min"),
+            n_series=("series_id", "nunique"),
+        )
         .reset_index()
         .sort_values("order", kind="stable")
         .reset_index(drop=True)
@@ -518,6 +572,16 @@ def build_teams(csv_dir="csv", tables_dir="tables"):
     # logo en rviewer/public/teams/: tricodes de GC traen punto (GEN.GC -> teams/GENGC.png);
     # solo se sacan los puntos del path, el team_id queda igual (ver handoff/SCRAPER_TEAM_PATH.md)
     df_team["team_path"] = "teams/" + df_team["team_id"].str.replace(".", "", regex=False) + ".png"
+    # tag compartido (MIBR = MIBR y Made in Brampton): el logo por tag queda para el equipo con mas
+    # series (el de liga) y los demas van por id, teams/<team_id_vlr>.png (handoff/
+    # VLR_SCRAPER_TEAM_ID_FASE_2.md, punto 2). Empate: el que aparecio primero
+    keeps_tag = (
+        df_team.sort_values(["n_series", "order"], ascending=[False, True], kind="stable")
+        .drop_duplicates(subset=["team_id"])
+        .index
+    )
+    by_id = ~df_team.index.isin(keeps_tag)
+    df_team.loc[by_id, "team_path"] = "teams/" + df_team.loc[by_id, "team_id_vlr"] + ".png"
     df_team = df_team[TEAMS_COLUMNS]
 
     repeated = df_team.loc[df_team["team_id"].duplicated(keep=False), "team_id"]
@@ -680,13 +744,27 @@ def build_ids(df_tournaments, csv_dir="csv", tables_dir="tables"):
         right_on="vlr_id",
     )
 
-    df_played_a = df_round_detail_filter[["teamA", "event", "reg_id", "tour_id"]].copy()
-    df_played_b = (
-        df_round_detail_filter[["teamB", "event", "reg_id", "tour_id"]].copy()
-        .rename(columns={"teamB": "teamA"})
+    # una fila por (tour_id, team_id_vlr), la PK desde la fase 2: dos equipos con el mismo tag en
+    # un torneo (FAKE/FAKE, los THE) son dos filas. teamA es el tag del ultimo partido del equipo
+    # en el torneo (XXXM -> MPMT en el Europe Qualifier, mismo id)
+    df_ids = round_team_ids(df_round_detail_filter)
+    df_played = pd.concat(
+        [
+            df_round_detail_filter[[tag, "date", "event", "reg_id", "tour_id"]]
+            .rename(columns={tag: "teamA"})
+            .assign(team_id_vlr=df_ids[f"team_{side}_id_vlr"])
+            for side, tag in (("a", "teamA"), ("b", "teamB"))
+        ],
+        ignore_index=True,
     )
-    df_tournament_played = pd.concat([df_played_a, df_played_b], ignore_index=True)
-    df_tournament_played.drop_duplicates(inplace=True, ignore_index=True)
+    df_tournament_played = (
+        df_played.assign(order=range(len(df_played)))
+        .sort_values(["date", "order"], kind="stable")
+        .drop_duplicates(subset=["tour_id", "team_id_vlr"], keep="last")
+        .sort_values("order", kind="stable")
+        [["teamA", "event", "reg_id", "tour_id", "team_id_vlr"]]
+        .reset_index(drop=True)
+    )
 
     df_maps_id = df_maps_id.drop(["vlr_id-map", "vlr_id"], axis=1)
 
@@ -724,8 +802,14 @@ def build_player_performance(df_maps_id, df_player_keys=None, csv_dir="csv", tab
     )
     df_player_performance = drop_without_player_id(df_player_performance, "player_performance")
     df_player_performance = df_player_performance.drop(columns=["agent"], errors="ignore")
+    df_player_performance = drop_unplayed_maps(df_player_performance, df_maps_id, "player_performance")
 
     df_player_performance = pd.merge(df_player_performance, df_maps_id[["map_id", "reg_id", "tour_id"]], how="left", left_on="map_id", right_on="map_id")
+    # equipo de vlr del jugador en ese mapa (overview); sin el, por el tag dentro de la serie
+    team_ids = player_team_ids(df_player_performance, df_player_keys)
+    df_round_detail = concat_csv_from_different_folders(folder=csv_dir, prefix="round_detail")
+    by_tag = resolve_team_ids(df_player_performance, team_keys(df_round_detail), "team")
+    df_player_performance["team_id_vlr"] = team_ids.where(team_ids.notna(), by_tag)
 
     df_player_performance.to_csv(path_or_buf=os.path.join(tables_dir, 'table_player_performance.csv'), index=False, encoding='iso-8859-1')
 
@@ -748,6 +832,7 @@ def build_player_stats(df_maps_id, csv_dir="csv", tables_dir="tables"):
     df_round_detail = concat_csv_from_different_folders(folder=csv_dir, prefix="round_detail")
     df_player_stats["team_id_vlr"] = resolve_team_ids(
         df_player_stats, team_keys(df_round_detail), "team", raw_col="team_id_vlr")
+    df_player_stats = drop_unplayed_maps(df_player_stats, df_maps_id, "player_stats")
 
     df_player_stats = pd.merge(df_player_stats, df_maps_id[["map_id", "reg_id", "tour_id"]], how="left", left_on="map_id", right_on="map_id")
 
@@ -805,7 +890,38 @@ def build_draft(df_maps_id, csv_dir="csv", tables_dir="tables"):
     df_draft_concat = df_draft_concat[df_draft_concat_filter]
     df_draft_concat.drop_duplicates(inplace=True, ignore_index=True)
 
+    df_round_detail = concat_csv_from_different_folders(folder=csv_dir, prefix="round_detail")
+    df_draft_concat["team_id_vlr"], df_draft_concat["rival_id_vlr"] = draft_team_ids(
+        df_draft_concat, team_keys(df_round_detail))
+
     df_draft_concat.to_csv(path_or_buf=os.path.join(tables_dir, 'table_draft.csv'), index=False, encoding='iso-8859-1')
+
+
+def draft_team_ids(df_draft, keys):
+    """team_id_vlr / rival_id_vlr de cada fila del draft.
+
+    Por (serie, tag) como el resto. Algunos drafts del NA Open Qualifier traen el nombre en vez del
+    tag (785036 "BABOONS", 785006 "ARCHAIC"): si un lado se resolvio y la serie tiene dos equipos,
+    el otro lado es el equipo que queda. Sin eso, tbd_<TAG>.
+    """
+    team = resolve_team_ids(df_draft, keys, "team")
+    rival = resolve_team_ids(df_draft, keys, "rival")
+    pairs = keys.groupby("series_id")["team_id_vlr"].agg(lambda ids: tuple(dict.fromkeys(ids)))
+    pairs = pairs[pairs.map(len) == 2]
+
+    def other(known, series_id):
+        pair = pairs.get(str(series_id))
+        if pair is None or known not in pair:
+            return pd.NA
+        return pair[1] if pair[0] == known else pair[0]
+
+    for unresolved, known in ((team, rival), (rival, team)):
+        missing = unresolved.str.startswith("tbd_") & ~known.str.startswith("tbd_")
+        for index in unresolved[missing].index:
+            value = other(known[index], df_draft.at[index, "series_id"])
+            if not pd.isna(value):
+                unresolved[index] = value
+    return team, rival
 
 
 def build_maps_and_round_info(df_maps_id, csv_dir="csv", tables_dir="tables"):
@@ -898,7 +1014,13 @@ def build_team_economy(df_maps_id, df_round_concat, csv_dir="csv", tables_dir="t
 
     df_team_economy = df_team_economy[df_team_economy["reg_id"] != "reg_2"]
 
-    df_team_economy = pd.merge(df_team_economy, df_round_concat[["teamA", "teamB", "rndA", "rndB", "team_map_round_id", "winCon", "side"]], how="left", left_on="team_map_round_id", right_on="team_map_round_id")
+    df_team_economy = pd.merge(
+        df_team_economy,
+        df_round_concat[
+            ["teamA", "teamB", "rndA", "rndB", "team_map_round_id", "winCon", "side", "team_a_id_vlr", "team_b_id_vlr"]
+        ].rename(columns={"team_a_id_vlr": "round_a_id", "team_b_id_vlr": "round_b_id"}),
+        how="left", left_on="team_map_round_id", right_on="team_map_round_id",
+    )
     # vlr a veces muestra rondas de mas en la grilla de economia (p.ej. 784646 Sunset, rondas 10-13
     # en 0) que no existen en round_info: sin win_A, la columna pasaba a float ("0.0") y el upsert a
     # la columna smallint fallaba para toda la tabla
@@ -914,7 +1036,12 @@ def build_team_economy(df_maps_id, df_round_concat, csv_dir="csv", tables_dir="t
     df_team_economy["side_b"] = np.where(df_team_economy["side"] == "atk", "def", "atk")
     df_team_economy["eco_side"] = np.where(df_team_economy["team_a"] == df_team_economy["teamA"], df_team_economy["side"], df_team_economy["side_b"])
     df_team_economy["eco_win_A"] = np.where(df_team_economy["team_a"] == df_team_economy["teamA"], df_team_economy["rndA"], df_team_economy["rndB"])
-    df_team_economy = df_team_economy.drop(columns=["teamA", "teamB", "rndA", "rndB", "side", "side_b"])
+    # ids de vlr en el orden de team_a / team_b de esta tabla. En la grilla de economia team_a es el
+    # equipo 1 de vlr (mod-t1), igual que teamA en round_info, asi que FAKE/FAKE (785082) sale bien
+    same_order = df_team_economy["team_a"] == df_team_economy["teamA"]
+    df_team_economy["team_a_id_vlr"] = np.where(same_order, df_team_economy["round_a_id"], df_team_economy["round_b_id"])
+    df_team_economy["team_b_id_vlr"] = np.where(same_order, df_team_economy["round_b_id"], df_team_economy["round_a_id"])
+    df_team_economy = df_team_economy.drop(columns=["teamA", "teamB", "rndA", "rndB", "side", "side_b", "round_a_id", "round_b_id"])
     df_team_economy = df_team_economy.rename(columns={"eco_side": "side", "eco_win_A": "win_A"})
 
     df_team_economy.to_csv(path_or_buf=os.path.join(tables_dir, 'table_team_economy.csv'), index=False, encoding='iso-8859-1')  # No china, sometimes vlr dont have the data on china
@@ -927,6 +1054,7 @@ ROUND_BUY_FIELDS = {
     "player_id_vlr": "_id",
 }
 ROUND_BUY_SLOTS = range(1, 6)
+ROUND_TEAM_ID_COLUMNS = ["team_a_id_vlr", "team_b_id_vlr"]
 
 
 def round_buy_columns():
@@ -934,7 +1062,8 @@ def round_buy_columns():
     for team in ("team_a", "team_b"):
         for slot in ROUND_BUY_SLOTS:
             columns += [f"player_{slot}_{team}{suffix}" for suffix in ROUND_BUY_FIELDS.values()]
-    return columns
+    # ids de vlr de team_a / team_b (de round_info), al final para no mover las columnas viejas
+    return columns + ROUND_TEAM_ID_COLUMNS
 
 
 def build_round_buy(df_maps_id, df_round_concat, df_player_keys=None, csv_dir="csv", tables_dir="tables"):
@@ -975,7 +1104,7 @@ def build_round_buy(df_maps_id, df_round_concat, df_player_keys=None, csv_dir="c
     df_buy = df_buy.drop(columns=["team_a", "team_b"])
     df_buy = pd.merge(
         df_buy,
-        df_round_concat[["map_id", "round", "teamA", "teamB", "team_map_round_id"]].rename(
+        df_round_concat[["map_id", "round", "teamA", "teamB", "team_map_round_id"] + ROUND_TEAM_ID_COLUMNS].rename(
             columns={"teamA": "team_a", "teamB": "team_b"}
         ),
         how="left",
@@ -985,6 +1114,13 @@ def build_round_buy(df_maps_id, df_round_concat, df_player_keys=None, csv_dir="c
     if no_round.any():
         logger.warning(f"round_buy: descarto {int(no_round.sum())} filas sin ronda en round_info")
         df_buy = df_buy[~no_round]
+    # con el equipo de vlr del jugador (overview) el lado no depende del tag: en 785082 (FAKE vs
+    # FAKE) el tag manda a los 10 a team_a y la mitad se descartaba como slot repetido
+    player_team = player_team_ids(df_buy, df_player_keys).fillna("")
+    df_buy["which"] = np.where(
+        player_team == df_buy["team_a_id_vlr"], "team_a",
+        np.where(player_team == df_buy["team_b_id_vlr"], "team_b", df_buy["which"]),
+    )
 
     duplicated = df_buy.duplicated(subset=["team_map_round_id", "which", "slot"])
     if duplicated.any():
@@ -998,6 +1134,7 @@ def build_round_buy(df_maps_id, df_round_concat, df_player_keys=None, csv_dir="c
     )
     df_keys = df_buy.drop_duplicates(subset=["team_map_round_id"])[
         ["team_map_round_id", "series_id", "map_id", "round", "team_a", "team_b", "reg_id", "tour_id"]
+        + ROUND_TEAM_ID_COLUMNS
     ]
     df_keys = pd.merge(df_keys, df_side, how="left", on="team_map_round_id")
 
@@ -1022,7 +1159,7 @@ ROUND_EVENTS_COLUMNS = [
     "t_sec", "type", "player", "player_id", "team", "side", "victim", "victim_id", "victim_team",
     "weapon", "site", "pos_x", "pos_y", "from_x", "from_y",
     "is_first_blood", "is_team_kill", "is_post_plant", "is_trade", "is_traded",
-    "player_id_vlr", "victim_id_vlr",
+    "player_id_vlr", "victim_id_vlr", "team_id_vlr", "victim_team_id_vlr",
 ]
 ROUND_SUMMARY_COLUMNS = [
     "team_map_round_id", "series_id", "map_id", "round", "reg_id", "tour_id", "team_a", "team_b", "side_team_a",
@@ -1030,6 +1167,7 @@ ROUND_SUMMARY_COLUMNS = [
     "plant_t", "plant_site", "plant_player_id", "defuse_t", "defuse_player_id",
     "kills_team_a", "kills_team_b", "trades_team_a", "trades_team_b", "last_event_t",
     "fb_player_id_vlr", "fb_victim_id_vlr", "plant_player_id_vlr", "defuse_player_id_vlr",
+    "team_a_id_vlr", "team_b_id_vlr", "fb_team_id_vlr",
 ]
 
 
@@ -1044,6 +1182,7 @@ def mark_trades(df_events):
 
     is_trade: la kill mata a alguien que mato a un companero del killer hace <= TRADE_WINDOW s.
     is_traded: esa muerte del companero fue tradeada. Las team kills (spike, caida) no cuentan.
+    Los equipos se comparan por id de vlr (team_id_vlr / victim_team_id_vlr), no por tag.
     """
     is_trade = pd.Series(False, index=df_events.index)
     is_traded = pd.Series(False, index=df_events.index)
@@ -1054,7 +1193,9 @@ def mark_trades(df_events):
             for prev_index, prev in previous:
                 if (
                     prev["player"] == kill["victim"]
-                    and prev["victim_team"] == kill["team"]
+                    and pd.notna(kill["team_id_vlr"])
+                    and pd.notna(prev["victim_team_id_vlr"])
+                    and prev["victim_team_id_vlr"] == kill["team_id_vlr"]
                     and kill["t_sec"] - prev["t_sec"] <= TRADE_WINDOW
                 ):
                     is_trade[index] = True
@@ -1087,7 +1228,9 @@ def build_round_events(df_round_concat, df_players_id, df_player_keys=None, csv_
     df_events["map_id"] = df_events["series_id"] + "-" + df_events["map"]
     df_events = pd.merge(
         df_events,
-        df_round_concat[["map_id", "round", "teamA", "teamB", "side", "team_map_round_id", "reg_id", "tour_id"]],
+        df_round_concat[
+            ["map_id", "round", "teamA", "teamB", "side", "team_map_round_id", "reg_id", "tour_id"] + ROUND_TEAM_ID_COLUMNS
+        ],
         how="left",
         on=["map_id", "round"],
     )
@@ -1108,11 +1251,6 @@ def build_round_events(df_round_concat, df_players_id, df_player_keys=None, csv_
             f"{tags}: agregarlo a team_aliases en lookups.py (el side y las kills por equipo salen mal)"
         )
     df_events["t_sec"] = df_events["clock"].apply(clock_to_seconds)
-    df_events["side"] = np.where(
-        df_events["team"] == df_events["teamA"],
-        df_events["side_team_a"],
-        np.where(df_events["side_team_a"] == "atk", "def", "atk"),
-    )
 
     df_events["player_id_vlr"] = resolve_player_ids(df_events, df_player_keys, "player", agent_col="by_agent")
     df_events["victim_id_vlr"] = resolve_player_ids(df_events, df_player_keys, "victim", agent_col="victim_agent")
@@ -1124,8 +1262,28 @@ def build_round_events(df_round_concat, df_players_id, df_player_keys=None, csv_
     df_events["player_id"] = df_events["player_id_vlr"].map(legacy_ids)
     df_events["victim_id"] = df_events["victim_id_vlr"].map(legacy_ids)
 
+    # equipo de vlr de cada lado del evento: el del jugador en ese mapa (overview), y si no se
+    # resuelve, el tag contra round_info. Todo lo que compara equipos (lado, team kill, trades,
+    # kills por equipo) usa estos ids: en 785082 (FAKE vs FAKE) el tag no distingue nada
+    for player_col, tag_col, id_col in (
+        ("player_id_vlr", "team", "team_id_vlr"), ("victim_id_vlr", "victim_team", "victim_team_id_vlr")
+    ):
+        by_player = player_team_ids(df_events, df_player_keys, player_id_col=player_col)
+        by_tag = side_team_ids(
+            df_events[tag_col], df_events["teamA"], df_events["teamB"],
+            df_events["team_a_id_vlr"], df_events["team_b_id_vlr"],
+        )
+        df_events[id_col] = by_player.where(by_player.notna(), by_tag)
+    df_events["side"] = np.where(
+        df_events["team_id_vlr"].fillna("") == df_events["team_a_id_vlr"],
+        df_events["side_team_a"],
+        np.where(df_events["side_team_a"] == "atk", "def", "atk"),
+    )
+
     is_kill = df_events["type"] == "kill"
-    df_events["is_team_kill"] = is_kill & (df_events["team"] == df_events["victim_team"])
+    df_events["is_team_kill"] = is_kill & (
+        df_events["team_id_vlr"].fillna("") == df_events["victim_team_id_vlr"].fillna("-")
+    )
     valid_kill = is_kill & ~df_events["is_team_kill"]
     df_events["is_first_blood"] = valid_kill & (valid_kill.astype(int).groupby(df_events["team_map_round_id"]).cumsum() == 1)
 
@@ -1140,14 +1298,16 @@ def build_round_events(df_round_concat, df_players_id, df_player_keys=None, csv_
     # resumen por ronda
     df_summary = df_events.drop_duplicates(subset=["team_map_round_id"])[
         ["team_map_round_id", "series_id", "map_id", "round", "reg_id", "tour_id", "teamA", "teamB", "side_team_a"]
+        + ROUND_TEAM_ID_COLUMNS
     ].rename(columns={"teamA": "team_a", "teamB": "team_b"})
 
     first_blood = df_events[df_events["is_first_blood"]].set_index("team_map_round_id")
     df_summary = df_summary.join(
-        first_blood[["player_id", "team", "victim_id", "t_sec", "player_id_vlr", "victim_id_vlr"]].rename(
+        first_blood[["player_id", "team", "victim_id", "t_sec", "player_id_vlr", "victim_id_vlr", "team_id_vlr"]].rename(
             columns={
                 "player_id": "fb_player_id", "team": "fb_team", "victim_id": "fb_victim_id", "t_sec": "fb_t",
                 "player_id_vlr": "fb_player_id_vlr", "victim_id_vlr": "fb_victim_id_vlr",
+                "team_id_vlr": "fb_team_id_vlr",
             }
         ),
         on="team_map_round_id",
@@ -1171,7 +1331,7 @@ def build_round_events(df_round_concat, df_players_id, df_player_keys=None, csv_
     )
 
     df_valid = df_events[valid_kill]
-    team_a_kill = df_valid["team"] == df_valid["teamA"]
+    team_a_kill = df_valid["team_id_vlr"].fillna("") == df_valid["team_a_id_vlr"]
     counts = pd.DataFrame({
         "kills_team_a": team_a_kill,
         "kills_team_b": ~team_a_kill,

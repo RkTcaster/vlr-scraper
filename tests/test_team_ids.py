@@ -12,8 +12,10 @@ from bs4 import BeautifulSoup
 
 from scripts.backfill_team_ids import fill_player_stats, fill_round_detail
 from tests.conftest import HTML_DIR
-from vlr_pipeline.parsers import get_basic_match_info, get_player_stats, get_team_ids
-from vlr_pipeline.tables import build_players, build_teams, resolve_team_ids, team_keys
+from vlr_pipeline.parsers import get_basic_match_info, get_player_stats, get_round_detail, get_team_ids
+from vlr_pipeline.tables import (
+    build_players, build_teams, draft_team_ids, player_team_ids, resolve_team_ids, side_team_ids, team_keys,
+)
 
 
 def fixture_soup(series_id):
@@ -138,3 +140,72 @@ def test_backfill_fills_round_detail_and_player_stats():
             "team_id_vlr": ["10", "20"]}
     assert fill_player_stats(stats_csv, "785082", page) == (2, 0)
     assert [row[4] for row in stats_csv[1:]] == ["10", "20"]
+
+
+def test_team_path_by_id_only_for_shared_tags(tmp_path):
+    """Fase 2: con el tag repetido, el logo por tag queda para el equipo con mas series."""
+    csv_dir, tables_dir = tmp_path / "csv", tmp_path / "tables"
+    tables_dir.mkdir()
+    write_csv(str(csv_dir / "t1" / "round_detail_t1.csv"), [
+        round_rows("1", "MIBR", "LOUD", "7386", "6961", date="2026-06-01"),
+        round_rows("2", "MIBR", "LOUD", "7386", "6961", date="2026-07-01"),
+        round_rows("3", "MIBR", "GEN.GC", "16255", "21858", date="2026-11-01"),
+    ])
+    write_csv(str(csv_dir / "t1" / "draft_t1.csv"), [{"team": "MIBR", "rival": "LOUD", "source_url": "u"}])
+    paths = build_teams(str(csv_dir), str(tables_dir)).set_index("team_id_vlr")["team_path"].to_dict()
+    assert paths == {
+        "7386": "teams/MIBR.png", "6961": "teams/LOUD.png", "16255": "teams/16255.png", "21858": "teams/GENGC.png",
+    }
+
+
+def test_draft_ids_when_the_draft_has_the_name_not_the_tag():
+    """NA Open Qualifier: algunos drafts traen el nombre ("ARCHAIC") en vez del tag ("ARCH")."""
+    keys = team_keys(pd.DataFrame([
+        round_rows("785006", "MC", "ARCH", "23878", "23567"),
+        round_rows("785082", "FAKE", "FAKE", "23815", "21068"),
+    ]))
+    draft = pd.DataFrame({"series_id": ["785006", "785006", "785082"],
+                          "team": ["MC", "ARCHAIC", "FAKE"], "rival": ["ARCHAIC", "MC", "FAKE"]})
+    team, rival = draft_team_ids(draft, keys)
+    assert team.tolist() == ["23878", "23567", "tbd_FAKE"]
+    assert rival.tolist() == ["23567", "23878", "tbd_FAKE"]
+
+
+def test_player_team_ids_before_tag():
+    """El equipo de un jugador sale del overview (por posicion), el tag es el ultimo recurso."""
+    keys = pd.DataFrame({"map_id": ["1-Bind", "1-Bind"], "player": ["a", "b"], "agent_key": ["jett", "sova"],
+                         "player_id_vlr": ["501", "502"], "team_id_vlr": ["10", "20"]})
+    df = pd.DataFrame({"map_id": ["1-Bind", "1-Bind", "1-Bind"], "player_id_vlr": ["502", "999", None]})
+    assert player_team_ids(df, keys).fillna("-").tolist() == ["20", "-", "-"]
+
+    tags = pd.Series(["FAKE", "XYZ", None])
+    got = side_team_ids(tags, pd.Series(["FAKE"] * 3), pd.Series(["FAKE"] * 3),
+                        pd.Series(["10"] * 3), pd.Series(["20"] * 3))
+    assert got.fillna("-").tolist() == ["10", "tbd_XYZ", "-"]
+
+
+ROUND_GRID_UNPLAYED_FIRST = """
+<div class="vm-stats-game" data-game-id="1">
+  <div class="map"><span style="position: relative;">TBD</span></div>
+  <div class="vlr-rounds-row-col"><div class="rnd-num">1</div><div class="rnd-sq"></div><div class="rnd-sq"></div></div>
+</div>
+<div class="vm-stats-game" data-game-id="2">
+  <div class="map"><span style="position: relative;">Bind</span></div>
+  <div class="vlr-rounds-row-col">
+    <div class="rnd-num">1</div><div class="rnd-sq mod-win mod-ct"><img src="/img/vlr/game/round/elim.webp"></div>
+    <div class="rnd-sq"></div>
+  </div>
+  <div class="ovw-table"><div class="ovw-row"><div class="ovw-player-name">a1</div></div></div>
+</div>
+"""
+
+
+def test_unplayed_map_is_skipped(tmp_path):
+    """787286: el mapa 1 no se jugo (grilla sin rondas ganadas) y le daba su nombre a Bind."""
+    soup = BeautifulSoup(ROUND_GRID_UNPLAYED_FIRST, "html.parser")
+    info = {"date": "d", "event": "e", "source_url": "https://www.vlr.gg/787286/x", "team_a_tricode": "A",
+            "team_b_tricode": "B", "team_a": "A", "team_b": "B"}
+    stats = get_player_stats(soup, info)
+    assert stats["map"] == ["Bind"]
+    rounds = get_round_detail(soup, info, folder=str(tmp_path))
+    assert rounds["map"] == "Bind"

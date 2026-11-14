@@ -100,10 +100,25 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
   series; anything without an id becomes `tbd_<TAG>` (team without a vlr page, or csv not backfilled:
   `scripts/backfill_team_ids.py`, 1 overview request per series). `table_teams` has one row per `team_id_vlr`
   (Supabase PK) with `team_id` (tag, no longer unique) and `name` from the team's latest match; `players`,
-  `player_stats` and `round_info` (`team_a_id_vlr`/`team_b_id_vlr`) carry the id. The fact tables' PKs
-  (`team_map_round_id`, `tournament_played (tour_id, teamA)`, `team_economy`, logs tables) still use tags:
-  that is phase 2 (ROADMAP). Schema change: `sql/team_id_vlr.sql` (paso A, `upload --full`, paso B restores
-  rviewer's manual `teams.relevant`).
+  `player_stats` and `round_info` (`team_a_id_vlr`/`team_b_id_vlr`) carry the id. Schema change:
+  `sql/team_id_vlr.sql` (paso A, `upload --full`, paso B restores rviewer's manual `teams.relevant`).
+  **Phase 2 (2026-11-13, rviewer's request)** adds id columns *next to* every tag column, without touching
+  `team_map_round_id`: `draft` (`team_id_vlr`, `rival_id_vlr`), `team_economy` / `round_buy` / `round_summary`
+  (`team_a_id_vlr`, `team_b_id_vlr`, plus `fb_team_id_vlr`), `round_events` (`team_id_vlr`,
+  `victim_team_id_vlr`), `player_performance` (`team_id_vlr`), and `tournament_played` whose PK is now
+  `(tour_id, team_id_vlr)` (`teamA` = the team's latest tag in that tournament). A player's team comes from
+  `player_keys` (`player_team_ids`: overview position, by `map_id + player_id_vlr`), falling back to the tag
+  against round_info (`side_team_ids`); events compare teams by id (side, team kill, trades, kills per team), and
+  round_buy's `which` uses the player's team, so 785082 works. Drafts that carry the team name instead of the tag
+  get the other team of the series (`draft_team_ids`). `team_path` is `teams/<TAG>.png` for the team with the
+  most series under a tag and `teams/<team_id_vlr>.png` for the others. `team_economy` PK is
+  `team_map_round_id`. Schema change: `sql/team_id_vlr_fase2.sql` + `upload --full`. Tags are still in the
+  PKs, so `team_aliases` / `canonical_teams` stay.
+- **Unplayed maps** — vlr shows the next map of a series that ended early (map 3 of a 2-0) and maps never
+  played (W.O., `TBD`) with an empty round grid and 0 stats. `parsers.game_was_played` (grid present, no
+  `rnd-sq mod-win`) drops them from `player_stats_` and from round_detail's map list; before that, an unplayed
+  map *before* a played one gave its name to the played map's rounds (787286, 787408, 788432, 788465).
+  `tables.drop_unplayed_maps` drops player_stats/performance rows whose `map_id` has no round_detail.
 - **New raw columns** — the `save_*` functions append through `save.append_dict_rows`, which rewrites an
   existing csv once (byte-safe, latin-1) adding any column the parser now produces, so a parser can gain a column
   without leaving appended rows misaligned under an old header. Add new columns at the **end** of the parser's
