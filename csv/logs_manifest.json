@@ -1,0 +1,254 @@
+{
+ "esports_world_cup_2026/round_buy_esports_world_cup_2026.csv": {
+  "bytes": 3147849,
+  "object": "esports_world_cup_2026/round_buy_esports_world_cup_2026.8cb554612891.csv.gz",
+  "sha256": "8cb554612891ae2e4eb4b577a3671a542b0d79d8716e9ac5788a2bc175deb438",
+  "updated_at": "2026-11-15T11:58:35+00:00"
+ },
+ "esports_world_cup_2026/round_events_esports_world_cup_2026.csv": {
+  "bytes": 2576549,
+  "object": "esports_world_cup_2026/round_events_esports_world_cup_2026.9a9700429bc2.csv.gz",
+  "sha256": "9a9700429bc251e973335c1b6ab79f730bd7df4af9bce7be199ddbda76ab05ab",
+  "updated_at": "2026-11-15T11:58:36+00:00"
+ },
+ "game_changers_2026_championship_são_paulo/round_buy_game_changers_2026_championship_são_paulo.csv": {
+  "bytes": 2181515,
+  "object": "game_changers_2026_championship_sao_paulo/round_buy_game_changers_2026_championship_sao_paulo.8a373c544041.csv.gz",
+  "sha256": "8a373c5440418a927328b46f4d2010f876c9aef4a022837d55ee7262fbdd15b8",
+  "updated_at": "2026-11-15T11:58:37+00:00"
+ },
+ "game_changers_2026_championship_são_paulo/round_events_game_changers_2026_championship_são_paulo.csv": {
+  "bytes": 1768695,
+  "object": "game_changers_2026_championship_sao_paulo/round_events_game_changers_2026_championship_sao_paulo.6881dd6d6c98.csv.gz",
+  "sha256": "6881dd6d6c980283440ed96bfaf71caef89f010688b7ca8f4c7c677f39d7f4fc",
+  "updated_at": "2026-11-15T11:58:37+00:00"
+ },
+ "valorant_champions_2026/round_buy_valorant_champions_2026.csv": {
+  "bytes": 3525286,
+  "object": "valorant_champions_2026/round_buy_valorant_champions_2026.25ad2a0e51bb.csv.gz",
+  "sha256": "25ad2a0e51bb830b4ce20afdf07ced741f1d920b2950a132efdbc830ef819e41",
+  "updated_at": "2026-11-15T11:58:38+00:00"
+ },
+ "valorant_champions_2026/round_events_valorant_champions_2026.csv": {
+  "bytes": 2893922,
+  "object": "valorant_champions_2026/round_events_valorant_champions_2026.29e673185847.csv.gz",
+  "sha256": "29e673185847de4e968257fbd188f8c44ab19ad58e2608ad3fc9b56bc2adf222",
+  "updated_at": "2026-11-15T11:58:38+00:00"
+ },
+ "valorant_masters_london_2026/round_buy_valorant_masters_london_2026.csv": {
+  "bytes": 2734713,
+  "object": "valorant_masters_london_2026/round_buy_valorant_masters_london_2026.069376dc33fc.csv.gz",
+  "sha256": "069376dc33fc913d291fde977c4108a16f93111d5663e220ab89c2948eb4f542",
+  "updated_at": "2026-11-15T11:58:39+00:00"
+ },
+ "valorant_masters_london_2026/round_events_valorant_masters_london_2026.csv": {
+  "bytes": 2253804,
+  "object": "valorant_masters_london_2026/round_events_valorant_masters_london_2026.0ae0e1d5fff8.csv.gz",
+  "sha256": "0ae0e1d5fff87e06e3e940bdfa04c3624e401768794e4ed937f659b5e771efbb",
+  "updated_at": "2026-11-15T11:58:39+00:00"
+ },
+ "valorant_masters_santiago_2026/round_buy_valorant_masters_santiago_2026.csv": {
+  "bytes": 2535729,
+  "object": "valorant_masters_santiago_2026/round_buy_valorant_masters_santiago_2026.045e73badb71.csv.gz",
+  "sha256": "045e73badb7139c74e9364028c52d7111ce11d3dec71f34dbbe03a1d758bf846",
+  "updated_at": "2026-11-15T11:58:40+00:00"
+ },
+ "valorant_masters_santiago_2026/round_events_valorant_masters_santiago_2026.csv": {
+  "bytes": 2103941,
+  "object": "valorant_masters_santiago_2026/round_events_valorant_masters_santiago_2026.bc8f13bfbb2b.csv.gz",
+  "sha256": "bc8f13bfbb2bc8946dd8f9576ae9bc02dda26ecb7c863d6a1133b1ce39a885ff",
+  "updated_at": "2026-11-15T11:58:40+00:00"
+ },
+ "vct_2026_americas_kickoff/round_buy_vct_2026_americas_kickoff.csv": {
+  "bytes": 3166328,
+  "object": "vct_2026_americas_kickoff/round_buy_vct_2026_americas_kickoff.89f9d3c6f939.csv.gz",
+  "sha256": "89f9d3c6f93993f5b750f831366ca228c239c8ee43982e4718901b0aa4625421",
+  "updated_at": "2026-11-15T11:58:40+00:00"
+ },
+ "vct_2026_americas_kickoff/round_events_vct_2026_americas_kickoff.csv": {
+  "bytes": 2575014,
+  "object": "vct_2026_americas_kickoff/round_events_vct_2026_americas_kickoff.ea1a205f4c6b.csv.gz",
+  "sha256": "ea1a205f4c6b6a278bf222c164278c83f5b6dd9a79fa5801eed37a1970d244c3",
+  "updated_at": "2026-11-15T11:58:41+00:00"
+ },
+ "vct_2026_americas_stage_1/round_buy_vct_2026_americas_stage_1.csv": {
+  "bytes": 4263392,
+  "object": "vct_2026_americas_stage_1/round_buy_vct_2026_americas_stage_1.dcc58a7ad0db.csv.gz",
+  "sha256": "dcc58a7ad0db2e06b00817c61fa10425ec6bdfa6a8e6cf946883c3b4cc5b684b",
+  "updated_at": "2026-11-15T11:58:41+00:00"
+ },
+ "vct_2026_americas_stage_1/round_events_vct_2026_americas_stage_1.csv": {
+  "bytes": 3528678,
+  "object": "vct_2026_americas_stage_1/round_events_vct_2026_americas_stage_1.9aafc453c897.csv.gz",
+  "sha256": "9aafc453c897f89838f5c15170f7094e615856abd0de02ea814ef29c0b97b649",
+  "updated_at": "2026-11-15T11:58:42+00:00"
+ },
+ "vct_2026_americas_stage_2/round_buy_vct_2026_americas_stage_2.csv": {
+  "bytes": 6044393,
+  "object": "vct_2026_americas_stage_2/round_buy_vct_2026_americas_stage_2.d9b6567ee45c.csv.gz",
+  "sha256": "d9b6567ee45cc9d78007ef79f1cc8a861351f44fdbcf64f2899f08de3c4d7755",
+  "updated_at": "2026-11-15T11:58:43+00:00"
+ },
+ "vct_2026_americas_stage_2/round_events_vct_2026_americas_stage_2.csv": {
+  "bytes": 4955194,
+  "object": "vct_2026_americas_stage_2/round_events_vct_2026_americas_stage_2.86b914e85b0a.csv.gz",
+  "sha256": "86b914e85b0a7c14afae4328e1aa7ef88bef8b1830c0bef99c9719a2959ea0af",
+  "updated_at": "2026-11-15T11:58:43+00:00"
+ },
+ "vct_2026_emea_kickoff/round_buy_vct_2026_emea_kickoff.csv": {
+  "bytes": 3271694,
+  "object": "vct_2026_emea_kickoff/round_buy_vct_2026_emea_kickoff.4efd4247832c.csv.gz",
+  "sha256": "4efd4247832c59e397e33c3f2391765d524cd7a45e55a861149645f570c6024b",
+  "updated_at": "2026-11-15T11:58:44+00:00"
+ },
+ "vct_2026_emea_kickoff/round_events_vct_2026_emea_kickoff.csv": {
+  "bytes": 2705233,
+  "object": "vct_2026_emea_kickoff/round_events_vct_2026_emea_kickoff.b9a3c540aee1.csv.gz",
+  "sha256": "b9a3c540aee1249a82a25f76eca139f38e1f4a64d21d062335d752c220487186",
+  "updated_at": "2026-11-15T11:58:44+00:00"
+ },
+ "vct_2026_emea_stage_1/round_buy_vct_2026_emea_stage_1.csv": {
+  "bytes": 4471929,
+  "object": "vct_2026_emea_stage_1/round_buy_vct_2026_emea_stage_1.ddb7c6f3a525.csv.gz",
+  "sha256": "ddb7c6f3a52502ddeea6a6c5d9092985ee27e09973f97c90e377ffd7ac4d154f",
+  "updated_at": "2026-11-15T11:58:45+00:00"
+ },
+ "vct_2026_emea_stage_1/round_events_vct_2026_emea_stage_1.csv": {
+  "bytes": 3686135,
+  "object": "vct_2026_emea_stage_1/round_events_vct_2026_emea_stage_1.2626e4fb46d0.csv.gz",
+  "sha256": "2626e4fb46d06868ada16139cebe4f44d45c4f04598d4782a19ee358fb943fc5",
+  "updated_at": "2026-11-15T11:58:45+00:00"
+ },
+ "vct_2026_emea_stage_2/round_buy_vct_2026_emea_stage_2.csv": {
+  "bytes": 6009446,
+  "object": "vct_2026_emea_stage_2/round_buy_vct_2026_emea_stage_2.f9dd43a5483c.csv.gz",
+  "sha256": "f9dd43a5483ce07a210ef9bfb38d8900c6bd2fbd9aed64f3014a829af3a2543b",
+  "updated_at": "2026-11-15T11:58:46+00:00"
+ },
+ "vct_2026_emea_stage_2/round_events_vct_2026_emea_stage_2.csv": {
+  "bytes": 4948625,
+  "object": "vct_2026_emea_stage_2/round_events_vct_2026_emea_stage_2.7526d87be92b.csv.gz",
+  "sha256": "7526d87be92ba05966f84a219a41fa1024af8df12724a49471e6fe140c48adfc",
+  "updated_at": "2026-11-15T11:58:46+00:00"
+ },
+ "vct_2026_pacific_kickoff/round_buy_vct_2026_pacific_kickoff.csv": {
+  "bytes": 3329666,
+  "object": "vct_2026_pacific_kickoff/round_buy_vct_2026_pacific_kickoff.bde79c84ff0b.csv.gz",
+  "sha256": "bde79c84ff0b81df33569269b1fc78fb80b3520141ed9b94a3e7c233673e7611",
+  "updated_at": "2026-11-15T11:58:47+00:00"
+ },
+ "vct_2026_pacific_kickoff/round_events_vct_2026_pacific_kickoff.csv": {
+  "bytes": 2762829,
+  "object": "vct_2026_pacific_kickoff/round_events_vct_2026_pacific_kickoff.36a033e9752e.csv.gz",
+  "sha256": "36a033e9752e94174e500c649c2b301677f8dcd6422627541433c20d975d56d5",
+  "updated_at": "2026-11-15T11:58:47+00:00"
+ },
+ "vct_2026_pacific_stage_1/round_buy_vct_2026_pacific_stage_1.csv": {
+  "bytes": 4487348,
+  "object": "vct_2026_pacific_stage_1/round_buy_vct_2026_pacific_stage_1.fd83423de088.csv.gz",
+  "sha256": "fd83423de08899c0c3b2dc688a750c96d5a610501543221d6b2a74940674718e",
+  "updated_at": "2026-11-15T11:58:48+00:00"
+ },
+ "vct_2026_pacific_stage_1/round_events_vct_2026_pacific_stage_1.csv": {
+  "bytes": 3736188,
+  "object": "vct_2026_pacific_stage_1/round_events_vct_2026_pacific_stage_1.d62fe41a8491.csv.gz",
+  "sha256": "d62fe41a84917f24c013fc601eba723fdc5bd583938940c4dd9b97fe00ba4d24",
+  "updated_at": "2026-11-15T11:58:48+00:00"
+ },
+ "vct_2026_pacific_stage_2/round_buy_vct_2026_pacific_stage_2.csv": {
+  "bytes": 6519313,
+  "object": "vct_2026_pacific_stage_2/round_buy_vct_2026_pacific_stage_2.ccce6519197a.csv.gz",
+  "sha256": "ccce6519197aaef858d8ccf14203d0e0365806258fe603cf2d2a6bed5ae1e60d",
+  "updated_at": "2026-11-15T11:58:49+00:00"
+ },
+ "vct_2026_pacific_stage_2/round_events_vct_2026_pacific_stage_2.csv": {
+  "bytes": 5380835,
+  "object": "vct_2026_pacific_stage_2/round_events_vct_2026_pacific_stage_2.7c6f51e38266.csv.gz",
+  "sha256": "7c6f51e3826692eefe2bec009c2c7ed902efac3beee9161fec72d7cbe243a1c9",
+  "updated_at": "2026-11-15T11:58:49+00:00"
+ },
+ "vct_2027_america_kickoff_-_brazil_open_qualifier/round_buy_vct_2027_america_kickoff_-_brazil_open_qualifier.csv": {
+  "bytes": 35962936,
+  "object": "vct_2027_america_kickoff_-_brazil_open_qualifier/round_buy_vct_2027_america_kickoff_-_brazil_open_qualifier.fb7d2a8fcd0f.csv.gz",
+  "sha256": "fb7d2a8fcd0fd28d7431cbc78f1fd988edd2fd7834979621494896b664c34afb",
+  "updated_at": "2026-11-15T11:58:50+00:00"
+ },
+ "vct_2027_america_kickoff_-_brazil_open_qualifier/round_events_vct_2027_america_kickoff_-_brazil_open_qualifier.csv": {
+  "bytes": 31184251,
+  "object": "vct_2027_america_kickoff_-_brazil_open_qualifier/round_events_vct_2027_america_kickoff_-_brazil_open_qualifier.dfae36791dc9.csv.gz",
+  "sha256": "dfae36791dc96bfae197b1ed2daa26a2520f897e21989ac288ef583843fed7b3",
+  "updated_at": "2026-11-15T11:58:52+00:00"
+ },
+ "vct_2027_america_kickoff_-_latam_north_open_qualifier/round_buy_vct_2027_america_kickoff_-_latam_north_open_qualifier.csv": {
+  "bytes": 21701623,
+  "object": "vct_2027_america_kickoff_-_latam_north_open_qualifier/round_buy_vct_2027_america_kickoff_-_latam_north_open_qualifier.57c6d68c600a.csv.gz",
+  "sha256": "57c6d68c600a379b589c7d1cd7a54a3350a05609e60b42fec4f6871937cbd6ba",
+  "updated_at": "2026-11-15T11:58:53+00:00"
+ },
+ "vct_2027_america_kickoff_-_latam_north_open_qualifier/round_events_vct_2027_america_kickoff_-_latam_north_open_qualifier.csv": {
+  "bytes": 18520500,
+  "object": "vct_2027_america_kickoff_-_latam_north_open_qualifier/round_events_vct_2027_america_kickoff_-_latam_north_open_qualifier.025cff5d8956.csv.gz",
+  "sha256": "025cff5d895606597cc481dec38813b1cd182e49ed4bcb4245256a4657f35808",
+  "updated_at": "2026-11-15T11:58:54+00:00"
+ },
+ "vct_2027_america_kickoff_-_latam_south_open_qualifier/round_buy_vct_2027_america_kickoff_-_latam_south_open_qualifier.csv": {
+  "bytes": 17640056,
+  "object": "vct_2027_america_kickoff_-_latam_south_open_qualifier/round_buy_vct_2027_america_kickoff_-_latam_south_open_qualifier.a34f0090e915.csv.gz",
+  "sha256": "a34f0090e915d0f6228f29c138599e298cacfe20cd0f198ccae9145702ff9ec8",
+  "updated_at": "2026-11-15T11:58:54+00:00"
+ },
+ "vct_2027_america_kickoff_-_latam_south_open_qualifier/round_events_vct_2027_america_kickoff_-_latam_south_open_qualifier.csv": {
+  "bytes": 15008472,
+  "object": "vct_2027_america_kickoff_-_latam_south_open_qualifier/round_events_vct_2027_america_kickoff_-_latam_south_open_qualifier.be58f1226b18.csv.gz",
+  "sha256": "be58f1226b1833cd5601f2b4d761cb25fa9f715d1cf4939f8c1e5ac245713db2",
+  "updated_at": "2026-11-15T11:58:55+00:00"
+ },
+ "vct_2027_america_kickoff_-_north_america_open_qualifier/round_buy_vct_2027_america_kickoff_-_north_america_open_qualifier.csv": {
+  "bytes": 56486551,
+  "object": "vct_2027_america_kickoff_-_north_america_open_qualifier/round_buy_vct_2027_america_kickoff_-_north_america_open_qualifier.bce5b7584ac5.csv.gz",
+  "sha256": "bce5b7584ac5641f7983f73bd9ce2b140fc7765d1cd93ed42e24fbe3fdf0083e",
+  "updated_at": "2026-11-15T11:58:56+00:00"
+ },
+ "vct_2027_america_kickoff_-_north_america_open_qualifier/round_events_vct_2027_america_kickoff_-_north_america_open_qualifier.csv": {
+  "bytes": 48115599,
+  "object": "vct_2027_america_kickoff_-_north_america_open_qualifier/round_events_vct_2027_america_kickoff_-_north_america_open_qualifier.3351c8a4402f.csv.gz",
+  "sha256": "3351c8a4402f95565edac8aba5439a12a9f595e55082bbcb877a59fc56dc0fed",
+  "updated_at": "2026-11-15T11:58:58+00:00"
+ },
+ "vct_2027_emea_kickoff_-_europe_qualifier/round_buy_vct_2027_emea_kickoff_-_europe_qualifier.csv": {
+  "bytes": 21658129,
+  "object": "vct_2027_emea_kickoff_-_europe_qualifier/round_buy_vct_2027_emea_kickoff_-_europe_qualifier.542e096547ab.csv.gz",
+  "sha256": "542e096547ab4a06a11a5210911baf8e51590fd9f3218b9844d786d093fad222",
+  "updated_at": "2026-11-15T11:58:58+00:00"
+ },
+ "vct_2027_emea_kickoff_-_europe_qualifier/round_events_vct_2027_emea_kickoff_-_europe_qualifier.csv": {
+  "bytes": 17926042,
+  "object": "vct_2027_emea_kickoff_-_europe_qualifier/round_events_vct_2027_emea_kickoff_-_europe_qualifier.9e015c94170b.csv.gz",
+  "sha256": "9e015c94170b11b92398314ff58b55d68be3212f69d3726a4996860176328f7c",
+  "updated_at": "2026-11-15T11:58:59+00:00"
+ },
+ "vct_2027_emea_kickoff_-_mena_qualifier/round_buy_vct_2027_emea_kickoff_-_mena_qualifier.csv": {
+  "bytes": 7616101,
+  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_buy_vct_2027_emea_kickoff_-_mena_qualifier.0e29b8978245.csv.gz",
+  "sha256": "0e29b8978245514e3d802dca27ed6dfee687f8ac45fda7d8094c8ff309d5c06c",
+  "updated_at": "2026-11-15T11:59:00+00:00"
+ },
+ "vct_2027_emea_kickoff_-_mena_qualifier/round_events_vct_2027_emea_kickoff_-_mena_qualifier.csv": {
+  "bytes": 6604351,
+  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_events_vct_2027_emea_kickoff_-_mena_qualifier.ec481d7d13ad.csv.gz",
+  "sha256": "ec481d7d13ad91e2e647d6f56d30a2c93b38f720e47f7bd658bcb9ab9e8d7c01",
+  "updated_at": "2026-11-15T11:59:00+00:00"
+ },
+ "vct_2027_emea_kickoff_-_türkiye_qualifier/round_buy_vct_2027_emea_kickoff_-_türkiye_qualifier.csv": {
+  "bytes": 10764805,
+  "object": "vct_2027_emea_kickoff_-_turkiye_qualifier/round_buy_vct_2027_emea_kickoff_-_turkiye_qualifier.906cd7c240a6.csv.gz",
+  "sha256": "906cd7c240a603cca6c82f0e003aecd6a7aa74662d51849ed7c503422a227771",
+  "updated_at": "2026-11-15T11:59:01+00:00"
+ },
+ "vct_2027_emea_kickoff_-_türkiye_qualifier/round_events_vct_2027_emea_kickoff_-_türkiye_qualifier.csv": {
+  "bytes": 9272641,
+  "object": "vct_2027_emea_kickoff_-_turkiye_qualifier/round_events_vct_2027_emea_kickoff_-_turkiye_qualifier.efbaab4fbe9b.csv.gz",
+  "sha256": "efbaab4fbe9bd8e9e7f6c2206fb7f797684bc1bb054479e3a7d2c6e4abe469fd",
+  "updated_at": "2026-11-15T11:59:01+00:00"
+ }
+}

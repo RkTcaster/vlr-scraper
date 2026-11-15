@@ -277,11 +277,21 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 - `purge_match_rows` busca `vlr.gg/<series_id>` en el texto antes de parsear el csv: un match nuevo no tiene
   filas, y parsear el torneo entero (90 MB en NA) costaba ~1,1 s por match (ahora ~0,1 s).
 
+### 2026-11-15: csv de logs fuera de git (Supabase Storage)
+- El `round_buy_` del NA Open Qualifier llegó a 54 MB (GitHub avisa a los 50, rechaza a los 100) y crecía ~13 MB
+  por día. En vez de partir archivos, `round_buy_` / `round_events_` (401 MB, 42 archivos) salieron de git y viven
+  en el bucket privado `vlr-logs` como `.csv.gz` versionados por sha (gzip: 53 MB -> 1,9 MB).
+- `vlr_pipeline/logs_archive.py` + `python -m vlr_pipeline logs {status,pull,push,prune,init}`;
+  `csv/logs_manifest.json` en git, `csv/.logs_synced.json` por máquina; conflicto local/remoto no pisa nada.
+- Actions: `logs pull` antes del pipeline, `logs push` después, y commit solo si el push salió bien
+  (invariante `has_logs`). `tests.yml` también hace `logs pull` si hay secrets.
+- Verificado: pull en carpeta vacía = mismos bytes en los 42 archivos, y `process` desde esa copia da las 20
+  tablas idénticas byte a byte. Los csv viejos quedan en el historial de git.
+
 ## Pendiente
 
 ### Tiempo de Actions (2026-11-14)
 - [ ] `process` reconstruye todas las tablas desde `csv/` en cada corrida (8 min el 14/11, crece con el total).
-- [ ] `round_buy_` del NA open qualifier ya pesa 41 MB: GitHub avisa a los 50 MB, partirlo si se acerca.
 
 ### rktdata: migrar a `player_id_vlr` (2026-11-07)
 - [ ] rktdata usa `player_id` (`<team>_<nick>`, ya no único) y `player` como identidad: pasar a `player_id_vlr`

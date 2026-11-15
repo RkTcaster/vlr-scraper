@@ -95,6 +95,18 @@ def has_credentials():
     return bool(os.environ.get("SUPABASE_URL")) and bool(os.environ.get("SUPABASE_SERVICE_KEY"))
 
 
+def get_client():
+    """Cliente de Supabase con la service role key (lo usan upload y logs_archive)."""
+    supabase_url = os.environ.get("SUPABASE_URL")
+    supabase_key = os.environ.get("SUPABASE_SERVICE_KEY")
+    if not supabase_url or not supabase_key:
+        raise RuntimeError("Faltan SUPABASE_URL y/o SUPABASE_SERVICE_KEY en el entorno")
+
+    from supabase import create_client
+
+    return create_client(supabase_url, supabase_key)
+
+
 def read_rows(path):
     """Lee un table_*.csv como lista de dicts de strings.
 
@@ -234,15 +246,9 @@ def upload_tables(tables_dir="tables", chunk_size=CHUNK_SIZE, dry_run=False, log
     client = None
     returning = None
     if not dry_run:
-        supabase_url = os.environ.get("SUPABASE_URL")
-        supabase_key = os.environ.get("SUPABASE_SERVICE_KEY")
-        if not supabase_url or not supabase_key:
-            raise RuntimeError("Faltan SUPABASE_URL y/o SUPABASE_SERVICE_KEY en el entorno")
-
         from postgrest.types import ReturnMethod
-        from supabase import create_client
 
-        client = create_client(supabase_url, supabase_key)
+        client = get_client()
         returning = ReturnMethod.minimal
 
     return run_upload(

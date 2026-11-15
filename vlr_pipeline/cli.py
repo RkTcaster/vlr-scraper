@@ -1,4 +1,4 @@
-"""CLI del pipeline: python -m vlr_pipeline {scrape,backfill-logs,process,upload,all}.
+"""CLI del pipeline: python -m vlr_pipeline {scrape,backfill-logs,process,upload,all,logs}.
 
 Exit codes: 0 ok (incluye scrape con algunos matches en status error: se loguea un warning,
 y en GitHub Actions tambien una anotacion ::warning::); 1 error fatal o fallo el upsert a Supabase;
@@ -70,6 +70,17 @@ def build_parser():
     p_all.add_argument("--full", action="store_true",
                        help="upload de todas las filas (default: incremental, solo series nuevas)")
 
+    p_logs = sub.add_parser("logs", help="archivo de round_buy_/round_events_ en Supabase Storage")
+    p_logs.add_argument("action", choices=["status", "pull", "push", "prune", "init"],
+                        help="status: compara sin red; pull: baja lo desactualizado; push: sube los "
+                             "cambios y actualiza csv/logs_manifest.json; prune: borra versiones viejas; "
+                             "init: crea el bucket")
+    p_logs.add_argument("--csv-dir", default=config.DEFAULT_CSV_DIR)
+    p_logs.add_argument("--force", action="store_true",
+                        help="en conflicto, pull pisa el local y push pisa el remoto")
+    p_logs.add_argument("--keep", type=int, default=3, help="prune: versiones a conservar por archivo")
+    p_logs.add_argument("--dry-run", action="store_true", help="prune: solo lista")
+
     return parser
 
 
@@ -111,8 +122,10 @@ def cmd_backfill_logs(args):
 
 
 def cmd_process(args):
+    from vlr_pipeline.logs_archive import warn_if_out_of_sync
     from vlr_pipeline.tables import build_all
 
+    warn_if_out_of_sync(args.csv_dir)
     build_all(csv_dir=args.csv_dir, tables_dir=args.tables_dir, events_file=args.events_file)
     return 0
 
@@ -130,9 +143,11 @@ def cmd_upload(args):
 
 
 def cmd_all(args):
+    from vlr_pipeline.logs_archive import warn_if_out_of_sync
     from vlr_pipeline.tables import build_all
     from vlr_pipeline.upload import has_credentials, upload_tables
 
+    warn_if_out_of_sync(args.csv_dir)
     events = config.load_events(args.events_file, only_active=True)
     if events:
         from vlr_pipeline.scraper import scrape_all
@@ -157,12 +172,38 @@ def cmd_all(args):
     return 0
 
 
+def cmd_logs(args):
+    from vlr_pipeline import logs_archive
+
+    if args.action == "status":
+        states = logs_archive.file_states(args.csv_dir)
+        for key, (state, _) in states.items():
+            if state != "ok":
+                print(f"{state:9} {key}")
+        print(f"{len(states)} archivos; pendientes: {logs_archive.pending_summary(args.csv_dir) or 'ninguno'}")
+        return 0
+
+    from vlr_pipeline.upload import get_client
+
+    client = get_client()
+    if args.action == "init":
+        logs_archive.ensure_bucket(client)
+    elif args.action == "pull":
+        logs_archive.pull(client, csv_dir=args.csv_dir, force=args.force)
+    elif args.action == "push":
+        logs_archive.push(client, csv_dir=args.csv_dir, force=args.force)
+    elif args.action == "prune":
+        logs_archive.prune(client, csv_dir=args.csv_dir, keep=args.keep, dry_run=args.dry_run)
+    return 0
+
+
 COMMANDS = {
     "scrape": cmd_scrape,
     "backfill-logs": cmd_backfill_logs,
     "process": cmd_process,
     "upload": cmd_upload,
     "all": cmd_all,
+    "logs": cmd_logs,
 }
 
 

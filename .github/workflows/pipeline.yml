@@ -40,6 +40,15 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      # round_buy_/round_events_ no estan en git (vlr_pipeline/logs_archive.py): se bajan del bucket
+      # de Supabase Storage. Si falla se corta la corrida: sin logs el process armaria tablas incompletas.
+      - name: Pull logs archive
+        id: pull_logs
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: python -m vlr_pipeline logs pull
+
       - name: Run pipeline (scrape + process + upload)
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
@@ -52,10 +61,21 @@ jobs:
           # Matches con error en el scrape no cortan: el cli sale 0 y emite el ::warning:: el mismo.
           python -m vlr_pipeline --log-level INFO --log-file logs/pipeline.log all $FULL_UPLOAD
 
-      # always(): si falla el process o el upload, lo scrapeado igual queda commiteado
-      # y la proxima corrida no lo vuelve a pedir.
+      # always(): aunque falle el process o el upload, lo scrapeado se archiva y se commitea.
+      # Solo si el pull salio bien: sin el archivo completo en disco no hay que pisar el remoto.
+      - name: Push logs archive
+        id: archive
+        if: always() && steps.pull_logs.outcome == 'success'
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: python -m vlr_pipeline logs push
+
+      # Solo si el archivo subio: has_logs=True en scrape_log tiene que apuntar a filas que estan en
+      # la version del manifest. Si no se commitea, la proxima corrida re-scrapea (purge + upsert
+      # son idempotentes) en vez de dejar has_logs apuntando a csv perdidos con el runner.
       - name: Commit scraped data
-        if: always()
+        if: always() && steps.archive.outcome == 'success'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

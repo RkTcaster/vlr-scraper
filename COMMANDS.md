@@ -4,7 +4,26 @@ Todos se corren desde la raíz del repo. Los flags globales (`--log-level`, `--l
 subcomando. En Windows conviene `PYTHONIOENCODING=utf-8` (bash) o `$env:PYTHONIOENCODING="utf-8"` (PowerShell)
 para que no se rompan los nombres con acentos.
 
-Antes de correr algo local: `git pull` (el bot commitea `csv/` todos los días).
+Antes de correr algo local: `git pull` (el bot commitea `csv/` todos los días) **y después
+`python -m vlr_pipeline logs pull`** (los csv de logs no están en git, ver abajo). Después de scrapear en local:
+`logs push` y commitear `csv/logs_manifest.json` junto con `csv/scrape_log.csv`.
+
+## Archivo de logs en Supabase Storage
+
+`round_buy_*.csv` y `round_events_*.csv` viven en el bucket privado `vlr-logs`, no en git (desde 2026-11-15).
+En disco siguen en `csv/<torneo>/`, así que el resto de los comandos no cambia.
+
+```bash
+python -m vlr_pipeline logs status        # sin red: qué hay para bajar / subir / en conflicto
+python -m vlr_pipeline logs pull          # baja lo que esté desactualizado (Actions lo hace al empezar)
+python -m vlr_pipeline logs push          # sube lo que cambió y actualiza csv/logs_manifest.json
+python -m vlr_pipeline logs prune --dry-run --keep 3   # versiones viejas en el bucket (borrar: sin --dry-run)
+```
+
+Conflicto = el archivo cambió en local y en el remoto desde la última sincronización (por ejemplo, scrapeaste en
+local mientras corría Actions). No se pisa nada: `logs pull --force` se queda con el remoto (y los matches locales
+se re-scrapean si se saca su fila de `scrape_log.csv`), `logs push --force` se queda con el local. Un clon nuevo
+arranca con `git pull` + `logs pull`.
 
 ## Merge de `csv/` con el bot (una vez por clon)
 
@@ -25,7 +44,9 @@ python scripts/merge_csv.py --resolve     # todos los csv/ en conflicto; despues
 
 ```bash
 # scrape de los eventos active de events.json + process + upload incremental (lo mismo que Actions)
+python -m vlr_pipeline logs pull
 python -m vlr_pipeline all
+python -m vlr_pipeline logs push          # y commitear csv/ (manifest + scrape_log)
 
 # igual pero sin subir a Supabase
 python -m vlr_pipeline all --skip-upload
@@ -124,6 +145,7 @@ python -m vlr_pipeline backfill-logs --tournament vct_2026_emea_stage_1
 python scripts/backfill_all_logs.py --dry-run                              # plan y estimación
 python scripts/backfill_all_logs.py --sync-has-logs                        # rehace has_logs desde csv/, sin requests
 python scripts/backfill_all_logs.py --redo 784555 784556                   # re-bajar logs de esas series
+python -m vlr_pipeline logs push                                           # siempre despues de tocar logs
 ```
 
 ## Ids de jugador de vlr (`player_id_vlr`)

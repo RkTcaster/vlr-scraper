@@ -2,6 +2,11 @@
 # y commitea lo nuevo cada dia. tables/ NO: se regenera entero desde csv/ en cada corrida
 # y se sube a Supabase (lo consume rktdata.ar).
 tables/
+# csv de logs: desde 2026-11-15 viven en Supabase Storage (vlr_pipeline/logs_archive.py), no en git.
+# csv/logs_manifest.json (en git) dice que version es la vigente; .logs_synced.json es por maquina.
+csv/*/round_buy_*.csv
+csv/*/round_events_*.csv
+csv/.logs_synced.json
 backup/
 intermediate/
 # docs de intercambio entre repos (rktdata, rviewer, GroupCalculator): viven en handoff/,

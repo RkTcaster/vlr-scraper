@@ -16,17 +16,25 @@ series, failed_rows, status, last error, GitHub run id). Logic exists twice and 
 `csv_process.ipynb`) and the headless package `vlr_pipeline/` (`python -m vlr_pipeline [--log-level X] {scrape,process,upload,all}`;
 global flags go before the subcommand).
 
-Production runs in GitHub Actions (`.github/workflows/pipeline.yml`, daily 17:00 UTC; cron always incremental): scrapes the `active` events in
-`events.json`, rebuilds `tables/`, uploads to Supabase, and commits only `csv/` back to the repo. `csv/` (including
-`csv/scrape_log.csv`) is versioned; `tables/` is gitignored because it is fully regenerated from `csv/` (the package
-output was verified byte-identical to the notebook's). The logs-tab csv (`round_buy_`, `round_events_`) are
-versioned too since 2026-11-07 (~9 MB compressed in git, ~15-20 MB/year): they were gitignored from 2026-10-20, but
-the bot commits `scrape_log.csv` every day anyway, so `has_logs=True` ended up pointing at csv that existed nowhere
-(55 matches scraped by Actions lost their logs with the runner). Invariant: `has_logs=True` means the match's
-`round_buy_`/`round_events_` rows are in `csv/` **in git** — never ignore those files again without changing that.
+Production runs in GitHub Actions (`.github/workflows/pipeline.yml`, cron `0 5 * * *` = 05:00 UTC, although GitHub
+has been starting it hours late, ~12:00 UTC; cron always incremental): `logs pull`, scrapes the `active` events in
+`events.json`, rebuilds `tables/`, uploads to Supabase, `logs push`, and commits only `csv/` back to the repo. `csv/`
+(including `csv/scrape_log.csv`) is versioned; `tables/` is gitignored because it is fully regenerated from `csv/` (the package
+output was verified byte-identical to the notebook's).
+**Logs archive (2026-11-15):** the logs-tab csv (`round_buy_`, `round_events_`, ~83% of `csv/`, NA's `round_buy_` was
+54 MB and GitHub rejects files over 100 MB) are **not in git**: the full copy lives in the private Supabase Storage bucket
+`vlr-logs`, one `.csv.gz` per file and version (sha in the object name, never overwritten), handled by
+`vlr_pipeline/logs_archive.py` (`python -m vlr_pipeline logs {status,pull,push,prune,init}`). `csv/logs_manifest.json`
+(in git) says which object is current; `csv/.logs_synced.json` (gitignored, per machine) is what tells "remote is newer"
+(pull downloads) from "local changes" (push uploads); both changed = `ConflictError`, nothing is overwritten unless
+`--force`. On disk the files stay at `csv/<tournament>/round_buy_*.csv`, so scrape/process/upload are unchanged:
+**`logs pull` before working locally** (`process` / `all` warn if csv/ is behind the manifest) **and `logs push` after
+scraping**, then commit the manifest with `scrape_log.csv`. Invariant: `has_logs=True` means the match's rows are in the
+archive version the committed manifest points to — that is why Actions only commits `csv/` if `logs push` succeeded
+(from 2026-10-20 to 11-07 the logs were gitignored with no archive and 55 matches lost their logs with the runner).
 `scripts/backfill_all_logs.py --sync-has-logs` rebuilds `has_logs` from the csv on disk, with no requests to vlr, and
-`--redo <series_id...>` re-downloads specific matches. GitHub's per-file limit is 100 MB (warns at 50 MB); the largest
-logs csv is ~20 MB (`round_buy_` of the 2027 EMEA kickoff qualifier, ~240 matches) — split a file if one ever approaches 50 MB. `.gitattributes` keeps `*.csv` line endings untouched.
+`--redo <series_id...>` re-downloads specific matches. Old versions of the logs csv remain in git history (not rewritten).
+`.gitattributes` keeps `*.csv` line endings untouched.
 Pull before running notebooks locally to avoid conflicts with the bot's commits. `.gitattributes` maps
 `csv/**/*.csv` to the `vlr-csv` merge driver (`scripts/merge_csv.py`: 3-way merge per series, local wins when both
 sides changed one; must be registered once per clone with `git config`, see `COMMANDS.md`); `--resolve` fixes a

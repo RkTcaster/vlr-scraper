@@ -1,7 +1,9 @@
 name: tests
 
 # Separado del pipeline diario: corre cuando cambia el codigo, los tests o los lookups.
-# No usa red (los parsers leen html de tests/fixtures) ni secrets de Supabase.
+# Los parsers no usan red (leen html de tests/fixtures). Los csv de logs se bajan del bucket de
+# Supabase Storage para que test_primary_keys cubra round_buy/round_events; sin secrets (PR de un
+# fork) se saltea y esas tablas quedan vacias.
 on:
   push:
     paths:
@@ -35,6 +37,14 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt pytest
+
+      - name: Pull logs archive
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ]; then echo "sin secrets, salteo los logs"; exit 0; fi
+          python -m vlr_pipeline logs pull
 
       - name: Run tests
         run: python -m pytest -v
