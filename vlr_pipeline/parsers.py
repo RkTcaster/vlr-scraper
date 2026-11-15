@@ -698,12 +698,14 @@ def get_player_performance(url, basic_match_info):
     return performance_dict
 
 
-def get_team_economy(url, basic_match_info):
+def get_team_economy(url, basic_match_info, soup=None):
     """extract the team economy
 
     Args:
         url (str): vlr match url
         basic_match_info (dict): basic match info dict. Defaults to None.
+        soup (BeautifulSoup, optional): overview ya bajado; si viene no se vuelve a pedir
+            (process_match lo pasa: 1 request menos por match)
         """
     economy_dict = {
         "team_a": [],
@@ -720,7 +722,8 @@ def get_team_economy(url, basic_match_info):
     }
     economy_page = url + "/?game=all&tab=economy"
 
-    soup = soup_open(url)
+    if soup is None:
+        soup = soup_open(url)
     soup_economy = soup_open(economy_page)
 
     # vlr cambio la solapa en 2026-10: grid de divs (vlr-rounds) en vez de tabla mod-econ

@@ -269,7 +269,19 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 - SQL: `sql/team_id_vlr_fase2.sql` (columnas, PKs, borra los 4 map_id viejos y los player_stats sin tour_id) +
   `upload --full`. Aviso: `handoff/RVIEWER_TEAM_ID_FASE_2_RESPUESTA.md`.
 
+### 2026-11-14: tiempo de Actions (open qualifiers)
+- La corrida del 14/11 tardó 52 min (41 de scrape: 326 matches a ~7,5 s; 8 de process; 3 de upload). El
+  crecimiento es volumen de los open qualifiers, no una regresión.
+- `get_team_economy` recibe el overview de `process_match` (`soup=`) en vez de volver a pedirlo: 1 request menos
+  por match.
+- `purge_match_rows` busca `vlr.gg/<series_id>` en el texto antes de parsear el csv: un match nuevo no tiene
+  filas, y parsear el torneo entero (90 MB en NA) costaba ~1,1 s por match (ahora ~0,1 s).
+
 ## Pendiente
+
+### Tiempo de Actions (2026-11-14)
+- [ ] `process` reconstruye todas las tablas desde `csv/` en cada corrida (8 min el 14/11, crece con el total).
+- [ ] `round_buy_` del NA open qualifier ya pesa 41 MB: GitHub avisa a los 50 MB, partirlo si se acerca.
 
 ### rktdata: migrar a `player_id_vlr` (2026-11-07)
 - [ ] rktdata usa `player_id` (`<team>_<nick>`, ya no único) y `player` como identidad: pasar a `player_id_vlr`

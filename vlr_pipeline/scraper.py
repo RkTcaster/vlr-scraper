@@ -210,7 +210,7 @@ def process_match(url, folder="csv", encoding="utf-8"):
 
         # Team economy
         team_economy_dict = get_team_economy(
-            url, basic_match_info=basic_match_info
+            url, basic_match_info=basic_match_info, soup=soup
         )
         save_team_economy(
             team_economy_dict[0], folder=folder, encoding=encoding

@@ -9,6 +9,7 @@ antes (linkExtractor), asi que no quedan filas "fantasma".
 """
 
 import csv
+import io
 import glob
 import logging
 import os
@@ -266,7 +267,12 @@ def purge_match_rows(tournament, url, folder="csv", prefixes=DATA_PREFIXES):
             continue
 
         with open(path, newline="", encoding=RAW_ENCODING) as f:
-            rows = list(csv.reader(f))
+            text = f.read()
+        # filtro barato antes de parsear: un match nuevo no tiene filas, y parsear el torneo
+        # entero (90 MB en el NA open qualifier) costaba ~1 s por match
+        if f"vlr.gg/{series_id}" not in text:
+            continue
+        rows = list(csv.reader(io.StringIO(text, newline="")))
         if not rows or "source_url" not in rows[0]:
             continue
 
