@@ -18,6 +18,7 @@ python -m vlr_pipeline logs status        # sin red: qué hay para bajar / subir
 python -m vlr_pipeline logs pull          # baja lo que esté desactualizado (Actions lo hace al empezar)
 python -m vlr_pipeline logs push          # sube lo que cambió y actualiza csv/logs_manifest.json
 python -m vlr_pipeline logs prune --dry-run --keep 3   # versiones viejas en el bucket (borrar: sin --dry-run)
+python -m vlr_pipeline logs init          # crea el bucket privado vlr-logs (ya hecho el 2026-11-15; solo si se recrea)
 ```
 
 Conflicto = el archivo cambió en local y en el remoto desde la última sincronización (por ejemplo, scrapeaste en
@@ -58,12 +59,14 @@ python -m vlr_pipeline all --full
 ## Por pasos
 
 ```bash
+python -m vlr_pipeline logs pull               # primero: baja los csv de logs del bucket
 python -m vlr_pipeline scrape                  # eventos active de events.json
 python -m vlr_pipeline scrape --all-events     # también los active=false
 python -m vlr_pipeline process                 # csv/ -> tables/
 python -m vlr_pipeline upload --dry-run        # valida tables/ sin conectarse
 python -m vlr_pipeline upload                  # incremental
 python -m vlr_pipeline upload --full           # todo
+python -m vlr_pipeline logs push               # al final, si se scrapeo algo
 ```
 
 Para subir a Supabase, el CLI lee las credenciales de `.env.local` en la raíz (gitignoreado). Acepta los
@@ -112,6 +115,22 @@ evento). Se sigue scrapeando hasta `end_date` + 3 días (`config.END_DATE_GRACE_
 lo saltean aunque tenga `"active": true`. El log lo avisa (`end_date ... vencido, no se scrapea`).
 `events.json` no se reescribe: para reactivar uno vencido, correr la fecha o sacar el `end_date`.
 Sin `end_date`, el evento depende solo de `active`. `scrape --all-events` ignora las dos cosas.
+
+## Equipos relevantes (`teams.relevant`)
+
+Relevantes = los que van a jugar el próximo torneo importante (en qualifiers, los que avanzan). Se editan en
+`relevant_teams.json`; cada grupo tiene `teams` (lista manual de `{"id", "name"}`) y/o `event` (url de vlr, toma
+los equipos de la página), y `"active": false` lo deja cargado sin aplicar (por ejemplo el kickoff hasta que
+empiece).
+
+```bash
+python -m vlr_pipeline process                # para que tables/table_teams.csv tenga los equipos nuevos
+python scripts/relevant_teams.py              # valida, escribe sql/relevant_teams.sql y muestra entran/salen
+python scripts/relevant_teams.py --no-db      # sin consultar Supabase
+```
+
+Después pegar `sql/relevant_teams.sql` en el SQL editor de Supabase. Un id que no está en `teams` sale como
+warning: el equipo todavía no tiene partidos cargados y el UPDATE no lo marca.
 
 ## Plazas de un evento (`slots` / `relevant_teams`)
 
@@ -182,6 +201,9 @@ gh workflow run pipeline.yml -f full=true      # con --full
 gh run list --workflow pipeline.yml --limit 5
 gh run watch                                   # seguir la última
 ```
+
+El workflow hace `logs pull` → `all` → `logs push` y commitea `csv/` solo si el `logs push` salió bien. Si una
+corrida no commiteó nada, mirar primero los pasos "Pull logs archive" / "Push logs archive".
 
 ## Tests
 

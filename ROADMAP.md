@@ -288,6 +288,15 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 - Verificado: pull en carpeta vacía = mismos bytes en los 42 archivos, y `process` desde esa copia da las 20
   tablas idénticas byte a byte. Los csv viejos quedan en el historial de git.
 
+### 2026-11-15: `teams.relevant` desde `relevant_teams.json`
+- `scripts/relevant_teams.py` genera `sql/relevant_teams.sql` (reset total + una línea por id) desde
+  `relevant_teams.json`, valida contra `table_teams` y muestra el diff contra Supabase. Grupos con `event` toman
+  los equipos de la página de vlr (Americas Kickoff: 8 partners + 4 TBD), `active: false` los deja en espera.
+- El SQL a mano del 15/11 dejaba afuera 6 equipos sin error: 3 comas faltantes (Postgres concatena
+  `'25222'` `'12889'`) y `24401` repetido en lugar de Team Solid (`24636`). Supabase tenía 25 relevantes; la
+  lista correcta da 32 (31 en `teams`).
+- [ ] La Masia (`18025`, Europe Qualifier) no está en `teams`: el evento se scrapea con `?series_id=6092`.
+
 ## Pendiente
 
 ### Tiempo de Actions (2026-11-14)

@@ -198,7 +198,15 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
   in order, at most N; validated in `config.validate_slots`). `build_tournament_slots` writes
   `table_tournament_slots` (PK `tour_id, slot`, `team_id` empty = slot not decided yet), matching the event to its
   `tour_id` by `event_key` (ascii alphanumerics of the url slug vs the tour_id). Supabase table from
-  `sql/tournament_slots.sql`. It never writes `teams.relevant`, which rviewer edits by hand.
+  `sql/tournament_slots.sql`. It never writes `teams.relevant` (the upload doesn't either: it's not in `table_teams.csv`).
+- **`teams.relevant` (2026-11-15)** — relevant = teams that will play the next important tournament: during
+  qualifiers, the ones advancing; once the tournament starts, its teams; every change is a full reset. Kept in
+  `relevant_teams.json` (groups with a manual `teams` list of `{id, name}` and/or an `event` vlr url whose
+  `/team/<id>/` links are read; `"active": false` parks a group). `scripts/relevant_teams.py` validates it against
+  `tables/table_teams.csv` (duplicate id = error; id missing from teams or name not matching = warning), writes
+  `sql/relevant_teams.sql` (one line per id with generated commas, in a transaction) and prints who enters/leaves
+  vs Supabase; the SQL is pasted by hand in the SQL editor. Hand-written lists failed silently: a missing comma
+  makes Postgres concatenate `'25222'` `'12889'` into one id.
 - **Manual lookup lists** — new maps and agents must be added by hand to the hardcoded lists in
   `csv_process.ipynb` (map_info / agent_path_name), otherwise their rows won't get IDs/images.
 
