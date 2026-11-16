@@ -12,15 +12,15 @@ Supabase's `match_id` or re-scraped (scrape_log `last_attempt`) after the last a
 last and only for series whose facts succeeded, so failed chunks retry next run. `--full` (CLI, or the `full` input of
 "Run workflow") re-uploads everything — needed after changing table-building code or lookups, since existing matches'
 rows won't be re-sent otherwise. Every upload run appends one row per table to `csv/upload_log.csv` (mode, rows,
-series, failed_rows, status, last error, GitHub run id). Logic exists twice and must be kept in sync: the notebooks (`vlr_scraper.ipynb`,
-`csv_process.ipynb`) and the headless package `vlr_pipeline/` (`python -m vlr_pipeline [--log-level X] {scrape,process,upload,all}`;
-global flags go before the subcommand).
+series, failed_rows, status, last error, GitHub run id). All logic lives in the headless package `vlr_pipeline/`
+(`python -m vlr_pipeline [--log-level X] {scrape,process,upload,all}`; global flags go before the subcommand). The
+notebooks it was ported from (`vlr_scraper.ipynb`, `csv_process.ipynb`, plus the legacy `Webscraper.ipynb` and
+`round_process.ipynb`) were deleted on 2026-11-16 and only exist in git history: there is nothing to keep in sync.
 
 Production runs in GitHub Actions (`.github/workflows/pipeline.yml`, cron `0 5 * * *` = 05:00 UTC, although GitHub
 has been starting it hours late, ~12:00 UTC; cron always incremental): `logs pull`, scrapes the `active` events in
 `events.json`, rebuilds `tables/`, uploads to Supabase, `logs push`, and commits only `csv/` back to the repo. `csv/`
-(including `csv/scrape_log.csv`) is versioned; `tables/` is gitignored because it is fully regenerated from `csv/` (the package
-output was verified byte-identical to the notebook's).
+(including `csv/scrape_log.csv`) is versioned; `tables/` is gitignored because it is fully regenerated from `csv/`.
 **Logs archive (2026-11-15):** the logs-tab csv (`round_buy_`, `round_events_`, ~83% of `csv/`, NA's `round_buy_` was
 54 MB and GitHub rejects files over 100 MB) are **not in git**: the full copy lives in the private Supabase Storage bucket
 `vlr-logs`, one `.csv.gz` per file and version (sha in the object name, never overwritten), handled by
@@ -35,7 +35,7 @@ archive version the committed manifest points to — that is why Actions only co
 `scripts/backfill_all_logs.py --sync-has-logs` rebuilds `has_logs` from the csv on disk, with no requests to vlr, and
 `--redo <series_id...>` re-downloads specific matches. Old versions of the logs csv remain in git history (not rewritten).
 `.gitattributes` keeps `*.csv` line endings untouched.
-Pull before running notebooks locally to avoid conflicts with the bot's commits. `.gitattributes` maps
+Pull before running anything locally to avoid conflicts with the bot's commits. `.gitattributes` maps
 `csv/**/*.csv` to the `vlr-csv` merge driver (`scripts/merge_csv.py`: 3-way merge per series, local wins when both
 sides changed one; must be registered once per clone with `git config`, see `COMMANDS.md`); `--resolve` fixes a
 merge that is already conflicted. Comments are frequently in Spanish.
@@ -45,25 +45,25 @@ merge that is already conflicted. Comments are frequently in Spanish.
 - `requirements.txt` is a **pip** file (what Actions installs; includes `supabase`, needed only by `upload`):
   `python -m pip install -r requirements.txt`. The old conda spec (Python 3.11, win-64) is `environment.conda.txt`:
   `conda create --name <env> --file environment.conda.txt` (it has no `supabase`; pip-install it on top).
-- Core stack: `beautifulsoup4` + `urllib` (scraping), `pandas`/`numpy` (processing), `matplotlib`, `scikit-learn`.
-- Run notebooks in Jupyter, or execute headless:
-  `jupyter nbconvert --to notebook --execute --inplace vlr_scraper.ipynb`
-- Some cells need `PYTHONIOENCODING=utf-8` set (Windows console default mangles non-ASCII team names).
+- Core stack: `beautifulsoup4` + `urllib` (scraping), `pandas`/`numpy` (processing).
+- Set `PYTHONIOENCODING=utf-8` on Windows (the console default mangles non-ASCII team names).
+- `README.md` is the public overview; `COMMANDS.md` has the day-to-day commands.
 
-## Notebook roles
+## Package modules (`vlr_pipeline/`)
 
-- **`vlr_scraper.ipynb`** — the current/canonical scraper. Cells 1–2 define all functions; later cells
-  are interactive scratch/testing against a single hardcoded match `url`. Per-tournament CSVs are written to
-  `csv/<normalized_tournament>/` with prefixes: `draft_`, `player_stats_`, `player_performance_`,
-  `round_detail_`, `team_economy_`, `round_buy_`, `round_events_`, `error_match_`.
-- **`csv_process.ipynb`** — consolidation pipeline. `concat_csv_from_different_folders(folder, prefix)` reads
-  every per-tournament CSV with a given prefix across `csv/*/`, then builds the dimension/fact tables in
-  `tables/table_*.csv` (region, tournament, teams, players, maps, round info, economy, drafts, performance).
-  Also exports group `standings.csv` / `h2h.csv` (see the INPUT_CONTRACT cells near the end; contract in `handoff/INPUT_CONTRACT.md`).
-- **`Webscraper.ipynb`** — legacy/older version of both the scraper and the downstream pipeline. Uses flat,
-  hardcoded filenames (`picks.csv`, `Statsamer1.csv`, `bo5amer1.csv`) and lots of hardcoded region/tournament
-  wiring. Prefer `vlr_scraper.ipynb` + `csv_process.ipynb`; keep this only as reference.
-- **`round_process.ipynb`** — analysis/exploration of economy buys and round-by-round comeback detection.
+- **`scraper.py`** — driver: `linkExtractor` (event page -> completed matches), `scrape_event`, `process_match`.
+- **`parsers.py`** — one extractor per vlr tab (overview, performance, economy, logs), all fed `basic_match_info`.
+- **`save.py`** — per-tournament CSVs in `csv/<normalized_tournament>/` with prefixes `draft_`, `player_stats_`,
+  `player_performance_`, `round_detail_`, `team_economy_`, `round_buy_`, `round_events_`, `error_match_`.
+- **`tracking.py`** — `csv/scrape_log.csv`. **`fetch.py`** — `soup_open` (timeout, retries).
+- **`tables.py`** — consolidation. `concat_csv_from_different_folders(folder, prefix)` reads every per-tournament
+  CSV with a given prefix across `csv/*/`; the `build_*` functions write the dimension/fact tables in
+  `tables/table_*.csv` (`build_all` runs them in dependency order). **`lookups.py`** — hand-kept lists.
+- **`upload.py`** — Supabase upsert. **`logs_archive.py`** — logs csv in Supabase Storage. **`config.py`** —
+  `events.json`, env file. **`cli.py`** — argparse entry point.
+- **`scripts/export_groups.py`** — group-stage `standings.csv` / `h2h.csv` into `intermediate/groups/` from
+  `tables/` plus a hand-made `tables/table_groups.csv` (contract in `handoff/INPUT_CONTRACT.md`). It was the last
+  section of `csv_process.ipynb`; not part of `process`, run it by hand.
 
 ## Tests
 
@@ -132,7 +132,7 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
   without leaving appended rows misaligned under an old header. Add new columns at the **end** of the parser's
   dict: that keeps existing columns in place and the fixtures diff readable.
 - **`map == "all"` rows** are aggregate rows from vlr and must be filtered out before per-map processing.
-- **Idempotency** — `csv/scrape_log.csv` (`vlr_pipeline/tracking.py`, mirrored in `vlr_scraper.ipynb` cell 3) has one
+- **Idempotency** — `csv/scrape_log.csv` (`vlr_pipeline/tracking.py`) has one
   row per match keyed by `series_id` (never the full URL: vlr changes the slug when a `tbd-...` match gets teams)
   with `status` ok/error/skipped, last error, attempts. `linkExtractor` only returns `Completed` cards from the event
   page; `scrape_event` skips ok/skipped (and errors after 3 attempts) without fetching the match. `process_match`
@@ -208,7 +208,8 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
   vs Supabase; the SQL is pasted by hand in the SQL editor. Hand-written lists failed silently: a missing comma
   makes Postgres concatenate `'25222'` `'12889'` into one id.
 - **Manual lookup lists** — new maps and agents must be added by hand to the hardcoded lists in
-  `csv_process.ipynb` (map_info / agent_path_name), otherwise their rows won't get IDs/images.
+  `vlr_pipeline/lookups.py` (map_info / agent_path_name), otherwise their rows won't get IDs/images
+  (`tests/test_lookups.py` fails when one is missing).
 
 ## Encoding (recurring source of bugs)
 
@@ -231,7 +232,6 @@ names to match other tables. When team names fail to join, suspect an encoding m
 
 - `csv/<tournament>/` — raw per-tournament scraper output (one subfolder per event).
 - `tables/` — consolidated star-schema output (the deliverable; not in git, uploaded to Supabase).
-- New maps/agents must also be added to `vlr_pipeline/lookups.py`, since Actions builds tables with the package.
 - `table_players`: one row per `player_id_vlr` (see "Player identity"); nick, `team_id` and the legacy
   `player_id = <team>_<player>` come from the player's most recent match;
   `table_teams` includes draft `team` and `rival`, plus `team_path = teams/<team_id without dots>.png` (logos in

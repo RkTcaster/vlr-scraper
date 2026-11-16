@@ -19,16 +19,16 @@ def test_draft_maps_in_lookups():
     df = concat_csv_from_different_folders(folder=CSV_DIR, prefix="draft")
     columns = [column for column in df.columns if "_select_" in column or column == "decider"]
     missing = values(df, columns) - KNOWN_MAPS
-    assert not missing, f"agregar a map_info en lookups.py (y csv_process.ipynb): {sorted(missing)}"
+    assert not missing, f"agregar a map_info en lookups.py: {sorted(missing)}"
 
 
 def test_player_stats_maps_in_lookups():
     df = concat_csv_from_different_folders(folder=CSV_DIR, prefix="player_stats")
     missing = values(df, ["map"]) - KNOWN_MAPS
-    assert not missing, f"agregar a map_info en lookups.py (y csv_process.ipynb): {sorted(missing)}"
+    assert not missing, f"agregar a map_info en lookups.py: {sorted(missing)}"
 
 
 def test_agents_in_lookups():
     df = concat_csv_from_different_folders(folder=CSV_DIR, prefix="player_stats")
     missing = values(df, ["agent"]) - KNOWN_AGENTS
-    assert not missing, f"agregar a agent_path_name en lookups.py (y csv_process.ipynb): {sorted(missing)}"
+    assert not missing, f"agregar a agent_path_name en lookups.py: {sorted(missing)}"

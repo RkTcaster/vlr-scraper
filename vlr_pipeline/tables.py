@@ -1,7 +1,7 @@
-"""Consolidacion csv/<torneo>/*.csv -> tables/table_*.csv (csv_process.ipynb celdas 2-18).
+"""Consolidacion csv/<torneo>/*.csv -> tables/table_*.csv.
 
-Port mecanico: cada build_* corresponde a una celda del notebook y mantiene
-encoding iso-8859-1 en lecturas y escrituras para que la salida sea byte-identica.
+Cada build_* arma una tabla (o un grupo de tablas) y mantiene encoding iso-8859-1 en
+lecturas y escrituras: ver "Encoding" en CLAUDE.md.
 """
 
 import logging
@@ -495,7 +495,7 @@ def drop_unplayed_maps(df, df_maps_id, table):
 
 
 def build_region_tournament(csv_dir="csv", tables_dir="tables"):
-    """Celdas 4-5: table_region.csv y table_tournament.csv."""
+    """table_region.csv y table_tournament.csv."""
     region_data = {"region": region_name, "reg_id": region_id}
 
     df_region = pd.DataFrame(data=region_data)
@@ -540,7 +540,7 @@ TEAMS_COLUMNS = ["team_id", "team_path", "team_id_vlr", "name"]
 
 
 def build_teams(csv_dir="csv", tables_dir="tables"):
-    """Celda 7: table_teams.csv, una fila por equipo de vlr (team_id_vlr, la PK desde 2026-11-10).
+    """table_teams.csv, una fila por equipo de vlr (team_id_vlr, la PK desde 2026-11-10).
 
     team_id (el tricode) y name son los del partido mas reciente del equipo: dos equipos con el
     mismo tag son dos filas con el mismo team_id. Todo partido procesado tiene round_detail, que
@@ -652,7 +652,7 @@ def build_tournament_slots(df_tournaments, df_team=None, events_file=DEFAULT_EVE
 
 
 def build_players(df_team, csv_dir="csv", tables_dir="tables"):
-    """Celda 8: table_players.csv."""
+    """table_players.csv."""
     df_players_stats = concat_csv_from_different_folders(folder=csv_dir, prefix="player_stats")
     df_players_stats["player_id_vlr"] = raw_player_ids(df_players_stats)
     df_players_stats["series_id"] = df_players_stats["source_url"].apply(match_id_vlr)
@@ -685,7 +685,7 @@ def build_players(df_team, csv_dir="csv", tables_dir="tables"):
 
 
 def build_ids(df_tournaments, csv_dir="csv", tables_dir="tables"):
-    """Celda 11: table_maps_id.csv, table_match_id.csv y table_tournament_played.csv.
+    """table_maps_id.csv, table_match_id.csv y table_tournament_played.csv.
 
     Devuelve df_maps_id, consumido por casi todas las tablas siguientes.
     """
@@ -785,7 +785,7 @@ def build_ids(df_tournaments, csv_dir="csv", tables_dir="tables"):
 
 
 def build_player_performance(df_maps_id, df_player_keys=None, csv_dir="csv", tables_dir="tables"):
-    """Celda 12: table_player_performance.csv. player_id_vlr sale del overview (resolve_player_ids)."""
+    """table_player_performance.csv. player_id_vlr sale del overview (resolve_player_ids)."""
     df_player_performance = concat_csv_from_different_folders(folder=csv_dir, prefix="player_performance")
 
     df_filter_map = df_player_performance["map"] != "all"
@@ -815,7 +815,7 @@ def build_player_performance(df_maps_id, df_player_keys=None, csv_dir="csv", tab
 
 
 def build_player_stats(df_maps_id, csv_dir="csv", tables_dir="tables"):
-    """Celda 13: table_player_stats.csv. Los astype(int) fallan si hay NaN (ej. datos faltantes de China)."""
+    """table_player_stats.csv. Los astype(int) fallan si hay NaN (ej. datos faltantes de China)."""
     df_player_stats = concat_csv_from_different_folders(folder=csv_dir, prefix="player_stats")
 
     df_filter_map = df_player_stats["map"] != "all"
@@ -872,7 +872,7 @@ def build_player_stats(df_maps_id, csv_dir="csv", tables_dir="tables"):
 
 
 def build_draft(df_maps_id, csv_dir="csv", tables_dir="tables"):
-    """Celda 14: table_draft.csv."""
+    """table_draft.csv."""
     df_draft_concat = concat_csv_from_different_folders(folder=csv_dir, prefix="draft_")
     df_draft_concat["match_instance"] = df_draft_concat["source_url"].apply(
         lambda x: x[-3:].lstrip("-")
@@ -925,11 +925,11 @@ def draft_team_ids(df_draft, keys):
 
 
 def build_maps_and_round_info(df_maps_id, csv_dir="csv", tables_dir="tables"):
-    """Celda 15: table_maps_name_id.csv y table_round_info.csv.
+    """table_maps_name_id.csv y table_round_info.csv.
 
     Devuelve df_round_concat, que consume build_team_economy.
     Nota: round_info se escribe "iso-8859-1" pero los bytes en disco quedan utf-8
-    validos; el consumidor (standings en la notebook) lo relee como utf-8.
+    validos; el consumidor (scripts/export_groups.py) lo relee como utf-8.
     """
     df_round_concat = concat_csv_from_different_folders(folder=csv_dir, prefix="round_detail")
 
@@ -991,7 +991,7 @@ def round_team_ids(df_round):
 
 
 def build_team_economy(df_maps_id, df_round_concat, csv_dir="csv", tables_dir="tables"):
-    """Celda 16: table_team_economy.csv. Excluye reg_2 (China): vlr no siempre tiene esa data."""
+    """table_team_economy.csv. Excluye reg_2 (China): vlr no siempre tiene esa data."""
     df_team_economy = concat_csv_from_different_folders(folder=csv_dir, prefix="team_economy")
 
     columns_update = ["team_a_economy", "team_b_economy", "team_a_bank", "team_b_bank"]
@@ -1663,7 +1663,7 @@ def build_situation_stats(df_situations, df_round_concat, tables_dir="tables"):
 
 
 def build_agent_info(tables_dir="tables"):
-    """Celda 18: table_agent_info.csv."""
+    """table_agent_info.csv."""
     agent_info = {"agent_name": [], "agent_path": []}
 
     agent_info["agent_name"] = [f"{agent.split('.')[0].capitalize()}" for agent in agent_path_name]
@@ -1677,7 +1677,7 @@ def build_agent_info(tables_dir="tables"):
 
 
 def build_all(csv_dir="csv", tables_dir="tables", events_file=DEFAULT_EVENTS_FILE):
-    """Corre todas las tablas en el mismo orden que el notebook."""
+    """Arma todas las tablas, en orden de dependencia."""
     os.makedirs(tables_dir, exist_ok=True)
 
     logger.info("building table_region / table_tournament")

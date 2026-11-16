@@ -18,7 +18,7 @@ ENV_ALIASES = {
 DEFAULT_EVENTS_FILE = "events.json"
 DEFAULT_CSV_DIR = "csv"
 DEFAULT_TABLES_DIR = "tables"
-# El driver original del notebook escribia los csv crudos con iso-8859-1.
+# Los csv crudos se escriben con iso-8859-1 (ver "Encoding" en CLAUDE.md).
 DEFAULT_SCRAPE_ENCODING = "iso-8859-1"
 
 # "format" de un evento en events.json. full: torneo con picks/bans; reduced: qualifiers y

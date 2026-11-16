@@ -1,4 +1,4 @@
-"""Helpers de rutas y guardado a csv/<torneo>/<prefijo>_<torneo>.csv (vlr_scraper.ipynb celda 1)."""
+"""Helpers de rutas y guardado a csv/<torneo>/<prefijo>_<torneo>.csv."""
 
 import csv
 import logging

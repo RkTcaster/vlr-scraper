@@ -1,9 +1,9 @@
-"""Listas de referencia mantenidas a mano (csv_process.ipynb celdas 4, 15 y 18).
+"""Listas de referencia mantenidas a mano.
 
 Mapas y agentes nuevos se agregan aca; si faltan, sus filas no reciben id/imagen.
 """
 
-# Regiones (celda 4). El orden importa: reg_2 = china se usa como filtro especial.
+# Regiones. El orden importa: reg_2 = china se usa como filtro especial.
 region_name = ["americas", "emea", "china", "pacific", "global"]
 region_id = ["reg_0", "reg_1", "reg_2", "reg_3", "reg_4"]
 

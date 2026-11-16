@@ -1,4 +1,4 @@
-"""Extractores de un match de vlr.gg (vlr_scraper.ipynb celda 2)."""
+"""Extractores de un match de vlr.gg."""
 
 import json
 import logging

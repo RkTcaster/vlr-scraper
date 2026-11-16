@@ -1,4 +1,4 @@
-"""Driver de scraping: descubre matches de un evento y los procesa (vlr_scraper.ipynb celdas 3-4)."""
+"""Driver de scraping: descubre matches de un evento y los procesa."""
 
 import logging
 import random

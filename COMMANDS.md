@@ -212,11 +212,14 @@ python -m pytest                               # todo
 python -m pytest tests/test_match_format.py    # uno solo
 ```
 
-## Notebooks headless
+## Standings / h2h de fase de grupos
+
+Antes era la última sección de `csv_process.ipynb` (las notebooks se borraron el 2026-11-16). Necesita
+`tables/table_groups.csv` hecho a mano (`tour_id, team, group`); un torneo sin filas ahí no se exporta.
 
 ```bash
-jupyter nbconvert --to notebook --execute --inplace vlr_scraper.ipynb
-jupyter nbconvert --to notebook --execute --inplace csv_process.ipynb
+python -m vlr_pipeline process
+python scripts/export_groups.py                # intermediate/groups/standings.csv y h2h.csv
 ```
 
 ## Entorno
