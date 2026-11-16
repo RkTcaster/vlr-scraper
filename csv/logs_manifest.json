@@ -180,16 +180,16 @@
   "updated_at": "2026-11-15T11:58:52+00:00"
  },
  "vct_2027_america_kickoff_-_latam_north_open_qualifier/round_buy_vct_2027_america_kickoff_-_latam_north_open_qualifier.csv": {
-  "bytes": 21701623,
-  "object": "vct_2027_america_kickoff_-_latam_north_open_qualifier/round_buy_vct_2027_america_kickoff_-_latam_north_open_qualifier.57c6d68c600a.csv.gz",
-  "sha256": "57c6d68c600a379b589c7d1cd7a54a3350a05609e60b42fec4f6871937cbd6ba",
-  "updated_at": "2026-11-15T11:58:53+00:00"
+  "bytes": 21858771,
+  "object": "vct_2027_america_kickoff_-_latam_north_open_qualifier/round_buy_vct_2027_america_kickoff_-_latam_north_open_qualifier.93a322bfb8c1.csv.gz",
+  "sha256": "93a322bfb8c19bfc1bf0d3de04c77b985398921e94231f64bc09366b23bfb86e",
+  "updated_at": "2026-11-16T13:27:23+00:00"
  },
  "vct_2027_america_kickoff_-_latam_north_open_qualifier/round_events_vct_2027_america_kickoff_-_latam_north_open_qualifier.csv": {
-  "bytes": 18520500,
-  "object": "vct_2027_america_kickoff_-_latam_north_open_qualifier/round_events_vct_2027_america_kickoff_-_latam_north_open_qualifier.025cff5d8956.csv.gz",
-  "sha256": "025cff5d895606597cc481dec38813b1cd182e49ed4bcb4245256a4657f35808",
-  "updated_at": "2026-11-15T11:58:54+00:00"
+  "bytes": 18661104,
+  "object": "vct_2027_america_kickoff_-_latam_north_open_qualifier/round_events_vct_2027_america_kickoff_-_latam_north_open_qualifier.e2c4489bea67.csv.gz",
+  "sha256": "e2c4489bea67a6bbc5aae0696e7782c4aa4450f8d07ef667df970642e3098668",
+  "updated_at": "2026-11-16T13:27:24+00:00"
  },
  "vct_2027_america_kickoff_-_latam_south_open_qualifier/round_buy_vct_2027_america_kickoff_-_latam_south_open_qualifier.csv": {
   "bytes": 17640056,
@@ -204,16 +204,16 @@
   "updated_at": "2026-11-15T11:58:55+00:00"
  },
  "vct_2027_america_kickoff_-_north_america_open_qualifier/round_buy_vct_2027_america_kickoff_-_north_america_open_qualifier.csv": {
-  "bytes": 56486551,
-  "object": "vct_2027_america_kickoff_-_north_america_open_qualifier/round_buy_vct_2027_america_kickoff_-_north_america_open_qualifier.bce5b7584ac5.csv.gz",
-  "sha256": "bce5b7584ac5641f7983f73bd9ce2b140fc7765d1cd93ed42e24fbe3fdf0083e",
-  "updated_at": "2026-11-15T11:58:56+00:00"
+  "bytes": 57254087,
+  "object": "vct_2027_america_kickoff_-_north_america_open_qualifier/round_buy_vct_2027_america_kickoff_-_north_america_open_qualifier.5ddaf1768924.csv.gz",
+  "sha256": "5ddaf17689247c6658a4a40d6e77e320647318398efb691be33c6cee8f67e00e",
+  "updated_at": "2026-11-16T13:27:24+00:00"
  },
  "vct_2027_america_kickoff_-_north_america_open_qualifier/round_events_vct_2027_america_kickoff_-_north_america_open_qualifier.csv": {
-  "bytes": 48115599,
-  "object": "vct_2027_america_kickoff_-_north_america_open_qualifier/round_events_vct_2027_america_kickoff_-_north_america_open_qualifier.3351c8a4402f.csv.gz",
-  "sha256": "3351c8a4402f95565edac8aba5439a12a9f595e55082bbcb877a59fc56dc0fed",
-  "updated_at": "2026-11-15T11:58:58+00:00"
+  "bytes": 48758337,
+  "object": "vct_2027_america_kickoff_-_north_america_open_qualifier/round_events_vct_2027_america_kickoff_-_north_america_open_qualifier.358e20764017.csv.gz",
+  "sha256": "358e2076401723f5d0fa411134d288de5ea3dad62bee023889400b22461b1140",
+  "updated_at": "2026-11-16T13:27:26+00:00"
  },
  "vct_2027_emea_kickoff_-_europe_qualifier/round_buy_vct_2027_emea_kickoff_-_europe_qualifier.csv": {
   "bytes": 21658129,
