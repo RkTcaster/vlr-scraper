@@ -323,11 +323,42 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 - Revisión de estado: 172 tests ok; `scrape_log` 2178 ok / 167 skipped / 78 error (China Kickoff y Stage 1 2026,
   cerrados); archivo de logs sincronizado (42 archivos).
 
+### 2026-11-16: Europe Qualifier #2, tag `NULL` y evento renombrado
+- `events.json` tenía el Europe Qualifier con `?series_id=6092` (solo Qualifier #1): faltaban las 434 series
+  completadas del #2 (entre ellas 789176, La Masia). Pasó a `?series_id=all`.
+- Team Null (`24932`) tiene el tag `NULL` y pandas lo leía como celda vacía (`sort_teams` fallaba con un float).
+  `concat_from_list` ahora lee con `keep_default_na=False, na_values=[""]`: solo la celda vacía es NaN. Comparado
+  contra la lectura anterior en todos los csv crudos: la única diferencia son las celdas `NULL` de ese equipo.
+- vlr renombró el evento a "Europe **Open** Qualifier", así que el #2 cayó en otra carpeta / `tour_id`.
+  `scripts/merge_tournament.py <vieja> <nueva>` une las carpetas (csv, `scrape_log`, manifest de logs) sin
+  requests; quedó todo en `vct_2027_emea_kickoff_-_europe_open_qualifier` (639 series, `stage` pasa de
+  `qualifier` a `open_qualifier`). En Supabase: `sql/cleanup_tour_id_europe_qualifier.sql` antes del upload.
+
 ## Pendiente
+
+### dbt: capa analítica encima de `tables/` (2026-11-16)
+Proyecto `vlr_analytics` en `dbt/`, con DuckDB en local y Supabase (schema `analytics`) al final. No reemplaza
+`tables.py`: scraping, encoding y resolución de ids siguen en Python. Un paso por vez, con revisión.
+- [x] 0. Esqueleto: `requirements-dbt.txt` (venv `.venv-dbt`, dbt-core 1.12 + dbt-duckdb 1.11 sobre Python 3.13),
+  `dbt_project.yml`, `profiles.yml` (target `dev`), `dbt debug` ok.
+- [x] 1. Sources sobre `tables/*.csv` (leídos con `read_csv`, todo como texto) + `stg_teams` (1369 filas),
+  `stg_tournaments` (24).
+- [ ] 2. Resto del staging (tipos, nombres snake_case).
+- [ ] 3. Tests de datos con las PK de `FILES_TO_UPLOAD` + un test singular.
+- [ ] 4. Intermediate y marts (resultados por mapa/serie, win rate por equipo y mapa, pick rate de agentes, stats
+  de jugador por torneo).
+- [ ] 5. Documentación, linaje y `exposure` de rktdata.ar.
+- [ ] 6. `dbt_utils`, macros, seed de grupos → standings / h2h (hoy `scripts/export_groups.py`).
+- [ ] 7. Modelo incremental sobre `round_events` y snapshot de `teams` (historial de tags).
+- [ ] 8. dbt en GitHub Actions, sin bloquear el pipeline.
+- [ ] 9. Target `prod` con dbt-postgres contra Supabase.
+- [ ] 10. README / COMMANDS / CLAUDE.md.
 
 ### Supabase
 - Todos los archivos de `sql/` están ejecutados (confirmado el 2026-11-16).
-- [ ] La Masia (`18025`) no está en `teams` (ver 2026-11-15).
+- [x] La Masia (`18025`) entró a `teams` con el Qualifier #2 de Europa (2026-11-16).
+- [ ] Correr `sql/cleanup_tour_id_europe_qualifier.sql` y después `upload` (tour_id viejo de Europa).
+- [ ] Avisar a rviewer / rktdata: el `tour_id` de Europa cambió y su `stage` ahora es `open_qualifier`.
 
 ### Tiempo de Actions (2026-11-14)
 - 2026-11-16: el workflow `tests` se cancelaba por `timeout-minutes: 10` (`test_primary_keys` corre `build_all`

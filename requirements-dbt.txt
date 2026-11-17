@@ -1,0 +1,5 @@
+# Capa analitica con dbt (carpeta dbt/). Separado de requirements.txt a proposito:
+# el pipeline diario (scrape/process/upload) no necesita dbt.
+#   python -m venv .venv-dbt
+#   .venv-dbt\Scripts\python -m pip install -r requirements-dbt.txt     (Linux/Mac: .venv-dbt/bin/python)
+dbt-duckdb~=1.11.0

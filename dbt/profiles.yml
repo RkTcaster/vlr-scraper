@@ -1,0 +1,14 @@
+# Conexiones de dbt. Normalmente vive en ~/.dbt/ porque suele tener credenciales; aca va en el
+# repo porque el target dev es un archivo DuckDB local, sin secretos. El target prod (Supabase,
+# paso 9) va a leer la contrasena de variables de entorno, nunca escrita aca.
+
+vlr_analytics:
+  target: dev            # el que se usa si no se pasa --target
+  outputs:
+    dev:
+      type: duckdb
+      # relativo a la carpeta desde donde se corre dbt (dbt/). Gitignoreado (*.duckdb): se regenera
+      # con dbt build. No va en target/ porque esa carpeta no existe hasta la primera corrida y
+      # `dbt clean` la borra.
+      path: vlr_dev.duckdb
+      threads: 4

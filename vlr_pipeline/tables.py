@@ -52,7 +52,9 @@ def concat_from_list(file_list, encoding='iso-8859-1'):
     dataframes = []
     for file in file_list:
         try:
-            df = pd.read_csv(file, encoding=encoding)
+            # solo la celda vacia es NaN: por defecto pandas tambien lee "NULL", "NA", "nan", "None"...
+            # como NaN, y hay un equipo con tag NULL (Team Null, 24932, Europe Qualifier #2)
+            df = pd.read_csv(file, encoding=encoding, keep_default_na=False, na_values=[""])
             if not df.empty:
                 dataframes.append(df)
             else:

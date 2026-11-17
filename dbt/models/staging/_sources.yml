@@ -1,0 +1,28 @@
+# Sources: tablas que dbt NO construye, solo lee. Aca son los csv que arma `vlr_pipeline process`.
+# Declararlas le da un nombre a cada una ({{ source('vlr', 'teams') }}) y las pone en el linaje.
+#
+# Los nombres (`name`) son los de las tablas en Supabase, asi el target prod (paso 9) usa los mismos.
+# `identifier` es el nombre real en este motor: el archivo csv sin extension.
+
+version: 2
+
+sources:
+  - name: vlr
+    description: Star schema que genera vlr_pipeline (tables/table_*.csv), el mismo que se sube a Supabase.
+    config:
+      meta:
+        # dbt-duckdb: en vez de una tabla de la base, lee esta expresion. {identifier} se reemplaza
+        # por el de cada tabla. La ruta es relativa a dbt/ (desde donde se corre).
+        # all_varchar: todo llega como texto y los tipos se definen en staging, a la vista
+        # (si no, DuckDB adivina el tipo mirando una muestra de filas).
+        external_location: "read_csv('../tables/{identifier}.csv', header = true, all_varchar = true)"
+    tables:
+      - name: regions
+        identifier: table_region
+        description: Regiones de VCT (americas, emea, china, pacific, global).
+      - name: tournament
+        identifier: table_tournament
+        description: Un evento de vlr por fila.
+      - name: teams
+        identifier: table_teams
+        description: Un equipo de vlr por fila (team_id_vlr); el tag no es unico.

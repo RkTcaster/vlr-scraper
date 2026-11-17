@@ -1,0 +1,27 @@
+# Proyecto dbt: capa analitica encima de tables/table_*.csv (lo que arma vlr_pipeline process).
+# dbt no scrapea ni reemplaza tables.py: lee esas tablas como "sources" y construye modelos SQL.
+
+name: vlr_analytics
+version: "0.1.0"
+
+# Que conexion usar: busca una entrada con este nombre en profiles.yml
+profile: vlr_analytics
+
+# Donde busca dbt cada tipo de archivo (son los defaults, escritos para que se vean)
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+# Lo que borra `dbt clean`
+clean-targets: ["target", "dbt_packages"]
+
+# Configuracion por carpeta de models/. Cada capa se suma en su paso:
+#   staging       -> view  (paso 1)
+#   intermediate  -> view  (paso 4)
+#   marts         -> table (paso 4)
+models:
+  vlr_analytics:
+    staging:
+      +materialized: view

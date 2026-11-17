@@ -26,3 +26,10 @@ logs/
 # credenciales locales de Supabase (las lee vlr_pipeline/config.load_env_file)
 .env
 .env.*
+
+# dbt (capa analitica, carpeta dbt/): artefactos, paquetes, base DuckDB local y venv
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+*.duckdb
+.venv-dbt/
