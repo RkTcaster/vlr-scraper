@@ -31,5 +31,7 @@ logs/
 dbt/target/
 dbt/dbt_packages/
 dbt/logs/
+dbt/.user.yml
 *.duckdb
 .venv-dbt/
+dbt/.user.yml
