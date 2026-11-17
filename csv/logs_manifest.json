@@ -168,16 +168,16 @@
   "updated_at": "2026-11-15T11:58:49+00:00"
  },
  "vct_2027_america_kickoff_-_brazil_open_qualifier/round_buy_vct_2027_america_kickoff_-_brazil_open_qualifier.csv": {
-  "bytes": 35962936,
-  "object": "vct_2027_america_kickoff_-_brazil_open_qualifier/round_buy_vct_2027_america_kickoff_-_brazil_open_qualifier.fb7d2a8fcd0f.csv.gz",
-  "sha256": "fb7d2a8fcd0fd28d7431cbc78f1fd988edd2fd7834979621494896b664c34afb",
-  "updated_at": "2026-11-15T11:58:50+00:00"
+  "bytes": 36360112,
+  "object": "vct_2027_america_kickoff_-_brazil_open_qualifier/round_buy_vct_2027_america_kickoff_-_brazil_open_qualifier.1837c989c07c.csv.gz",
+  "sha256": "1837c989c07cf7feb611d5c96831cddec594a70a2f8e758f95eb234c39210695",
+  "updated_at": "2026-11-17T14:13:15+00:00"
  },
  "vct_2027_america_kickoff_-_brazil_open_qualifier/round_events_vct_2027_america_kickoff_-_brazil_open_qualifier.csv": {
-  "bytes": 31184251,
-  "object": "vct_2027_america_kickoff_-_brazil_open_qualifier/round_events_vct_2027_america_kickoff_-_brazil_open_qualifier.dfae36791dc9.csv.gz",
-  "sha256": "dfae36791dc96bfae197b1ed2daa26a2520f897e21989ac288ef583843fed7b3",
-  "updated_at": "2026-11-15T11:58:52+00:00"
+  "bytes": 31523454,
+  "object": "vct_2027_america_kickoff_-_brazil_open_qualifier/round_events_vct_2027_america_kickoff_-_brazil_open_qualifier.ceff67bcccc3.csv.gz",
+  "sha256": "ceff67bcccc3855372faa12cbfcac0a4b96c9aa0cce0a970fb70a9f6538d5f9a",
+  "updated_at": "2026-11-17T14:13:16+00:00"
  },
  "vct_2027_america_kickoff_-_latam_north_open_qualifier/round_buy_vct_2027_america_kickoff_-_latam_north_open_qualifier.csv": {
   "bytes": 21858771,
@@ -192,16 +192,16 @@
   "updated_at": "2026-11-16T13:27:24+00:00"
  },
  "vct_2027_america_kickoff_-_latam_south_open_qualifier/round_buy_vct_2027_america_kickoff_-_latam_south_open_qualifier.csv": {
-  "bytes": 17640056,
-  "object": "vct_2027_america_kickoff_-_latam_south_open_qualifier/round_buy_vct_2027_america_kickoff_-_latam_south_open_qualifier.a34f0090e915.csv.gz",
-  "sha256": "a34f0090e915d0f6228f29c138599e298cacfe20cd0f198ccae9145702ff9ec8",
-  "updated_at": "2026-11-15T11:58:54+00:00"
+  "bytes": 17832082,
+  "object": "vct_2027_america_kickoff_-_latam_south_open_qualifier/round_buy_vct_2027_america_kickoff_-_latam_south_open_qualifier.683b2756bf35.csv.gz",
+  "sha256": "683b2756bf357dbde53c05c81ecac3488fc13a3d1b6dc55cd45d15b69f580dff",
+  "updated_at": "2026-11-17T14:13:16+00:00"
  },
  "vct_2027_america_kickoff_-_latam_south_open_qualifier/round_events_vct_2027_america_kickoff_-_latam_south_open_qualifier.csv": {
-  "bytes": 15008472,
-  "object": "vct_2027_america_kickoff_-_latam_south_open_qualifier/round_events_vct_2027_america_kickoff_-_latam_south_open_qualifier.be58f1226b18.csv.gz",
-  "sha256": "be58f1226b1833cd5601f2b4d761cb25fa9f715d1cf4939f8c1e5ac245713db2",
-  "updated_at": "2026-11-15T11:58:55+00:00"
+  "bytes": 15176143,
+  "object": "vct_2027_america_kickoff_-_latam_south_open_qualifier/round_events_vct_2027_america_kickoff_-_latam_south_open_qualifier.f453a3e841ad.csv.gz",
+  "sha256": "f453a3e841ad9be81bb8bf30ddac8777be682a8cf4bb53512ae1f5106c971a18",
+  "updated_at": "2026-11-17T14:13:17+00:00"
  },
  "vct_2027_america_kickoff_-_north_america_open_qualifier/round_buy_vct_2027_america_kickoff_-_north_america_open_qualifier.csv": {
   "bytes": 57254087,
@@ -228,16 +228,16 @@
   "updated_at": "2026-11-16T23:13:56+00:00"
  },
  "vct_2027_emea_kickoff_-_mena_qualifier/round_buy_vct_2027_emea_kickoff_-_mena_qualifier.csv": {
-  "bytes": 9253624,
-  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_buy_vct_2027_emea_kickoff_-_mena_qualifier.ea40a94cd754.csv.gz",
-  "sha256": "ea40a94cd75438b6ac5cffa129458b42d831b8ee9eb4a5fdc0d530367efc8a63",
-  "updated_at": "2026-11-16T21:49:43+00:00"
+  "bytes": 11522387,
+  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_buy_vct_2027_emea_kickoff_-_mena_qualifier.3aa0d0bc93d3.csv.gz",
+  "sha256": "3aa0d0bc93d3c271dce7a763a09950da65354edfb6b3ad45462024a6f09c0a4b",
+  "updated_at": "2026-11-17T14:13:17+00:00"
  },
  "vct_2027_emea_kickoff_-_mena_qualifier/round_events_vct_2027_emea_kickoff_-_mena_qualifier.csv": {
-  "bytes": 8030479,
-  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_events_vct_2027_emea_kickoff_-_mena_qualifier.c7fa0f9188aa.csv.gz",
-  "sha256": "c7fa0f9188aaf91d43284dc578890fc89b88f21b48471da1bb1dcc9bd552e9e7",
-  "updated_at": "2026-11-16T21:49:44+00:00"
+  "bytes": 9993701,
+  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_events_vct_2027_emea_kickoff_-_mena_qualifier.3ac3c18e20c0.csv.gz",
+  "sha256": "3ac3c18e20c003ed7e90f83c858c8796358b6ac611b57a7897161c5ff28f279d",
+  "updated_at": "2026-11-17T14:13:18+00:00"
  },
  "vct_2027_emea_kickoff_-_türkiye_qualifier/round_buy_vct_2027_emea_kickoff_-_türkiye_qualifier.csv": {
   "bytes": 10764805,
