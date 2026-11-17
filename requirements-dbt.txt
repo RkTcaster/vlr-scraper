@@ -2,4 +2,5 @@
 # el pipeline diario (scrape/process/upload) no necesita dbt.
 #   python -m venv .venv-dbt
 #   .venv-dbt\Scripts\python -m pip install -r requirements-dbt.txt     (Linux/Mac: .venv-dbt/bin/python)
+dbt-core~=1.12.0
 dbt-duckdb~=1.11.0

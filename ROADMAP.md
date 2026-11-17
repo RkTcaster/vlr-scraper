@@ -341,8 +341,8 @@ Proyecto `vlr_analytics` en `dbt/`, con DuckDB en local y Supabase (schema `anal
 `tables.py`: scraping, encoding y resolución de ids siguen en Python. Un paso por vez, con revisión.
 - [x] 0. Esqueleto: `requirements-dbt.txt` (venv `.venv-dbt`, dbt-core 1.12 + dbt-duckdb 1.11 sobre Python 3.13),
   `dbt_project.yml`, `profiles.yml` (target `dev`), `dbt debug` ok.
-- [x] 1. Sources sobre `tables/*.csv` (leídos con `read_csv`, todo como texto) + `stg_teams` (1369 filas),
-  `stg_tournaments` (24).
+- [x] 1. Sources sobre `tables/*.csv` (leídos con `read_csv`, todo como texto) + `stg_teams`,
+  `stg_tournaments` (conteos = filas de los csv).
 - [ ] 2. Resto del staging (tipos, nombres snake_case).
 - [ ] 3. Tests de datos con las PK de `FILES_TO_UPLOAD` + un test singular.
 - [ ] 4. Intermediate y marts (resultados por mapa/serie, win rate por equipo y mapa, pick rate de agentes, stats
