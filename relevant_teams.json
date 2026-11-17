@@ -35,13 +35,8 @@
       ]
     },
     {
-      "name": "NA",
-      "teams": [
-        {"id": "10448", "name": "Winthrop"},
-        {"id": "23878", "name": "Masterclass"},
-        {"id": "16824", "name": "Xora Esports"},
-        {"id": "23892", "name": "Oafs"}
-      ]
+      "name": "NA QUALIFIER PLAYOFFS",
+      "event": "https://www.vlr.gg/event/3179/vct-2027-america-kickoff-north-america-qualifier-playoffs/swiss-stage"
     },
     {
       "name": "EUROPE",

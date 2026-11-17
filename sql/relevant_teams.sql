@@ -29,11 +29,23 @@ where team_id_vlr in (
   '12642',  -- ARRA ARRANCA DREAMS
   '24478',  -- SV SÓ TEM VELHO
   '25111',  -- 100%MIRA 0 intelecto
-  -- NA
-  '10448',  -- WU Winthrop University
+  -- NA QUALIFIER PLAYOFFS
+  '427',  -- ENVY ENVY
+  '188',  -- C9 Cloud9
+  '9353',  -- Shopify Rebellion Black (no esta en teams)
+  '6985',  -- QoR (no esta en teams)
+  '21838',  -- FlyQuest (no esta en teams)
+  '14278',  -- SRG Shopify Rebellion Gold
+  '5038',  -- YFP (no esta en teams)
+  '13920',  -- SaD Esports (no esta en teams)
   '23878',  -- MC Masterclass
-  '16824',  -- XORA Xora Esports
   '23892',  -- OAF Oafs
+  '10448',  -- WU Winthrop University
+  '16824',  -- XORA Xora Esports
+  '23975',  -- WC Wildcard
+  '12900',  -- MU Maryville University
+  '23815',  -- FAKE counterfeit
+  '23980',  -- YDG Yellow Dragon Gaming
   -- EUROPE
   '23693',  -- MPMT xXxMasterProMegaTeamxXx
   '18494',  -- F9 F9 EICAR
@@ -41,7 +53,7 @@ where team_id_vlr in (
   '17177',  -- PXL Pixel Lumina
   '14461',  -- BAR Barça eSports
   '19391',  -- WIP WIP Esports
-  '18025',  -- La Masia (no esta en teams)
+  '18025',  -- MSA La Masia
   '5214',  -- CGN CGN Esports
   -- MENA
   '24602',  -- NO O No Org No Problem
@@ -50,5 +62,5 @@ where team_id_vlr in (
 
 commit;
 
--- control: 31 filas esperadas (32 ids en la lista)
+-- control: 39 filas esperadas (44 ids en la lista)
 select team_id_vlr, team_id, name from teams where relevant = true order by team_id;
