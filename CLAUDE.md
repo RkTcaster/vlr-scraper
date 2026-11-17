@@ -190,7 +190,10 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
   (`STAGE_PATTERNS`), `subregion` only for qualifiers with chip texts from `lookups.subregion_names`. An unknown
   stage goes null and a new subregion goes Title Case, both with a warning — add it and tell rviewer. The csv owns
   these columns (upsert overwrites manual edits), so they must always be computed; empty cells go as NULL
-  (`tournament` is in `upload.EMPTY_AS_NULL`).
+  (`tournament` is in `upload.EMPTY_AS_NULL`). `table_teams.subregion` (2026-11-17) follows the same vocabulary:
+  the fixed value in `lookups.team_subregions` (partner teams, seeded from rviewer's manual Supabase values),
+  else the subregion of the latest qualifier the team played (`team_subregions_played`), else NULL. The csv owns
+  `teams.subregion` too: change a partner team in `lookups`, never in Supabase.
 - **Event end date** — an event may carry `"end_date": "YYYY-MM-DD"`; `config.load_events(only_active=True)` drops it
   once today (UTC) is past `end_date + END_DATE_GRACE_DAYS` (3), even with `"active": true` (`is_active`).
   `events.json` is never rewritten (the bot only commits `csv/`).

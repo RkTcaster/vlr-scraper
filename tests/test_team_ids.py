@@ -110,7 +110,7 @@ def test_build_teams_one_row_per_vlr_team(tmp_path):
     ])
 
     df_team = build_teams(str(csv_dir), str(tables_dir))
-    assert df_team.columns.tolist() == ["team_id", "team_path", "team_id_vlr", "name"]
+    assert df_team.columns.tolist() == ["team_id", "team_path", "team_id_vlr", "name", "subregion"]
     rows = df_team.set_index("team_id_vlr")
     assert rows.loc["2406", "name"] == "FURIA Esports"  # el nombre del partido mas reciente
     assert rows.loc["99999", "team_id"] == "FUR"
@@ -140,6 +140,32 @@ def test_backfill_fills_round_detail_and_player_stats():
             "team_id_vlr": ["10", "20"]}
     assert fill_player_stats(stats_csv, "785082", page) == (2, 0)
     assert [row[4] for row in stats_csv[1:]] == ["10", "20"]
+
+
+def test_team_subregion_fixed_then_latest_qualifier(tmp_path):
+    """2026-11-17: subregion del equipo = la fija de lookups.team_subregions o la del ultimo qualifier."""
+    csv_dir, tables_dir = tmp_path / "csv", tmp_path / "tables"
+    tables_dir.mkdir()
+    league, mena, europe = (
+        "VCT 2026: EMEA Stage 1", "VCT 2027: EMEA Kickoff - MENA Qualifier", "VCT 2027: EMEA Kickoff - Europe Qualifier",
+    )
+    write_csv(str(csv_dir / "t1" / "round_detail_t1.csv"), [
+        dict(round_rows("1", "FNC", "BBL", "2593", "397", date="2026-05-01"), event=league),
+        dict(round_rows("2", "AAA", "BBB", "500", "600", date="2026-11-01"), event=mena),
+        dict(round_rows("3", "AAA", "CCC", "500", "700", date="2026-11-10"), event=europe),
+        dict(round_rows("4", "FNC", "DDD", "2593", "800", date="2026-06-01"), event=league),
+    ])
+    df_tournaments = pd.DataFrame({
+        "tour_id": ["vct_2026_emea_stage_1", "vct_2027_emea_kickoff_-_mena_qualifier",
+                    "vct_2027_emea_kickoff_-_europe_qualifier"],
+        "subregion": [None, "MENA", "Europe"],
+    })
+    df_team = build_teams(str(csv_dir), str(tables_dir), df_tournaments)
+    got = df_team.set_index("team_id_vlr")["subregion"].to_dict()
+    assert got["2593"] == "Europe" and got["397"] == "TÃ¼rkiye"  # fijas (forma html)
+    assert got["500"] == "Europe"  # el qualifier mas reciente
+    assert got["600"] == "MENA" and got["700"] == "Europe"
+    assert pd.isna(got["800"])  # solo liga y sin fija
 
 
 def test_team_path_by_id_only_for_shared_tags(tmp_path):

@@ -334,6 +334,18 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
   requests; quedó todo en `vct_2027_emea_kickoff_-_europe_open_qualifier` (639 series, `stage` pasa de
   `qualifier` a `open_qualifier`). En Supabase: `sql/cleanup_tour_id_europe_qualifier.sql` antes del upload.
 
+### 2026-11-17: subregiones de Pacific y `teams.subregion`
+- La página del evento en vlr no tiene subregión (breadcrumb = año / etapa / región; "Region" es una bandera,
+  casi siempre `mod-un`): el título sigue siendo la fuente.
+- `lookups.subregion_names` suma las 7 de Pacific con el Title Case que sale del nombre: Korea, Thailand,
+  Indonesia, Southeast Asia, South Asia, Oceania, Vietnam ("Qualifier 1" no cambia la subregión).
+- `table_teams` tiene `subregion`: la fija de `lookups.team_subregions` (sembrada con los 63 valores que rviewer
+  había cargado a mano en Supabase) o la del qualifier más reciente que jugó el equipo; si no, NULL (los 10 de
+  Game Changers). El csv pasa a ser el dueño de `teams.subregion` (`teams` en `upload.EMPTY_AS_NULL`).
+- Aviso a rviewer: `handoff/RVIEWER_SUBREGIONES_PACIFIC_Y_EQUIPOS.md`.
+- [ ] Respuesta de rviewer: `SEA` (equipos de partner) vs `Southeast Asia` / países (qualifiers), y los valores
+  dudosos de partner (DFM, Global Esports, Team Secret).
+
 ## Pendiente
 
 ### dbt: capa analítica encima de `tables/` (2026-11-16)

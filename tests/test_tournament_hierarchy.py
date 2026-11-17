@@ -57,8 +57,10 @@ def test_closed_qualifier():
 
 def test_unknown_stage_and_subregion_warn(caplog):
     assert tournament_hierarchy("challengers_2027_ascension_americas") == (2027, None, None)
-    assert tournament_hierarchy("vct_2027_pacific_kickoff_-_south_asia_open_qualifier") == (
-        2027, "open_qualifier", "South Asia",
+    assert tournament_hierarchy("vct_2027_pacific_kickoff_-_mongolia_open_qualifier") == (
+        2027, "open_qualifier", "Mongolia",
     )
+    # 2026-11-17: las de Pacific ya estan en lookups, sin numero de qualifier
+    assert tournament_hierarchy("vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1")[2] == "Southeast Asia"
     assert "stage desconocido" in caplog.text
     assert "subregion nueva" in caplog.text

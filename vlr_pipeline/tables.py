@@ -14,7 +14,7 @@ import pandas as pd
 
 from vlr_pipeline.config import DEFAULT_EVENTS_FILE, DEFAULT_MATCH_FORMAT, load_events
 from vlr_pipeline.lookups import (
-    agent_path_name, map_info, region_id, region_name, subregion_names, team_aliases,
+    agent_path_name, map_info, region_id, region_name, subregion_names, team_aliases, team_subregions,
 )
 from vlr_pipeline.parsers import json_text
 from vlr_pipeline.save import normalize_filename
@@ -538,15 +538,42 @@ def build_region_tournament(csv_dir="csv", tables_dir="tables"):
     return df_region, df_tournaments
 
 
-TEAMS_COLUMNS = ["team_id", "team_path", "team_id_vlr", "name"]
+TEAMS_COLUMNS = ["team_id", "team_path", "team_id_vlr", "name", "subregion"]
 
 
-def build_teams(csv_dir="csv", tables_dir="tables"):
+def team_subregions_played(df_round_detail, df_tournaments):
+    """team_id_vlr -> subregion del qualifier mas reciente que jugo el equipo (forma html).
+
+    Misma fuente que tournament.subregion: el equipo hereda la del torneo, asi los dos chips de
+    rviewer usan el mismo texto. Torneos sin subregion (liga, internacionales) no cuentan.
+    """
+    if df_tournaments is None or df_round_detail.empty or "event" not in df_round_detail:
+        return pd.Series(dtype="object")
+    by_tour = df_tournaments.set_index("tour_id")["subregion"].dropna()
+    tour_id = df_round_detail["event"].apply(lambda x: json_text(normalize_filename(x)))
+    ids = round_team_ids(df_round_detail)
+    played = pd.concat(
+        [
+            pd.DataFrame({"team_id_vlr": ids[f"team_{side}_id_vlr"], "date": df_round_detail["date"],
+                          "subregion": tour_id.map(by_tour)})
+            for side in ("a", "b")
+        ],
+        ignore_index=True,
+    ).dropna(subset=["subregion"])
+    played = played.assign(order=range(len(played))).sort_values(["date", "order"], kind="stable")
+    return played.groupby("team_id_vlr", sort=False)["subregion"].last()
+
+
+def build_teams(csv_dir="csv", tables_dir="tables", df_tournaments=None):
     """table_teams.csv, una fila por equipo de vlr (team_id_vlr, la PK desde 2026-11-10).
 
     team_id (el tricode) y name son los del partido mas reciente del equipo: dos equipos con el
     mismo tag son dos filas con el mismo team_id. Todo partido procesado tiene round_detail, que
     trae los ids; un tag del draft que no este ahi solo se avisa.
+
+    subregion (2026-11-17): la fija de lookups.team_subregions (equipos de partner) o, si no esta,
+    la del qualifier mas reciente que jugo (team_subregions_played); si no, vacia (NULL). Este csv
+    es el dueño de la columna en Supabase.
     """
     df_round_detail = concat_csv_from_different_folders(folder=csv_dir, prefix="round_detail")
     keys = team_keys(df_round_detail)
@@ -584,6 +611,11 @@ def build_teams(csv_dir="csv", tables_dir="tables"):
     )
     by_id = ~df_team.index.isin(keeps_tag)
     df_team.loc[by_id, "team_path"] = "teams/" + df_team.loc[by_id, "team_id_vlr"] + ".png"
+
+    # lookups tiene texto real ("Türkiye"); el csv va en forma html como tournament.subregion
+    fixed = df_team["team_id_vlr"].map({k: json_text(v) for k, v in team_subregions.items()})
+    played = df_team["team_id_vlr"].map(team_subregions_played(df_round_detail, df_tournaments))
+    df_team["subregion"] = fixed.fillna(played)
     df_team = df_team[TEAMS_COLUMNS]
 
     repeated = df_team.loc[df_team["team_id"].duplicated(keep=False), "team_id"]
@@ -1686,7 +1718,7 @@ def build_all(csv_dir="csv", tables_dir="tables", events_file=DEFAULT_EVENTS_FIL
     df_region, df_tournaments = build_region_tournament(csv_dir, tables_dir)
 
     logger.info("building table_teams")
-    df_team = build_teams(csv_dir, tables_dir)
+    df_team = build_teams(csv_dir, tables_dir, df_tournaments)
 
     logger.info("building table_tournament_slots")
     build_tournament_slots(df_tournaments, df_team, events_file, tables_dir)
