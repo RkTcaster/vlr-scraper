@@ -228,16 +228,16 @@
   "updated_at": "2026-11-16T23:13:56+00:00"
  },
  "vct_2027_emea_kickoff_-_mena_qualifier/round_buy_vct_2027_emea_kickoff_-_mena_qualifier.csv": {
-  "bytes": 11522387,
-  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_buy_vct_2027_emea_kickoff_-_mena_qualifier.3aa0d0bc93d3.csv.gz",
-  "sha256": "3aa0d0bc93d3c271dce7a763a09950da65354edfb6b3ad45462024a6f09c0a4b",
-  "updated_at": "2026-11-17T14:13:17+00:00"
+  "bytes": 13498490,
+  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_buy_vct_2027_emea_kickoff_-_mena_qualifier.eff12a7a8aeb.csv.gz",
+  "sha256": "eff12a7a8aeb6d8f6905acfa7cc5cc0f17b81b278b7db08cc91173725473e33b",
+  "updated_at": "2026-11-18T13:50:38+00:00"
  },
  "vct_2027_emea_kickoff_-_mena_qualifier/round_events_vct_2027_emea_kickoff_-_mena_qualifier.csv": {
-  "bytes": 9993701,
-  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_events_vct_2027_emea_kickoff_-_mena_qualifier.3ac3c18e20c0.csv.gz",
-  "sha256": "3ac3c18e20c003ed7e90f83c858c8796358b6ac611b57a7897161c5ff28f279d",
-  "updated_at": "2026-11-17T14:13:18+00:00"
+  "bytes": 11725014,
+  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_events_vct_2027_emea_kickoff_-_mena_qualifier.c7d5bf7ee9cd.csv.gz",
+  "sha256": "c7d5bf7ee9cd1fe6d090cf1956c2c7b89b52290d5b8162d874e393658d455be7",
+  "updated_at": "2026-11-18T13:50:40+00:00"
  },
  "vct_2027_emea_kickoff_-_türkiye_qualifier/round_buy_vct_2027_emea_kickoff_-_türkiye_qualifier.csv": {
   "bytes": 10764805,
