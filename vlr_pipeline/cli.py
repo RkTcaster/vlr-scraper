@@ -81,6 +81,18 @@ def build_parser():
     p_logs.add_argument("--keep", type=int, default=3, help="prune: versiones a conservar por archivo")
     p_logs.add_argument("--dry-run", action="store_true", help="prune: solo lista")
 
+    p_grid = sub.add_parser("grid", help="baja datos de la API de GRID (Valorant) a JSON crudo en grid/raw/")
+    p_grid.add_argument("action", choices=["catalog", "states", "sync"],
+                        help="catalog: lista de series (Central Data); states: Series State de cada serie; "
+                             "sync: los dos")
+    p_grid.add_argument("--grid-dir", default=os.path.join("grid", "raw"))
+    p_grid.add_argument("--since", default="2026-01-01",
+                        help="catalog: series programadas desde esta fecha (YYYY-MM-DD)")
+    p_grid.add_argument("--full", action="store_true",
+                        help="catalog: pide todo desde --since en vez de solo lo modificado")
+    p_grid.add_argument("--limit", type=int, help="states: como mucho N series")
+    p_grid.add_argument("--series", nargs="+", metavar="ID", help="states: solo estas series (las re-baja)")
+
     return parser
 
 
@@ -197,6 +209,20 @@ def cmd_logs(args):
     return 0
 
 
+def cmd_grid(args):
+    from vlr_pipeline import grid
+
+    client = grid.client_from_env()
+    if args.action in ("catalog", "sync"):
+        grid.sync_catalog(client, grid_dir=args.grid_dir, since=args.since, full=args.full)
+    if args.action in ("states", "sync"):
+        counts = grid.sync_states(client, grid_dir=args.grid_dir, limit=args.limit, series_ids=args.series)
+        logger.info("series state GRID: %s", counts)
+        if counts["error"]:
+            return 1
+    return 0
+
+
 COMMANDS = {
     "scrape": cmd_scrape,
     "backfill-logs": cmd_backfill_logs,
@@ -204,6 +230,7 @@ COMMANDS = {
     "upload": cmd_upload,
     "all": cmd_all,
     "logs": cmd_logs,
+    "grid": cmd_grid,
 }
 
 

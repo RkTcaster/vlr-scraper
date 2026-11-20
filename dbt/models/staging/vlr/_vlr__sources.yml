@@ -26,3 +26,11 @@ sources:
       - name: teams
         identifier: table_teams
         description: Un equipo de vlr por fila (team_id_vlr); el tag no es unico.
+      - name: match_id
+        identifier: table_match_id
+        description: Una serie de vlr por fila (series_id) con region, torneo y formato.
+      - name: round_info
+        identifier: table_round_info
+        description: >
+          Una ronda por fila (team_map_round_id). rndA / rndB = 1 para el equipo que gano ESA ronda (no es el
+          score acumulado); side = lado del teamA en la ronda; date = hora programada en America/New_York.

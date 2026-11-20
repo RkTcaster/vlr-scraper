@@ -61,6 +61,11 @@ merge that is already conflicted. Comments are frequently in Spanish.
   `tables/table_*.csv` (`build_all` runs them in dependency order). **`lookups.py`** — hand-kept lists.
 - **`upload.py`** — Supabase upsert. **`logs_archive.py`** — logs csv in Supabase Storage. **`config.py`** —
   `events.json`, env file. **`cli.py`** — argparse entry point.
+- **`grid.py`** — ingestion of the GRID API (Valorant, Open Access; `GRID_API_KEY`): `python -m vlr_pipeline grid
+  {catalog,states,sync}` writes raw JSON to `grid/raw/` (gitignored, licensed data): `series_catalog.jsonl`
+  (Central Data) and `series_state/<id>.json.gz`. Extraction only; modelling is dbt's (`dbt/`). API quirks
+  (null fields are omitted, rate limit comes as a GraphQL error with HTTP 200, version-gated fields) are in
+  `handoff/GRID_NOTES.md`; plan in `handoff/DBT_PLAN.md`.
 - **`scripts/export_groups.py`** — group-stage `standings.csv` / `h2h.csv` into `intermediate/groups/` from
   `tables/` plus a hand-made `tables/table_groups.csv` (contract in `handoff/INPUT_CONTRACT.md`). It was the last
   section of `csv_process.ipynb`; not part of `process`, run it by hand.

@@ -1,0 +1,294 @@
+# Documentacion y tests de los modelos de GRID.
+#
+# Tests genericos: se declaran en la columna y dbt genera el SQL (ver target/compiled/.../*.sql). Cada test es
+# una query que devuelve las filas que FALLAN: 0 filas = pasa.
+#   unique / not_null   la PK
+#   relationships       la FK existe en el modelo padre
+#   accepted_values     valores conocidos: si GRID agrega uno nuevo, el test avisa
+# severity: warn        avisa pero no corta `dbt build` (para cosas conocidas que no son errores nuestros)
+#
+# Como los tipos se autodetectan (ver _grid__sources.yml), estos tests son tambien la alarma si GRID cambia el
+# formato del JSON.
+
+version: 2
+
+models:
+  - name: base_grid__series_state
+    description: El Series State crudo, una fila por serie, materializado como tabla para no releer los .gz.
+    columns:
+      - name: series_id
+        data_tests: [unique, not_null]
+
+  - name: stg_grid__series
+    description: Una serie por fila, del catalogo de Central Data (incluye las que no tienen Series State).
+    columns:
+      - name: grid_series_id
+        data_tests: [unique, not_null]
+      - name: series_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [ESPORTS]
+      - name: series_format
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [Bo1, Bo2, Bo3, Bo5]
+      - name: event_name
+        data_tests: [not_null]
+
+  - name: stg_grid__series_states
+    description: Estado final de cada serie con Series State (nivel superior del JSON).
+    columns:
+      - name: grid_series_id
+        data_tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_grid__series')
+                field: grid_series_id
+      - name: state_version
+        description: Version del Series State. Pedir un campo mas nuevo que la version falla la query entera.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['3.48', '3.49', '3.50']
+              config:
+                severity: warn   # una version nueva no rompe nada, pero hay que revisar la query de la ingesta
+      - name: is_finished
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [true]
+              config:
+                severity: warn   # una serie sin terminar se re-baja en el proximo sync
+
+  - name: stg_grid__series_teams
+    description: Resultado de cada equipo en cada serie.
+    columns:
+      - name: series_team_id
+        data_tests: [unique, not_null]
+      - name: grid_series_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_grid__series_states')
+                field: grid_series_id
+
+  - name: stg_grid__games
+    description: Un mapa por fila.
+    columns:
+      - name: grid_game_id
+        data_tests: [unique, not_null]
+      - name: grid_series_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_grid__series_states')
+                field: grid_series_id
+      - name: map_name
+        data_tests: [not_null]
+      - name: has_player_stats
+        description: >
+          false en mapas de los que GRID solo tiene el resultado (8 de Challengers al 2026-11-19): sin jugadores,
+          o con la lista pero sin kills ni agentes. Filtrar por esto antes de agregar stats.
+
+  - name: stg_grid__game_teams
+    description: Un equipo por mapa. Contadores = total del equipo en el mapa.
+    columns:
+      - name: game_team_id
+        data_tests: [unique, not_null]
+      - name: grid_game_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_grid__games')
+                field: grid_game_id
+      - name: final_side
+        description: Lado en la ultima ronda del mapa (foto final), no el lado inicial. NULL en mapas sin stats.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [attacker, defender]
+
+  - name: stg_grid__game_players
+    description: Un jugador por mapa. Contadores del mapa + foto final (end_*).
+    columns:
+      - name: game_player_id
+        data_tests: [unique, not_null]
+      - name: game_team_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_grid__game_teams')
+                field: game_team_id
+      - name: participation_status
+        description: inactive = figura en el equipo pero no jugo (119 filas, suplentes).
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [active, inactive]
+      - name: agent
+        data_tests:
+          - not_null:
+              config:
+                where: "participation_status = 'active' and (kills > 0 or deaths > 0)"
+                severity: warn
+
+  - name: stg_grid__game_player_weapon_kills
+    description: Kills por arma, jugador y mapa. Solo armas (las kills con habilidad no aparecen).
+    columns:
+      - name: game_player_weapon_id
+        data_tests: [unique, not_null]
+      - name: game_player_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_grid__game_players')
+                field: game_player_id
+
+  - name: stg_grid__game_player_objectives
+    description: Objetivos (plant, defuse, orbes) por jugador y mapa.
+    columns:
+      - name: game_player_objective_id
+        data_tests: [unique, not_null]
+      - name: game_player_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_grid__game_players')
+                field: game_player_id
+      - name: objective_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [plantBomb, defuseBomb, beginDefuseBomb, stopDefuseBomb, reachDefuseBombCheckpoint,
+                         explodeBomb, captureUltimateOrb]
+              config:
+                severity: warn
+
+  - name: stg_grid__draft_actions
+    description: Veto de mapas, una accion por fila. Cobertura ~18% (ver analyses/grid_draft_coverage.sql).
+    columns:
+      - name: draft_action_id
+        data_tests: [unique, not_null]
+      - name: action_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [ban, pick]
+      - name: drafter_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [team, series]
+      - name: draftable_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [map, side]
+      - name: drafter_series_team_id
+        description: El equipo que elige tiene que ser uno de los dos de la serie.
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_grid__series_teams')
+                field: series_team_id
+
+  # --- rondas (G2 b, 2026-11-19) ------------------------------------------------------------------------------
+
+  - name: stg_grid__rounds
+    description: Una fila por ronda, con ganador y win_type. Grano del cruce con round_info de vlr.
+    columns:
+      - name: grid_round_id
+        data_tests: [unique, not_null]
+      - name: grid_game_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_grid__games')
+                field: grid_game_id
+      - name: winner_count
+        description: >
+          Equipos con won = true en la ronda. Tiene que ser 1. Al 2026-11-19 hay 9 rondas con 0 (rondas
+          intermedias: 2881489 split 3 y 5, 2942966 split 14 y 16, 2976562 split 5 y 6...; probablemente remakes
+          o huecos de GRID) y un mapa de 1 ronda sin terminar (2929816 lotus). Dato de GRID: warn.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1]
+              config:
+                severity: warn
+      - name: win_type
+        description: >
+          Equivalente a round_info.winCon de vlr. GRID trae 'unknown' en 3 rondas (casi siempre la ultima del
+          mapa: 2877855 pearl 24, 2953507 breeze 26, 2903936 ascent 7) y NULL en las rondas sin ganador. warn.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [opponentEliminated, bombExploded, bombDefused, timeExpired]
+              config:
+                severity: warn
+
+  - name: stg_grid__round_teams
+    description: Un equipo por ronda. side = lado jugado en esa ronda.
+    columns:
+      - name: round_team_id
+        data_tests: [unique, not_null]
+      - name: grid_round_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_grid__rounds')
+                field: grid_round_id
+      - name: game_team_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_grid__game_teams')
+                field: game_team_id
+      - name: side
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [attacker, defender]
+
+  - name: stg_grid__round_players
+    description: Un jugador por ronda (~950k filas). end_* = como termino el jugador esa ronda.
+    columns:
+      - name: round_player_id
+        data_tests: [unique, not_null]
+      - name: round_team_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_grid__round_teams')
+                field: round_team_id
+      - name: game_player_id
+        description: El jugador tiene que existir en ese mapa.
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_grid__game_players')
+                field: game_player_id
+
+  - name: stg_grid__round_player_objectives
+    description: Objetivos por jugador y ronda; captureUltimateOrb = orbes de definitiva.
+    columns:
+      - name: round_player_objective_id
+        data_tests: [unique, not_null]
+      - name: round_player_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_grid__round_players')
+                field: round_player_id
+      - name: objective_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [plantBomb, defuseBomb, beginDefuseBomb, stopDefuseBomb, reachDefuseBombCheckpoint,
+                         explodeBomb, captureUltimateOrb]
+              config:
+                severity: warn

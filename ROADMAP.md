@@ -355,6 +355,23 @@ Proyecto `vlr_analytics` en `dbt/`, con DuckDB en local y Supabase (schema `anal
   `dbt_project.yml`, `profiles.yml` (target `dev`), `dbt debug` ok.
 - [x] 1. Sources sobre `tables/*.csv` (leídos con `read_csv`, todo como texto) + `stg_teams`,
   `stg_tournaments` (conteos = filas de los csv).
+- [ ] **Cambio de estrategia (2026-11-19): dbt cruza GRID (API de Riot/GRID, Open Access con Valorant) con vlr.**
+  Plan y seguimiento en `handoff/DBT_PLAN.md`; lo que sabemos de la API en `handoff/GRID_NOTES.md`.
+  - [x] G0. `scripts/grid_probe.py`: la key ve 7101 series de Valorant (desde 2022-05) y los campos por ronda
+    (daño, headshots, asistencias, kills por arma, `winType`).
+  - [x] G1. Ingesta `vlr_pipeline/grid.py` (`python -m vlr_pipeline grid {catalog,states,sync}`): catálogo
+    Central Data a `grid/raw/series_catalog.jsonl` (incremental por `updatedAt`) y Series State a
+    `grid/raw/series_state/<id>.json.gz`, con rate limit por endpoint y reintentos; `tests/test_grid.py`.
+  - [x] G2. Source `grid` (`read_json` sobre los .json.gz), `base_grid__series_state` (table) y staging de
+    serie / mapa / jugador-mapa / weaponKills / objectives / draft, con tests (`dbt build` PASS=54, WARN=1).
+    Staging de vlr renombrado a `stg_vlr__*`.
+  - [x] Staging de rondas: `stg_grid__rounds`, `__round_teams`, `__round_players` (950k filas) y
+    `__round_player_objectives` (orbes, plants, defuses); tests de consistencia (`dbt build` PASS=77, WARN=3).
+  - [ ] Daño por fuente / zona del cuerpo, asistencias entre jugadores, weaponKills por ronda (fuera por ahora).
+  - [x] Cruce GRID ↔ vlr por nivel (`models/intermediate/crosswalk/`: equipo, serie, mapa, ronda) + seed
+    `grid_team_overrides`: 596/597 series, 99.57% de las rondas coinciden en ganador y forma de ganar.
+  - [ ] Marts que usen el cruce (stats de GRID sobre ids de vlr).
+  - [ ] Revisar términos de uso de GRID antes de publicar nada.
 - [ ] 2. Resto del staging (tipos, nombres snake_case).
 - [ ] 3. Tests de datos con las PK de `FILES_TO_UPLOAD` + un test singular.
 - [ ] 4. Intermediate y marts (resultados por mapa/serie, win rate por equipo y mapa, pick rate de agentes, stats

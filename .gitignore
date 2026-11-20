@@ -8,7 +8,7 @@ csv/*/round_buy_*.csv
 csv/*/round_events_*.csv
 csv/.logs_synced.json
 backup/
-intermediate/
+/intermediate/
 # docs de intercambio entre repos (rktdata, rviewer, GroupCalculator): viven en handoff/,
 # solo en local; cada repo guarda su copia. Todo doc nuevo de este tipo va ahi.
 handoff/
@@ -35,3 +35,6 @@ dbt/.user.yml
 *.duckdb
 .venv-dbt/
 dbt/.user.yml
+# GRID: respuestas crudas de la API (datos con licencia, no van a git)
+grid_probe*.json
+grid/raw/

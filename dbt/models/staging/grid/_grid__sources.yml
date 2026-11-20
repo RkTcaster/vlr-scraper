@@ -1,0 +1,28 @@
+# Source grid: el JSON crudo que baja `python -m vlr_pipeline grid sync` (vlr_pipeline/grid.py) a grid/raw/.
+# Notas de la API en handoff/GRID_NOTES.md. Dos cosas que importan para leerlo:
+#   - GRID omite los campos null: una clave que falta en TODOS los archivos no existe como columna.
+#   - Los tipos se autodetectan (read_json mira los datos). Una lista que siempre viene vacia queda como JSON[]
+#     en vez de struct; los tests de _grid__models.yml avisan si el formato cambia.
+
+version: 2
+
+sources:
+  - name: grid
+    description: API de GRID (Open Access, Valorant). Datos con licencia; grid/raw/ no esta en git.
+    tables:
+      - name: series_state
+        description: >
+          Un archivo por serie (grid/raw/series_state/<id>.json.gz) con el Series State completo:
+          {series_id, fetched_at, state: {games: [{teams: [{players: [...]}], segments: [...]}]}}.
+        config:
+          meta:
+            # Ruta relativa a dbt/. DuckDB descomprime los .gz solo y junta todos los archivos del glob.
+            external_location: "read_json('../grid/raw/series_state/*.json.gz')"
+
+      - name: series_catalog
+        description: >
+          Catalogo de Central Data (grid/raw/series_catalog.jsonl): una serie por linea, con torneo, equipos e ids
+          de Riot. Los nombres con caracteres no ASCII vienen rotos desde GRID (U+FFFD: Turkiye llega como T + U+FFFD + rkiye).
+        config:
+          meta:
+            external_location: "read_json('../grid/raw/series_catalog.jsonl')"

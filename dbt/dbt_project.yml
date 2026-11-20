@@ -1,5 +1,6 @@
-# Proyecto dbt: capa analitica encima de tables/table_*.csv (lo que arma vlr_pipeline process).
-# dbt no scrapea ni reemplaza tables.py: lee esas tablas como "sources" y construye modelos SQL.
+# Proyecto dbt: capa analitica con dos fuentes, tables/table_*.csv (lo que arma vlr_pipeline process) y el
+# JSON crudo de la API de GRID en grid/raw/ (vlr_pipeline grid sync). dbt no scrapea ni reemplaza tables.py:
+# lee esas fuentes como "sources" y construye modelos SQL.
 
 name: vlr_analytics
 version: "0.1.0"
@@ -18,10 +19,28 @@ snapshot-paths: ["snapshots"]
 clean-targets: ["target", "dbt_packages"]
 
 # Configuracion por carpeta de models/. Cada capa se suma en su paso:
-#   staging       -> view  (paso 1)
+#   staging       -> view  (paso 1); base_grid__series_state es table (config en el modelo)
 #   intermediate  -> view  (paso 4)
 #   marts         -> table (paso 4)
 models:
   vlr_analytics:
     staging:
       +materialized: view
+    intermediate:
+      +materialized: view
+
+# Seeds: csv chicos versionados en seeds/ que `dbt seed` (o `dbt build`) carga como tablas. Para datos hechos a
+# mano que el SQL necesita, como las excepciones del cruce de equipos GRID <-> vlr.
+seeds:
+  vlr_analytics:
+    grid_team_overrides:
+      +column_types:
+        grid_team_id: varchar
+        team_id_vlr: varchar
+        note: varchar
+
+# Variables: valores que el SQL lee con {{ var('nombre') }} y que se pueden cambiar sin tocar los modelos
+# (dbt build --vars '{grid_vlr_max_hours: 24}').
+vars:
+  # Distancia maxima entre la hora de una serie en GRID y en vlr (las dos en UTC) para considerarlas la misma.
+  grid_vlr_max_hours: 12

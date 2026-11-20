@@ -1,0 +1,88 @@
+# Intermediate: modelos que combinan o reagrupan staging. Todavia no son el producto final (marts).
+#
+# El cruce GRID <-> vlr tiene que ser 1 a 1 en cada nivel: los tests unique de los dos lados son los que lo
+# garantizan. Si una regla del cruce empieza a emparejar de mas, fallan aca antes de llegar a los marts.
+
+version: 2
+
+models:
+  - name: int_vlr__series
+    description: Una serie de vlr por fila, armada desde las rondas (fecha en UTC, equipos, mapas, rondas).
+    columns:
+      - name: vlr_series_id
+        data_tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_vlr__matches')
+                field: vlr_series_id
+
+  - name: int_team_crosswalk
+    description: >
+      Equipo de GRID -> equipo de vlr. Aprendido de las series (mismo nombre o tag normalizado, a menos de
+      grid_vlr_max_hours), mas el seed grid_team_overrides para las excepciones.
+    columns:
+      - name: grid_team_id
+        data_tests: [unique, not_null]
+      - name: team_id_vlr
+        description: Puede repetirse (dos equipos de GRID para el mismo de vlr).
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_vlr__teams')
+                field: team_id_vlr
+      - name: match_method
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [name, tag, override]
+      - name: n_candidates
+        description: Equipos de vlr posibles para este equipo de GRID. Mas de 1 = revisar.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1]
+              config:
+                severity: warn
+
+  - name: int_series_crosswalk
+    description: Serie de GRID <-> serie de vlr (mismos dos equipos, a menos de grid_vlr_max_hours). 1 a 1.
+    columns:
+      - name: grid_series_id
+        data_tests: [unique, not_null]
+      - name: vlr_series_id
+        data_tests: [unique, not_null]
+
+  - name: int_map_crosswalk
+    description: Mapa de GRID <-> mapa de vlr dentro de una serie emparejada, por nombre de mapa.
+    columns:
+      - name: grid_game_id
+        data_tests: [unique, not_null]
+      - name: vlr_map_id
+        data_tests: [unique, not_null]
+      - name: map_number_matches
+        description: >
+          false = el mapa esta en otra posicion en cada fuente (40 al 2026-11-19): una fuente tiene un mapa de
+          mas o de menos antes. No invalida el cruce (se empareja por nombre).
+
+  - name: int_round_crosswalk
+    description: Ronda de GRID <-> ronda de vlr por numero, con ganador / win_con / lado de cada fuente.
+    columns:
+      - name: round_pair_id
+        data_tests: [unique, not_null]
+      - name: match_status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [match, mismatch, missing_in_grid, missing_in_vlr]
+
+  - name: int_round_discrepancies
+    description: Las rondas de int_round_crosswalk donde las fuentes no coinciden, con el tipo de diferencia.
+    columns:
+      - name: discrepancy
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [winner, win_con, winner_and_win_con, unknown_in_grid, missing_in_grid, missing_in_vlr]

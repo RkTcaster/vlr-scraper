@@ -193,6 +193,22 @@ python scripts/backfill_team_ids.py             # todo lo pendiente (1 request p
 Cambio de esquema en Supabase (una vez, con `tables/` regenerado después del backfill): paso A de
 `sql/team_id_vlr.sql`, `python -m vlr_pipeline upload --full` y después el paso B (restaura `teams.relevant`).
 
+## GRID (API de Valorant, Open Access)
+
+Necesita `GRID_API_KEY` en `.env.local`. Baja JSON crudo a `grid/raw/` (gitignored: los datos tienen licencia).
+Notas de la API en `handoff/GRID_NOTES.md`; el modelado es de dbt (`handoff/DBT_PLAN.md`).
+
+```bash
+python -m vlr_pipeline grid sync                       # catálogo + series state, incremental
+python -m vlr_pipeline grid catalog --full             # catálogo entero desde --since (default 2026-01-01)
+python -m vlr_pipeline grid states --limit 20          # solo las primeras 20 pendientes
+python -m vlr_pipeline grid states --series 3003317    # re-baja estas series
+python scripts/grid_probe.py --dump grid/raw/grid_probe.json   # introspección del schema
+```
+
+`states` re-baja una serie si no terminó, si GRID la modificó (`updatedAt` del catálogo) o si se bajó antes de
+3 días desde que empezó (GRID corrige series terminadas).
+
 ## GitHub Actions
 
 ```bash
