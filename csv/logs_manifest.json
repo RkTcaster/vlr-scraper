@@ -228,39 +228,39 @@
   "updated_at": "2026-11-16T23:13:56+00:00"
  },
  "vct_2027_emea_kickoff_-_mena_qualifier/round_buy_vct_2027_emea_kickoff_-_mena_qualifier.csv": {
-  "bytes": 14355705,
-  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_buy_vct_2027_emea_kickoff_-_mena_qualifier.a2c91452a2e5.csv.gz",
-  "sha256": "a2c91452a2e5402c399d11b9c4f3308c1be525436a693199488a1baae20d0d5f",
-  "updated_at": "2026-11-19T14:24:10+00:00"
+  "bytes": 14489635,
+  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_buy_vct_2027_emea_kickoff_-_mena_qualifier.f278e1b92336.csv.gz",
+  "sha256": "f278e1b92336dc8c0fa58798740d0b9314e35aa5c833d2108a519e7546f31934",
+  "updated_at": "2026-11-20T14:04:48+00:00"
  },
  "vct_2027_emea_kickoff_-_mena_qualifier/round_events_vct_2027_emea_kickoff_-_mena_qualifier.csv": {
-  "bytes": 12462877,
-  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_events_vct_2027_emea_kickoff_-_mena_qualifier.4c21a98335ed.csv.gz",
-  "sha256": "4c21a98335ed92ea65a14cd01d6b27e0fddb130f7eae9431634a7d87b8f46ba3",
-  "updated_at": "2026-11-19T14:24:11+00:00"
+  "bytes": 12579403,
+  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_events_vct_2027_emea_kickoff_-_mena_qualifier.062804a03fb0.csv.gz",
+  "sha256": "062804a03fb09104d20e83a6a0f4de007b3b0d2072bc882d087891f30a45d58d",
+  "updated_at": "2026-11-20T14:04:48+00:00"
  },
  "vct_2027_emea_kickoff_-_türkiye_qualifier/round_buy_vct_2027_emea_kickoff_-_türkiye_qualifier.csv": {
-  "bytes": 15741477,
-  "object": "vct_2027_emea_kickoff_-_turkiye_qualifier/round_buy_vct_2027_emea_kickoff_-_turkiye_qualifier.668f8a4d7aa7.csv.gz",
-  "sha256": "668f8a4d7aa7dbf61e9d2f09b6f4e3a781b41cc43c1fd51c5918b3801fd9d824",
-  "updated_at": "2026-11-19T14:24:12+00:00"
+  "bytes": 20671359,
+  "object": "vct_2027_emea_kickoff_-_turkiye_qualifier/round_buy_vct_2027_emea_kickoff_-_turkiye_qualifier.5e5a8308fbef.csv.gz",
+  "sha256": "5e5a8308fbefb404adaf643c7a36da9339a73bcceea0317b26201eca7d4e9c9e",
+  "updated_at": "2026-11-20T14:04:49+00:00"
  },
  "vct_2027_emea_kickoff_-_türkiye_qualifier/round_events_vct_2027_emea_kickoff_-_türkiye_qualifier.csv": {
-  "bytes": 13563159,
-  "object": "vct_2027_emea_kickoff_-_turkiye_qualifier/round_events_vct_2027_emea_kickoff_-_turkiye_qualifier.660d9d663b4b.csv.gz",
-  "sha256": "660d9d663b4b31806c5b17f42606877f25c009dcbfea01c422eb5f1a76b7c83e",
-  "updated_at": "2026-11-19T14:24:13+00:00"
+  "bytes": 17846576,
+  "object": "vct_2027_emea_kickoff_-_turkiye_qualifier/round_events_vct_2027_emea_kickoff_-_turkiye_qualifier.fe0f76009904.csv.gz",
+  "sha256": "fe0f76009904a5364f3ef30ef3328573549e2086f90c47efaa42cdd65a082d57",
+  "updated_at": "2026-11-20T14:04:49+00:00"
  },
  "vct_2027_pacific_kickoff_-_south_asia_qualifier/round_buy_vct_2027_pacific_kickoff_-_south_asia_qualifier.csv": {
-  "bytes": 1858026,
-  "object": "vct_2027_pacific_kickoff_-_south_asia_qualifier/round_buy_vct_2027_pacific_kickoff_-_south_asia_qualifier.6755f5fb70cc.csv.gz",
-  "sha256": "6755f5fb70cc766b042ac0cf46aca34ecd27dbf49eca6d681138525b4497fbb5",
-  "updated_at": "2026-11-19T14:24:14+00:00"
+  "bytes": 3305016,
+  "object": "vct_2027_pacific_kickoff_-_south_asia_qualifier/round_buy_vct_2027_pacific_kickoff_-_south_asia_qualifier.675c29ca82d1.csv.gz",
+  "sha256": "675c29ca82d145a1983e2fddfc7327590d14623e84092f62412a4599a670a542",
+  "updated_at": "2026-11-20T14:04:49+00:00"
  },
  "vct_2027_pacific_kickoff_-_south_asia_qualifier/round_events_vct_2027_pacific_kickoff_-_south_asia_qualifier.csv": {
-  "bytes": 1636464,
-  "object": "vct_2027_pacific_kickoff_-_south_asia_qualifier/round_events_vct_2027_pacific_kickoff_-_south_asia_qualifier.a481ea8f0996.csv.gz",
-  "sha256": "a481ea8f09960d90e5b9ebb26eeda0c41c1ccdae2890cb6ac2c6e093c7ed5e48",
-  "updated_at": "2026-11-19T14:24:14+00:00"
+  "bytes": 2900080,
+  "object": "vct_2027_pacific_kickoff_-_south_asia_qualifier/round_events_vct_2027_pacific_kickoff_-_south_asia_qualifier.f9cd46ca356f.csv.gz",
+  "sha256": "f9cd46ca356fc9c92e553f76bbc0b1532bc9d35a4b34df8bbe3bb6c55b1c0d73",
+  "updated_at": "2026-11-20T14:04:50+00:00"
  }
 }
