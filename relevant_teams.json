@@ -1,39 +1,17 @@
 {
-  "target": "VCT 2027 Kickoffs (Americas / EMEA): clasificados de las open qualifiers a las closed",
+  "target": "VCT 2027 Kickoffs (Americas / EMEA): equipos de las closed qualifiers (Americas: todos los de los qualifier playoffs)",
   "groups": [
     {
       "name": "LATAM SOUTH",
-      "teams": [
-        {"id": "24258", "name": "El Legado"},
-        {"id": "24257", "name": "Tramite"},
-        {"id": "24246", "name": "ARG.MIX"},
-        {"id": "24320", "name": "fracasados ny"},
-        {"id": "25222", "name": "Malajunta"}
-      ]
+      "event": "https://www.vlr.gg/event/3185/vct-2027-america-kickoff-latam-south-qualifier-playoffs"
     },
     {
       "name": "LATAM NORTH",
-      "teams": [
-        {"id": "12889", "name": "Squirtle Rangers"},
-        {"id": "21459", "name": "Streamer Arena"},
-        {"id": "25292", "name": "505"},
-        {"id": "25283", "name": "Old School Krew"}
-      ]
+      "event": "https://www.vlr.gg/event/3184/vct-2027-america-kickoff-latam-north-qualifier-playoffs"
     },
     {
       "name": "BRAZIL",
-      "teams": [
-        {"id": "24636", "name": "Team Solid"},
-        {"id": "24496", "name": "Brasil2002"},
-        {"id": "24401", "name": "Time do B3M"},
-        {"id": "23180", "name": "Arashi"},
-        {"id": "24553", "name": "Mafiosos"},
-        {"id": "16854", "name": "Piranhas do Caribe"},
-        {"id": "12642", "name": "Arranca Dreams"},
-        {"id": "24478", "name": "So Tem Velho"},
-        {"id": "25111", "name": "0 intelecto"},
-        {"id": "24507", "name": "Master Bank"}
-      ]
+      "event": "https://www.vlr.gg/event/3183/vct-2027-america-kickoff-brazil-qualifier-playoffs"
     },
     {
       "name": "NA QUALIFIER PLAYOFFS",

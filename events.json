@@ -64,6 +64,30 @@
       "end_date": "2026-12-06"
     },
     {
+      "name": "VCT 2027 Americas Kickoff LATAM North Qualifier Playoffs",
+      "url": "https://www.vlr.gg/event/matches/3184/vct-2027-america-kickoff-latam-north-qualifier-playoffs/?series_id=all",
+      "active": true,
+      "end_date": "2026-12-06"
+    },
+    {
+      "name": "VCT 2027 Americas Kickoff LATAM South Qualifier Playoffs",
+      "url": "https://www.vlr.gg/event/matches/3185/vct-2027-america-kickoff-latam-south-qualifier-playoffs/?series_id=all",
+      "active": true,
+      "end_date": "2026-12-06"
+    },
+    {
+      "name": "VCT 2027 Americas Kickoff Brazil Qualifier Playoffs",
+      "url": "https://www.vlr.gg/event/matches/3183/vct-2027-america-kickoff-brazil-qualifier-playoffs/?series_id=all&group=all",
+      "active": true,
+      "end_date": "2026-12-06"
+    },
+    {
+      "name": "VCT 2027 Americas Kickoff North America Qualifier Playoffs",
+      "url": "https://www.vlr.gg/event/matches/3179/vct-2027-america-kickoff-north-america-qualifier-playoffs/?series_id=all",
+      "active": true,
+      "end_date": "2026-12-07"
+    },
+    {
       "name": "VCT 2027 Americas Kickoff Brazil Open Qualifier",
       "url": "https://www.vlr.gg/event/matches/3187/vct-2027-america-kickoff-brazil-open-qualifier/?series_id=all",
       "active": true,

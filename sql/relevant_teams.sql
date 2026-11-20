@@ -1,5 +1,5 @@
 -- Generado por scripts/relevant_teams.py desde relevant_teams.json. No editar a mano.
--- VCT 2027 Kickoffs (Americas / EMEA): clasificados de las open qualifiers a las closed
+-- VCT 2027 Kickoffs (Americas / EMEA): equipos de las closed qualifiers (Americas: todos los de los qualifier playoffs)
 begin;
 
 update teams
@@ -9,25 +9,39 @@ update teams
 set relevant = true
 where team_id_vlr in (
   -- LATAM SOUTH
-  '24258',  -- EL L EL LEGADO
+  '367',  -- 9z Globant (no esta en teams)
+  '7511',  -- KRUB KRÜ BLAZE
+  '20209',  -- University War (no esta en teams)
   '24257',  -- TRAM TRAMITE
+  '24258',  -- EL L EL LEGADO
   '24246',  -- ARG. ARG.MIX
-  '24320',  -- FRAC fracasados ny
   '25222',  -- MALA MALAJUNTA
+  '24320',  -- FRAC fracasados ny
   -- LATAM NORTH
-  '12889',  -- SQR Squirtle Rangers
+  '10376',  -- Contra (no esta en teams)
+  '23777',  -- LEONS (no esta en teams)
+  '17252',  -- FUEGO (no esta en teams)
+  '2131',  -- Chivas Esports (no esta en teams)
   '21459',  -- STA STREAMER ARENA
+  '12889',  -- SQR Squirtle Rangers
   '25292',  -- 505 505
   '25283',  -- OLD Old School Krew
   -- BRAZIL
-  '24636',  -- SOLI Team Solid
+  '23141',  -- FX Fluxo W7M
+  '15072',  -- 2G 2Game Esports
+  '19265',  -- Team Solid (no esta en teams)
+  '20741',  -- Next (no esta en teams)
+  '18622',  -- ELEVATE (no esta en teams)
+  '23778',  -- Manticore (no esta en teams)
   '24496',  -- BRA2002 BRASIL2002
+  '25330',  -- GANGUE (no esta en teams)
+  '24553',  -- MAFIA Mafiosos
   '24401',  -- TB3 TIME DO B3M
   '23180',  -- ARAS Arashi
-  '24553',  -- MAFIA Mafiosos
   '16854',  -- PDC Piranhas do Caribe
-  '12642',  -- ARRA ARRANCA DREAMS
   '24478',  -- SV SÓ TEM VELHO
+  '12642',  -- ARRA ARRANCA DREAMS
+  '24507',  -- 171 Master Bank
   '25111',  -- 100%MIRA 0 intelecto
   -- NA QUALIFIER PLAYOFFS
   '427',  -- ENVY ENVY
@@ -62,5 +76,5 @@ where team_id_vlr in (
 
 commit;
 
--- control: 39 filas esperadas (44 ids en la lista)
+-- control: 42 filas esperadas (58 ids en la lista)
 select team_id_vlr, team_id, name from teams where relevant = true order by team_id;
