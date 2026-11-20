@@ -292,3 +292,27 @@ models:
                          explodeBomb, captureUltimateOrb]
               config:
                 severity: warn
+
+  - name: stg_grid__round_player_damage_zones
+    description: >
+      Jugador-ronda-zona (damageDealtTargets): impactos y dano en head / body / leg, y general (habilidades, sin
+      zona). Los hits de head = el campo headshots de GRID (son impactos, no kills).
+    columns:
+      - name: round_player_zone_id
+        data_tests: [unique, not_null]
+      - name: round_player_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_grid__round_players')
+                field: round_player_id
+      - name: zone
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [head, body, leg, general]
+
+  - name: stg_grid__catalog_teams
+    description: >
+      Equipo por serie del catalogo de Central Data: tag (nameShortened) e id de Riot, que Series State no trae.
+      El nombre de aca no se usa (Central Data rompe los caracteres no ASCII).

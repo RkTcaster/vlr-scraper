@@ -198,6 +198,9 @@ Cambio de esquema en Supabase (una vez, con `tables/` regenerado después del ba
 Necesita `GRID_API_KEY` en `.env.local`. Baja JSON crudo a `grid/raw/` (gitignored: los datos tienen licencia).
 Notas de la API en `handoff/GRID_NOTES.md`; el modelado es de dbt (`handoff/DBT_PLAN.md`).
 
+Documentación de dbt (local, desde `dbt/`): `..\.venv-dbt\Scripts\dbt docs generate` y después
+`..\.venv-dbt\Scripts\dbt docs serve` (http://localhost:8080). Más comandos en `dbt/README.md`.
+
 ```bash
 python -m vlr_pipeline grid sync                       # catálogo + series state, incremental
 python -m vlr_pipeline grid catalog --full             # catálogo entero desde --since (default 2026-01-01)

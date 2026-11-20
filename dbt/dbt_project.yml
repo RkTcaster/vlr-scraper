@@ -28,6 +28,10 @@ models:
       +materialized: view
     intermediate:
       +materialized: view
+    # marts: lo que se consulta. table = se calcula una vez en cada build y despues se lee sin recalcular
+    # (una view repetiria el unnest de rondas de GRID en cada consulta).
+    marts:
+      +materialized: table
 
 # Seeds: csv chicos versionados en seeds/ que `dbt seed` (o `dbt build`) carga como tablas. Para datos hechos a
 # mano que el SQL necesita, como las excepciones del cruce de equipos GRID <-> vlr.

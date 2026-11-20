@@ -2,6 +2,7 @@
 #
 # El cruce GRID <-> vlr tiene que ser 1 a 1 en cada nivel: los tests unique de los dos lados son los que lo
 # garantizan. Si una regla del cruce empieza a emparejar de mas, fallan aca antes de llegar a los marts.
+# Las columnas que se repiten entre modelos se describen una vez en models/_docs.md ({{ doc('...') }}).
 
 version: 2
 
@@ -10,6 +11,7 @@ models:
     description: Una serie de vlr por fila, armada desde las rondas (fecha en UTC, equipos, mapas, rondas).
     columns:
       - name: vlr_series_id
+        description: "{{ doc('vlr_series_id') }}"
         data_tests:
           - unique
           - not_null
@@ -17,6 +19,24 @@ models:
               arguments:
                 to: ref('stg_vlr__matches')
                 field: vlr_series_id
+      - name: tournament_id
+        description: "{{ doc('tournament_id') }}"
+      - name: event_name
+        description: Nombre del evento en vlr.
+      - name: scheduled_at
+        description: Hora programada de la serie, en UTC (vlr la publica en America/New_York).
+      - name: team_a_id_vlr
+        description: Equipo A (el primero en la pagina de vlr). {{ doc('team_id_vlr') }}
+      - name: team_b_id_vlr
+        description: Equipo B. {{ doc('team_id_vlr') }}
+      - name: team_a_tag
+        description: Tag del equipo A cuando se jugo la serie.
+      - name: team_b_tag
+        description: Tag del equipo B cuando se jugo la serie.
+      - name: map_count
+        description: Mapas jugados (sin los que vlr muestra pero no se jugaron).
+      - name: round_count
+        description: Rondas jugadas en toda la serie.
 
   - name: int_team_crosswalk
     description: >
@@ -24,20 +44,30 @@ models:
       grid_vlr_max_hours), mas el seed grid_team_overrides para las excepciones.
     columns:
       - name: grid_team_id
+        description: "{{ doc('grid_team_id') }}"
         data_tests: [unique, not_null]
       - name: team_id_vlr
-        description: Puede repetirse (dos equipos de GRID para el mismo de vlr).
+        description: "{{ doc('team_id_vlr') }} Puede repetirse (dos equipos de GRID para el mismo de vlr)."
         data_tests:
           - not_null
           - relationships:
               arguments:
                 to: ref('stg_vlr__teams')
                 field: team_id_vlr
+      - name: grid_team_name
+        description: Nombre en GRID (el de su serie mas reciente), para revisar el cruce a ojo.
+      - name: vlr_team_name
+        description: Nombre en vlr.
       - name: match_method
+        description: >
+          name = nombre normalizado igual; tag = tag normalizado igual; override = fila del seed
+          grid_team_overrides.
         data_tests:
           - accepted_values:
               arguments:
                 values: [name, tag, override]
+      - name: n_series
+        description: Series en las que se vio el par de equipos (vacio para override).
       - name: n_candidates
         description: Equipos de vlr posibles para este equipo de GRID. Mas de 1 = revisar.
         data_tests:
@@ -46,43 +76,205 @@ models:
                 values: [1]
               config:
                 severity: warn
+      - name: note
+        description: Por que existe el override (solo para match_method = override).
 
   - name: int_series_crosswalk
     description: Serie de GRID <-> serie de vlr (mismos dos equipos, a menos de grid_vlr_max_hours). 1 a 1.
     columns:
       - name: grid_series_id
+        description: "{{ doc('grid_series_id') }}"
         data_tests: [unique, not_null]
       - name: vlr_series_id
+        description: "{{ doc('vlr_series_id') }}"
         data_tests: [unique, not_null]
+      - name: grid_event_name
+        description: Nombre del torneo en GRID.
+      - name: tournament_id
+        description: "{{ doc('tournament_id') }}"
+      - name: hours_diff
+        description: >
+          Hora de GRID menos hora de vlr, en horas (las dos en UTC). Cerca de 0 en casi todas; si hay mas de un
+          candidato gana el mas cercano.
+      - name: grid_map_count
+        description: Mapas de la serie en GRID.
+      - name: vlr_map_count
+        description: Mapas de la serie en vlr.
 
   - name: int_map_crosswalk
     description: Mapa de GRID <-> mapa de vlr dentro de una serie emparejada, por nombre de mapa.
     columns:
       - name: grid_game_id
+        description: "{{ doc('grid_game_id') }}"
         data_tests: [unique, not_null]
       - name: vlr_map_id
+        description: "{{ doc('vlr_map_id') }}"
         data_tests: [unique, not_null]
+      - name: grid_series_id
+        description: "{{ doc('grid_series_id') }}"
+      - name: vlr_series_id
+        description: "{{ doc('vlr_series_id') }}"
+      - name: map_name
+        description: Nombre del mapa en minuscula (como GRID).
+      - name: grid_map_number
+        description: Orden del mapa en la serie segun GRID (1, 2, 3...).
+      - name: vlr_map_number
+        description: Orden del mapa en la serie segun vlr.
       - name: map_number_matches
         description: >
           false = el mapa esta en otra posicion en cada fuente (40 al 2026-11-19): una fuente tiene un mapa de
           mas o de menos antes. No invalida el cruce (se empareja por nombre).
+      - name: grid_round_count
+        description: Rondas del mapa en GRID.
+      - name: vlr_round_count
+        description: Rondas del mapa en vlr.
+      - name: has_player_stats
+        description: "{{ doc('has_player_stats') }}"
 
   - name: int_round_crosswalk
-    description: Ronda de GRID <-> ronda de vlr por numero, con ganador / win_con / lado de cada fuente.
+    description: >
+      Ronda de GRID <-> ronda de vlr por numero, con ganador / win_con / lado de cada fuente. full outer join:
+      una ronda que esta en una sola fuente aparece con match_status missing_in_*.
     columns:
       - name: round_pair_id
+        description: <grid_game_id>-<numero de ronda>.
         data_tests: [unique, not_null]
+      - name: grid_series_id
+        description: "{{ doc('grid_series_id') }}"
+      - name: vlr_series_id
+        description: "{{ doc('vlr_series_id') }}"
+      - name: vlr_map_id
+        description: "{{ doc('vlr_map_id') }}"
+      - name: map_name
+        description: Nombre del mapa en minuscula.
+      - name: has_player_stats
+        description: "{{ doc('has_player_stats') }}"
+      - name: grid_game_id
+        description: "{{ doc('grid_game_id') }}"
+      - name: round_number
+        description: Numero de ronda (1 en adelante, el mismo en las dos fuentes).
+      - name: grid_round_id
+        description: Ronda de GRID (vacio = falta en GRID).
+      - name: team_map_round_id
+        description: "{{ doc('team_map_round_id') }} Vacio = falta en vlr."
+      - name: grid_winner_id_vlr
+        description: Ganador de la ronda segun GRID, traducido a team_id_vlr con int_team_crosswalk.
+      - name: vlr_winner_id_vlr
+        description: Ganador de la ronda segun vlr.
+      - name: grid_winner_side
+        description: Lado del ganador segun GRID (attacker / defender).
+      - name: vlr_winner_side
+        description: Lado del ganador segun vlr (attacker / defender).
+      - name: grid_win_con
+        description: Forma de ganar de GRID traducida al vocabulario de vlr (elim / boom / defus / tim).
+      - name: grid_win_type
+        description: winType original de GRID (opponentEliminated, bombExploded, bombDefused, timeExpired).
+      - name: vlr_win_con
+        description: Forma de ganar segun vlr (elim / boom / defus / tim).
+      - name: winner_matches
+        description: Las dos fuentes dan el mismo ganador.
+      - name: win_con_matches
+        description: Las dos fuentes dan la misma forma de ganar.
+      - name: winner_side_matches
+        description: Las dos fuentes dan el mismo lado ganador.
       - name: match_status
+        description: >
+          match = mismo ganador y forma de ganar; mismatch = difieren; missing_in_grid / missing_in_vlr = la
+          ronda esta en una sola fuente.
         data_tests:
           - accepted_values:
               arguments:
                 values: [match, mismatch, missing_in_grid, missing_in_vlr]
 
   - name: int_round_discrepancies
-    description: Las rondas de int_round_crosswalk donde las fuentes no coinciden, con el tipo de diferencia.
+    description: >
+      Las rondas de int_round_crosswalk donde las fuentes no coinciden, con el tipo de diferencia. Para revisar a
+      mano; el test assert_grid_vlr_rounds_agree (warn) las cuenta.
     columns:
       - name: discrepancy
+        description: >
+          winner / win_con / winner_and_win_con = que difiere; unknown_in_grid = GRID no sabe (winType unknown o
+          ronda sin ganador); missing_in_grid / missing_in_vlr = ronda en una sola fuente.
         data_tests:
           - accepted_values:
               arguments:
                 values: [winner, win_con, winner_and_win_con, unknown_in_grid, missing_in_grid, missing_in_vlr]
+      - name: match_status
+        description: El de int_round_crosswalk (nunca match).
+      - name: round_pair_id
+        description: <grid_game_id>-<numero de ronda>.
+      - name: team_map_round_id
+        description: "{{ doc('team_map_round_id') }}"
+      - name: grid_series_id
+        description: "{{ doc('grid_series_id') }}"
+      - name: vlr_series_id
+        description: "{{ doc('vlr_series_id') }}"
+      - name: map_name
+        description: Nombre del mapa en minuscula.
+      - name: round_number
+        description: Numero de ronda.
+      - name: grid_winner_id_vlr
+        description: Ganador segun GRID, como team_id_vlr.
+      - name: vlr_winner_id_vlr
+        description: Ganador segun vlr.
+      - name: grid_win_type
+        description: winType original de GRID.
+      - name: grid_win_con
+        description: winType de GRID en el vocabulario de vlr.
+      - name: vlr_win_con
+        description: Forma de ganar segun vlr.
+      - name: has_player_stats
+        description: "{{ doc('has_player_stats') }}"
+
+  - name: int_player_crosswalk
+    description: >
+      Jugador-mapa de GRID <-> jugador-mapa de vlr, dentro de un mapa y un equipo ya emparejados. Primero por
+      nick normalizado, despues por agente entre los que quedaron sin par. Al 2026-11-20: 14 937 de 14 938 filas
+      de vlr (14 504 por nick, 433 por agente); la que falta es deLb en 659476-Split, mapa donde GRID tiene 4
+      jugadores de Trace Esports.
+    columns:
+      - name: game_player_id
+        description: "{{ doc('game_player_id') }} Unico = un jugador de GRID no se empareja con dos de vlr."
+        data_tests: [unique, not_null]
+      - name: map_player_id
+        description: "{{ doc('map_player_id') }} Unico = el cruce es 1 a 1."
+        data_tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_vlr__player_stats')
+                field: map_player_id
+      - name: grid_game_id
+        description: "{{ doc('grid_game_id') }}"
+      - name: grid_player_id
+        description: "{{ doc('grid_player_id') }}"
+      - name: vlr_map_id
+        description: "{{ doc('vlr_map_id') }}"
+      - name: player_id_vlr
+        description: "{{ doc('player_id_vlr') }}"
+      - name: team_id_vlr
+        description: "{{ doc('team_id_vlr') }}"
+      - name: match_method
+        description: "{{ doc('player_match_method') }}"
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [nick, agent]
+      - name: grid_player_name
+        description: Nick en GRID.
+      - name: vlr_player_name
+        description: Nick en vlr.
+      - name: grid_agent
+        description: Agente segun GRID, en minuscula (kay/o).
+      - name: vlr_agent
+        description: Agente segun vlr, en minuscula (kayo).
+      - name: agent_matches
+        description: >
+          {{ doc('agent_matches') }} Uno solo al 2026-11-20 (f4ngeer en 659476-Split, el mapa roto de GRID).
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [true]
+              config:
+                severity: warn

@@ -3,6 +3,11 @@
 #
 # Los nombres (`name`) son los de las tablas en Supabase, asi el target prod (paso 9) usa los mismos.
 # `identifier` es el nombre real en este motor: el archivo csv sin extension.
+#
+# Tests de PK (paso 3): la PK de cada tabla es la de FILES_TO_UPLOAD en vlr_pipeline/upload.py (el on_conflict
+# del upsert a Supabase). Se testea sobre el csv tal cual, con los nombres de columna de Supabase: es el contrato
+# con la base. Una PK duplicada hace que el upsert pise filas en silencio. Las PK compuestas usan
+# dbt_utils.unique_combination_of_columns (packages.yml). Si cambia una PK en upload.py, cambiarla aca.
 
 version: 2
 
@@ -20,17 +25,157 @@ sources:
       - name: regions
         identifier: table_region
         description: Regiones de VCT (americas, emea, china, pacific, global).
+        columns:
+          - name: reg_id
+            data_tests: [unique, not_null]
+
       - name: tournament
         identifier: table_tournament
         description: Un evento de vlr por fila.
+        columns:
+          - name: tour_id
+            data_tests: [unique, not_null]
+
       - name: teams
         identifier: table_teams
         description: Un equipo de vlr por fila (team_id_vlr); el tag no es unico.
+        columns:
+          - name: team_id_vlr
+            data_tests: [unique, not_null]
+
       - name: match_id
         identifier: table_match_id
         description: Una serie de vlr por fila (series_id) con region, torneo y formato.
+        columns:
+          - name: series_id
+            data_tests: [unique, not_null]
+
+      - name: player_stats
+        identifier: table_player_stats
+        description: >
+          Una fila por jugador y mapa jugado (PK map_id + player_id_vlr), de la pestana overview de vlr. Las
+          columnas *Both son el total del mapa; *T / *CT, por lado.
+        data_tests:
+          - dbt_utils.unique_combination_of_columns:
+              arguments:
+                combination_of_columns: [map_id, player_id_vlr]
+        columns:
+          - name: map_id
+            data_tests: [not_null]
+          - name: player_id_vlr
+            data_tests: [not_null]
+
       - name: round_info
         identifier: table_round_info
         description: >
           Una ronda por fila (team_map_round_id). rndA / rndB = 1 para el equipo que gano ESA ronda (no es el
           score acumulado); side = lado del teamA en la ronda; date = hora programada en America/New_York.
+        columns:
+          - name: team_map_round_id
+            data_tests: [unique, not_null]
+
+      - name: players
+        identifier: table_players
+        description: Un jugador de vlr por fila (player_id_vlr), con nick y equipo de su partido mas reciente.
+        columns:
+          - name: player_id_vlr
+            data_tests: [unique, not_null]
+
+      - name: tournament_played
+        identifier: table_tournament_played
+        description: Equipo por torneo (PK tour_id + team_id_vlr); teamA = el tag mas reciente del equipo en ese torneo.
+        data_tests:
+          - dbt_utils.unique_combination_of_columns:
+              arguments:
+                combination_of_columns: [tour_id, team_id_vlr]
+        columns:
+          - name: tour_id
+            data_tests: [not_null]
+          - name: team_id_vlr
+            data_tests: [not_null]
+
+      - name: tournament_slots
+        identifier: table_tournament_slots
+        description: Plazas de un torneo y el equipo que la ocupa (team_id = tag; vacio = sin decidir).
+        data_tests:
+          - dbt_utils.unique_combination_of_columns:
+              arguments:
+                combination_of_columns: [tour_id, slot]
+        columns:
+          - name: tour_id
+            data_tests: [not_null]
+          - name: slot
+            data_tests: [not_null]
+
+      - name: maps_name_ids
+        identifier: table_maps_name_id
+        description: Catalogo de mapas del juego (map_N), con la imagen. Lista mantenida a mano en lookups.py.
+        columns:
+          - name: map_id
+            data_tests: [unique, not_null]
+
+      - name: maps_id
+        identifier: table_maps_id
+        description: Un mapa jugado por fila (map_id = <series_id>-<Mapa>).
+        columns:
+          - name: map_id
+            data_tests: [unique, not_null]
+
+      - name: draft
+        identifier: table_draft
+        description: >
+          Veto de mapas de una serie (PK series_id), desde el equipo que vetea primero. team_N_select_M = M-esima
+          eleccion del equipo N; que es ban o pick depende de bo (ver stg_vlr__drafts).
+        columns:
+          - name: series_id
+            data_tests: [unique, not_null]
+
+      - name: player_performance
+        identifier: table_player_performance
+        description: Pestana performance de vlr por jugador y mapa (PK map_id + player_id_vlr) - multikills, clutches, econ, plants, defuses.
+        data_tests:
+          - dbt_utils.unique_combination_of_columns:
+              arguments:
+                combination_of_columns: [map_id, player_id_vlr]
+        columns:
+          - name: map_id
+            data_tests: [not_null]
+          - name: player_id_vlr
+            data_tests: [not_null]
+
+      - name: team_economy
+        identifier: table_team_economy
+        description: Pestana economy de vlr por ronda (PK team_map_round_id) - valor del loadout y banco de cada equipo.
+        columns:
+          - name: team_map_round_id
+            data_tests: [unique, not_null]
+
+      - name: round_buy
+        identifier: table_round_buy
+        description: >
+          Compras por ronda (pestana logs), ancha - una fila por ronda con 7 columnas por cada uno de los 10
+          jugadores (player_N_team_x, _agent, _weapon, _shield, _spend, _bank, _id). En dbt se usa en formato
+          largo (stg_vlr__round_buys): este test cuida el grano de la tabla de Supabase.
+        columns:
+          - name: team_map_round_id
+            data_tests: [unique, not_null]
+
+      - name: round_events
+        identifier: table_round_events
+        description: Eventos de ronda (pestana logs) - kills, plants y defuses con tiempo y posicion (PK team_map_round_id + ev_index).
+        data_tests:
+          - dbt_utils.unique_combination_of_columns:
+              arguments:
+                combination_of_columns: [team_map_round_id, ev_index]
+        columns:
+          - name: team_map_round_id
+            data_tests: [not_null]
+          - name: ev_index
+            data_tests: [not_null]
+
+      - name: round_summary
+        identifier: table_round_summary
+        description: Resumen por ronda armado desde round_events - first blood, plant, defuse, kills y trades por equipo.
+        columns:
+          - name: team_map_round_id
+            data_tests: [unique, not_null]

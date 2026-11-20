@@ -38,3 +38,4 @@ dbt/.user.yml
 # GRID: respuestas crudas de la API (datos con licencia, no van a git)
 grid_probe*.json
 grid/raw/
+grid/exports/

@@ -1,0 +1,20 @@
+# Exposures: quien usa los modelos fuera de dbt. Aparecen en el linaje como nodo final, asi se ve que se rompe
+# si cambia un modelo. La de rktdata.ar entra en el paso 9, cuando lea de dbt (hoy lee las tablas que arma Python).
+
+version: 2
+
+exposures:
+  - name: grid_vs_vlr_player_analysis
+    label: Analisis GRID vs vlr por jugador
+    type: analysis
+    maturity: low
+    description: >
+      Stats de jugador que vlr no publica (supervivencia, dano recibido, orbes) con ids de vlr, y control de
+      calidad de las dos fuentes (kills, deaths, headshot %, ADR). Se consulta con dbt show y las analyses
+      source_comparison_summary y grid_vlr_crosswalk_coverage. Hallazgos en handoff/GRID_NOTES.md.
+    depends_on:
+      - ref('fct_player_map')
+      - ref('mart_player_tournament')
+      - ref('mart_player_map_source_comparison')
+    owner:
+      name: vlr-scraper

@@ -367,17 +367,43 @@ Proyecto `vlr_analytics` en `dbt/`, con DuckDB en local y Supabase (schema `anal
     Staging de vlr renombrado a `stg_vlr__*`.
   - [x] Staging de rondas: `stg_grid__rounds`, `__round_teams`, `__round_players` (950k filas) y
     `__round_player_objectives` (orbes, plants, defuses); tests de consistencia (`dbt build` PASS=77, WARN=3).
-  - [ ] Daño por fuente / zona del cuerpo, asistencias entre jugadores, weaponKills por ronda (fuera por ahora).
+  - [ ] Daño por fuente (la zona del cuerpo entró el 2026-11-20), asistencias entre jugadores, weaponKills por ronda (fuera por ahora).
   - [x] Cruce GRID ↔ vlr por nivel (`models/intermediate/crosswalk/`: equipo, serie, mapa, ronda) + seed
     `grid_team_overrides`: 596/597 series, 99.57% de las rondas coinciden en ganador y forma de ganar.
-  - [ ] Marts que usen el cruce (stats de GRID sobre ids de vlr).
-  - [ ] Revisar términos de uso de GRID antes de publicar nada.
-- [ ] 2. Resto del staging (tipos, nombres snake_case).
-- [ ] 3. Tests de datos con las PK de `FILES_TO_UPLOAD` + un test singular.
+  - [x] Primer mart: `fct_player_map` (jugador por mapa con ids de vlr + supervivencia, daño recibido, orbes,
+    plants, defuses de GRID) sobre `int_player_crosswalk` (99.99% de las filas de vlr). 2026-11-20.
+  - [x] `mart_player_map_source_comparison` (GRID vs vlr por jugador-mapa y métrica, formato largo) +
+    `stg_grid__round_player_damage_zones`. 2026-11-20.
+  - [x] `mart_player_tournament` (jugador por torneo, tasas ponderadas por rondas). 2026-11-20.
+  - [x] Términos de uso de GRID revisados por el usuario (2026-11-20): el uso no comercial de rktdata.ar está ok.
+  - [x] **Orbes por equipo y ronda a Supabase (2026-11-20).** Sirve para seguir cuántos orbes captura cada equipo.
+    - `mart_team_round_orbs` → `models/exports/table_team_orbs.sql` (materialización `external`) escribe
+      `grid/exports/table_team_orbs.csv` (gitignored).
+    - PK `(team_map_round_id, team_id_vlr)`, dos filas por ronda, 0 incluido.
+    - Cubre 31.788 rondas y 1.500 mapas. Quedan afuera los 4 mapas con distinta cantidad de rondas en GRID y vlr.
+    - Pacific Stage 1 no tiene datos porque GRID no tiene ese torneo.
+
+    El usuario corre `sql/team_orbs.sql`. La carga es única y la hace rktdata, no `upload.py`; aviso en
+    `handoff/RKTDATA_TEAM_ORBS.md`. Para actualizar: `dbt build` y una nueva carga desde rktdata.
+- [x] 2. Resto del staging (2026-11-20): las 12 tablas de Supabase, `round_buy` en formato largo, conteos = csv.
+- [x] 3. Tests de datos (2026-11-20): PK de las 17 tablas de `FILES_TO_UPLOAD` sobre los sources (los csv),
+  compuestas con `dbt_utils.unique_combination_of_columns`; test singular `assert_vlr_kills_overview_match_logs`
+  (kills del overview = kills del log sin team kills: 99.88 %, 70 filas).
+- [ ] **Bug del parser del overview (encontrado por el test del paso 3, 2026-11-20):** en qualifiers LATAM 2027
+  `player_stats_` crudo tiene 4 jugadores de un equipo (CARN en 785839 / 785878 / 785907 / 785922, RADI en
+  790241, ZENI en 790322 / 790373). Las kills del quinto quedan en `round_events` asignadas al jugador con el
+  mismo nick (Charlslol, Splotza, ley0r). Sospecha: dos jugadores con el mismo nick en el equipo y el parser se
+  queda con uno. SKABBY (ZERO, 790376) tiene 0 kills en el log: revisar también. Además, 5 mapas con log
+  incompleto (790238 / 790417 / 712828 Sunset, 790219 Lotus, 698906 Ascent).
 - [ ] 4. Intermediate y marts (resultados por mapa/serie, win rate por equipo y mapa, pick rate de agentes, stats
   de jugador por torneo).
-- [ ] 5. Documentación, linaje y `exposure` de rktdata.ar.
-- [ ] 6. `dbt_utils`, macros, seed de grupos → standings / h2h (hoy `scripts/export_groups.py`).
+- [x] 5. Documentación y linaje (2026-11-20): doc blocks + `__overview__`, columnas de marts y cruces, exposure
+  del análisis GRID vs vlr. `dbt docs serve` local.
+  - [ ] Exposure de rktdata.ar cuando lea de dbt (paso 9).
+- [ ] 6. `dbt_utils` y macros.
+  - Descartado (2026-11-20, pedido del usuario): seed de grupos → standings / h2h. GroupCalculator no se usa hoy
+    (no hay `tables/table_groups.csv` ni salida en `intermediate/groups/`); `scripts/export_groups.py` queda como
+    está. Regla: dbt solo modela lo que se usa ahora.
 - [ ] 7. Modelo incremental sobre `round_events` y snapshot de `teams` (historial de tags).
 - [ ] 8. dbt en GitHub Actions, sin bloquear el pipeline.
 - [ ] 9. Target `prod` con dbt-postgres contra Supabase.
@@ -386,8 +412,12 @@ Proyecto `vlr_analytics` en `dbt/`, con DuckDB en local y Supabase (schema `anal
 ### Supabase
 - Todos los archivos de `sql/` están ejecutados (confirmado el 2026-11-16).
 - [x] La Masia (`18025`) entró a `teams` con el Qualifier #2 de Europa (2026-11-16).
-- [ ] Correr `sql/cleanup_tour_id_europe_qualifier.sql` y después `upload` (tour_id viejo de Europa).
-- [ ] Avisar a rviewer / rktdata: el `tour_id` de Europa cambió y su `stage` ahora es `open_qualifier`.
+- [x] Correr `sql/cleanup_tour_id_europe_qualifier.sql` y después `upload` (tour_id viejo de Europa; corrido, confirmado el 2026-11-20).
+- [ ] **Chequear el 2026-11-21:** Team Solid `24636` (BR Open Qualifier #1, roster netin/znajder/GuhRVN/nevoy/gbz)
+  vs `19265` (`TSS`, el que figura en el BR Closed Qualifier). El usuario cree que son el mismo equipo y lo
+  confirma con el partido del 2026-11-20 vs ARRANCA DREAMS. Si lo son, unir los dos ids y volver a generar
+  `sql/relevant_teams.sql`.
+- [x] Avisar a rviewer / rktdata: el `tour_id` de Europa cambió y su `stage` ahora es `open_qualifier` (rktdata notificado, confirmado el 2026-11-20).
 
 ### Tiempo de Actions (2026-11-14)
 - 2026-11-16: el workflow `tests` se cancelaba por `timeout-minutes: 10` (`test_primary_keys` corre `build_all`

@@ -31,7 +31,7 @@ renamed as (
         rndA = '1'                                          as team_a_won,
         winCon                                              as win_con,           -- elim / boom / defus / tim
         -- timestamp sin zona -> "esta hora es de Nueva York" -> timestamptz (instante absoluto, se ve en UTC)
-        timezone('America/New_York', cast(date as timestamp)) as scheduled_at,
+        {{ vlr_timestamp_utc('date') }}             as scheduled_at,
         tour_id                                             as tournament_id,
         event                                               as event_name
 

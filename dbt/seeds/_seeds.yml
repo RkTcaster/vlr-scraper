@@ -1,0 +1,14 @@
+version: 2
+
+seeds:
+  - name: grid_team_overrides
+    description: >
+      Excepciones del cruce de equipos GRID -> vlr, escritas a mano: equipos que no coinciden por nombre ni por
+      tag (GC: vlr agrega "GC" al tag). int_team_crosswalk las usa antes que el cruce automatico.
+    columns:
+      - name: grid_team_id
+        description: "{{ doc('grid_team_id') }}"
+      - name: team_id_vlr
+        description: "{{ doc('team_id_vlr') }}"
+      - name: note
+        description: Que equipo es en cada fuente y por que no cruza solo.

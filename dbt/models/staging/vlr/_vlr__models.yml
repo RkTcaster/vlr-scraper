@@ -1,0 +1,208 @@
+version: 2
+
+models:
+  - name: stg_vlr__player_stats
+    description: Una fila por jugador y mapa jugado en vlr (total del mapa; ids de vlr).
+    columns:
+      - name: map_player_id
+        description: map_id-player_id_vlr, la PK de player_stats en Supabase.
+        data_tests: [unique, not_null]
+      - name: player_id_vlr
+        data_tests: [not_null]
+      - name: team_id_vlr
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_vlr__teams')
+                field: team_id_vlr
+
+  - name: stg_vlr__matches
+    description: Una serie de vlr por fila (match_id), con region, torneo y formato (full / reduced).
+
+  - name: stg_vlr__rounds
+    description: >
+      Una ronda de vlr por fila (round_info). team_a_won = gano el equipo A ESA ronda (rndA no es el score
+      acumulado); team_a_side = lado del equipo A (attacker / defender, como GRID); scheduled_at en UTC (vlr la
+      publica en America/New_York).
+
+  - name: stg_vlr__teams
+    description: Un equipo de vlr por fila (team_id_vlr). El tag no es unico; el nombre es el del ultimo partido.
+
+  - name: stg_vlr__tournaments
+    description: Un torneo de vlr por fila, con region, ano, stage y subregion (jerarquia del filtro de rviewer).
+
+  - name: stg_vlr__regions
+    description: Una region de VCT por fila.
+    columns:
+      - name: region_id
+        data_tests: [unique, not_null]
+
+  - name: stg_vlr__players
+    description: >
+      Un jugador de vlr por fila. Nick y equipo de su partido mas reciente; legacy_player_id = '<tag>_<nick>'
+      (identidad vieja de rktdata, no unica).
+    columns:
+      - name: player_id_vlr
+        description: "{{ doc('player_id_vlr') }}"
+        data_tests: [unique, not_null]
+      - name: team_id_vlr
+        description: "{{ doc('team_id_vlr') }}"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_vlr__teams')
+                field: team_id_vlr
+
+  - name: stg_vlr__tournament_teams
+    description: Equipo por torneo (tournament_played); team_tag = el tag mas reciente del equipo en ese torneo.
+    columns:
+      - name: tournament_team_id
+        description: <tournament_id>-<team_id_vlr>, la PK de tournament_played en Supabase.
+        data_tests: [unique, not_null]
+      - name: tournament_id
+        description: "{{ doc('tournament_id') }}"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_vlr__tournaments')
+                field: tournament_id
+
+  - name: stg_vlr__tournament_slots
+    description: Plazas de un torneo y el tag del equipo que la ocupa (null = sin decidir). Vacia al 2026-11-20.
+    columns:
+      - name: tournament_slot_id
+        data_tests: [unique, not_null]
+
+  - name: stg_vlr__map_names
+    description: Catalogo de mapas del juego (lookups.py). map_name_id = 'map_N', distinto de vlr_map_id.
+    columns:
+      - name: map_name_id
+        data_tests: [unique, not_null]
+      - name: map_name
+        data_tests: [unique, not_null]
+
+  - name: stg_vlr__maps
+    description: Un mapa jugado por fila.
+    columns:
+      - name: vlr_map_id
+        description: "{{ doc('vlr_map_id') }}"
+        data_tests: [unique, not_null]
+      - name: map_name
+        description: Tiene que estar en el catalogo de mapas (si falla, falta un mapa nuevo en lookups.py).
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_vlr__map_names')
+                field: map_name
+
+  - name: stg_vlr__drafts
+    description: >
+      Veto de mapas de una serie, desde el equipo que vetea primero. Bo3: veto 1 = ban, 2 = pick, 3 = ban; Bo5:
+      veto 1 = ban, 2 y 3 = pick; mas decider_map. Las series reduced (sin veto) no estan.
+    columns:
+      - name: vlr_series_id
+        description: "{{ doc('vlr_series_id') }}"
+        data_tests: [unique, not_null]
+      - name: best_of
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1, 3, 5]
+                quote: false
+
+  - name: stg_vlr__player_performance
+    description: Pestana performance de vlr por jugador y mapa - multikills, clutches ganados, econ rating, plants, defuses.
+    columns:
+      - name: map_player_id
+        description: "{{ doc('map_player_id') }}"
+        data_tests: [unique, not_null]
+      - name: player_id_vlr
+        description: "{{ doc('player_id_vlr') }}"
+        data_tests: [not_null]
+
+  - name: stg_vlr__round_economy
+    description: >
+      Pestana economy de vlr, una ronda por fila: valor del loadout y banco de cada equipo. Sin overtime (vlr ya
+      no lo muestra).
+    columns:
+      - name: team_map_round_id
+        description: "{{ doc('team_map_round_id') }}"
+        data_tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_vlr__rounds')
+                field: team_map_round_id
+      - name: team_a_side
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [attacker, defender]
+
+  - name: stg_vlr__round_buys
+    description: >
+      Compras por jugador y ronda (round_buy pasada a formato largo): agente, arma, escudo, gasto y banco.
+      team = a / b segun la posicion en vlr; slot = orden del jugador (1-5).
+    columns:
+      - name: round_player_buy_id
+        description: <team_map_round_id>-<team><slot> (a1..b5).
+        data_tests: [unique, not_null]
+      - name: team_map_round_id
+        description: "{{ doc('team_map_round_id') }}"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_vlr__rounds')
+                field: team_map_round_id
+      - name: side
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [attacker, defender]
+      - name: shield
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [Heavy, Light, Regen, No armor]
+
+  - name: stg_vlr__round_events
+    description: >
+      Eventos de ronda (pestana logs): kill, plant o defuse, con tiempo, posicion, y marcas de first blood,
+      team kill, post plant y trade.
+    columns:
+      - name: round_event_id
+        description: <team_map_round_id>-<event_index>, la PK de round_events en Supabase.
+        data_tests: [unique, not_null]
+      - name: team_map_round_id
+        description: "{{ doc('team_map_round_id') }}"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_vlr__rounds')
+                field: team_map_round_id
+      - name: event_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [kill, plant, defuse]
+      - name: side
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [attacker, defender]
+
+  - name: stg_vlr__round_summaries
+    description: Una ronda por fila, resumida desde round_events - first blood, plant, defuse, kills y trades por equipo.
+    columns:
+      - name: team_map_round_id
+        description: "{{ doc('team_map_round_id') }}"
+        data_tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_vlr__rounds')
+                field: team_map_round_id

@@ -1,0 +1,18 @@
+version: 2
+
+# Exports: modelos materialized = 'external' que escriben un csv con los nombres de columna de Supabase.
+models:
+  - name: table_team_orbs
+    description: >
+      mart_team_round_orbs con nombres de Supabase, escrito en grid/exports/table_team_orbs.csv (gitignoreado).
+      Tabla de Supabase en sql/team_orbs.sql. La carga la hace rktdata (handoff/RKTDATA_TEAM_ORBS.md).
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [team_map_round_id, team_id_vlr]
+    columns:
+      - name: side
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [atk, def]

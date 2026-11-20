@@ -1,0 +1,263 @@
+# Marts: el producto final, lo que se consulta. Materializados como table (dbt_project.yml).
+# Las columnas que se repiten entre modelos se describen una vez en models/_docs.md ({{ doc('...') }}).
+
+version: 2
+
+models:
+  - name: fct_player_map
+    description: >
+      Jugador por mapa con ids de vlr: las stats que publica vlr mas las que solo tiene GRID (dano recibido,
+      supervivencia, orbes, plants, defuses). Solo mapas del cruce GRID <-> vlr (VCT 2026, internacionales, GC).
+    columns:
+      - name: map_player_id
+        description: "{{ doc('map_player_id') }}"
+        data_tests: [unique, not_null]
+      - name: vlr_map_id
+        description: "{{ doc('vlr_map_id') }}"
+      - name: vlr_series_id
+        description: "{{ doc('vlr_series_id') }}"
+      - name: player_id_vlr
+        description: "{{ doc('player_id_vlr') }}"
+      - name: team_id_vlr
+        description: "{{ doc('team_id_vlr') }}"
+      - name: tournament_id
+        description: "{{ doc('tournament_id') }}"
+      - name: player_name
+        description: Nick en vlr en ese mapa.
+      - name: team_tag
+        description: "{{ doc('team_tag') }}"
+      - name: agent
+        description: Agente segun vlr (Jett, Kayo).
+      - name: vlr_rounds
+        description: Rondas del mapa en vlr (para ponderar las tasas de vlr).
+        data_tests: [not_null]
+      - name: rating
+        description: Rating de vlr (Rating 2.0 de vlr.gg).
+      - name: acs
+        description: Average Combat Score (vlr).
+      - name: kills
+        description: Kills en el mapa (vlr).
+      - name: deaths
+        description: Muertes en el mapa (vlr).
+      - name: assists
+        description: Asistencias en el mapa (vlr).
+      - name: kast_pct
+        description: KAST de vlr en % (rondas con kill, asistencia, supervivencia o trade).
+      - name: adr
+        description: Average Damage per Round de vlr. Ver adr_grid para la diferencia con GRID.
+      - name: headshot_pct
+        description: "{{ doc('headshot_pct') }} Valor de vlr."
+      - name: first_kills
+        description: Rondas en las que el jugador hizo la primera kill (vlr).
+      - name: first_deaths
+        description: Rondas en las que el jugador fue la primera muerte (vlr).
+      - name: rounds_played
+        description: Rondas de GRID en las que figura el jugador.
+        data_tests: [not_null]
+      - name: rounds_survived
+        description: Rondas que el jugador termino vivo (GRID).
+      - name: survival_rate
+        description: "{{ doc('survival_rate') }}"
+        data_tests: [not_null]
+      - name: damage_dealt
+        description: Dano total hecho en el mapa (GRID).
+      - name: damage_taken
+        description: Dano total recibido en el mapa (GRID).
+      - name: adr_grid
+        description: "{{ doc('adr_grid') }}"
+      - name: damage_taken_per_round
+        description: Dano recibido / rondas de GRID.
+      - name: assists_received
+        description: Asistencias que otros jugadores le dieron en sus kills (GRID).
+      - name: orbs_captured
+        description: Orbes de definitiva capturados (GRID, objective captureUltimateOrb).
+      - name: plants
+        description: Spikes plantadas (GRID).
+      - name: defuses
+        description: Spikes desactivadas (GRID).
+      - name: game_player_id
+        description: "{{ doc('game_player_id') }}"
+        data_tests: [unique, not_null]
+      - name: grid_player_id
+        description: "{{ doc('grid_player_id') }}"
+      - name: match_method
+        description: "{{ doc('player_match_method') }}"
+
+  - name: mart_player_map_source_comparison
+    description: >
+      GRID vs vlr, una fila por jugador-mapa y metrica (formato largo): vlr_value, grid_value, diff = grid - vlr.
+      Resumen por metrica en analyses/source_comparison_summary.sql. Al 2026-11-20 (14 937 pares): kills / deaths
+      99.6 % iguales, assists 96.5 % (GRID una menos), first_kills 98 %, headshot_pct 91 % (96 % a +-1), adr nunca
+      igual (GRID ~0.81 de vlr: overkill, ver handoff/GRID_NOTES.md).
+    columns:
+      - name: comparison_id
+        description: <map_player_id>-<metric>.
+        data_tests: [unique, not_null]
+      - name: map_player_id
+        description: "{{ doc('map_player_id') }}"
+      - name: game_player_id
+        description: "{{ doc('game_player_id') }}"
+      - name: vlr_map_id
+        description: "{{ doc('vlr_map_id') }}"
+      - name: player_id_vlr
+        description: "{{ doc('player_id_vlr') }}"
+      - name: team_id_vlr
+        description: "{{ doc('team_id_vlr') }}"
+      - name: tournament_id
+        description: "{{ doc('tournament_id') }}"
+      - name: player_name
+        description: Nick en vlr.
+      - name: metric
+        description: >
+          kills, deaths, assists = contadores del mapa; first_kills = rondas con primera kill (en GRID, rondas con
+          firstKill = true); adr = dano / ronda; headshot_pct = impactos en la cabeza / impactos de bala.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [kills, deaths, assists, first_kills, adr, headshot_pct]
+      - name: vlr_value
+        description: Valor segun vlr.
+        data_tests: [not_null]
+      - name: grid_value
+        description: Valor segun GRID, calculado para medir lo mismo que vlr.
+      - name: diff
+        description: grid_value - vlr_value. Positivo = GRID da mas.
+      - name: is_equal
+        description: Las dos fuentes dan el mismo valor.
+      - name: vlr_agent
+        description: Agente segun vlr (contexto del par, igual en todas sus metricas).
+      - name: grid_agent
+        description: Agente segun GRID.
+      - name: agent_matches
+        description: "{{ doc('agent_matches') }}"
+      - name: match_method
+        description: "{{ doc('player_match_method') }}"
+
+  - name: mart_player_tournament
+    description: >
+      Jugador por torneo sobre los mapas del cruce GRID <-> vlr (fct_player_map). Tasas de vlr ponderadas por
+      rondas de vlr; las de GRID, desde los totales por rondas de GRID. Sin minimo de mapas: filtrar con
+      where maps >= N. team_id_vlr = equipo de la serie mas reciente del jugador en el torneo.
+    columns:
+      - name: tournament_player_id
+        description: <tournament_id>-<player_id_vlr>.
+        data_tests: [unique, not_null]
+      - name: tournament_id
+        description: "{{ doc('tournament_id') }}"
+      - name: tournament_name
+        description: Nombre del evento en vlr.
+        data_tests: [not_null]
+      - name: season_year
+        description: Ano de la temporada.
+      - name: player_id_vlr
+        description: "{{ doc('player_id_vlr') }}"
+      - name: player_name
+        description: Nick de la serie mas reciente del jugador en el torneo.
+      - name: team_id_vlr
+        description: "{{ doc('team_id_vlr') }} El de la serie mas reciente del jugador en el torneo."
+      - name: team_tag
+        description: "{{ doc('team_tag') }}"
+      - name: n_teams
+        description: Equipos distintos del jugador en el torneo; mas de 1 = cambio de equipo.
+      - name: main_agent
+        description: Agente con mas mapas en el torneo.
+      - name: agent_pool
+        description: "Agentes y mapas con cada uno, del mas jugado al menos: 'Jett 5, Raze 2'."
+      - name: n_agents
+        description: Agentes distintos jugados.
+      - name: maps
+        description: Mapas jugados (solo los del cruce con GRID).
+        data_tests: [not_null]
+      - name: series
+        description: Series jugadas.
+      - name: rounds
+        description: Rondas jugadas segun vlr (peso de las tasas de vlr).
+      - name: rating
+        description: Rating de vlr, ponderado por rondas.
+      - name: acs
+        description: ACS de vlr, ponderado por rondas.
+      - name: adr
+        description: ADR de vlr, ponderado por rondas.
+      - name: kast_pct
+        description: KAST de vlr en %, ponderado por rondas.
+      - name: headshot_pct
+        description: "{{ doc('headshot_pct') }} De vlr, ponderado por rondas."
+      - name: kills
+        description: Kills totales (vlr).
+      - name: deaths
+        description: Muertes totales (vlr).
+      - name: assists
+        description: Asistencias totales (vlr).
+      - name: first_kills
+        description: Primeras kills totales (vlr).
+      - name: first_deaths
+        description: Primeras muertes totales (vlr).
+      - name: kills_per_round
+        description: kills / rounds.
+      - name: deaths_per_round
+        description: deaths / rounds.
+      - name: assists_per_round
+        description: assists / rounds.
+      - name: first_kills_per_round
+        description: first_kills / rounds.
+      - name: first_deaths_per_round
+        description: first_deaths / rounds.
+      - name: grid_rounds
+        description: Rondas segun GRID (peso de las tasas de GRID; difiere de rounds en 5 mapas).
+      - name: rounds_survived
+        description: Rondas que el jugador termino vivo (GRID).
+      - name: survival_rate
+        description: "{{ doc('survival_rate') }}"
+      - name: adr_grid
+        description: "{{ doc('adr_grid') }}"
+      - name: damage_taken_per_round
+        description: Dano recibido / rondas de GRID.
+      - name: assists_received
+        description: Asistencias que otros le dieron en sus kills (GRID).
+      - name: orbs_captured
+        description: Orbes de definitiva capturados (GRID).
+      - name: orbs_per_100_rounds
+        description: Orbes capturados cada 100 rondas de GRID.
+      - name: plants
+        description: Spikes plantadas (GRID).
+      - name: defuses
+        description: Spikes desactivadas (GRID).
+
+  - name: mart_team_round_orbs
+    description: >
+      Orbes de definitiva por equipo y ronda, con claves de vlr (dos filas por ronda, orbs = 0 incluido). Solo
+      rondas del cruce GRID <-> vlr en mapas con la misma cantidad de rondas en las dos fuentes. Se exporta a csv
+      en exports/table_team_orbs.
+    columns:
+      - name: team_round_id
+        description: team_map_round_id + '-' + team_id_vlr.
+        data_tests: [unique, not_null]
+      - name: team_map_round_id
+        description: Ronda de vlr (round_info).
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_vlr__rounds')
+                field: team_map_round_id
+      - name: vlr_series_id
+      - name: vlr_map_id
+      - name: map_name
+      - name: round_number
+      - name: team_id_vlr
+        data_tests: [not_null]
+      - name: team_tag
+        description: Tag del equipo en round_info (el de cuando se jugo).
+        data_tests: [not_null]
+      - name: side
+        description: Lado del equipo en la ronda segun GRID (coincide con vlr en todas las filas al 2026-11-20).
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [attacker, defender]
+      - name: orbs
+        description: Orbes de definitiva capturados por el equipo en la ronda (GRID, captureUltimateOrb).
+        data_tests: [not_null]
+      - name: grid_game_id
+      - name: grid_team_id
+      - name: tournament_id

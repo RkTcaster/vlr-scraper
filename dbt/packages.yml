@@ -1,0 +1,5 @@
+# Paquetes de dbt: macros y tests escritos por otros, que `dbt deps` baja a dbt_packages/ (gitignored).
+# package-lock.yml (generado por dbt deps) fija la version exacta y va a git.
+packages:
+  - package: dbt-labs/dbt_utils
+    version: [">=1.3.0", "<2.0.0"]
