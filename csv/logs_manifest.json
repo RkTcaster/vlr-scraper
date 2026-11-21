@@ -179,6 +179,18 @@
   "sha256": "ceff67bcccc3855372faa12cbfcac0a4b96c9aa0cce0a970fb70a9f6538d5f9a",
   "updated_at": "2026-11-17T14:13:16+00:00"
  },
+ "vct_2027_america_kickoff_-_brazil_qualifier_playoffs/round_buy_vct_2027_america_kickoff_-_brazil_qualifier_playoffs.csv": {
+  "bytes": 1020765,
+  "object": "vct_2027_america_kickoff_-_brazil_qualifier_playoffs/round_buy_vct_2027_america_kickoff_-_brazil_qualifier_playoffs.fb35fc4a2e3b.csv.gz",
+  "sha256": "fb35fc4a2e3bc41b9b0915a8cb80c0b5efcb5b71b5008a24c3d198f9f7a63f03",
+  "updated_at": "2026-11-21T13:31:26+00:00"
+ },
+ "vct_2027_america_kickoff_-_brazil_qualifier_playoffs/round_events_vct_2027_america_kickoff_-_brazil_qualifier_playoffs.csv": {
+  "bytes": 861985,
+  "object": "vct_2027_america_kickoff_-_brazil_qualifier_playoffs/round_events_vct_2027_america_kickoff_-_brazil_qualifier_playoffs.512dbaf9cb97.csv.gz",
+  "sha256": "512dbaf9cb973def4cef9f1d2f436752d01a819d035cb7c61f2dc4b8b13c7632",
+  "updated_at": "2026-11-21T13:31:26+00:00"
+ },
  "vct_2027_america_kickoff_-_latam_north_open_qualifier/round_buy_vct_2027_america_kickoff_-_latam_north_open_qualifier.csv": {
   "bytes": 21858771,
   "object": "vct_2027_america_kickoff_-_latam_north_open_qualifier/round_buy_vct_2027_america_kickoff_-_latam_north_open_qualifier.93a322bfb8c1.csv.gz",
@@ -215,6 +227,18 @@
   "sha256": "358e2076401723f5d0fa411134d288de5ea3dad62bee023889400b22461b1140",
   "updated_at": "2026-11-16T13:27:26+00:00"
  },
+ "vct_2027_america_kickoff_-_north_america_qualifier_playoffs/round_buy_vct_2027_america_kickoff_-_north_america_qualifier_playoffs.csv": {
+  "bytes": 1082453,
+  "object": "vct_2027_america_kickoff_-_north_america_qualifier_playoffs/round_buy_vct_2027_america_kickoff_-_north_america_qualifier_playoffs.9ef05d3efc86.csv.gz",
+  "sha256": "9ef05d3efc86e06402062d24bbf5a5e880832f207d8dd4e3bad916e86bfc5818",
+  "updated_at": "2026-11-21T13:31:27+00:00"
+ },
+ "vct_2027_america_kickoff_-_north_america_qualifier_playoffs/round_events_vct_2027_america_kickoff_-_north_america_qualifier_playoffs.csv": {
+  "bytes": 938130,
+  "object": "vct_2027_america_kickoff_-_north_america_qualifier_playoffs/round_events_vct_2027_america_kickoff_-_north_america_qualifier_playoffs.cbc9ea06a54c.csv.gz",
+  "sha256": "cbc9ea06a54cbdc9629d64bbef868a8d66ab16eaf597a89fcefc735c978a323f",
+  "updated_at": "2026-11-21T13:31:27+00:00"
+ },
  "vct_2027_emea_kickoff_-_europe_open_qualifier/round_buy_vct_2027_emea_kickoff_-_europe_open_qualifier.csv": {
   "bytes": 66307082,
   "object": "vct_2027_emea_kickoff_-_europe_open_qualifier/round_buy_vct_2027_emea_kickoff_-_europe_open_qualifier.e350b3508eae.csv.gz",
@@ -240,27 +264,39 @@
   "updated_at": "2026-11-20T14:04:48+00:00"
  },
  "vct_2027_emea_kickoff_-_türkiye_qualifier/round_buy_vct_2027_emea_kickoff_-_türkiye_qualifier.csv": {
-  "bytes": 20671359,
-  "object": "vct_2027_emea_kickoff_-_turkiye_qualifier/round_buy_vct_2027_emea_kickoff_-_turkiye_qualifier.5e5a8308fbef.csv.gz",
-  "sha256": "5e5a8308fbefb404adaf643c7a36da9339a73bcceea0317b26201eca7d4e9c9e",
-  "updated_at": "2026-11-20T14:04:49+00:00"
+  "bytes": 22108000,
+  "object": "vct_2027_emea_kickoff_-_turkiye_qualifier/round_buy_vct_2027_emea_kickoff_-_turkiye_qualifier.149b491b0c53.csv.gz",
+  "sha256": "149b491b0c5376275490017928e60a79f5a39585fb9669327f1b747b50a24fb2",
+  "updated_at": "2026-11-21T13:31:28+00:00"
  },
  "vct_2027_emea_kickoff_-_türkiye_qualifier/round_events_vct_2027_emea_kickoff_-_türkiye_qualifier.csv": {
-  "bytes": 17846576,
-  "object": "vct_2027_emea_kickoff_-_turkiye_qualifier/round_events_vct_2027_emea_kickoff_-_turkiye_qualifier.fe0f76009904.csv.gz",
-  "sha256": "fe0f76009904a5364f3ef30ef3328573549e2086f90c47efaa42cdd65a082d57",
-  "updated_at": "2026-11-20T14:04:49+00:00"
+  "bytes": 19088568,
+  "object": "vct_2027_emea_kickoff_-_turkiye_qualifier/round_events_vct_2027_emea_kickoff_-_turkiye_qualifier.f114afb637ec.csv.gz",
+  "sha256": "f114afb637ec0bded54850606d64e6507255bde103bae1dd6617ad7ecb398714",
+  "updated_at": "2026-11-21T13:31:28+00:00"
+ },
+ "vct_2027_pacific_kickoff_-_oceania_qualifier/round_buy_vct_2027_pacific_kickoff_-_oceania_qualifier.csv": {
+  "bytes": 4003714,
+  "object": "vct_2027_pacific_kickoff_-_oceania_qualifier/round_buy_vct_2027_pacific_kickoff_-_oceania_qualifier.9ea9044b214c.csv.gz",
+  "sha256": "9ea9044b214cba6537553245127581290d051be87417cb7f5073208c1299e18e",
+  "updated_at": "2026-11-21T13:31:29+00:00"
+ },
+ "vct_2027_pacific_kickoff_-_oceania_qualifier/round_events_vct_2027_pacific_kickoff_-_oceania_qualifier.csv": {
+  "bytes": 3488023,
+  "object": "vct_2027_pacific_kickoff_-_oceania_qualifier/round_events_vct_2027_pacific_kickoff_-_oceania_qualifier.cd37d9f1c805.csv.gz",
+  "sha256": "cd37d9f1c8052b3f1de26f143229a109125249c036c5efd11901aa8b0b2e8aeb",
+  "updated_at": "2026-11-21T13:31:29+00:00"
  },
  "vct_2027_pacific_kickoff_-_south_asia_qualifier/round_buy_vct_2027_pacific_kickoff_-_south_asia_qualifier.csv": {
-  "bytes": 3305016,
-  "object": "vct_2027_pacific_kickoff_-_south_asia_qualifier/round_buy_vct_2027_pacific_kickoff_-_south_asia_qualifier.675c29ca82d1.csv.gz",
-  "sha256": "675c29ca82d145a1983e2fddfc7327590d14623e84092f62412a4599a670a542",
-  "updated_at": "2026-11-20T14:04:49+00:00"
+  "bytes": 3696913,
+  "object": "vct_2027_pacific_kickoff_-_south_asia_qualifier/round_buy_vct_2027_pacific_kickoff_-_south_asia_qualifier.357eb1fbe7e1.csv.gz",
+  "sha256": "357eb1fbe7e10ec6ea4784dfeddc45ab39137e5f220f60cc1f8c9361a7ff60df",
+  "updated_at": "2026-11-21T13:31:29+00:00"
  },
  "vct_2027_pacific_kickoff_-_south_asia_qualifier/round_events_vct_2027_pacific_kickoff_-_south_asia_qualifier.csv": {
-  "bytes": 2900080,
-  "object": "vct_2027_pacific_kickoff_-_south_asia_qualifier/round_events_vct_2027_pacific_kickoff_-_south_asia_qualifier.f9cd46ca356f.csv.gz",
-  "sha256": "f9cd46ca356fc9c92e553f76bbc0b1532bc9d35a4b34df8bbe3bb6c55b1c0d73",
-  "updated_at": "2026-11-20T14:04:50+00:00"
+  "bytes": 3249587,
+  "object": "vct_2027_pacific_kickoff_-_south_asia_qualifier/round_events_vct_2027_pacific_kickoff_-_south_asia_qualifier.68301dc06746.csv.gz",
+  "sha256": "68301dc06746d006d83edb085b01b2352649c6e8b7301fc980ad154515f7929f",
+  "updated_at": "2026-11-21T13:31:30+00:00"
  }
 }
