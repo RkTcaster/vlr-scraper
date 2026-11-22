@@ -111,7 +111,7 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 - Evento activo: Game Changers 2026 Championship São Paulo (Champions 2026 pasó a inactivo, terminado).
 - `table_teams` genera `team_path = teams/<team_id sin puntos>.png`: los tricodes de GC traen punto
   (`GEN.GC`, `MIBR.GC`, `NOVA.GC`) y los logos de rviewer se guardaron sin él. El `team_id` no cambia.
-  Antes se completaba a mano en Supabase; ahora lo pisa el upsert de dimensiones (ver `handoff/SCRAPER_TEAM_PATH.md`).
+  Antes se completaba a mano en Supabase; ahora lo pisa el upsert de dimensiones (ver `handoff/archivado/SCRAPER_TEAM_PATH.md`).
 
 ### 2026-11-06: torneos de formato reducido (qualifiers sin draft)
 - `events.json` acepta `"format": "reduced"` (default `full`; `--format` para `scrape --event-url`). Primer evento:
@@ -119,7 +119,7 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 - `scrape_log` tiene la columna `match_format`; `scrape_event` la sincroniza sin requests, así que alcanza con
   cambiar el `format` del evento en `events.json` para re-marcar lo ya scrapeado.
 - `table_match_id.match_format` (full/reduced) y `table_tournament.match_format` (full/reduced/mixed).
-  En Supabase: `sql/match_format.sql`. Aviso a rktdata: `handoff/RKTDATA_MATCH_FORMAT.md`.
+  En Supabase: `sql/match_format.sql`. Aviso a rktdata: `handoff/archivado/RKTDATA_MATCH_FORMAT.md`.
 - `table_teams` suma los equipos de `round_detail`, porque los partidos sin draft no aparecían. Con los torneos
   actuales es el mismo conjunto: la tabla no cambia.
 - Forfeits (`forfeited by X`, todos los mapas N/A): ahora quedan `skipped`/`forfeit`. Antes eran `not_final` y
@@ -167,7 +167,7 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
     borra esas filas viejas en Supabase antes del `upload --full`. `team_path` también pasa a mayúsculas
     (`teams/SUN.png`). Los tags no-ASCII se decodifican antes del `upper()` (`MÃ¶rk` -> `MÖRK`).
   - `save.append_dict_rows`: un parser que suma una columna ya no deja filas corridas bajo el header viejo.
-  - Aviso a rktdata: `handoff/RKTDATA_PLAYER_ID_VLR.md`.
+  - Aviso a rktdata: `handoff/archivado/RKTDATA_PLAYER_ID_VLR.md`.
 - rktdata reportó de nuevo la fila de Game Changers en mojibake (`s�o_paulo` en `tournament`, 10 filas con
   `tour_id = ''` en `tournament_played`) y Hush faltante en `agent_info`. El pipeline ya no los genera: eran
   `sql/cleanup_gc_encoding.sql` y `sql/agent_hush.sql`, que nunca se corrieron. Quedaron como paso 0 de
@@ -204,7 +204,7 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 ### 2026-11-09: MENA Qualifier y Brazil Open Qualifier
 - Eventos nuevos (`reduced`) en `events.json`: VCT 2027 EMEA Kickoff - MENA Qualifier (3167, todavía sin jugar)
   y VCT 2027 Americas Kickoff - Brazil Open Qualifier (3187). Subregiones nuevas en `lookups.subregion_names`:
-  `MENA` y `Brazil` (aviso a rviewer: `handoff/RVIEWER_SUBREGIONES_NUEVAS.md`).
+  `MENA` y `Brazil` (aviso a rviewer: `handoff/archivado/RVIEWER_SUBREGIONES_NUEVAS.md`).
 - Brazil: 19 partidos quedaron en `live` en vlr con rondas posteriores ya jugadas (algunos con 1-2 mapas
   cargados). No se registran en scrape_log y se vuelven a mirar en cada corrida sin requests: entran solos si
   vlr los cierra. Si no los cierra nunca, esas series faltan: no se fuerzan (ver "Partidos sin terminar").
@@ -256,7 +256,7 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 - [x] Supabase: `sql/cleanup_tour_id_turkiye.sql` corrido (confirmado el 2026-11-16, como el resto de `sql/`).
 
 ### 2026-11-13: `team_id_vlr` fase 2 (pedido de rviewer) y mapas no jugados
-- Pedido: `handoff/VLR_SCRAPER_TEAM_ID_FASE_2.md`. Columnas de id **al lado** de cada tag, sin cambiar
+- Pedido: `handoff/archivado/VLR_SCRAPER_TEAM_ID_FASE_2.md`. Columnas de id **al lado** de cada tag, sin cambiar
   `team_map_round_id`: `draft` (`team_id_vlr`, `rival_id_vlr`), `team_economy` / `round_buy` / `round_summary`
   (`team_a_id_vlr`, `team_b_id_vlr`; summary suma `fb_team_id_vlr`), `round_events` (`team_id_vlr`,
   `victim_team_id_vlr`), `player_performance` (`team_id_vlr`), `tournament_played` (`team_id_vlr`, PK nueva
@@ -274,7 +274,7 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
   Esas 4 series no unían con economy/compras/eventos. Re-scrapeadas las 8 series; `drop_unplayed_maps` cubre csv
   viejos.
 - SQL: `sql/team_id_vlr_fase2.sql` (columnas, PKs, borra los 4 map_id viejos y los player_stats sin tour_id) +
-  `upload --full`. Aviso: `handoff/RVIEWER_TEAM_ID_FASE_2_RESPUESTA.md`.
+  `upload --full`. Aviso: `handoff/archivado/RVIEWER_TEAM_ID_FASE_2_RESPUESTA.md`.
 
 ### 2026-11-14: tiempo de Actions (open qualifiers)
 - La corrida del 14/11 tardó 52 min (41 de scrape: 326 matches a ~7,5 s; 8 de process; 3 de upload). El
@@ -316,7 +316,7 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
   `csv_process.ipynb` (ya no hay nada que mantener en sync), `Webscraper.ipynb` (legacy) y `round_process.ipynb`
   (análisis exploratorio). Siguen en el historial de git (último commit con ellas: `139d370`).
 - Lo único que existía solo en la notebook era el export de standings / h2h de fase de grupos
-  (`handoff/INPUT_CONTRACT.md`): pasó sin cambios de lógica a `scripts/export_groups.py`. Probado con un
+  (`handoff/archivado/INPUT_CONTRACT.md`): pasó sin cambios de lógica a `scripts/export_groups.py`. Probado con un
   `table_groups.csv` de un solo grupo (Americas Stage 1: cross-checks ok, 12 equipos / 42 series).
 - Referencias a las notebooks fuera de `CLAUDE.md`, `COMMANDS.md`, docstrings del paquete y `test_lookups.py`.
 - `README.md` (en inglés) con el resumen del repo.
@@ -434,7 +434,7 @@ Proyecto `vlr_analytics` en `dbt/`, con DuckDB en local y Supabase (schema `anal
 
 ### rktdata: migrar a `player_id_vlr` (2026-11-07)
 - [ ] rktdata usa `player_id` (`<team>_<nick>`, ya no único) y `player` como identidad: pasar a `player_id_vlr`
-  (ver `handoff/RKTDATA_PLAYER_ID_VLR.md`). Cuando esté, evaluar sacar `player_id` legacy de las tablas.
+  (ver `handoff/archivado/RKTDATA_PLAYER_ID_VLR.md`). Cuando esté, evaluar sacar `player_id` legacy de las tablas.
 
 ### Cerrado sin hacer (2026-11-10)
 - China Kickoff / Stage 1 2026 (78 series en `error` con datos parciales) y Game Changers 2026: temporada
@@ -470,19 +470,19 @@ no son `Completed`, así que nada dice que faltan.
 - [x] 2026-11-14 (limpieza de huérfanas): Más huérfanas (revisión 2026-11-11, Supabase vs csv): `team_economy` 6304 filas espejo en americas / emea /
   pacific kickoff 2026 y masters santiago (mismo `team_map_round_id`, `team_a` invertido; la buena coincide con
   `round_info."teamA"`); `round_events` 8150 del NA Open Qualifier con tags en minúscula (23 series); `draft`
-  701037 (no está en el csv). SQL en `handoff/RKTDATA_RESPUESTA_TEAM_ID_Y_DATOS.md`. Deben quedar
+  701037 (no está en el csv). SQL en `handoff/archivado/RKTDATA_RESPUESTA_TEAM_ID_Y_DATOS.md`. Deben quedar
   `team_economy` 62973, `round_events` 503462, `draft` 738.
 - [ ] `match_instance` del draft sale del final de la url y vlr corta los slugs largos: basura (`ier`, `pen`) en
   los 72 drafts del NA Open Qualifier.
 - [ ] Decidir con rviewer si `match_format` pasa a ser por serie (NA Open Qualifier es `reduced` y tiene 72 drafts).
-- [ ] Avisar a rktdata: `handoff/RKTDATA_TEAM_ID_VLR.md`, `handoff/RKTDATA_RESPUESTA_TEAM_ID_Y_DATOS.md`
-  (rviewer ya revisó team id el 2026-11-16; falta Türkiye en `handoff/RVIEWER_SUBREGIONES_NUEVAS.md`).
+- [ ] Avisar a rktdata: `handoff/archivado/RKTDATA_TEAM_ID_VLR.md`, `handoff/archivado/RKTDATA_RESPUESTA_TEAM_ID_Y_DATOS.md`
+  (rviewer ya revisó team id el 2026-11-16; falta Türkiye en `handoff/archivado/RVIEWER_SUBREGIONES_NUEVAS.md`).
 - [ ] `slots` / `relevant_teams` en `events.json`: ningún evento los usa todavía. Falta saber cuántas plazas dan
   Türkiye, MENA, Europe y los siete de Pacific (vlr no lo muestra).
 - [x] 2026-11-14: `sql/team_id_vlr_fase2.sql` + `upload --full` + `sql/limpieza_huerfanas_2026-11-14.sql`
   corridos; Supabase = `tables/` fila por fila, 0 nulos en las columnas de id. Lección: `git pull` antes de un
   `upload --full` local (el bot había commiteado 249 series que el full no subió).
-- [x] 2026-11-16: rviewer ya revisó lo de `team_id_vlr` (`handoff/RVIEWER_TEAM_ID_FASE_2_RESPUESTA.md`).
+- [x] 2026-11-16: rviewer ya revisó lo de `team_id_vlr` (`handoff/archivado/RVIEWER_TEAM_ID_FASE_2_RESPUESTA.md`).
 - [ ] Fase 3 (opcional, rviewer no la pide): PKs con id en vez de tag (`team_map_round_id`, `draft`). Con eso
   `team_aliases` / `canonical_teams` / `same_team_case` dejan de hacer falta. `round_situations` (no se sube)
   sigue agrupando por tag: 785082 sale mal en vivos por equipo.

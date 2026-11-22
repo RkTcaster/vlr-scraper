@@ -602,7 +602,7 @@ def build_teams(csv_dir="csv", tables_dir="tables", df_tournaments=None):
         logger.warning(f"teams: tags del draft sin round_detail (sin team_id_vlr): {unknown}")
 
     # logo en rviewer/public/teams/: tricodes de GC traen punto (GEN.GC -> teams/GENGC.png);
-    # solo se sacan los puntos del path, el team_id queda igual (ver handoff/SCRAPER_TEAM_PATH.md)
+    # solo se sacan los puntos del path, el team_id queda igual (ver handoff/archivado/SCRAPER_TEAM_PATH.md)
     df_team["team_path"] = "teams/" + df_team["team_id"].str.replace(".", "", regex=False) + ".png"
     # tag compartido (MIBR = MIBR y Made in Brampton): el logo por tag queda para el equipo con mas
     # series (el de liga) y los demas van por id, teams/<team_id_vlr>.png (handoff/

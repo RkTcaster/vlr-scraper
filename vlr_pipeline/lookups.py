@@ -15,9 +15,9 @@ subregion_names = {
     "latam north": "LATAM North",
     "latam south": "LATAM South",
     "europe": "Europe",
-    "mena": "MENA",  # 2026-11-09, avisado a rviewer (handoff/RVIEWER_SUBREGIONES_NUEVAS.md)
+    "mena": "MENA",  # 2026-11-09, avisado a rviewer (handoff/archivado/RVIEWER_SUBREGIONES_NUEVAS.md)
     "brazil": "Brazil",
-    "türkiye": "Türkiye",  # 2026-11-11, avisado a rviewer (handoff/RVIEWER_SUBREGIONES_NUEVAS.md)
+    "türkiye": "Türkiye",  # 2026-11-11, avisado a rviewer (handoff/archivado/RVIEWER_SUBREGIONES_NUEVAS.md)
     # 2026-11-17, Pacific Kickoff 2027 (Title Case tal cual sale del nombre; a confirmar por rviewer,
     # handoff/RVIEWER_SUBREGIONES_PACIFIC_Y_EQUIPOS.md). "Thailand Qualifier 1" -> "thailand"
     "korea": "Korea",

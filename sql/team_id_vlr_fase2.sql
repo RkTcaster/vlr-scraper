@@ -1,5 +1,5 @@
 -- team_id_vlr, fase 2 (2026-11-13): id de equipo de vlr en las tablas por partido, pedido de rviewer
--- (handoff/VLR_SCRAPER_TEAM_ID_FASE_2.md). Solo se AGREGAN columnas: team_map_round_id y las demas
+-- (handoff/archivado/VLR_SCRAPER_TEAM_ID_FASE_2.md). Solo se AGREGAN columnas: team_map_round_id y las demas
 -- PK de las tablas fact no cambian, salvo:
 --   - tournament_played: PK (tour_id, teamA) -> (tour_id, team_id_vlr). Dos equipos con el mismo tag
 --     en un torneo (FAKE/FAKE, los THE) eran una sola fila.

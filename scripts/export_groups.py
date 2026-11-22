@@ -1,4 +1,4 @@
-"""Exporta standings.csv y h2h.csv de fase de grupos (contrato en handoff/INPUT_CONTRACT.md).
+"""Exporta standings.csv y h2h.csv de fase de grupos (contrato en handoff/archivado/INPUT_CONTRACT.md).
 
 Era la seccion "Export INPUT_CONTRACT" de csv_process.ipynb (borrada el 2026-11-16); la logica no cambio.
 

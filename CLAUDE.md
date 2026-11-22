@@ -67,7 +67,7 @@ merge that is already conflicted. Comments are frequently in Spanish.
   (null fields are omitted, rate limit comes as a GraphQL error with HTTP 200, version-gated fields) are in
   `handoff/GRID_NOTES.md`; plan in `handoff/DBT_PLAN.md`.
 - **`scripts/export_groups.py`** — group-stage `standings.csv` / `h2h.csv` into `intermediate/groups/` from
-  `tables/` plus a hand-made `tables/table_groups.csv` (contract in `handoff/INPUT_CONTRACT.md`). It was the last
+  `tables/` plus a hand-made `tables/table_groups.csv` (contract in `handoff/archivado/INPUT_CONTRACT.md`). It was the last
   section of `csv_process.ipynb`; not part of `process`, run it by hand.
 
 ## Tests
@@ -250,10 +250,12 @@ names to match other tables. When team names fail to join, suspect an encoding m
 - `table_players`: one row per `player_id_vlr` (see "Player identity"); nick, `team_id` and the legacy
   `player_id = <team>_<player>` come from the player's most recent match;
   `table_teams` includes draft `team` and `rival`, plus `team_path = teams/<team_id without dots>.png` (logos in
-  rviewer; GC tricodes like `GEN.GC` -> `GENGC.png`, `team_id` keeps the dot; see `handoff/SCRAPER_TEAM_PATH.md`). `find_files_by_prefix` sorts files so output doesn't depend on OS
+  rviewer; GC tricodes like `GEN.GC` -> `GENGC.png`, `team_id` keeps the dot; see `handoff/archivado/SCRAPER_TEAM_PATH.md`). `find_files_by_prefix` sorts files so output doesn't depend on OS
   (os.walk order differs on Linux). Changing a PK-forming rule leaves orphan rows in Supabase (upsert never deletes);
-  see `handoff/RKTDATA_CAMBIO_PLAYERS.md` for the 2026-09-14 players change handed off to the rktdata repo.
+  see `handoff/archivado/RKTDATA_CAMBIO_PLAYERS.md` for the 2026-09-14 players change handed off to the rktdata repo.
 - `backup/` — archived older tournaments and prior `tables/` snapshots.
 - `ROADMAP.md` — done/pending work; update it when finishing or adding a feature.
 - `handoff/` — docs exchanged with other repos (rktdata, rviewer, GroupCalculator: contracts, change notices).
   Gitignored on purpose: every new doc of this kind goes there, never at the root or in git.
+  Only pending docs and live references (DBT/GRID plan, tournament hierarchy contract) stay at its root; docs already
+  processed or no longer used go to `handoff/archivado/`.
