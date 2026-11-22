@@ -53,6 +53,13 @@ def test_closed_qualifier():
     assert tournament_hierarchy("vct_2027_america_kickoff_-_latam_south_closed_qualifier") == (
         2027, "closed_qualifier", "LATAM South",
     )
+    # 2026-11-22: "Qualifier Playoffs" es el closed (antes caia en open_qualifier por "qualifier")
+    assert tournament_hierarchy("vct_2027_america_kickoff_-_north_america_qualifier_playoffs") == (
+        2027, "closed_qualifier", "North America",
+    )
+    assert tournament_hierarchy("vct_2027_america_kickoff_-_brazil_qualifier_playoffs") == (
+        2027, "closed_qualifier", "Brazil",
+    )
 
 
 def test_unknown_stage_and_subregion_warn(caplog):

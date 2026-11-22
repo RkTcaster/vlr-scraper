@@ -25,16 +25,16 @@ where team_id_vlr in (
   '21459',  -- STA STREAMER ARENA
   '12889',  -- SQR Squirtle Rangers
   '25292',  -- 505 505
-  '25283',  -- OLD Old School Krew
+  '11720',  -- OSK Old School Kr3w
   -- BRAZIL
   '23141',  -- FX Fluxo W7M
   '15072',  -- 2G 2Game Esports
-  '19265',  -- Team Solid (no esta en teams)
-  '20741',  -- Next (no esta en teams)
-  '18622',  -- ELEVATE (no esta en teams)
-  '23778',  -- Manticore (no esta en teams)
+  '19265',  -- TSS Team Solid
+  '20741',  -- NXT Next
+  '18622',  -- ELV ELEVATE
+  '23778',  -- MANT Manticore
   '24496',  -- BRA2002 BRASIL2002
-  '25330',  -- GANGUE (no esta en teams)
+  '25330',  -- GANG GANGUE
   '24553',  -- MAFIA Mafiosos
   '24401',  -- TB3 TIME DO B3M
   '23180',  -- ARAS Arashi
@@ -46,12 +46,12 @@ where team_id_vlr in (
   -- NA QUALIFIER PLAYOFFS
   '427',  -- ENVY ENVY
   '188',  -- C9 Cloud9
-  '9353',  -- Shopify Rebellion Black (no esta en teams)
-  '6985',  -- QoR (no esta en teams)
-  '21838',  -- FlyQuest (no esta en teams)
+  '9353',  -- SRB Shopify Rebellion Black
+  '6985',  -- QOR QoR
+  '21838',  -- FLY FlyQuest
   '14278',  -- SRG Shopify Rebellion Gold
-  '5038',  -- YFP (no esta en teams)
-  '13920',  -- SaD Esports (no esta en teams)
+  '5038',  -- YFP YFP
+  '13920',  -- SAD SaD Esports
   '23878',  -- MC Masterclass
   '23892',  -- OAF Oafs
   '10448',  -- WU Winthrop University
@@ -76,5 +76,5 @@ where team_id_vlr in (
 
 commit;
 
--- control: 42 filas esperadas (58 ids en la lista)
+-- control: 52 filas esperadas (58 ids en la lista)
 select team_id_vlr, team_id, name from teams where relevant = true order by team_id;

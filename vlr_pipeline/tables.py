@@ -138,6 +138,9 @@ def region_by_id(touranment_name, region):
 # game changers antes que champions ("game_changers_2026_championship")
 STAGE_PATTERNS = [
     ("closed_qualifier", r"\bclosed qualifier\b"),
+    # vlr llama "Qualifier Playoffs" a los closed de Americas 2027 (NA 3179, Brazil 3183, LATAM 3184/3185);
+    # los open dicen "Open Qualifier" y los que dicen solo "Qualifier" (MENA, Oceania...) siguen siendo open
+    ("closed_qualifier", r"\bqualifier playoffs\b"),
     ("open_qualifier", r"\bqualifier\b"),  # "open qualifier" y "europe qualifier" (2027)
     ("game_changers", r"\bgame changers\b"),
     ("ewc", r"\besports world cup\b"),
