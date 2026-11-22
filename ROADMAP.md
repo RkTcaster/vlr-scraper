@@ -1,7 +1,7 @@
 # Roadmap
 
 Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
-Última actualización: 2026-11-16.
+Última actualización: 2026-11-22.
 
 ## Hecho
 
@@ -345,6 +345,14 @@ Estado del pipeline vlr.gg → `csv/` → `tables/` → Supabase → rktdata.ar.
 - Aviso a rviewer: `handoff/RVIEWER_SUBREGIONES_PACIFIC_Y_EQUIPOS.md`.
 - [ ] Respuesta de rviewer: `SEA` (equipos de partner) vs `Southeast Asia` / países (qualifiers), y los valores
   dudosos de partner (DFM, Global Esports, Team Secret).
+
+### 2026-11-22: closed de los qualifiers que vlr pone como stage del open
+- MENA (3167) y Türkiye (3177) traen opens y "Playoffs" en el mismo evento; South Asia (3206) igual y Oceania
+  (3205) lo llama "Main Event". `parsers.stage_event` lee el stage del `<title>` del match (nunca del slug, que
+  vlr recorta) y guarda esos partidos como `<evento> Playoffs` → `tour_id` propio `..._qualifier_playoffs`,
+  `stage = closed_qualifier` (pedido de rviewer, `handoff/VLR_SCRAPER_EMEA_PLAYOFFS.md`).
+- `scraper.purge_open_folder` borra las filas del match de la carpeta del open al re-procesarlo: así se
+  migraron 792549 y 792550 (MENA, ya scrapeados como open). `tests/test_stage_event.py`.
 
 ## Pendiente
 

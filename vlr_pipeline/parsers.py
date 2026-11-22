@@ -10,6 +10,32 @@ from vlr_pipeline.save import save_round_detail_to_csv
 logger = logging.getLogger(__name__)
 
 
+# Stages de vlr que son el closed de un qualifier que trae los opens en el mismo evento
+# (2026-11-22, handoff/VLR_SCRAPER_EMEA_PLAYOFFS.md): MENA 3167 y Türkiye 3177 ("Playoffs"),
+# South Asia 3206 ("Playoffs"), Oceania 3205 ("Main Event")
+CLOSED_STAGES = ("playoffs", "main event")
+
+
+def stage_event(event, stage):
+    """Evento con el que se guarda el match: "<evento> Playoffs" si es el closed de un qualifier.
+
+    En Americas los closed son eventos aparte ("... Qualifier Playoffs"); en EMEA/Pacific vlr los pone
+    como un stage del mismo evento que los opens. Se renombra para que queden con su propio tour_id
+    y tournament_hierarchy los tome como closed_qualifier. El stage sale del <title> del match, no
+    del slug (vlr recorta los slugs largos). event llega en forma html: lower() solo para comparar.
+    """
+    if not event or not stage:
+        return event
+    name = event.lower()
+    if (
+        stage.strip().lower() in CLOSED_STAGES
+        and re.search(r"\bqualifier\b", name)
+        and not re.search(r"\bplayoffs\b", name)
+    ):
+        return f"{event} Playoffs"
+    return event
+
+
 def parse_map_name(map_div):
     """extract the map name from a div.map block
 
@@ -95,7 +121,7 @@ def get_basic_match_info(soup, url):
         "team_b_id_vlr": None,
     }
 
-    event = basic_match_info["event"]
+    event = stage_event(basic_match_info["event"], basic_match_info["tournament_instance"])
 
     team_dict["tournament_instance"] = basic_match_info["tournament_instance"]
     team_dict["type"] = basic_match_info["type"]

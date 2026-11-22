@@ -276,16 +276,28 @@
   "updated_at": "2026-11-16T23:13:56+00:00"
  },
  "vct_2027_emea_kickoff_-_mena_qualifier/round_buy_vct_2027_emea_kickoff_-_mena_qualifier.csv": {
-  "bytes": 14816336,
-  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_buy_vct_2027_emea_kickoff_-_mena_qualifier.9e72c16dc992.csv.gz",
-  "sha256": "9e72c16dc99214f92de6ac2d28522cbc9c2dc3c032cc3d5f400094ce8514bfeb",
-  "updated_at": "2026-11-22T13:16:35+00:00"
+  "bytes": 14489635,
+  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_buy_vct_2027_emea_kickoff_-_mena_qualifier.f278e1b92336.csv.gz",
+  "sha256": "f278e1b92336dc8c0fa58798740d0b9314e35aa5c833d2108a519e7546f31934",
+  "updated_at": "2026-11-22T22:02:13+00:00"
  },
  "vct_2027_emea_kickoff_-_mena_qualifier/round_events_vct_2027_emea_kickoff_-_mena_qualifier.csv": {
-  "bytes": 12854824,
-  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_events_vct_2027_emea_kickoff_-_mena_qualifier.c9992ccd8a7f.csv.gz",
-  "sha256": "c9992ccd8a7fd6ba5114d9c51adab8513675e4e4005b9932fd5b3dfd2633108d",
-  "updated_at": "2026-11-22T13:16:35+00:00"
+  "bytes": 12579403,
+  "object": "vct_2027_emea_kickoff_-_mena_qualifier/round_events_vct_2027_emea_kickoff_-_mena_qualifier.062804a03fb0.csv.gz",
+  "sha256": "062804a03fb09104d20e83a6a0f4de007b3b0d2072bc882d087891f30a45d58d",
+  "updated_at": "2026-11-22T22:02:14+00:00"
+ },
+ "vct_2027_emea_kickoff_-_mena_qualifier_playoffs/round_buy_vct_2027_emea_kickoff_-_mena_qualifier_playoffs.csv": {
+  "bytes": 339052,
+  "object": "vct_2027_emea_kickoff_-_mena_qualifier_playoffs/round_buy_vct_2027_emea_kickoff_-_mena_qualifier_playoffs.997967e2e194.csv.gz",
+  "sha256": "997967e2e1949c35697eef513d3b88f4977333d900700be6f61e3b9e7da8a12a",
+  "updated_at": "2026-11-22T22:02:14+00:00"
+ },
+ "vct_2027_emea_kickoff_-_mena_qualifier_playoffs/round_events_vct_2027_emea_kickoff_-_mena_qualifier_playoffs.csv": {
+  "bytes": 285104,
+  "object": "vct_2027_emea_kickoff_-_mena_qualifier_playoffs/round_events_vct_2027_emea_kickoff_-_mena_qualifier_playoffs.197856daac1e.csv.gz",
+  "sha256": "197856daac1ebc8ad21c7383506d107362dcab917a72cec2c74a5fa9fffd920d",
+  "updated_at": "2026-11-22T22:02:15+00:00"
  },
  "vct_2027_emea_kickoff_-_türkiye_qualifier/round_buy_vct_2027_emea_kickoff_-_türkiye_qualifier.csv": {
   "bytes": 22409030,

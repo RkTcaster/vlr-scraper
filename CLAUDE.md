@@ -199,6 +199,13 @@ and compares with `tests/fixtures/expected/`; `test_lookups.py` fails when `csv/
   the fixed value in `lookups.team_subregions` (partner teams, seeded from rviewer's manual Supabase values),
   else the subregion of the latest qualifier the team played (`team_subregions_played`), else NULL. The csv owns
   `teams.subregion` too: change a partner team in `lookups`, never in Supabase.
+- **Closed stage inside a qualifier event (2026-11-22)** — vlr puts some closed qualifiers as a stage of the
+  open's event (MENA/Türkiye/South Asia "Playoffs", Oceania "Main Event"). `parsers.stage_event` reads the stage
+  from the match `<title>` (3rd field, never the slug: vlr truncates it) and, for an event that says "Qualifier"
+  but not "Playoffs", saves the match under `<event> Playoffs` (own `tour_id`, `closed_qualifier`, same
+  subregion), like Americas' separate "Qualifier Playoffs" events. `CLOSED_STAGES` holds the stage names.
+  `process_match` also purges the match from the open's folder (`purge_open_folder`), so re-scraping a match
+  saved under the open moves it.
 - **Event end date** — an event may carry `"end_date": "YYYY-MM-DD"`; `config.load_events(only_active=True)` drops it
   once today (UTC) is past `end_date + END_DATE_GRACE_DAYS` (3), even with `"active": true` (`is_active`).
   `events.json` is never rewritten (the bot only commits `csv/`).

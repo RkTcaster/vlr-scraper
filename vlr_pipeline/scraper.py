@@ -15,6 +15,7 @@ from vlr_pipeline.parsers import (
     get_round_detail,
     get_round_logs,
     get_team_economy,
+    stage_event,
 )
 from vlr_pipeline.save import (
     normalize_filename,
@@ -46,7 +47,29 @@ def title_event(soup):
     """
     title = soup.find("title")
     parts = title.get_text(strip=True).split("|") if title else []
+    if len(parts) < 2 or not parts[1].strip():
+        return None
+    return stage_event(parts[1].strip(), parts[2].strip() if len(parts) > 2 else None)
+
+
+def raw_title_event(soup):
+    """Evento del <title> tal cual, sin el sufijo de stage_event (la carpeta del open)."""
+    title = soup.find("title")
+    parts = title.get_text(strip=True).split("|") if title else []
     return parts[1].strip() if len(parts) > 1 and parts[1].strip() else None
+
+
+def purge_open_folder(soup, tournament, url, folder="csv"):
+    """Si el match es el closed de un qualifier (stage_event), borra sus filas de la carpeta del open.
+
+    Los playoffs de MENA (792549, 792550) se scrapearon con el tour_id del open antes de
+    stage_event; re-procesarlos los mueve sin dejar filas duplicadas en la carpeta vieja.
+    """
+    raw = raw_title_event(soup)
+    if raw and normalize_filename(raw) != tournament:
+        removed = purge_match_rows(normalize_filename(raw), url, folder=folder)
+        if removed:
+            logger.info(f"{removed} filas movidas de {normalize_filename(raw)} a {tournament}: {url}")
 
 
 def get_invalid_reason(soup):
@@ -168,6 +191,7 @@ def process_match(url, folder="csv", encoding="utf-8"):
             event = title_event(soup)
             if event:
                 purge_match_rows(normalize_filename(event), url, folder=folder)
+                purge_open_folder(soup, normalize_filename(event), url, folder=folder)
             result["status"] = "skipped"
             result["error"] = invalid_reason
             return result
@@ -181,6 +205,7 @@ def process_match(url, folder="csv", encoding="utf-8"):
         result["event"] = basic_match_info["event"]
         tournament = normalize_filename(basic_match_info["event"])
         purge_match_rows(tournament, url, folder=folder)
+        purge_open_folder(soup, tournament, url, folder=folder)
 
         logger.info(f"processing: {url}")
         # Round detail
