@@ -334,5 +334,17 @@
   "object": "vct_2027_pacific_kickoff_-_south_asia_qualifier/round_events_vct_2027_pacific_kickoff_-_south_asia_qualifier.68301dc06746.csv.gz",
   "sha256": "68301dc06746d006d83edb085b01b2352649c6e8b7301fc980ad154515f7929f",
   "updated_at": "2026-11-21T13:31:30+00:00"
+ },
+ "vct_2027_pacific_kickoff_-_south_asia_qualifier_playoffs/round_buy_vct_2027_pacific_kickoff_-_south_asia_qualifier_playoffs.csv": {
+  "bytes": 109748,
+  "object": "vct_2027_pacific_kickoff_-_south_asia_qualifier_playoffs/round_buy_vct_2027_pacific_kickoff_-_south_asia_qualifier_playoffs.aed40c8b0ebb.csv.gz",
+  "sha256": "aed40c8b0ebb5dde24624ba6b32a15effb68d7fa35d6621cff031fde34eb4c2e",
+  "updated_at": "2026-11-23T15:47:03+00:00"
+ },
+ "vct_2027_pacific_kickoff_-_south_asia_qualifier_playoffs/round_events_vct_2027_pacific_kickoff_-_south_asia_qualifier_playoffs.csv": {
+  "bytes": 93075,
+  "object": "vct_2027_pacific_kickoff_-_south_asia_qualifier_playoffs/round_events_vct_2027_pacific_kickoff_-_south_asia_qualifier_playoffs.1815e759bf5f.csv.gz",
+  "sha256": "1815e759bf5ffde9448e9bcfa3c04fee32f403dd748836dc15ac16ee0dbe8465",
+  "updated_at": "2026-11-23T15:47:03+00:00"
  }
 }
