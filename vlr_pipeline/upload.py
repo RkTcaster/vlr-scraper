@@ -344,26 +344,114 @@ def run_upload(client, tables_dir="tables", chunk_size=CHUNK_SIZE, dry_run=False
                 continue
 
             logger.info("upsert %s -> %s (%d filas)", file, table, len(rows))
-            failed_rows = 0
-            for start in range(0, len(rows), chunk_size):
-                chunk = rows[start:start + chunk_size]
-                if table in EMPTY_AS_NULL:
-                    chunk = [{column: (value if value != "" else None) for column, value in row.items()} for row in chunk]
-                try:
-                    # returning=minimal: no traer las filas de vuelta (upload.mjs tampoco lo hace)
-                    client.table(table).upsert(chunk, on_conflict=pk, returning=returning).execute()
-                except Exception as e:
-                    logger.error("error en %s (filas %d-%d): %s", table, start, start + len(chunk), e)
-                    error_count += 1
-                    failed_rows += len(chunk)
-                    entry.update(status="error", error=_short_error(f"filas {start}-{start + len(chunk)}: {e}"))
-                    if kind == FACT:
-                        failed_series.update(row["series_id"] for row in chunk)
-            entry["failed_rows"] = failed_rows
+            failed_chunks = _upsert_rows(client, table, pk, rows, chunk_size, returning, entry)
+            error_count += len(failed_chunks)
+            if kind == FACT:
+                for chunk in failed_chunks:
+                    failed_series.update(row["series_id"] for row in chunk)
             entry["duration_s"] = round(time.monotonic() - started, 1)
-            logger.info("finalizado %s: %d/%d filas subidas", table, len(rows) - failed_rows, len(rows))
+            logger.info("finalizado %s: %d/%d filas subidas", table, len(rows) - entry["failed_rows"], len(rows))
     finally:
         # tambien si algo explota a mitad de camino: queda registrado hasta donde llego
+        if not dry_run:
+            append_upload_log(entries, log_dir)
+    return error_count
+
+
+def _upsert_rows(client, table, pk, rows, chunk_size, returning, entry):
+    """Upsert de rows en bloques de chunk_size. Un bloque que falla se loguea y se sigue.
+
+    Anota en entry (fila de upload_log) failed_rows y, si hubo error, status / error.
+    Devuelve la lista de bloques fallidos (cada uno, la lista de filas que no subio).
+    """
+    failed_chunks = []
+    for start in range(0, len(rows), chunk_size):
+        chunk = rows[start:start + chunk_size]
+        if table in EMPTY_AS_NULL:
+            chunk = [{column: (value if value != "" else None) for column, value in row.items()} for row in chunk]
+        try:
+            # returning=minimal: no traer las filas de vuelta (upload.mjs tampoco lo hace)
+            client.table(table).upsert(chunk, on_conflict=pk, returning=returning).execute()
+        except Exception as e:
+            logger.error("error en %s (filas %d-%d): %s", table, start, start + len(chunk), e)
+            failed_chunks.append(chunk)
+            entry.update(status="error", error=_short_error(f"filas {start}-{start + len(chunk)}: {e}"))
+    entry["failed_rows"] = sum(len(chunk) for chunk in failed_chunks)
+    return failed_chunks
+
+
+# Exports de dbt con datos de GRID (dbt/models/exports/). No estan en FILES_TO_UPLOAD a proposito: Actions no
+# tiene los crudos de GRID (grid/raw/ no esta en git, datos con licencia), asi que estos csv solo existen en la
+# maquina que corrio `grid sync` + `dbt build`. Se suben a mano con `python -m vlr_pipeline upload-grid`.
+# Siempre completos: son chicos y el upsert es idempotente. (archivo, tabla, pk)
+GRID_EXPORTS_DIR = os.path.join("grid", "exports")
+GRID_FILES_TO_UPLOAD = [
+    # orbes por equipo y ronda (dbt: mart_team_round_orbs); tabla de sql/team_orbs.sql
+    ("table_team_orbs.csv", "team_orbs", "team_map_round_id, team_id_vlr"),
+]
+
+
+def upload_grid_exports(exports_dir=GRID_EXPORTS_DIR, chunk_size=CHUNK_SIZE, dry_run=False, log_dir="csv"):
+    """Upsert completo de los exports de GRID (GRID_FILES_TO_UPLOAD). Devuelve la cantidad de errores."""
+    client = None
+    returning = None
+    if not dry_run:
+        from postgrest.types import ReturnMethod
+
+        client = get_client()
+        returning = ReturnMethod.minimal
+    return run_grid_upload(client, exports_dir=exports_dir, chunk_size=chunk_size, dry_run=dry_run,
+                           log_dir=log_dir, returning=returning)
+
+
+def run_grid_upload(client, exports_dir=GRID_EXPORTS_DIR, chunk_size=CHUNK_SIZE, dry_run=False, log_dir="csv",
+                    returning=None):
+    """Cuerpo de upload_grid_exports con el cliente ya creado (separado para testearlo con un fake).
+
+    A diferencia de run_upload, un archivo que falta es un error: este comando se corre a mano justo
+    despues de `dbt build`, asi que si no esta es que el build no corrio o fallo.
+    """
+    run_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    run_id = os.environ.get("GITHUB_RUN_ID", "local")
+    entries = []
+    error_count = 0
+    try:
+        for file, table, pk in GRID_FILES_TO_UPLOAD:
+            started = time.monotonic()
+            entry = {
+                "run_at": run_at, "run_id": run_id, "mode": "grid", "table": table, "file": file,
+                "rows": 0, "series": "", "failed_rows": 0, "status": "ok", "error": "", "duration_s": 0,
+            }
+            entries.append(entry)
+
+            path = os.path.join(exports_dir, file)
+            if not os.path.exists(path):
+                logger.error("falta %s: correr `grid sync` y `dbt build` (desde dbt/) antes", path)
+                error_count += 1
+                entry.update(status="missing", error=f"no existe en {exports_dir}")
+                continue
+
+            rows = read_rows(path)
+            problems = validate_rows(rows, pk, file)
+            for problem in problems:
+                logger.error(problem)
+            if problems:
+                error_count += 1
+                entry.update(rows=len(rows), status="invalid", failed_rows=len(rows),
+                             error=_short_error("; ".join(problems)))
+                continue
+
+            entry["rows"] = len(rows)
+            entry["series"] = len({row["series_id"] for row in rows if "series_id" in row})
+            if dry_run:
+                logger.info("dry-run %s -> %s: %d filas ok", file, table, len(rows))
+                continue
+
+            logger.info("upsert %s -> %s (%d filas)", file, table, len(rows))
+            error_count += len(_upsert_rows(client, table, pk, rows, chunk_size, returning, entry))
+            entry["duration_s"] = round(time.monotonic() - started, 1)
+            logger.info("finalizado %s: %d/%d filas subidas", table, len(rows) - entry["failed_rows"], len(rows))
+    finally:
         if not dry_run:
             append_upload_log(entries, log_dir)
     return error_count

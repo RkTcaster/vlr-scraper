@@ -212,6 +212,22 @@ python scripts/grid_probe.py --dump grid/raw/grid_probe.json   # introspección 
 `states` re-baja una serie si no terminó, si GRID la modificó (`updatedAt` del catálogo) o si se bajó antes de
 3 días desde que empezó (GRID corrige series terminadas).
 
+### Actualizar los orbes en Supabase (`team_orbs`)
+
+Solo local: Actions no tiene los datos de GRID, así que el cron no toca esta tabla. Correrlo cuando se jugaron
+partidos de torneos que GRID cubre (ligas VCT, Masters, Champions, GC; no los qualifiers), después de que el
+pipeline diario ya los subió (`git pull` + `logs pull` + `process` para tener `tables/` al día).
+
+```bash
+python -m vlr_pipeline grid sync                        # 1. series nuevas de GRID
+cd dbt && ..\.venv-dbt\Scripts\dbt build && cd ..       # 2. rearma grid/exports/table_team_orbs.csv (y testea)
+python -m vlr_pipeline upload-grid --dry-run            #    opcional: valida el csv sin conectarse
+python -m vlr_pipeline upload-grid                      # 3. upsert completo en team_orbs (+ fila en upload_log)
+```
+
+Sube el csv entero cada vez (~64 mil filas): el upsert es idempotente. Una fila que dejó de existir en el
+export no se borra de Supabase.
+
 ## GitHub Actions
 
 ```bash

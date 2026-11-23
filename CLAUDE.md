@@ -59,8 +59,10 @@ merge that is already conflicted. Comments are frequently in Spanish.
 - **`tables.py`** — consolidation. `concat_csv_from_different_folders(folder, prefix)` reads every per-tournament
   CSV with a given prefix across `csv/*/`; the `build_*` functions write the dimension/fact tables in
   `tables/table_*.csv` (`build_all` runs them in dependency order). **`lookups.py`** — hand-kept lists.
-- **`upload.py`** — Supabase upsert. **`logs_archive.py`** — logs csv in Supabase Storage. **`config.py`** —
-  `events.json`, env file. **`cli.py`** — argparse entry point.
+- **`upload.py`** — Supabase upsert. `upload-grid` (local only, never in Actions) upserts dbt's GRID exports
+  (`grid/exports/table_team_orbs.csv` → `team_orbs`, `GRID_FILES_TO_UPLOAD`) in full.
+  **`logs_archive.py`** — logs csv in Supabase Storage. **`config.py`** — `events.json`, env file.
+  **`cli.py`** — argparse entry point.
 - **`grid.py`** — ingestion of the GRID API (Valorant, Open Access; `GRID_API_KEY`): `python -m vlr_pipeline grid
   {catalog,states,sync}` writes raw JSON to `grid/raw/` (gitignored, licensed data): `series_catalog.jsonl`
   (Central Data) and `series_state/<id>.json.gz`. Extraction only; modelling is dbt's (`dbt/`). API quirks

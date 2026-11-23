@@ -2,8 +2,8 @@
 --
 -- materialized = 'external' (dbt-duckdb): el build escribe el archivo y deja una view encima, asi los tests
 -- corren sobre lo mismo que se va a subir.
--- Va a grid/exports/ (gitignoreado), NO a tables/: son datos de GRID y vlr_pipeline/upload.py no los sube.
--- Tabla de Supabase: sql/team_orbs.sql; la carga la hace rktdata (handoff/RKTDATA_TEAM_ORBS.md).
+-- Va a grid/exports/ (gitignoreado), NO a tables/: son datos de GRID y el upload diario (Actions) no los tiene.
+-- Tabla de Supabase: sql/team_orbs.sql; se sube a mano con `python -m vlr_pipeline upload-grid` (COMMANDS.md).
 
 {{ config(
     materialized = 'external',

@@ -1,4 +1,4 @@
-"""CLI del pipeline: python -m vlr_pipeline {scrape,backfill-logs,process,upload,all,logs}.
+"""CLI del pipeline: python -m vlr_pipeline {scrape,backfill-logs,process,upload,upload-grid,all,logs,grid}.
 
 Exit codes: 0 ok (incluye scrape con algunos matches en status error: se loguea un warning,
 y en GitHub Actions tambien una anotacion ::warning::); 1 error fatal o fallo el upsert a Supabase;
@@ -60,6 +60,15 @@ def build_parser():
                           help="solo lee y valida los csv, sin conectarse a Supabase")
     p_upload.add_argument("--full", action="store_true",
                           help="sube todas las filas (default: incremental, solo series nuevas)")
+
+    p_upload_grid = sub.add_parser(
+        "upload-grid",
+        help="upsert de los exports de dbt con datos de GRID (grid/exports/, p.ej. team_orbs); solo local")
+    p_upload_grid.add_argument("--exports-dir", default=None, help="default: grid/exports")
+    p_upload_grid.add_argument("--csv-dir", default=config.DEFAULT_CSV_DIR,
+                               help="carpeta donde se agrega upload_log.csv")
+    p_upload_grid.add_argument("--dry-run", action="store_true",
+                               help="solo lee y valida los csv, sin conectarse a Supabase")
 
     p_all = sub.add_parser("all", help="scrape + process + upload")
     p_all.add_argument("--events-file", default=config.DEFAULT_EVENTS_FILE)
@@ -154,6 +163,18 @@ def cmd_upload(args):
     return 0
 
 
+def cmd_upload_grid(args):
+    from vlr_pipeline.upload import GRID_EXPORTS_DIR, upload_grid_exports
+
+    error_count = upload_grid_exports(
+        exports_dir=args.exports_dir or GRID_EXPORTS_DIR, dry_run=args.dry_run, log_dir=args.csv_dir
+    )
+    if error_count:
+        logger.error("upload-grid con %d errores", error_count)
+        return 1
+    return 0
+
+
 def cmd_all(args):
     from vlr_pipeline.logs_archive import warn_if_out_of_sync
     from vlr_pipeline.tables import build_all
@@ -228,6 +249,7 @@ COMMANDS = {
     "backfill-logs": cmd_backfill_logs,
     "process": cmd_process,
     "upload": cmd_upload,
+    "upload-grid": cmd_upload_grid,
     "all": cmd_all,
     "logs": cmd_logs,
     "grid": cmd_grid,

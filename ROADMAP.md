@@ -391,8 +391,11 @@ Proyecto `vlr_analytics` en `dbt/`, con DuckDB en local y Supabase (schema `anal
     - Cubre 31.788 rondas y 1.500 mapas. Quedan afuera los 4 mapas con distinta cantidad de rondas en GRID y vlr.
     - Pacific Stage 1 no tiene datos porque GRID no tiene ese torneo.
 
-    El usuario corre `sql/team_orbs.sql`. La carga es única y la hace rktdata, no `upload.py`; aviso en
-    `handoff/RKTDATA_TEAM_ORBS.md`. Para actualizar: `dbt build` y una nueva carga desde rktdata.
+    El usuario corre `sql/team_orbs.sql`. La primera carga la hizo rktdata (`handoff/RKTDATA_TEAM_ORBS.md`).
+    - [x] Desde el 2026-11-23 la carga es de este repo: `python -m vlr_pipeline upload-grid` (local, después de
+      `grid sync` + `dbt build`; upsert completo, fila en upload_log, `tests/test_upload.py`). Comandos en
+      COMMANDS.md. Automatizarlo en Actions necesita guardar los crudos de GRID en un bucket privado (el repo es
+      público: artifacts y cache no sirven para datos con licencia).
 - [x] 2. Resto del staging (2026-11-20): las 12 tablas de Supabase, `round_buy` en formato largo, conteos = csv.
 - [x] 3. Tests de datos (2026-11-20): PK de las 17 tablas de `FILES_TO_UPLOAD` sobre los sources (los csv),
   compuestas con `dbt_utils.unique_combination_of_columns`; test singular `assert_vlr_kills_overview_match_logs`

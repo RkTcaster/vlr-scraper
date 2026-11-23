@@ -2,8 +2,8 @@
 -- La arma dbt (models/exports/table_team_orbs.sql) desde la API de GRID: solo rondas del cruce GRID <-> vlr
 -- (VCT 2026, internacionales, GC); una ronda sin fila = sin dato. Joinea con round_info por team_map_round_id.
 --
--- La carga NO la hace vlr_pipeline/upload.py (Actions no tiene datos de GRID): la hace rktdata, carga unica del
--- csv grid/exports/table_team_orbs.csv (2026-11-20). Aviso y contrato en handoff/RKTDATA_TEAM_ORBS.md.
+-- La carga no la hace el upload diario (Actions no tiene datos de GRID). Primera carga: rktdata (2026-11-20,
+-- handoff/RKTDATA_TEAM_ORBS.md). Desde el 2026-11-23, a mano desde este repo: python -m vlr_pipeline upload-grid.
 create table if not exists public.team_orbs (
   "team_map_round_id" text not null,
   "team_id_vlr" text not null,
