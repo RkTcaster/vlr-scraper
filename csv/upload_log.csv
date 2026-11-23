@@ -1422,3 +1422,4 @@ run_at,run_id,mode,table,file,rows,series,failed_rows,status,error,duration_s
 2026-11-23T15:46:29+00:00,45206828222,incremental,round_events,table_round_events.csv,324,1,0,ok,,9.9
 2026-11-23T15:46:29+00:00,45206828222,incremental,round_summary,table_round_summary.csv,41,1,0,ok,,1.0
 2026-11-23T15:46:29+00:00,45206828222,incremental,match_id,table_match_id.csv,1,1,0,ok,,0.1
+2026-11-23T16:13:27+00:00,local,grid,team_orbs,table_team_orbs.csv,63576,594,0,ok,,73.2
