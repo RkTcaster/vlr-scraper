@@ -11,7 +11,24 @@
     },
     {
       "name": "BRAZIL",
-      "event": "https://www.vlr.gg/event/3183/vct-2027-america-kickoff-brazil-qualifier-playoffs"
+      "teams": [
+        {"id": "23141", "name": "Fluxo W7M"},
+        {"id": "15072", "name": "2Game Esports"},
+        {"id": "19265", "name": "Team Solid"},
+        {"id": "20741", "name": "Next"},
+        {"id": "18622", "name": "ELEVATE"},
+        {"id": "23778", "name": "Manticore"},
+        {"id": "24496", "name": "BRASIL2002"},
+        {"id": "25330", "name": "GANGUE"},
+        {"id": "24553", "name": "Mafiosos"},
+        {"id": "24401", "name": "TIME DO B3M"},
+        {"id": "23180", "name": "Arashi"},
+        {"id": "16854", "name": "Piranhas do Caribe"},
+        {"id": "24478", "name": "SÓ TEM VELHO"},
+        {"id": "12642", "name": "ARRANCA DREAMS"},
+        {"id": "24507", "name": "Master Bank"},
+        {"id": "25111", "name": "0 intelecto"}
+      ]
     },
     {
       "name": "NA QUALIFIER PLAYOFFS",
@@ -19,16 +36,7 @@
     },
     {
       "name": "EUROPE",
-      "teams": [
-        {"id": "23693", "name": "xXxMasterProMegaTeamxXx"},
-        {"id": "18494", "name": "F9 Eicar"},
-        {"id": "23727", "name": "Aurora"},
-        {"id": "17177", "name": "Pixel Lumina"},
-        {"id": "14461", "name": "Barca"},
-        {"id": "19391", "name": "WIP Esports"},
-        {"id": "18025", "name": "La Masia"},
-        {"id": "5214", "name": "CGN Esports"}
-      ]
+      "event": "https://www.vlr.gg/event/3233/vct-2027-emea-kickoff-europe-qualifier-playoffs/swiss-stage"
     },
     {
       "name": "MENA",

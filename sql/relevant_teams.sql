@@ -9,19 +9,19 @@ update teams
 set relevant = true
 where team_id_vlr in (
   -- LATAM SOUTH
-  '367',  -- 9z Globant (no esta en teams)
+  '367',  -- 9ZG 9z Globant
   '7511',  -- KRUB KRÜ BLAZE
-  '20209',  -- University War (no esta en teams)
+  '20209',  -- UW University War
   '24257',  -- TRAM TRAMITE
   '24258',  -- EL L EL LEGADO
   '24246',  -- ARG. ARG.MIX
   '25222',  -- MALA MALAJUNTA
   '24320',  -- FRAC fracasados ny
   -- LATAM NORTH
-  '10376',  -- Contra (no esta en teams)
-  '23777',  -- LEONS (no esta en teams)
-  '17252',  -- FUEGO (no esta en teams)
-  '2131',  -- Chivas Esports (no esta en teams)
+  '10376',  -- BBB Contra
+  '23777',  -- LEON LEONS
+  '17252',  -- FUE FUEGO
+  '2131',  -- CHV Chivas Esports
   '21459',  -- STA STREAMER ARENA
   '12889',  -- SQR Squirtle Rangers
   '25292',  -- 505 505
@@ -61,14 +61,22 @@ where team_id_vlr in (
   '23815',  -- FAKE counterfeit
   '23980',  -- YDG Yellow Dragon Gaming
   -- EUROPE
-  '23693',  -- MPMT xXxMasterProMegaTeamxXx
-  '18494',  -- F9 F9 EICAR
+  '4616',  -- UCAM Esports Club (no esta en teams)
+  '14478',  -- SGE Eintracht Frankfurt
+  '17945',  -- MIR (no esta en teams)
+  '11232',  -- JL Joblife
+  '21715',  -- Natus Vincere Junior (no esta en teams)
+  '7967',  -- Mandatory (no esta en teams)
+  '14419',  -- GX GIANTX
+  '876',  -- EP Enterprise Esports
   '23727',  -- AURA Aurora Gaming
+  '18494',  -- F9 F9 EICAR
+  '23693',  -- MPMT xXxMasterProMegaTeamxXx
   '17177',  -- PXL Pixel Lumina
+  '5214',  -- CGN CGN Esports
   '14461',  -- BAR Barça eSports
   '19391',  -- WIP WIP Esports
   '18025',  -- MSA La Masia
-  '5214',  -- CGN CGN Esports
   -- MENA
   '24602',  -- NO O No Org No Problem
   '23069'  -- MIX Mix My Miks
@@ -76,5 +84,5 @@ where team_id_vlr in (
 
 commit;
 
--- control: 52 filas esperadas (58 ids en la lista)
+-- control: 62 filas esperadas (66 ids en la lista)
 select team_id_vlr, team_id, name from teams where relevant = true order by team_id;
