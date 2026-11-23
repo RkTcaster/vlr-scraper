@@ -31,9 +31,24 @@ grid_rounds as (
     select
         game_player_id,
         count(*)                                        as rounds_played,
-        count(*) filter (where end_alive)               as rounds_survived
+        count(*) filter (where end_alive)               as rounds_survived,
+        -- a nivel mapa first_kill es un booleano, no un conteo: se cuentan las rondas
+        count(*) filter (where first_kill)              as first_kills
     from {{ ref('stg_grid__round_players') }}
     group by game_player_id
+
+),
+
+-- headshots de GRID son impactos, no kills: hs% = impactos en la cabeza / impactos de bala, como vlr
+grid_hits as (
+
+    select
+        r.game_player_id,
+        sum(z.hits) filter (where z.zone = 'head')                          as head_hits,
+        sum(z.hits) filter (where z.zone in ('head', 'body', 'leg'))        as bullet_hits
+    from {{ ref('stg_grid__round_player_damage_zones') }} as z
+    join {{ ref('stg_grid__round_players') }} as r using (round_player_id)
+    group by r.game_player_id
 
 ),
 
@@ -91,11 +106,21 @@ select
     -- trazabilidad
     c.game_player_id,
     c.grid_player_id,
-    c.match_method
+    c.match_method,
+
+    -- GRID: lo mismo que vlr, contado por GRID (base de mart_player_map_source_comparison)
+    g.kills                                                        as kills_grid,
+    g.deaths                                                       as deaths_grid,
+    g.assists                                                      as assists_grid,
+    r.first_kills                                                  as first_kills_grid,
+    round(100.0 * h.head_hits / nullif(h.bullet_hits, 0))          as headshot_pct_grid,
+    c.grid_agent                                                   as agent_grid,
+    c.agent_matches
 
 from crosswalk as c
 join vlr as v using (map_player_id)
 join grid_map as g using (game_player_id)
 left join grid_rounds as r using (game_player_id)
 left join grid_objectives as o using (game_player_id)
+left join grid_hits as h using (game_player_id)
 join {{ ref('int_map_crosswalk') }} as m on m.vlr_map_id = v.vlr_map_id

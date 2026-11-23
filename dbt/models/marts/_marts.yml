@@ -82,6 +82,20 @@ models:
         description: "{{ doc('grid_player_id') }}"
       - name: match_method
         description: "{{ doc('player_match_method') }}"
+      - name: kills_grid
+        description: Kills segun GRID (para comparar con kills de vlr).
+      - name: deaths_grid
+        description: Muertes segun GRID.
+      - name: assists_grid
+        description: Asistencias segun GRID.
+      - name: first_kills_grid
+        description: Rondas con primera kill segun GRID (firstKill = true).
+      - name: headshot_pct_grid
+        description: "{{ doc('headshot_pct') }} Calculado con los impactos de GRID."
+      - name: agent_grid
+        description: Agente segun GRID.
+      - name: agent_matches
+        description: "{{ doc('agent_matches') }}"
 
   - name: mart_player_map_source_comparison
     description: >
@@ -326,3 +340,27 @@ models:
         description: Fraccion de esas kills que el equipo del muerto vengo en 3 s.
       - name: kill_share
         description: kills / total de kills del torneo y mapa.
+
+  - name: mart_tournament_coverage
+    description: >
+      Cobertura del cruce GRID <-> vlr por torneo de vlr: series con par en GRID y rondas que coinciden. Los tests
+      assert_coverage_per_tournament y assert_coverage_total (warn) avisan si baja de los umbrales de
+      dbt_project.yml (vars min_*). Torneos que GRID no tiene: is_grid_covered = false, fuera de los tests.
+    columns:
+      - name: tournament_id
+        description: "{{ doc('tournament_id') }}"
+        data_tests: [unique, not_null]
+      - name: vlr_series
+        description: Series del torneo en vlr.
+      - name: matched_series
+        description: Series con par en GRID (int_series_crosswalk).
+      - name: pct_series
+        description: matched_series / vlr_series, en %.
+      - name: is_grid_covered
+        description: GRID tiene al menos una serie del torneo.
+      - name: rounds_compared
+        description: Rondas de las series cruzadas (int_round_crosswalk, incluye las que faltan de un lado).
+      - name: rounds_matching
+        description: Rondas con el mismo ganador y la misma forma de ganar en las dos fuentes.
+      - name: pct_rounds_matching
+        description: rounds_matching / rounds_compared, en %. Null si el torneo no tiene series cruzadas.

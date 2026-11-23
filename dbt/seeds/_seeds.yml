@@ -5,6 +5,13 @@ seeds:
     description: >
       Excepciones del cruce de equipos GRID -> vlr, escritas a mano: equipos que no coinciden por nombre ni por
       tag (GC: vlr agrega "GC" al tag). int_team_crosswalk las usa antes que el cruce automatico.
+
+
+      Cuando agregar una fila: un torneo que GRID cubre pierde series en mart_tournament_coverage (o salta
+      assert_coverage_per_tournament) porque uno de los equipos no tiene par en int_team_crosswalk, y se
+      verifico a mano que es el mismo equipo (mismo roster en las dos fuentes, no solo un nombre parecido).
+      No se agrega para equipos de torneos que GRID no tiene: no hay contra que cruzarlos. En note va el nombre y
+      el tag de cada lado, el motivo por el que no cruza solo y en que torneo aparece.
     columns:
       - name: grid_team_id
         description: "{{ doc('grid_team_id') }}"

@@ -31,7 +31,7 @@ cd dbt
 ..\.venv-dbt\Scripts\dbt run -s staging.grid         # una carpeta
 ..\.venv-dbt\Scripts\dbt show -s stg_grid__games --limit 5   # muestra filas sin construir nada
 ..\.venv-dbt\Scripts\dbt show -s grid_draft_coverage --limit 100   # un analysis
-..\.venv-dbt\Scripts\dbt show -s grid_vlr_crosswalk_coverage --limit 100   # cobertura del cruce GRID <-> vlr
+..\.venv-dbt\Scripts\dbt show -s mart_tournament_coverage --limit 100      # cobertura del cruce GRID <-> vlr
 ..\.venv-dbt\Scripts\dbt show -s source_comparison_summary --limit 10      # GRID vs vlr por metrica
 ```
 

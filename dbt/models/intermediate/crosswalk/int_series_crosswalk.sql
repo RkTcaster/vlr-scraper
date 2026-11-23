@@ -1,6 +1,14 @@
 -- Serie de GRID <-> serie de vlr. Dos series son la misma si sus dos equipos se corresponden (int_team_crosswalk)
 -- y se jugaron a menos de var('grid_vlr_max_hours') horas. Si hay mas de un candidato (un mismo cruce de equipos
 -- dos veces en pocas horas) gana el mas cercano en el tiempo, de los dos lados: el resultado es 1 a 1.
+--
+-- Dos decisiones del desempate (al 2026-11-23 ninguna se usa: 598 candidatos, 2 series de vlr con mas de uno y
+-- ningun empate de hours_diff):
+--   - A igual distancia gana el id mas bajo, comparado como texto. Es deterministico, no tiene significado: solo
+--     evita que el resultado cambie entre corridas.
+--   - No reasigna: un par entra si es el primero de los DOS lados. Si el mejor candidato de una serie ya es el
+--     mejor de otra, esa serie queda sin par aunque tenga un segundo candidato libre (no es un emparejamiento
+--     optimo). Se veria como una serie menos en mart_tournament_coverage.
 
 with grid_series as (
 

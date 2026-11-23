@@ -11,10 +11,11 @@ exposures:
     description: >
       Stats de jugador que vlr no publica (supervivencia, dano recibido, orbes) con ids de vlr, y control de
       calidad de las dos fuentes (kills, deaths, headshot %, ADR). Se consulta con dbt show y las analyses
-      source_comparison_summary y grid_vlr_crosswalk_coverage. Hallazgos en handoff/GRID_NOTES.md.
+      source_comparison_summary; la cobertura del cruce, en mart_tournament_coverage. Hallazgos en handoff/GRID_NOTES.md.
     depends_on:
       - ref('fct_player_map')
       - ref('mart_player_tournament')
       - ref('mart_player_map_source_comparison')
+      - ref('mart_tournament_coverage')
     owner:
       name: vlr-scraper

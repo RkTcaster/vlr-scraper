@@ -48,3 +48,8 @@ seeds:
 vars:
   # Distancia maxima entre la hora de una serie en GRID y en vlr (las dos en UTC) para considerarlas la misma.
   grid_vlr_max_hours: 12
+  # Umbrales del cruce (tests assert_coverage_*, sobre mart_tournament_coverage). Al 2026-11-23 el peor torneo
+  # cubierto tiene 96.7 % de series (China Kickoff: FPX - TYLOO no esta en GRID) y 98.42 % de rondas; el total, 99.57 %.
+  min_series_coverage_pct: 95
+  min_round_match_pct: 97
+  min_total_round_match_pct: 99
