@@ -261,3 +261,68 @@ models:
       - name: grid_game_id
       - name: grid_team_id
       - name: tournament_id
+
+  - name: fct_kills
+    description: >
+      Una kill de vlr por fila (pestana logs) con el contexto de la ronda. Incremental (paso 7): cada corrida
+      agrega solo las series que no estan; una serie re-scrapeada necesita `dbt build -s fct_kills --full-refresh`.
+    columns:
+      - name: kill_id
+        description: <team_map_round_id>-<event_index>, igual que round_event_id en el staging.
+        data_tests: [unique, not_null]
+      - name: team_map_round_id
+        description: "{{ doc('team_map_round_id') }}"
+      - name: vlr_series_id
+        description: "{{ doc('vlr_series_id') }}"
+        data_tests: [not_null]
+      - name: vlr_map_id
+        description: "{{ doc('vlr_map_id') }}"
+      - name: tournament_id
+        description: "{{ doc('tournament_id') }}"
+      - name: event_time_sec
+        description: Segundos desde el inicio de la ronda.
+      - name: scheduled_at
+        description: Hora programada de la serie, en UTC.
+      - name: killer_id_vlr
+        description: "{{ doc('player_id_vlr') }} Del que mato."
+      - name: killer_team_id_vlr
+        description: "{{ doc('team_id_vlr') }} Del que mato."
+      - name: killer_side
+        description: Lado del que mato (attacker / defender).
+      - name: victim_id_vlr
+        description: "{{ doc('player_id_vlr') }} Del muerto."
+      - name: weapon
+        description: Arma o habilidad (Vandal, Showstopper); en team kills, la causa (Spike, Fall).
+      - name: is_traded
+        description: El muerto fue vengado por su equipo dentro de los 3 s.
+      - name: killer_team_won_round
+        description: >
+          El equipo del que mato gano la ronda. Null en team kills, y si el id del equipo no coincide con
+          ninguno de los dos de la ronda.
+        data_tests:
+          - not_null:
+              config:
+                where: "not is_team_kill"
+                severity: warn
+
+  - name: mart_weapon_kills
+    description: >
+      Kills por arma (o habilidad), mapa y torneo desde fct_kills, sin team kills: cantidad, first bloods,
+      kills post plant, tasa de trade y de ronda ganada, y parte de las kills del torneo-mapa.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [tournament_id, map_name, weapon]
+    columns:
+      - name: tournament_id
+        description: "{{ doc('tournament_id') }}"
+      - name: weapon
+        description: Arma o habilidad.
+      - name: kills
+        description: Kills con esa arma en ese torneo y mapa.
+      - name: round_win_rate
+        description: Fraccion de esas kills en rondas que gano el equipo del que mato.
+      - name: traded_rate
+        description: Fraccion de esas kills que el equipo del muerto vengo en 3 s.
+      - name: kill_share
+        description: kills / total de kills del torneo y mapa.

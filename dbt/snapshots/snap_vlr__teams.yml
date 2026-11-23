@@ -1,0 +1,40 @@
+# Snapshot de teams (paso 7b): historial SCD tipo 2 de cada equipo.
+#
+# teams tiene una fila por team_id_vlr con el tag / nombre / logo / subregion ACTUALES: cuando vlr renombra un
+# equipo (DRX -> KRX) la fila se pisa. Este snapshot guarda cada version:
+#   dbt_valid_from  desde cuando vale esa version (la corrida que la vio por primera vez)
+#   dbt_valid_to    hasta cuando (null = vigente)
+#   dbt_scd_id      id unico de la version; dbt_updated_at = momento de la corrida
+#
+# Como funciona: en cada `dbt snapshot` (o `dbt build`) dbt compara stg_vlr__teams con la version vigente de
+# cada team_id_vlr. Estrategia "check": si cambia alguna de check_cols, cierra la fila vieja y abre una nueva.
+# (La otra estrategia, "timestamp", necesita una columna updated_at en el origen, y teams no la tiene.)
+#
+# Limites: solo ve lo que cambia desde la primera corrida (2026-11-23) y en los momentos en que corre; el
+# historial vive en vlr_dev.duckdb y NO se puede regenerar desde el csv. No borrar ese archivo.
+
+snapshots:
+  - name: snap_vlr__teams
+    description: >
+      Historial de cada equipo de vlr (SCD tipo 2): una fila por version de tag, nombre, logo y subregion, con
+      dbt_valid_from / dbt_valid_to. Registra cambios desde el 2026-11-23, solo en las corridas locales.
+    relation: ref('stg_vlr__teams')
+    config:
+      unique_key: team_id_vlr
+      strategy: check
+      check_cols: [team_tag, team_name, logo_path, subregion]
+      # Un equipo que desaparece de teams (un tbd_<TAG> que ya tiene id de vlr) se cierra con dbt_valid_to.
+      # El default (ignore) lo dejaria "vigente" para siempre.
+      hard_deletes: invalidate
+    columns:
+      - name: team_id_vlr
+        description: "{{ doc('team_id_vlr') }}"
+        data_tests:
+          # una sola version vigente por equipo
+          - unique:
+              config:
+                where: "dbt_valid_to is null"
+      - name: dbt_scd_id
+        data_tests: [unique, not_null]
+      - name: team_tag
+        description: "{{ doc('team_tag') }}"

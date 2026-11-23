@@ -13,7 +13,8 @@ renamed as (
         team_id_vlr,                -- id de vlr (/team/<id>/) o tbd_<TAG>: la PK
         team_id   as team_tag,      -- tricode; se repite entre equipos sin relacion
         name      as team_name,
-        team_path as logo_path
+        team_path as logo_path,
+        nullif(subregion, '') as subregion  -- lookups.team_subregions o el ultimo qualifier jugado
 
     from source
 

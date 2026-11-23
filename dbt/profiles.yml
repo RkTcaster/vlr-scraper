@@ -12,3 +12,9 @@ vlr_analytics:
       # `dbt clean` la borra.
       path: vlr_dev.duckdb
       threads: 4
+    # GitHub Actions (paso 8, job dbt de pipeline.yml): `dbt build --target ci`. Una base aparte y descartable:
+    # cada corrida arranca de cero en el runner, asi que fct_kills se arma entero y no hay snapshot.
+    ci:
+      type: duckdb
+      path: ci.duckdb
+      threads: 4

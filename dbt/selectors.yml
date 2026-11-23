@@ -1,0 +1,20 @@
+# Selectores con nombre: una seleccion de nodos escrita una vez y usada con `dbt build --selector <nombre>`,
+# en vez de repetir --select / --exclude en cada comando.
+
+selectors:
+  - name: ci
+    description: >
+      Lo que corre en GitHub Actions (job dbt de pipeline.yml): todo lo que sale de los csv de tables/. Afuera
+      lo que depende de GRID (grid/raw/ no esta en el runner) y el snapshot con sus tests (en una base que se
+      tira al final no acumula historial).
+    definition:
+      union:
+        - method: fqn
+          value: "*"
+        - exclude:
+            - method: source
+              value: grid
+              children: true
+            - method: fqn
+              value: snap_vlr__teams
+              children: true
