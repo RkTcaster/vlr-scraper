@@ -251,8 +251,9 @@ names to match other tables. When team names fail to join, suspect an encoding m
 - `tables/` — consolidated star-schema output (the deliverable; not in git, uploaded to Supabase).
 - `table_players`: one row per `player_id_vlr` (see "Player identity"); nick, `team_id` and the legacy
   `player_id = <team>_<player>` come from the player's most recent match;
-  `table_teams` includes draft `team` and `rival`, plus `team_path = teams/<team_id without dots>.png` (logos in
-  rviewer; GC tricodes like `GEN.GC` -> `GENGC.png`, `team_id` keeps the dot; see `handoff/archivado/SCRAPER_TEAM_PATH.md`). `find_files_by_prefix` sorts files so output doesn't depend on OS
+  `table_teams` includes draft `team` and `rival`, plus `team_path = teams/<letters and digits of team_id>.png` (logos in
+  rviewer; `tables.logo_key`, 2026-11-26: `GEN.GC` -> `GENGC.png`, `100%MIRA` -> `100MIRA.png`, `#BR01` -> `BR01.png`;
+  accents stay; `team_id` keeps the raw tag; a tag that collides once cleaned goes by `team_id_vlr` like a shared tag; see `handoff/archivado/SCRAPER_TEAM_PATH.md`). `find_files_by_prefix` sorts files so output doesn't depend on OS
   (os.walk order differs on Linux). Changing a PK-forming rule leaves orphan rows in Supabase (upsert never deletes);
   see `handoff/archivado/RKTDATA_CAMBIO_PLAYERS.md` for the 2026-09-14 players change handed off to the rktdata repo.
 - `backup/` — archived older tournaments and prior `tables/` snapshots.

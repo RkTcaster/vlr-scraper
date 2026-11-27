@@ -235,3 +235,23 @@ def test_unplayed_map_is_skipped(tmp_path):
     assert stats["map"] == ["Bind"]
     rounds = get_round_detail(soup, info, folder=str(tmp_path))
     assert rounds["map"] == "Bind"
+
+
+def test_team_path_only_letters_and_digits(tmp_path):
+    """2026-11-26: "%" y "#" del tag rompian la url del logo en rviewer; el team_id queda igual."""
+    csv_dir, tables_dir = tmp_path / "csv", tmp_path / "tables"
+    tables_dir.mkdir()
+    write_csv(str(csv_dir / "t1" / "round_detail_t1.csv"), [
+        round_rows("1", "100%MIRA", "#BR01", "25111", "25135", date="2026-06-01"),
+        round_rows("2", "KRÜ", "R/VA", "2355", "25032", date="2026-06-02"),
+        round_rows("3", "UNI-", "UNI", "24134", "1", date="2026-06-03"),
+        round_rows("4", "UNI", "+", "1", "2", date="2026-06-04"),
+    ])
+    df_team = build_teams(str(csv_dir), str(tables_dir)).set_index("team_id_vlr")
+    assert df_team.loc["25111", "team_id"] == "100%MIRA"
+    assert df_team["team_path"].to_dict() == {
+        "25111": "teams/100MIRA.png", "25135": "teams/BR01.png", "25032": "teams/RVA.png",
+        "2355": "teams/" + df_team.loc["2355", "team_id"] + ".png",  # los acentos quedan
+        "1": "teams/UNI.png", "24134": "teams/24134.png",  # UNI- choca con UNI, que tiene mas series
+        "2": "teams/2.png",  # "+" no tiene letras ni digitos
+    }

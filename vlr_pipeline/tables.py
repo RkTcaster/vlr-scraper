@@ -91,6 +91,21 @@ def upper_tag(tag):
     return text.upper().encode("utf-8").decode("iso-8859-1")
 
 
+def logo_key(tag):
+    """Nombre del logo de un tag en teams/: solo letras y digitos (2026-11-26).
+
+    El path va a una url de rviewer y vlr permite cualquier cosa en el tricode: "100%MIRA" ("%"
+    se lee como un escape), "#BR01" (fragmento), "R/VA", "RE:H", "7Z E", "GEN.GC". Se decodifica
+    la forma html antes de filtrar (isalnum sobre "Ã\\x9c" cortaria el "Ü" de "KRÜ" a la mitad)
+    y se devuelve en forma html, como el resto de la tabla. Vacio si el tag no tiene ninguno.
+    """
+    try:
+        text = tag.encode("iso-8859-1").decode("utf-8")
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        text = tag
+    return "".join(c for c in text if c.isalnum()).encode("utf-8").decode("iso-8859-1")
+
+
 def upper_team_tags(df):
     """upper_tag en todas las columnas de TEAM_TAG_COLUMNS que tenga df."""
     for column in TEAM_TAG_COLUMNS:
@@ -601,17 +616,22 @@ def build_teams(csv_dir="csv", tables_dir="tables", df_tournaments=None):
     if unknown:
         logger.warning(f"teams: tags del draft sin round_detail (sin team_id_vlr): {unknown}")
 
-    # logo en rviewer/public/teams/: tricodes de GC traen punto (GEN.GC -> teams/GENGC.png);
-    # solo se sacan los puntos del path, el team_id queda igual (ver handoff/archivado/SCRAPER_TEAM_PATH.md)
-    df_team["team_path"] = "teams/" + df_team["team_id"].str.replace(".", "", regex=False) + ".png"
-    # tag compartido (MIBR = MIBR y Made in Brampton): el logo por tag queda para el equipo con mas
-    # series (el de liga) y los demas van por id, teams/<team_id_vlr>.png (handoff/
-    # VLR_SCRAPER_TEAM_ID_FASE_2.md, punto 2). Empate: el que aparecio primero
+    # logo en rviewer/public/teams/: el path lleva solo letras y digitos del tag (GEN.GC ->
+    # teams/GENGC.png, 100%MIRA -> teams/100MIRA.png, #BR01 -> teams/BR01.png); el team_id queda
+    # igual (ver handoff/archivado/SCRAPER_TEAM_PATH.md y logo_key)
+    df_team["logo_key"] = df_team["team_id"].map(logo_key)
+    df_team["team_path"] = "teams/" + df_team["logo_key"] + ".png"
+    # tag compartido (MIBR = MIBR y Made in Brampton) o que choca al limpiarlo (UNI- y UNI): el logo
+    # por tag queda para el equipo con mas series (el de liga) y los demas van por id,
+    # teams/<team_id_vlr>.png (handoff/VLR_SCRAPER_TEAM_ID_FASE_2.md, punto 2). Empate: el que
+    # aparecio primero. Un tag sin letras ni digitos tambien va por id
     keeps_tag = (
-        df_team.sort_values(["n_series", "order"], ascending=[False, True], kind="stable")
-        .drop_duplicates(subset=["team_id"])
+        df_team[df_team["logo_key"] != ""]
+        .sort_values(["n_series", "order"], ascending=[False, True], kind="stable")
+        .drop_duplicates(subset=["logo_key"])
         .index
     )
+    df_team = df_team.drop(columns=["logo_key"])
     by_id = ~df_team.index.isin(keeps_tag)
     df_team.loc[by_id, "team_path"] = "teams/" + df_team.loc[by_id, "team_id_vlr"] + ".png"
 
