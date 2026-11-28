@@ -180,16 +180,16 @@
   "updated_at": "2026-11-17T14:13:16+00:00"
  },
  "vct_2027_america_kickoff_-_brazil_qualifier_playoffs/round_buy_vct_2027_america_kickoff_-_brazil_qualifier_playoffs.csv": {
-  "bytes": 3006359,
-  "object": "vct_2027_america_kickoff_-_brazil_qualifier_playoffs/round_buy_vct_2027_america_kickoff_-_brazil_qualifier_playoffs.fe232f8b6a11.csv.gz",
-  "sha256": "fe232f8b6a11e4ec50fd8030cfbd4af6ce9c366e746400603f6e9fa6f46e41d9",
-  "updated_at": "2026-11-27T15:00:11+00:00"
+  "bytes": 3247280,
+  "object": "vct_2027_america_kickoff_-_brazil_qualifier_playoffs/round_buy_vct_2027_america_kickoff_-_brazil_qualifier_playoffs.d3e2449b92d3.csv.gz",
+  "sha256": "d3e2449b92d3008e88fcc37155fc7d7baf241c46f66626c66fdd58146fc07653",
+  "updated_at": "2026-11-28T14:01:02+00:00"
  },
  "vct_2027_america_kickoff_-_brazil_qualifier_playoffs/round_events_vct_2027_america_kickoff_-_brazil_qualifier_playoffs.csv": {
-  "bytes": 2542543,
-  "object": "vct_2027_america_kickoff_-_brazil_qualifier_playoffs/round_events_vct_2027_america_kickoff_-_brazil_qualifier_playoffs.47366b434a7f.csv.gz",
-  "sha256": "47366b434a7fa61f7501cbefccc57ce8fd8074e1c2e8236d577d923077b371b2",
-  "updated_at": "2026-11-27T15:00:11+00:00"
+  "bytes": 2753666,
+  "object": "vct_2027_america_kickoff_-_brazil_qualifier_playoffs/round_events_vct_2027_america_kickoff_-_brazil_qualifier_playoffs.c7c9e4f2a288.csv.gz",
+  "sha256": "c7c9e4f2a2888d4f7c9204302724db0d6af87de0377579df592ea048d7dd6a78",
+  "updated_at": "2026-11-28T14:01:03+00:00"
  },
  "vct_2027_america_kickoff_-_latam_north_open_qualifier/round_buy_vct_2027_america_kickoff_-_latam_north_open_qualifier.csv": {
   "bytes": 21858771,
@@ -276,16 +276,16 @@
   "updated_at": "2026-11-16T23:13:56+00:00"
  },
  "vct_2027_emea_kickoff_-_europe_qualifier_playoffs/round_buy_vct_2027_emea_kickoff_-_europe_qualifier_playoffs.csv": {
-  "bytes": 2171667,
-  "object": "vct_2027_emea_kickoff_-_europe_qualifier_playoffs/round_buy_vct_2027_emea_kickoff_-_europe_qualifier_playoffs.a8d28bf442ed.csv.gz",
-  "sha256": "a8d28bf442edc46e722940c95ee244f8ae2e806eb6ba7fdd3a0a5fed23f4875c",
-  "updated_at": "2026-11-27T15:00:12+00:00"
+  "bytes": 3384955,
+  "object": "vct_2027_emea_kickoff_-_europe_qualifier_playoffs/round_buy_vct_2027_emea_kickoff_-_europe_qualifier_playoffs.e882eb9dcf59.csv.gz",
+  "sha256": "e882eb9dcf59204dae59fffca4a6f5302bb7cfb783cd6e7680fcc56fcae3e059",
+  "updated_at": "2026-11-28T14:01:03+00:00"
  },
  "vct_2027_emea_kickoff_-_europe_qualifier_playoffs/round_events_vct_2027_emea_kickoff_-_europe_qualifier_playoffs.csv": {
-  "bytes": 1841039,
-  "object": "vct_2027_emea_kickoff_-_europe_qualifier_playoffs/round_events_vct_2027_emea_kickoff_-_europe_qualifier_playoffs.ae33af94d7b6.csv.gz",
-  "sha256": "ae33af94d7b6d15dbb2a3da0f95554bd0a55e642cc0210bd4370e053bb5aa539",
-  "updated_at": "2026-11-27T15:00:12+00:00"
+  "bytes": 2867140,
+  "object": "vct_2027_emea_kickoff_-_europe_qualifier_playoffs/round_events_vct_2027_emea_kickoff_-_europe_qualifier_playoffs.5a1f1963fa92.csv.gz",
+  "sha256": "5a1f1963fa928f36a8bb794c36fea64ee8d91bdfce5dfcc256b58b0fec7ae6ab",
+  "updated_at": "2026-11-28T14:01:03+00:00"
  },
  "vct_2027_emea_kickoff_-_mena_qualifier/round_buy_vct_2027_emea_kickoff_-_mena_qualifier.csv": {
   "bytes": 14489635,
@@ -348,16 +348,16 @@
   "updated_at": "2026-11-22T13:16:38+00:00"
  },
  "vct_2027_pacific_kickoff_-_oceania_qualifier_playoffs/round_buy_vct_2027_pacific_kickoff_-_oceania_qualifier_playoffs.csv": {
-  "bytes": 404632,
-  "object": "vct_2027_pacific_kickoff_-_oceania_qualifier_playoffs/round_buy_vct_2027_pacific_kickoff_-_oceania_qualifier_playoffs.afe355fc5bd0.csv.gz",
-  "sha256": "afe355fc5bd0a432de70b14f7f3d2f5a274f34a79ee19915cdb08de2c2add912",
-  "updated_at": "2026-11-27T15:00:12+00:00"
+  "bytes": 578917,
+  "object": "vct_2027_pacific_kickoff_-_oceania_qualifier_playoffs/round_buy_vct_2027_pacific_kickoff_-_oceania_qualifier_playoffs.9508ece2e528.csv.gz",
+  "sha256": "9508ece2e5287f23504e591b5861f7e255ee016bae28d9e5eb99d8a04d7c713e",
+  "updated_at": "2026-11-28T14:01:03+00:00"
  },
  "vct_2027_pacific_kickoff_-_oceania_qualifier_playoffs/round_events_vct_2027_pacific_kickoff_-_oceania_qualifier_playoffs.csv": {
-  "bytes": 349888,
-  "object": "vct_2027_pacific_kickoff_-_oceania_qualifier_playoffs/round_events_vct_2027_pacific_kickoff_-_oceania_qualifier_playoffs.5b027faf8597.csv.gz",
-  "sha256": "5b027faf8597b16ea604ae33c19ce844beb527e582e6630042f2ff6e37893175",
-  "updated_at": "2026-11-27T15:00:12+00:00"
+  "bytes": 506556,
+  "object": "vct_2027_pacific_kickoff_-_oceania_qualifier_playoffs/round_events_vct_2027_pacific_kickoff_-_oceania_qualifier_playoffs.814aae5f95ff.csv.gz",
+  "sha256": "814aae5f95ffc99d54c21d3a0168470f03debe05885d63799a64ca0c9a21d50d",
+  "updated_at": "2026-11-28T14:01:04+00:00"
  },
  "vct_2027_pacific_kickoff_-_south_asia_qualifier/round_buy_vct_2027_pacific_kickoff_-_south_asia_qualifier.csv": {
   "bytes": 3696913,
@@ -384,39 +384,75 @@
   "updated_at": "2026-11-27T15:00:13+00:00"
  },
  "vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1/round_buy_vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1.csv": {
-  "bytes": 419950,
-  "object": "vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1/round_buy_vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1.0d83d977f9b0.csv.gz",
-  "sha256": "0d83d977f9b077908bfa5a69fb9f94f67097fd786f1ca420014c599b9f1d790b",
-  "updated_at": "2026-11-27T15:00:13+00:00"
+  "bytes": 2054596,
+  "object": "vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1/round_buy_vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1.9f82be81d30d.csv.gz",
+  "sha256": "9f82be81d30d504e91b515f998c7709a73d4ad05b66e5541bbf4e1f28668700a",
+  "updated_at": "2026-11-28T14:01:04+00:00"
  },
  "vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1/round_events_vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1.csv": {
-  "bytes": 377700,
-  "object": "vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1/round_events_vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1.15e9dd11b29d.csv.gz",
-  "sha256": "15e9dd11b29dc812cdcb18bee3bc1c421005f315eae79ce76d33096071d5007e",
-  "updated_at": "2026-11-27T15:00:13+00:00"
+  "bytes": 1793850,
+  "object": "vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1/round_events_vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1.ec5370e4d7a5.csv.gz",
+  "sha256": "ec5370e4d7a5d4202ec45c60d8eec957103e0d365f8e8967261bf05c2422b9cf",
+  "updated_at": "2026-11-28T14:01:04+00:00"
+ },
+ "vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1_playoffs/round_buy_vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1_playoffs.csv": {
+  "bytes": 449848,
+  "object": "vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1_playoffs/round_buy_vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1_playoffs.1b87aff35621.csv.gz",
+  "sha256": "1b87aff3562141abb8c1e55f607d615d39bceee281aff2a766ea6b58ed05d916",
+  "updated_at": "2026-11-28T14:01:04+00:00"
+ },
+ "vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1_playoffs/round_events_vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1_playoffs.csv": {
+  "bytes": 383700,
+  "object": "vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1_playoffs/round_events_vct_2027_pacific_kickoff_-_southeast_asia_qualifier_1_playoffs.830371127109.csv.gz",
+  "sha256": "83037112710902a343338ca4e0605b0582d2bd23ebcb0726b1764416111f5c03",
+  "updated_at": "2026-11-28T14:01:05+00:00"
  },
  "vct_2027_pacific_kickoff_-_thailand_qualifier_1/round_buy_vct_2027_pacific_kickoff_-_thailand_qualifier_1.csv": {
-  "bytes": 200456,
-  "object": "vct_2027_pacific_kickoff_-_thailand_qualifier_1/round_buy_vct_2027_pacific_kickoff_-_thailand_qualifier_1.441d8fbea64e.csv.gz",
-  "sha256": "441d8fbea64e532134978aa025eb2d595820e8360b72774855ba47e6ace331c6",
-  "updated_at": "2026-11-27T15:00:13+00:00"
+  "bytes": 1431029,
+  "object": "vct_2027_pacific_kickoff_-_thailand_qualifier_1/round_buy_vct_2027_pacific_kickoff_-_thailand_qualifier_1.8999df53e64f.csv.gz",
+  "sha256": "8999df53e64f875da395c585ab56f8b8d7dc96d582b05f3cae1ee5ef34741226",
+  "updated_at": "2026-11-28T14:01:05+00:00"
  },
  "vct_2027_pacific_kickoff_-_thailand_qualifier_1/round_events_vct_2027_pacific_kickoff_-_thailand_qualifier_1.csv": {
-  "bytes": 177047,
-  "object": "vct_2027_pacific_kickoff_-_thailand_qualifier_1/round_events_vct_2027_pacific_kickoff_-_thailand_qualifier_1.46dc4c6f36df.csv.gz",
-  "sha256": "46dc4c6f36df02cd499ff5692a7dd53943afd3049929b3602ce394654903567f",
-  "updated_at": "2026-11-27T15:00:13+00:00"
+  "bytes": 1258222,
+  "object": "vct_2027_pacific_kickoff_-_thailand_qualifier_1/round_events_vct_2027_pacific_kickoff_-_thailand_qualifier_1.129090e034ba.csv.gz",
+  "sha256": "129090e034ba118a1419faa3fe63d0562649c3761b178abfb351e8ce8f02ea2c",
+  "updated_at": "2026-11-28T14:01:05+00:00"
+ },
+ "vct_2027_pacific_kickoff_-_thailand_qualifier_1_playoffs/round_buy_vct_2027_pacific_kickoff_-_thailand_qualifier_1_playoffs.csv": {
+  "bytes": 397210,
+  "object": "vct_2027_pacific_kickoff_-_thailand_qualifier_1_playoffs/round_buy_vct_2027_pacific_kickoff_-_thailand_qualifier_1_playoffs.3b632bb72778.csv.gz",
+  "sha256": "3b632bb72778f49a710bcabf1a189afdd114af45516bee099df83eb17d4da04f",
+  "updated_at": "2026-11-28T14:01:05+00:00"
+ },
+ "vct_2027_pacific_kickoff_-_thailand_qualifier_1_playoffs/round_events_vct_2027_pacific_kickoff_-_thailand_qualifier_1_playoffs.csv": {
+  "bytes": 347735,
+  "object": "vct_2027_pacific_kickoff_-_thailand_qualifier_1_playoffs/round_events_vct_2027_pacific_kickoff_-_thailand_qualifier_1_playoffs.5db677e40326.csv.gz",
+  "sha256": "5db677e40326ff03aefe220ff820bfa85ea8181c3beb9036c355d036e7f5a590",
+  "updated_at": "2026-11-28T14:01:05+00:00"
  },
  "vct_2027_pacific_kickoff_-_vietnam_qualifier/round_buy_vct_2027_pacific_kickoff_-_vietnam_qualifier.csv": {
-  "bytes": 561413,
-  "object": "vct_2027_pacific_kickoff_-_vietnam_qualifier/round_buy_vct_2027_pacific_kickoff_-_vietnam_qualifier.3fde42416f25.csv.gz",
-  "sha256": "3fde42416f25ecc07fedf89b214f0bac3ccd4cc0f20fa4315a195d5671bd93cd",
-  "updated_at": "2026-11-27T15:00:14+00:00"
+  "bytes": 831090,
+  "object": "vct_2027_pacific_kickoff_-_vietnam_qualifier/round_buy_vct_2027_pacific_kickoff_-_vietnam_qualifier.befd997f08ce.csv.gz",
+  "sha256": "befd997f08cea923ba85482eb9d2a8805fa7ddada8585dd0e5643979b3799a4a",
+  "updated_at": "2026-11-28T14:01:05+00:00"
  },
  "vct_2027_pacific_kickoff_-_vietnam_qualifier/round_events_vct_2027_pacific_kickoff_-_vietnam_qualifier.csv": {
-  "bytes": 490116,
-  "object": "vct_2027_pacific_kickoff_-_vietnam_qualifier/round_events_vct_2027_pacific_kickoff_-_vietnam_qualifier.c0d87fd6df5c.csv.gz",
-  "sha256": "c0d87fd6df5c606247bd45491485ea6c5299c73488edfbdd09ab6e77b01e8501",
-  "updated_at": "2026-11-27T15:00:14+00:00"
+  "bytes": 728549,
+  "object": "vct_2027_pacific_kickoff_-_vietnam_qualifier/round_events_vct_2027_pacific_kickoff_-_vietnam_qualifier.2512baaf7336.csv.gz",
+  "sha256": "2512baaf733692fc404671dcebb0ca60548a993cd272ca762bb3d126a574b690",
+  "updated_at": "2026-11-28T14:01:06+00:00"
+ },
+ "vct_2027_pacific_kickoff_-_vietnam_qualifier_playoffs/round_buy_vct_2027_pacific_kickoff_-_vietnam_qualifier_playoffs.csv": {
+  "bytes": 633522,
+  "object": "vct_2027_pacific_kickoff_-_vietnam_qualifier_playoffs/round_buy_vct_2027_pacific_kickoff_-_vietnam_qualifier_playoffs.abd37aa7778f.csv.gz",
+  "sha256": "abd37aa7778f4d643a486c3f9f5e817a242746d03a5793721f087cebbdae7a5c",
+  "updated_at": "2026-11-28T14:01:06+00:00"
+ },
+ "vct_2027_pacific_kickoff_-_vietnam_qualifier_playoffs/round_events_vct_2027_pacific_kickoff_-_vietnam_qualifier_playoffs.csv": {
+  "bytes": 553300,
+  "object": "vct_2027_pacific_kickoff_-_vietnam_qualifier_playoffs/round_events_vct_2027_pacific_kickoff_-_vietnam_qualifier_playoffs.cf8513df8024.csv.gz",
+  "sha256": "cf8513df8024adbc31419404c5c17c16030b71926b2487924f8bf1036865efa5",
+  "updated_at": "2026-11-28T14:01:06+00:00"
  }
 }
